@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+
+  frontend:
+    build: frontend
+    ports:
+      - 8080:8080
+    volumes:
+      - ./frontend:/cfp_v3/frontend
+
+  backend:
+    build: backend
+    ports:
+      - 5000:5000
+    volumes:
+      - ./backend:/cfp_v3/backend
+    links:
+      - db:db
+
+  db:
+    image: postgres:9.5
+    environment:
+      POSTGRES_DB: cfp_v3
+      POSTGRES_USER: cfp_v3
+      POSTGRES_PASSWORD: cfp_v3
