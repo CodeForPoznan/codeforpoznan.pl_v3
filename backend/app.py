@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from os import urandom
 from models import db
 
+
 app = Flask(__name__)
 app.config["DEBUG"] = True
 SQLALCHEMY_DATABASE_URI = "postgresql://{username}:{password}@{hostname}:{port}/{databasename}".format(
@@ -27,7 +28,3 @@ def index():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
-
-
-
-
