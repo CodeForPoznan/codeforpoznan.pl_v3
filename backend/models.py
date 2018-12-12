@@ -21,11 +21,11 @@ class Participant(db.Model):
     lastname = Column(String(50))
     email = Column(String(200))
     github = Column(String(200), default="")
-    phone = Column(String(10))
+    phone = Column(String(13))
 
 
 class Hacknight(db.Model):
     """Hacknight model."""
     __tablename__ = 'hacknight'
     id = Column(Integer, autoincrement=True, primary_key=True)
-    date = Column(String(20))
+    date = Column(Date(20))

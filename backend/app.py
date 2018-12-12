@@ -1,23 +1,24 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import urandom
+import os
 from models import db
 
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
 SQLALCHEMY_DATABASE_URI = "postgresql://{username}:{password}@{hostname}:{port}/{databasename}".format(
-    username="cfp_v3",
-    password="cfp_v3",
+    username=os.getenv('DB_USER')
+    password=os.getenv('DB_PASSWORD')
     hostname="172.18.0.3",
     port=5432,
-    databasename="cfp_v3",
+    databasename=os.getenv('DB_NAME')
 )
 
 app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
 app.config["SQLALCHEMY_POOL_RECYCLE"] = 299
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = urandom(24)
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
 db.app = app
 db.init_app(app)
