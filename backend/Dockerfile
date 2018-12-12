@@ -10,5 +10,6 @@ ADD . /cfp_v3/backend
 WORKDIR /cfp_v3/backend
 
 RUN pip3 install -r requirements.txt
+RUN chmod +x docker-entrypoint.sh
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
+ENTRYPOINT bash docker-entrypoint.sh

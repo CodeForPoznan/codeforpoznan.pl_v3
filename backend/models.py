@@ -1,6 +1,7 @@
 from sqlalchemy import Column
-from sqlalchemy.types import Integer
+from sqlalchemy.types import Date
 from sqlalchemy.types import String
+from sqlalchemy.types import Integer
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
@@ -28,4 +29,4 @@ class Hacknight(db.Model):
     """Hacknight model."""
     __tablename__ = 'hacknight'
     id = Column(Integer, autoincrement=True, primary_key=True)
-    date = Column(Date(20))
+    date = Column(Date)

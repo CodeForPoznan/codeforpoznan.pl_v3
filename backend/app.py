@@ -8,17 +8,17 @@ from models import db
 app = Flask(__name__)
 app.config["DEBUG"] = True
 SQLALCHEMY_DATABASE_URI = "postgresql://{username}:{password}@{hostname}:{port}/{databasename}".format(
-    username=os.getenv('DB_USER')
-    password=os.getenv('DB_PASSWORD')
-    hostname="172.18.0.3",
-    port=5432,
-    databasename=os.getenv('DB_NAME')
+    username = os.environ.get('DB_USER'),
+    password = os.environ.get('DB_PASSWORD'),
+    hostname = os.environ.get('DB_HOST'),
+    port = 5432,
+    databasename = os.environ.get('DB_NAME'),
 )
 
 app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
 app.config["SQLALCHEMY_POOL_RECYCLE"] = 299
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
 db.app = app
 db.init_app(app)

@@ -19,6 +19,7 @@ services:
     links:
       - db:db
     environment:
+      DB_HOST: db
       DB_NAME: cfp_v3
       DB_USER: cfp_v3
       DB_PASSWORD: cfp_v3
