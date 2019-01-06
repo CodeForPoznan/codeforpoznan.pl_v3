@@ -1,3 +1,4 @@
 flask==1.0.2
 Flask-Mail==0.9.1
 marshmallow==3.0.0rc1
+flask-cors==3.0.7

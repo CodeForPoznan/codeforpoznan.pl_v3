@@ -25,4 +25,4 @@ def send_message():
         new_msg["content"])
     mail.send(msg)
 
-    return jsonify({"message": "Contact message succesfully sent"}), 200
+    return jsonify({"message": "Contact message successfully sent"}), 200
