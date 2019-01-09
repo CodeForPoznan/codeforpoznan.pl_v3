@@ -88,10 +88,8 @@ export default {
                 maxLength: maxLength(2000) }
   },
   computed: {
-    clearingForm() {
-      if(this.$store.getters['contact/successfullySent']) {
-        return this.resetForm()
-      }
+    clearingFormGetter() {
+      return this.$store.getters['contact/successfullySent']
     },
     nameErrors() {
       const errors = []
@@ -120,6 +118,13 @@ export default {
       !this.$v.content.required && errors
         .push('Treść wiadomości jest wymagana')
       return errors
+    }
+  },
+  watch: {
+    clearingFormGetter(value) {
+      if (value) {
+        this.resetForm()
+      }
     }
   }
 }
