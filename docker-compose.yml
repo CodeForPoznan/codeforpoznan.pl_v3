@@ -9,6 +9,7 @@ services:
     volumes:
       - ./frontend:/cfp_v3/frontend
 
+
   backend:
     build: backend
     ports:
@@ -17,6 +18,12 @@ services:
       - ./backend:/cfp_v3/backend
     links:
       - db:db
+    environment:
+      DB_HOST: db
+      DB_NAME: cfp_v3
+      DB_USER: cfp_v3
+      DB_PASSWORD: cfp_v3
+      SECRET_KEY: codeforpoznan
 
   db:
     image: postgres:9.5
