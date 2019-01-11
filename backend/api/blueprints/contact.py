@@ -1,13 +1,14 @@
-from flask import jsonify, request
+from flask import Blueprint, jsonify, request
 from flask_mail import Message
 
 from marshmallow import ValidationError
 
-from app import app, mail
-from serializers.message_serializer import message_schema
+from api.serializers.message_serializer import message_schema
+
+bp = Blueprint('contact', __name__)
 
 
-@app.route('/send-email/', methods=['POST'])
+@bp.route('/send-email/', methods=['POST'])
 def send_message():
     try:
         new_msg = message_schema.load(request.json)

@@ -1,5 +1,8 @@
 #!/bin/bash
 
-python3 manage.py db migrate
-python3 manage.py db upgrade
-python3 app.py
+export LC_ALL=C.UTF-8
+export LANG=C.UTF-8
+export FLASK_APP=api
+flask db migrate
+flask db upgrade
+flask run
