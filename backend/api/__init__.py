@@ -39,8 +39,4 @@ def initialize_extensions(app):
 """Registering blueprints"""
 
 def register_blueprints(app):
-    app.register_blueprint(contact.bp)
-
-
-# db.app = app
-# db.init_app(app)
+    app.register_blueprint(contact.contact)

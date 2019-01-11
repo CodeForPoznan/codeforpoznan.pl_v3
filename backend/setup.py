@@ -8,10 +8,10 @@ setup(
         'Flask==1.0.2',
         'Flask-SQLAlchemy==2.3.1',
         'Flask-Migrate==2.3.0',
-        'Flask-Script==2.0.6',
         'psycopg2==2.7.6',
         'Flask-Mail==0.9.1',
         'marshmallow==3.0.0rc1',
         'flask-cors==3.0.7',
+        'pytest==4.1.0',
     ],
 )

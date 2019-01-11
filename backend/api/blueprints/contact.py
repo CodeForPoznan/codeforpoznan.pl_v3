@@ -1,14 +1,17 @@
 from flask import Blueprint, jsonify, request
 from flask_mail import Message
+from flask_cors import CORS
 
 from marshmallow import ValidationError
 
 from api.serializers.message_serializer import message_schema
+import api
 
-bp = Blueprint('contact', __name__)
+contact = Blueprint('contact', __name__)
+CORS(contact)  # enable CORS on the contact blue print
 
 
-@bp.route('/send-email/', methods=['POST'])
+@contact.route('/send-email/', methods=['POST'])
 def send_message():
     try:
         new_msg = message_schema.load(request.json)
@@ -24,6 +27,6 @@ def send_message():
         new_msg["name"],
         new_msg["phone"],
         new_msg["content"])
-    mail.send(msg)
+    api.mail.send(msg)
 
     return jsonify({"message": "Contact message successfully sent"}), 200
