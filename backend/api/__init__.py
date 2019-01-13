@@ -5,12 +5,12 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 
 from api.blueprints import contact
-from api.models import db
 
 """Create the instances of the Flask extensions in the global scope"""
 
 mail = Mail()
 migrate = Migrate()
+db = SQLAlchemy()
 
 
 """Application factory function"""
