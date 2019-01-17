@@ -80,7 +80,7 @@ export default {
         }
     },
   validations: {
-    name: { required },
+    name: { required, maxLength: maxLength(50) },
     email: { required, email },
     phone_no: { minLength: minLength(9), maxLength: maxLength(9) },
     content: { required,
