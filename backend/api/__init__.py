@@ -1,10 +1,12 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_mail import Mail
 from flask_cors import CORS
+from flask_mail import Mail
 from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.exc import IntegrityError
 
-from api.blueprints import contact
+from api.blueprints import contact, auth
+from models import User
 
 """Create the instances of the Flask extensions in the global scope"""
 
@@ -22,6 +24,7 @@ def create_app():
     initialize_extensions(app)
     register_blueprints(app)
     CORS(app)
+    init_users()
 
     return app
 
@@ -40,3 +43,17 @@ def initialize_extensions(app):
 
 def register_blueprints(app):
     app.register_blueprint(contact.contact)
+    app.register_blueprint(auth.auth_blueprint)
+
+
+"""Initializing database with test user"""
+
+def init_users():
+    admin_user = User('admin', 'admin')
+    db.session.add(admin_user)
+
+    try:
+        db.session.commit()    
+    except IntegrityError:
+        db.session.rollback()
+

@@ -13,5 +13,6 @@ setup(
         'marshmallow==3.0.0rc1',
         'flask-cors==3.0.7',
         'pytest==4.1.0',
+        'flask-jwt-extended==3.14.0',       
     ],
 )
