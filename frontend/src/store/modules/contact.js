@@ -4,11 +4,15 @@ axios.defaults.baseURL = 'http://0.0.0.0:5000/'
 export default {
   namespaced: true,
   state: {
-    msgWasSent: null
+    msgWasSent: null,
+    msgError: null
   },
   getters: {
     successfullySent: state => {
       return state.msgWasSent;
+    },
+    msgErrorRaised: state => {
+      return state.msgError;
     }
   },
   mutations: {
@@ -17,25 +21,36 @@ export default {
     },
     setWasntSent (state) {
       state.msgWasSent = false
+    },
+    raiseMsgError (state) {
+      state.msgError = true
+    },
+    clearError (state) {
+      state.msgError = false
     }
   },
   actions: {
     sentMessage ({commit}, contactForm) {
-      axios.post('send-email/', {
-        name: contactForm.name,
-        email: contactForm.email,
-        phone: contactForm.phone,
-        content: contactForm.content
-      })
-      .then(response => {
-        if (response.status == 201) commit('setWasSent')
-      })
-      .catch(error => {
-        console.log(error)
+      return new Promise((resolve, reject) => {
+        axios.post('send-email/', {
+          name: contactForm.name,
+          email: contactForm.email,
+          phone: contactForm.phone,
+          content: contactForm.content
+        })
+        .then(response => {
+          if (response.status == 201) commit('setWasSent');
+          resolve(response);
+        }, error => {
+          reject(error);
+        })
       })
     },
     setingWasntSent ({commit}) {
       commit('setWasntSent')
+    },
+    setingClearError ({commit}) {
+      commit('clearError')
     }
   }
 }

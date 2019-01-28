@@ -69,6 +69,11 @@ export default {
       }
       if(!this.$v.$invalid) {
         this.$store.dispatch('contact/sentMessage', contactData)
+        .then(response => {
+          if (response.status == 201) this.resetForm()
+        }, error => {
+          this.$store.commit('contact/raiseMsgError')
+        })
       }
     },
     resetForm() {
@@ -88,9 +93,6 @@ export default {
                 maxLength: maxLength(2000) }
   },
   computed: {
-    clearingFormGetter() {
-      return this.$store.getters['contact/successfullySent']
-    },
     nameErrors() {
       const errors = []
       if (!this.$v.name.$dirty) return errors
@@ -120,13 +122,6 @@ export default {
       return errors
     }
   },
-  watch: {
-    clearingFormGetter(value) {
-      if (value) {
-        this.resetForm()
-      }
-    }
-  }
 }
 </script>
 

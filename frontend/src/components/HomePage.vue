@@ -10,6 +10,14 @@
           transition="slide-y-transition">
           Twoja wiadomość została wysłana
         </v-alert>
+        <v-alert
+          :value="msgError"
+          dismissible
+          @click="onErrorAlert"
+          type="error"
+          transition="slide-y-transition">
+          Bład w trakcie wysyłania wiadomości
+        </v-alert>
       </div>
       <app-contact-us/>
     </v-app>
@@ -27,11 +35,15 @@ export default {
   methods: {
     onCloseAlert() {
       this.$store.dispatch('contact/setingWasntSent')
+    },
+    onErrorAlert() {
+      this.$store.dispatch('contact/setingClearError')
     }
   },
   computed: {
     ...mapGetters({
-      sent: 'contact/successfullySent'
+      sent: 'contact/successfullySent',
+      msgError: 'contact/msgErrorRaised'
     })
   },
 }
