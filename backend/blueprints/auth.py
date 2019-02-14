@@ -8,6 +8,7 @@ from flask_jwt_extended import (
     create_access_token, create_refresh_token, decode_token,
     get_jwt_identity, jwt_required, jwt_optional, get_raw_jwt
 )
+from marshmallow import ValidationError
 
 
 auth_blueprint = Blueprint('auth', __name__, url_prefix='/auth')
@@ -26,7 +27,11 @@ def login():
         return jsonify({"msg": "No input data provided"}), 400
 
     schema = LoginSchema()
-    result = schema.load(request.json)
+    try:
+        result = schema.load(request.json)
+    except ValidationError as error:
+        return jsonify({"msg": "Wrong input data",
+                        "errors": error.messages}), 400
 
     username = result['username']
     password = result['password']
