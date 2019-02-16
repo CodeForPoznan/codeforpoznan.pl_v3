@@ -4,3 +4,5 @@ Flask-Migrate==2.3.0
 Flask-Script==2.0.6
 psycopg2==2.7.6
 pytest==4.1.0
+marshmallow==3.0.0rc1
+Flask-Mail==0.9.1
