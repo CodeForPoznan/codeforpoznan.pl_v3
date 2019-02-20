@@ -4,7 +4,8 @@ from sqlalchemy.types import String
 from sqlalchemy.types import Integer
 from flask_sqlalchemy import SQLAlchemy
 
-db = SQLAlchemy()
+from backend.extensions import db
+
 
 class User(db.Model):
     """User model - for admin."""

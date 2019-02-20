@@ -1,5 +1,7 @@
 #!/bin/bash
 
-python3 manage.py db migrate
-python3 manage.py db upgrade
-python3 app.py
+export FLASK_APP=app.py
+export FLASK_ENV=development
+flask db migrate
+flask db upgrade
+flask run --host=0.0.0.0

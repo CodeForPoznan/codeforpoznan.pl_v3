@@ -5,8 +5,6 @@ EXPOSE 8080
 ADD . /cfp_v3/frontend
 WORKDIR /cfp_v3/frontend
 
-RUN chmod +x src/components/ContactUs.vue
-
 RUN yarn install
 
 ENTRYPOINT bash docker-entrypoint.sh
