@@ -5,7 +5,7 @@ from backend.models import User, JWTToken
 from backend.serializers.login_serializer import LoginSchema
 from flask import Blueprint, current_app as app, jsonify, request
 from flask_jwt_extended import (
-    create_access_token, create_refresh_token, decode_token,
+    create_access_token, decode_token,
     get_jwt_identity, jwt_required, jwt_optional, get_raw_jwt
 )
 from marshmallow import ValidationError
@@ -44,15 +44,11 @@ def login():
     if user and user.check_password(password):
         access_token = create_access_token(
             identity=username, expires_delta=timedelta(minutes=60))
-        refresh_token = create_refresh_token(
-            identity=username)
 
         add_token_to_database(access_token, app.config['JWT_IDENTITY_CLAIM'])
-        add_token_to_database(refresh_token, app.config['JWT_IDENTITY_CLAIM'])
 
         ret = {
-            'access_token': access_token,
-            'refresh_token': refresh_token
+            'access_token': access_token
         }
         return jsonify(ret), 201
     else:
