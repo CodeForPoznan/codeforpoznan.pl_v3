@@ -9,6 +9,7 @@ from flask_jwt_extended import (
     get_jwt_identity, jwt_required, jwt_optional, get_raw_jwt
 )
 from marshmallow import ValidationError
+from sqlalchemy.orm.exc import NoResultFound
 
 
 auth_blueprint = Blueprint('auth', __name__, url_prefix='/auth')
