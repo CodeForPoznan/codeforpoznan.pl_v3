@@ -74,3 +74,11 @@ def registered_user(new_user, app, _db):
         db.session.add(new_user)
         db.session.commit()
     return new_user
+
+
+@pytest.fixture
+def access_token(client, new_user, registered_user):
+    rv = client.post('/auth/login', json={'username': new_user['username'],
+                                          'password': new_user['password']})
+    access_token = rv.get_json()['access_token']
+    return access_token
