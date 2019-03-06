@@ -1,7 +1,8 @@
 from flask import Flask
 
+from backend.extensions import db, mail, migrate, jwt
+from backend.blueprints import auth
 from backend.blueprints.contact import contact
-from backend.extensions import db, mail, migrate
 
 
 def create_app():
@@ -12,6 +13,10 @@ def create_app():
     initialize_extensions(app)
     register_blueprints(app)
 
+    @jwt.token_in_blacklist_loader
+    def check_if_token_revoked(decoded_token):
+        return auth.is_token_revoked(decoded_token)
+
     return app
 
 
@@ -20,8 +25,9 @@ def initialize_extensions(app):
     db.init_app(app)
     mail.init_app(app)
     migrate.init_app(app, db, directory='migrations')
+    jwt.init_app(app)
 
 
 def register_blueprints(app):
-    """Registering blueprints"""
+    app.register_blueprint(auth.auth_blueprint)
     app.register_blueprint(contact)
