@@ -4,7 +4,6 @@ from sqlalchemy.types import Date
 from sqlalchemy.types import DateTime
 from sqlalchemy.types import String
 from sqlalchemy.types import Integer
-from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from backend.extensions import db
