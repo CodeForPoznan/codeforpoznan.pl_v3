@@ -14,7 +14,7 @@ def test_create_new_user(new_user):
                     password=new_user['password'])
 
     assert new_user.username == 'TestName'
-    assert new_user.password == 'TestPassword'
+    assert new_user.check_password('TestPassword')
 
 
 def test_create_new_participant(new_participant):
