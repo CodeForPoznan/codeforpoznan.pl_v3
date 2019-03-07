@@ -12,15 +12,12 @@ export default {
   mutations: {
     auth_success(state, token) {
       state.token = token
-    },
-    logout(state) {
-      state.token = ''
-    },
+    }
   },
   actions: {
     login({commit, dispatch}, loginData) {
       return new Promise ((resolve, reject) => {
-        axios.post('/login', {
+        axios.post('auth/login', {
           username: loginData.username,
           password: loginData.password
         })
@@ -33,20 +30,6 @@ export default {
         }, error => {
           localStorage.removeItem('token')
           reject(error)
-        })
-      })
-    },
-    logout({commit, dispatch}) {
-      return new Promise((resolve, reject) => {
-        axios.post('/logout/access')
-        .then(res => {
-          commit('logout')
-          localStorage.removeItem('token')
-        })
-        .catch(error => {
-          localStorage.removeItem('token')
-          commit('logout')
-          delete axios.defaults.headers.common['Authorization']
         })
       })
     }

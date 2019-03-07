@@ -82,14 +82,16 @@ export default {
         .then( res => {
           this.spinner = false
           this.clearForm()
-          this.$router.push('/')
+          if (res.status == 201) this.successAlert = true;
         }, error => {
           this.spinner = false
           this.clearForm()
-          const err = error.response.data.message
-          if (err.password) {
+          const err = error.response.data.msg
+          if (err == "Not authorized") {
             this.error_msg = "Nieprawidłowa nazwa użytkownika, lub hasło"
-          } else {
+          } else if (err.includes('User already logged in')) {
+            this.error_msg = "Jesteś już zalogowany"
+          } else if (error) {
             this.error_msg = "Logowanie nie powiodło się"
           }
         })
@@ -132,5 +134,7 @@ export default {
 }
 #login {
   margin-top: 20vh;
+  margin-left: 2em;
+  margin-right: 2em;
 }
 </style>
