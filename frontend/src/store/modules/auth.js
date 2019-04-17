@@ -15,7 +15,7 @@ export default {
     }
   },
   actions: {
-    login({commit, dispatch}, loginData) {
+    login({commit}, loginData) {
       return new Promise ((resolve, reject) => {
         axios.post('auth/login', {
           username: loginData.username,

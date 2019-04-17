@@ -1,8 +1,9 @@
 from flask import Flask
 from flask_cors import CORS
 
-from backend.extensions import db, migrate, jwt
+from backend.extensions import db, mail, migrate, jwt
 from backend.blueprints import auth
+from backend.blueprints.contact import contact
 
 
 def create_app():
@@ -24,9 +25,11 @@ def create_app():
 def initialize_extensions(app):
     """Helper functions"""
     db.init_app(app)
+    mail.init_app(app)
     migrate.init_app(app, db, directory='migrations')
     jwt.init_app(app)
 
 
 def register_blueprints(app):
     app.register_blueprint(auth.auth_blueprint)
+    app.register_blueprint(contact)
