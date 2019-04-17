@@ -39,7 +39,7 @@ export default {
           content: contactForm.content
         })
         .then(response => {
-          if (response.status == 201) commit('setWasSent');
+          if (response.status == 200) commit('setWasSent');
           resolve(response);
         }, error => {
           reject(error);
