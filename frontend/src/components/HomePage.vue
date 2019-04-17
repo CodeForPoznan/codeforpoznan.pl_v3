@@ -16,7 +16,7 @@
           @click="onErrorAlert"
           type="error"
           transition="slide-y-transition">
-          Bład w trakcie wysyłania wiadomości
+          Błąd w trakcie wysyłania wiadomości
         </v-alert>
       </div>
       <app-contact-us/>
