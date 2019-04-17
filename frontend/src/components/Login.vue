@@ -16,7 +16,7 @@
           transition="slide-y-transition"
           >Pomyślnie zalogowano</v-alert>
           <v-progress-circular
-            v-if="spinner"
+            v-if="showSpinner"
             :size="50"
             color="green"
             indeterminate>
@@ -77,14 +77,14 @@ export default {
       }
       this.error_msg = ''
       if(!this.$v.$invalid) {
-        this.spinner = true
+        this.showSpinner = true
         this.$store.dispatch('auth/login', loginData)
         .then( res => {
-          this.spinner = false
+          this.showSpinner = false
           this.clearForm()
           if (res.status == 201) this.successAlert = true;
         }, error => {
-          this.spinner = false
+          this.showSpinner = false
           this.clearForm()
           const err = error.response.data.msg
           if (err == "Not authorized") {
