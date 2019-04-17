@@ -38,7 +38,7 @@ def test_login_with_invalid_name_password(client):
     THEN check if proper error was raised with 401 status code
     """
     rv = client.post('/auth/login', json={
-                                    'username': 'WronkName',
+                                    'username': 'WrongName',
                                     'password': 'WrongPassword'
                                     })
     response = rv.get_json()
