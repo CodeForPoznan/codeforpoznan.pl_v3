@@ -1,6 +1,9 @@
 <template>
-  <div>
+   <div>
     <v-app>
+      <div>
+          <app-logo/>
+      </div>
       <div>
         <v-alert
           :value="sent"
@@ -27,9 +30,11 @@
 <script>
 import { mapGetters } from 'vuex'
 import ContactUs from './ContactUs.vue'
+import Logo from './Logo.vue'
 export default {
   components: {
-    'app-contact-us': ContactUs
+    'app-contact-us': ContactUs,
+    'app-logo': Logo,
   },
   methods: {
     onCloseAlert() {
