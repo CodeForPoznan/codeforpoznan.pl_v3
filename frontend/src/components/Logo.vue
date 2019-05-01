@@ -1,15 +1,18 @@
 <template>
-  <v-container fluid id="logo-page">
-    <v-layout ma-5>
-      <v-img
-        :src="image"
-        min-height="200px"
-        max-height="400px"
-        contain
-      >
-      </v-img>
-    </v-layout>
-  </v-container>
+  <div>
+    <v-app>
+      <v-container fluid id="logo-page">
+        <v-layout align-center justify-center fill-height>
+          <v-img
+            :src="image"
+            max-height="500px"
+            contain
+          >
+          </v-img>
+        </v-layout>
+      </v-container>
+    </v-app>
+  </div>
 </template>
 
 <script>
