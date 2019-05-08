@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
 
+from backend.commands.populate_database import populate_database
 from backend.extensions import db, mail, migrate, jwt
 from backend.blueprints import auth
 from backend.blueprints.contact import contact
@@ -10,6 +11,7 @@ def create_app():
     """Application factory function"""
     app = Flask(__name__)
     app.config.from_object('backend.config.DevelopmentConfig')
+    app.cli.add_command(populate_database)
 
     CORS(app)
     initialize_extensions(app)
