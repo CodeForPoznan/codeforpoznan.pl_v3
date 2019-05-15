@@ -11,3 +11,6 @@ logs:   ## Display logs from containers
 
 stop:   ## Stop the environment
 	docker-compose stop
+
+bash:   ## Go to the backend container
+	docker exec -ti codeforpoznanpl_v3_backend_1 bash
