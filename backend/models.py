@@ -27,6 +27,13 @@ class User(db.Model):
         return check_password_hash(self.password, password)
 
 
+participant_hacknight = db.Table(
+    'participant_hacknight',
+    db.Column('participant_id', db.Integer, db.ForeignKey('participant.id')),
+    db.Column('hacknight_id', db.Integer, db.ForeignKey('hacknight.id'))
+)
+
+
 class Participant(db.Model):
     """Participant model."""
     __tablename__ = 'participant'
@@ -36,10 +43,6 @@ class Participant(db.Model):
     email = Column(String(200))
     github = Column(String(200), default="")
     phone = Column(String(13))
-    hacknights = db.relationship("Hacknight",
-                                 secondary=participant_hacknight,
-                                 lazy='subquery',
-                                 backref=db.backref('participants', lazy=True))
 
 
 class Hacknight(db.Model):
@@ -51,13 +54,6 @@ class Hacknight(db.Model):
                                    secondary=participant_hacknight,
                                    lazy='subquery',
                                    backref=db.backref('hacknights', lazy=True))
-
-
-participant_hacknight = db.Table(
-    'participant_hacknight',
-    db.Column('participant_id', db.Integer, db.ForeignKey('participant.id')),
-    db.Column('hacknight.id', db.Integer, db.ForeignKey('hacknight.id'))
-)
 
 
 class JWTToken(db.Model):
