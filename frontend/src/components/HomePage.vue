@@ -17,9 +17,10 @@
           type="error"
           transition="slide-y-transition">
           Błąd w trakcie wysyłania wiadomości
-        </v-alert>
+        </v-alert>     
       </div>
       <app-contact-us/>
+      <app-about-us/> 
     </v-app>
   </div>
 </template>
@@ -27,9 +28,11 @@
 <script>
 import { mapGetters } from 'vuex'
 import ContactUs from './ContactUs.vue'
+import AboutUs from './AboutUs.vue'
 export default {
   components: {
-    'app-contact-us': ContactUs
+    'app-contact-us': ContactUs,
+    'app-about-us': AboutUs
   },
   methods: {
     onCloseAlert() {
@@ -49,4 +52,5 @@ export default {
 </script>
 
 <style lang="css">
+@import '../css/cfpstyles.css';
 </style>
