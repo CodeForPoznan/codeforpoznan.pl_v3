@@ -39,7 +39,7 @@ def client(app):
 
 @pytest.fixture
 def _db():
-    """Create and configure a new db instance for pytest-flask-sqlalchemy"""
+    """Create and configure a new db instance for pytest-flask-sqlalchemy."""
     db_fd, db_path = tempfile.mkstemp()
     app = create_app()
     app.config['TESTING'] = True
@@ -59,15 +59,19 @@ def _db():
 
 @pytest.fixture
 def new_user():
-    user = {'username': 'TestName',
-            'password': 'TestPassword'}
+    user = {
+        'username': 'TestName',
+        'password': 'TestPassword'
+    }
     return user
 
 
 @pytest.fixture
 def registered_user(new_user, app, _db):
-    new_user = User(username=new_user['username'],
-                    password=new_user['password'])
+    new_user = User(
+        username=new_user['username'],
+        password=new_user['password']
+    )
     with app.app_context():
         db = _db
         db.session.add(new_user)
@@ -77,7 +81,10 @@ def registered_user(new_user, app, _db):
 
 @pytest.fixture
 def access_token(client, new_user, registered_user):
-    rv = client.post('/auth/login', json={'username': new_user['username'],
-                                          'password': new_user['password']})
+    rv = client.post(
+        '/auth/login',
+        json={'username': new_user['username'],
+              'password': new_user['password']}
+    )
     access_token = rv.get_json()['access_token']
     return access_token
