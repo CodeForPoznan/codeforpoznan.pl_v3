@@ -2,6 +2,9 @@
   <div>
     <v-app>
       <div>
+        <app-our-projects/>
+      </div>
+      <div>
         <v-alert
           :value="sent"
           dismissible
@@ -27,9 +30,11 @@
 <script>
 import { mapGetters } from 'vuex'
 import ContactUs from './ContactUs.vue'
+import OurProjects from './OurProjects'
 export default {
   components: {
-    'app-contact-us': ContactUs
+    'app-contact-us': ContactUs,
+    'app-our-projects': OurProjects
   },
   methods: {
     onCloseAlert() {
