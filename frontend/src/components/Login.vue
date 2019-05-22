@@ -128,7 +128,8 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+@import "./../main.scss";
 .v-messages__message {
   padding: 2px;
 }
