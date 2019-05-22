@@ -19,6 +19,7 @@
           Błąd w trakcie wysyłania wiadomości
         </v-alert>
       </div>
+      <app-about-us/>
       <app-contact-us/>
       <page-footer/>
     </v-app>
@@ -28,10 +29,12 @@
 <script>
 import { mapGetters } from 'vuex'
 import ContactUs from './ContactUs.vue'
+import AboutUs from './AboutUs.vue'
 import PageFooter from './PageFooter.vue';
 export default {
   components: {
     'app-contact-us': ContactUs,
+    'app-about-us': AboutUs,
     'page-footer': PageFooter,
   },
   methods: {
@@ -52,4 +55,5 @@ export default {
 </script>
 
 <style lang="css">
+@import '../css/cfpstyles.css';
 </style>

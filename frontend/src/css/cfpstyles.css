@@ -1,0 +1,33 @@
+.cfp-background {
+    background: #0CAEE7;
+}
+.cfp-deco-title {
+    position: relative;
+    padding-bottom: 20px; 
+}
+.cfp-deco-title::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 250px;
+    height: 5px;
+    background-color: #fff;
+    margin-left: -125px;
+}
+.cfp-font-content {
+    font-family: 'Lato', sans-serif;
+    font-size: 20px;
+    margin: 0px 0px 10px;
+    line-height: 1.43;
+    padding-right: 50px;
+    padding-left: 50px;
+}
+.cfp-font-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 42px;
+}
+.v-sheet{
+    color: #0CAEE7;
+}
