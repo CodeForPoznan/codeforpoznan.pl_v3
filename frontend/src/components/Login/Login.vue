@@ -1,53 +1,5 @@
-<template>
-  <div class="register-form">
-    <v-app id="login">
-      <v-layout justify-center>
-        <v-flex xs12 sm6>
-          <v-alert
-          type="error"
-          :value="error_msg ? true : false"
-          @click="error_msg=''"
-          transition="slide-y-transition"
-          >{{error_msg}}</v-alert>
-          <v-alert
-          type="success"
-          :value="successAlert"
-          @click="successAlert = !successAlert"
-          transition="slide-y-transition"
-          >Pomyślnie zalogowano</v-alert>
-          <v-progress-circular
-            v-if="showSpinner"
-            :size="50"
-            color="green"
-            indeterminate>
-          </v-progress-circular>
-          <form>
-            <v-text-field
-            v-model="username"
-            label="Nazwa użytkownika"
-            required
-            :error-messages="usernameErrors"
-            @input="$v.username.$touch()"
-            @blur="$v.username.$touch()"
-            ></v-text-field>
-            <v-text-field
-            v-model="password"
-            label="Hasło"
-            :append-icon="showPass ? 'visibility_off' : 'visibility'"
-            :type="showPass ? 'text' : 'password'"
-            @click:append="showPass = !showPass"
-            required
-            :error-messages="passwordErrors"
-            @input="$v.password.$touch()"
-            @blur="$v.password.$touch()"
-            ></v-text-field>
-            <v-btn @click="onSubmit">Zaloguj</v-btn>
-          </form>
-        </v-flex>
-      </v-layout>
-    </v-app>
-  </div>
-</template>
+<template src="./Login.html" />
+<style src="./Login.css"/>
 
 <script>
 import { minLength, required } from 'vuelidate/lib/validators'
@@ -127,14 +79,3 @@ export default {
   },
 }
 </script>
-
-<style>
-.v-messages__message {
-  padding: 2px;
-}
-#login {
-  margin-top: 20vh;
-  margin-left: 2em;
-  margin-right: 2em;
-}
-</style>

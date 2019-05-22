@@ -1,51 +1,5 @@
-<template>
-  <div>
-    <v-app>
-      <v-container>
-        <form @submit.prevent="onSubmit">
-          <v-text-field
-            v-model="name"
-            :error-messages="nameErrors"
-            label="Imię"
-            required
-            @input="$v.name.$touch()"
-            @blur="$v.name.$touch()"
-          ></v-text-field>
-          <v-text-field
-            v-model="email"
-            :error-messages="emailErrors"
-            label="E-mail"
-            required
-            @input="$v.email.$touch()"
-            @blur="$v.email.$touch()"
-          ></v-text-field>
-          <v-text-field
-            v-model="phone_no"
-            mask="###-###-###"
-            :error-messages="phoneErrors"
-            :counter="9"
-            label="Telefon"
-            @input="$v.phone_no.$touch()"
-            @blur="$v.phone_no.$touch()"
-          ></v-text-field>
-          <v-textarea
-            v-model="content"
-            :error-messages="contentErrors"
-            label="Wiadomość"
-            required
-            @input="$v.content.$touch()"
-            @blur="$v.content.$touch()"
-          ></v-textarea>
-          <v-btn
-          type="submit"
-          :disabled="$v.$invalid"
-          color="info"
-          >Wyślij</v-btn>
-        </form>
-      </v-container>
-    </v-app>
-  </div>
-</template>
+<template src="./ContactUs.html" />
+<style src="./ContactUs.css" />
 
 <script>
 import { required, email, maxLength, minLength} from 'vuelidate/lib/validators'
@@ -125,8 +79,3 @@ export default {
 }
 </script>
 
-<style>
-.v-messages__message {
-  padding: 2px;
-}
-</style>
