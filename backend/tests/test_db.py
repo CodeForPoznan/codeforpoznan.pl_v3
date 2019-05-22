@@ -28,10 +28,12 @@ def test_add_new_participant_to_db(_db, new_participant):
     db = _db
     assert len(db.session.query(Participant).all()) == 0
 
-    new_participant = Participant(name=new_participant['name'],
-                                  lastname=new_participant['lastname'],
-                                  email=new_participant['email'],
-                                  phone=new_participant['phone'])
+    new_participant = Participant(
+        name=new_participant['name'],
+        lastname=new_participant['lastname'],
+        email=new_participant['email'],
+        phone=new_participant['phone']
+    )
     db.session.add(new_participant)
     db.session.commit()
 
