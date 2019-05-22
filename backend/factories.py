@@ -42,3 +42,11 @@ class HacknightFactory(BaseFactory):
         model = Hacknight
 
     date = factory.Faker("date_time_between", start_date="-2y", end_date="now")
+
+    @factory.post_generation
+    def participants(self, create, extracted, **kwargs):
+        if not create:
+            return
+        if extracted:
+            for participant in extracted:
+                self.participants.append(participant)
