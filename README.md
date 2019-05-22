@@ -1,8 +1,8 @@
 # codeforpoznan.pl_v3
-Next verrsion of Code for Poznań website.
+Next version of Code for Poznan's website.
 
 ## Develoopment environment
-We use Docker extensively. To start working your computer need support it alongside with Makefile.
+We use Docker for development purposes. To start working, your computer needs to support it.
 
 ### Commands
 | command      | what it does   |

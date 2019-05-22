@@ -7,5 +7,5 @@ __pycache__/
 *.pyc
 .egg-info/
 *.egg-info/
-
 .idea/
+*.idea
