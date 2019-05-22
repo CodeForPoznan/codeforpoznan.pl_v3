@@ -17,10 +17,10 @@
           type="error"
           transition="slide-y-transition">
           Błąd w trakcie wysyłania wiadomości
-        </v-alert>     
+        </v-alert>
       </div>
+      <app-about-us/>
       <app-contact-us/>
-      <app-about-us/> 
     </v-app>
   </div>
 </template>

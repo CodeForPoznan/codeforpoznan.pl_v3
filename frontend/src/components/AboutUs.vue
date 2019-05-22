@@ -4,9 +4,7 @@
             <v-layout row class="cfp-deco-title cfp-font-title">
                 <v-flex> 
                     <v-card flat dark tile color="transparent">
-                        <v-card-text>
-                            O NAS
-                        </v-card-text>
+                        <v-card-text>O NAS</v-card-text>
                     </v-card>            
                 </v-flex>
             </v-layout>    
@@ -17,7 +15,7 @@
                             KIM JESTEŚMY?
                             <br><br>
                             Grupą osób, która uważa, że warto ulepszać
-                            świat za pomocą technologii i&nbsp;chce dostarczyć narzędzia,
+                            świat za pomocą technologii i&nbsp;chce dostarczać narzędzia,
                             dzięki którym każdy będzie mógł to robić.
                         </v-card-text>
                     </v-card>
