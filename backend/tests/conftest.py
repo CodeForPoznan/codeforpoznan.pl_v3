@@ -39,7 +39,7 @@ def client(app):
 
 @pytest.fixture
 def _db():
-    """Create and configure a new db instance for pytest-flask-sqlalchemy"""
+    """Create and configure a new db instance for pytest-flask-sqlalchemy."""
     db_fd, db_path = tempfile.mkstemp()
     app = create_app()
     app.config['TESTING'] = True
@@ -59,17 +59,21 @@ def _db():
 
 @pytest.fixture
 def new_user():
-    user = {'username': 'TestName',
-            'password': 'TestPassword'}
+    user = {
+        'username': 'TestName',
+        'password': 'TestPassword'
+    }
     return user
 
 
 @pytest.fixture
 def new_participant():
-    participant = {'name': 'Jon',
-                   'lastname': 'Doe',
-                   'email': 'test@test.com',
-                   'phone': '123456789'}
+    participant = {
+        'name': 'Jon',
+        'lastname': 'Doe',
+        'email': 'test@test.com',
+        'phone': '123456789'
+    }
     return participant
 
 
