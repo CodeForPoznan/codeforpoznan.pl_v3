@@ -10,8 +10,15 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+@import "./../main.scss";
+footer {
+    color: $white;
+    background-color: $blue-nav-footer;
+    padding: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 </style>
-
 
