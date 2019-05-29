@@ -4,6 +4,7 @@ from flask_cors import CORS
 from backend.extensions import db, mail, migrate, jwt
 from backend.blueprints import auth
 from backend.blueprints.contact import contact
+from backend.blueprints import participants
 
 
 def create_app():
@@ -33,3 +34,4 @@ def initialize_extensions(app):
 def register_blueprints(app):
     app.register_blueprint(auth.auth_blueprint)
     app.register_blueprint(contact)
+    app.register_blueprint(participants)
