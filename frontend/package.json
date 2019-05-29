@@ -23,9 +23,9 @@
     "eslint": "5.8.0",
     "eslint-plugin-vue": "5.0.0-beta.4",
     "vue-template-compiler": "2.5.17",
-    "node-sass": "^4.11.0",
-    "sass-loader": "^7.1.0",
-    "style-loader": "^0.23.1"
+    "node-sass": "4.11.0",
+    "sass-loader": "7.1.0",
+    "style-loader": "0.23.1"
   },
   "eslintConfig": {
     "root": true,
