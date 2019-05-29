@@ -14,6 +14,6 @@ stop:	## Stop the environment
 
 bash:	## Go to the backend container
 	docker exec -ti codeforpoznanpl_v3_backend_1 bash
-	
-psql:	## Go to the db and make SQL queries
+
+psql:   ## Go to the db and make SQL queries
 	docker exec -ti codeforpoznanpl_v3_db_1 psql -U cfp_v3
