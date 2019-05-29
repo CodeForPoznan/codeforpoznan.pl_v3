@@ -54,6 +54,10 @@ export default {
 }
 </script>
 
-<style lang="css">
-@import '../css/cfpstyles.css';
+<style lang="scss" scoped>
+@import "./../main.scss";
+.v-messages__message {
+    padding: 2px;
+  }
 </style>
+

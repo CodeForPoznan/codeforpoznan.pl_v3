@@ -125,8 +125,6 @@ export default {
 }
 </script>
 
-<style>
-.v-messages__message {
-  padding: 2px;
-}
+<style lang="scss" scoped>
+@import "./../main.scss";
 </style>
