@@ -67,4 +67,3 @@
     padding-left: 50px;
 }
 </style>
-
