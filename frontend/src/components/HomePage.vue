@@ -2,9 +2,6 @@
   <div>
     <v-app>
       <div>
-        <app-our-projects/>
-      </div>
-      <div>
         <v-alert
           :value="sent"
           dismissible
@@ -23,6 +20,9 @@
         </v-alert>
       </div>
       <app-about-us/>
+      <div>
+        <app-our-projects/>
+      </div>
       <app-contact-us/>
     </v-app>
   </div>
@@ -32,7 +32,7 @@
 import { mapGetters } from 'vuex'
 import ContactUs from './ContactUs.vue'
 import AboutUs from './AboutUs.vue'
-import OurProjects from './OurProjects'
+import OurProjects from './OurProjects.vue'
 export default {
   components: {
     'app-contact-us': ContactUs,

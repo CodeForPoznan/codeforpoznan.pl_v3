@@ -4,7 +4,7 @@
       <v-layout row wrap>
         <v-flex class="flexPadding" v-for="project in projects" xs12 md6 lg4 xl3>
           <v-hover>
-            <v-card slot-scope="{ hover }" :class="onHover()">
+            <v-card slot-scope="{ hover }">
               <v-img :src="project.image" aspect-ratio="1.9"></v-img>
               <v-expand-transition>
                 <div v-if="hover" class="v-card--reveal" style="height: 100%">

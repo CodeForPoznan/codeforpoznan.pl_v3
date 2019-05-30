@@ -1,30 +1,31 @@
 <template>
-  <v-item-group>
-    <v-container grid-list>
-      <v-layout row wrap>
-        <v-flex class="flexPadding" v-for="project in projects" xs12 md6 lg4 xl3>
-          <v-hover>
-          <v-card slot-scope="{ hover }" :class="onHover()">
-            <v-img :src="project.image" aspect-ratio="1.9"></v-img>
-              <v-expand-transition>
-                <div
-                  v-if="hover"
-                  class="d-flex transition-fast-in-fast-out v-card--reveal display-3"
-                  style="height: 100%">Zobacz więcej</div>
-              </v-expand-transition>
-          </v-card>
-          </v-hover>
-    </v-flex>
-  </v-layout>
-</v-container>
-  </v-item-group>
+  <div>
+    <v-item-group>
+      <v-container grid-list>
+        <v-layout row wrap>
+          <v-flex class="flexPadding" v-for="project in projects" xs12 md6 lg4 xl3>
+            <v-hover>
+              <v-card slot-scope="{ hover }">
+                <v-img :src="project.image" aspect-ratio="1.9"></v-img>
+                <v-expand-transition>
+                  <div v-if="hover" class="v-card--reveal" style="height: 100%">
+                    <v-img :src="hoveredImg" max-width="50%"></v-img>
+                  </div>
+                </v-expand-transition>
+              </v-card>
+            </v-hover>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-item-group>
+  </div>
 </template>
 
 <script>
   export default {
     data () {
       return {
-        hovered: false,
+        hoveredImg: require('@/assets/Antu_dialog-icon-preview.svg'),
         projects: [
           {name: 'Volontulo', image: require('@/assets/volontulo.png')},
           {name: 'Wysadź ulicę', image: require('@/assets/wysadz_ulice.png')},
@@ -34,12 +35,6 @@
         ]
       }
     },
-
-    methods: {
-      onHover() {
-
-      }
-    }
   }
 </script>
 
@@ -49,13 +44,14 @@
   }
 
   .v-card--reveal {
+    display: flex;
     align-items: center;
     bottom: 0;
     justify-content: center;
-    opacity: .8;
+    opacity: .9;
     position: absolute;
     width: 100%;
-    background: red;
-    text-decoration-color: yellow;
+    background: #0CAEE7;
+    color: white;
   }
 </style>
