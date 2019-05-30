@@ -1,0 +1,15 @@
+.flexPadding {
+    padding: 10px
+}
+
+.v-card--reveal {
+    display: flex;
+    align-items: center;
+    bottom: 0;
+    justify-content: center;
+    opacity: .9;
+    position: absolute;
+    width: 100%;
+    background: #0CAEE7;
+    color: white;
+}
