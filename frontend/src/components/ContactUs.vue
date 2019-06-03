@@ -71,7 +71,7 @@ export default {
         this.$store.dispatch('contact/sentMessage', contactData)
         .then(response => {
           if (response.status == 200) this.resetForm()
-        }, error => {
+        }, () => {
           this.$store.commit('contact/raiseMsgError')
         })
       }
