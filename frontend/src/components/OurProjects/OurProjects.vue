@@ -4,21 +4,20 @@
   export default {
     data () {
       return {
-        hoveredImg: require('@/assets/Antu_dialog-icon-preview.svg'),
+        hoveredImg: require('@/assets/images/Antu_dialog-icon-preview.svg'),
         projects: [
-          {name: 'Volontulo', image: require('@/assets/volontulo.png')},
-          {name: 'Wysadź ulicę', image: require('@/assets/wysadz_ulice.png')},
-          {name: 'Bank Empatii', image: require('@/assets/bank_empatii.png')},
+          {name: 'Volontulo', image: require('@/assets/images/volontulo.png')},
+          {name: 'Wysadź ulicę', image: require('@/assets/images/wysadz_ulice.png')},
+          {name: 'Bank Empatii', image: require('@/assets/images/bank_empatii.png')},
           {name: 'Alinka'},
           {name: 'Polska Akcja Humanitarna'}
         ]
       }
     },
-
-    methods: {
-      onHover() {
-
-      }
-    }
   }
 </script>
+
+<style lang="scss" scoped>
+@import "OurProjects";
+
+</style>

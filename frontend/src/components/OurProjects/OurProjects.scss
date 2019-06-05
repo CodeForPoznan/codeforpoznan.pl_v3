@@ -1,15 +1,16 @@
+@import './../../main.scss';
+
 #items {
     padding: 10px
 }
 
 #card--reveal {
-    display: flex;
-    align-items: center;
+    background: $blue;
     bottom: 0;
+    color: $white;
+    display: flex;
     justify-content: center;
     opacity: .9;
     position: absolute;
     width: 100%;
-    background: #0CAEE7;
-    color: white;
 }
