@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_jwt_extended import jwt_required
 from backend.models import Participant
+from backend.serializers.participant_serializer import participants_schema
 
 
 participants = Blueprint('participants', __name__)
@@ -9,7 +10,10 @@ participants = Blueprint('participants', __name__)
 @jwt_required
 def get_participants_list():
     participants_list = Participant.query.all()
-    return participants_list
+    if participants_list:
+        participants = participants_schema.dump(participants_list)
+        return jsonify({"participants": participants}), 200
+    return {"message": "participants not found"}, 400
 
 
 
