@@ -6,7 +6,7 @@ from backend.serializers.participant_serializer import participants_schema
 
 participants = Blueprint('participants', __name__)
 
-@participants.route('participants', methods=['GET'])
+@participants.route('/participants', methods=['GET'])
 @jwt_required
 def get_participants_list():
     participants_list = Participant.query.all()

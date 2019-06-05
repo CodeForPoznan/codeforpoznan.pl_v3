@@ -5,7 +5,7 @@ from backend.commands.populate_database import populate_database
 from backend.extensions import db, mail, migrate, jwt
 from backend.blueprints import auth
 from backend.blueprints.contact import contact
-from backend.blueprints import participants
+from backend.blueprints.participants import participants
 
 
 def create_app():
