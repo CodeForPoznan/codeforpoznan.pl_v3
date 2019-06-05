@@ -6,11 +6,32 @@
       return {
         hoveredImg: require('@/assets/images/Antu_dialog-icon-preview.svg'),
         projects: [
-          {name: 'Volontulo', image: require('@/assets/images/volontulo.png')},
-          {name: 'Wysadź ulicę', image: require('@/assets/images/wysadz_ulice.png')},
-          {name: 'Bank Empatii', image: require('@/assets/images/bank_empatii.png')},
-          {name: 'Alinka'},
-          {name: 'Polska Akcja Humanitarna'}
+
+          {
+            name: 'Volontulo',
+            image: require('@/assets/images/volontulo.png')
+          },
+
+          {
+            name: 'Wysadź ulicę',
+            image: require('@/assets/images/wysadz_ulice.png')
+          },
+
+          {
+            name: 'Bank Empatii',
+            image: require('@/assets/images/bank_empatii.png')
+          },
+
+          {
+            name: 'Alinka',
+            image: require('')
+          },
+
+          {
+            name: 'Polska Akcja Humanitarna',
+            image: require('')
+          }
+
         ]
       }
     },
