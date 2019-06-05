@@ -18,5 +18,5 @@ bash:	## Go to the backend container
 psql:   ## Go to the db and make SQL queries
 	docker exec -ti codeforpoznanpl_v3_db_1 psql -U cfp_v3
 
-populate_database: ## Populate databese with fake data
+populate_database: ## Populate database with fake data
 	docker exec -ti codeforpoznanpl_v3_backend_1 flask populate-database
