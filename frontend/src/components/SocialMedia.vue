@@ -3,9 +3,9 @@
         <h2>MEDIA</h2>
         <ul>
             <li v-for="item in media" :key="item.link">
-                    <a :href="item.link" target="_blank" class="circle">
-                        <v-icon> {{item.icon}} </v-icon>
-                    </a>
+                <a :href="item.link" target="_blank" class="circle">
+                    <v-icon> {{item.icon}} </v-icon>
+                </a>
             </li>
         </ul>
     </div>
