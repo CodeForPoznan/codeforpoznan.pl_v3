@@ -1,4 +1,5 @@
 import os
+import datetime
 import tempfile
 
 import pytest
@@ -67,6 +68,22 @@ def new_user():
 
 
 @pytest.fixture
+def new_participant():
+    participant = {
+        'name': 'Jon',
+        'lastname': 'Doe',
+        'email': 'test@test.com',
+        'phone': '123456789'
+    }
+    return participant
+
+
+@pytest.fixture
+def new_hacknight():
+    hacknight = {'date': datetime.date(2000, 10, 10)}
+    return hacknight
+
+
 def registered_user(new_user, app, _db):
     new_user = User(
         username=new_user['username'],

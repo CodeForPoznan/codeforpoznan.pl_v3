@@ -27,6 +27,13 @@ class User(db.Model):
         return check_password_hash(self.password, password)
 
 
+participant_hacknight = db.Table(
+    'participant_hacknight',
+    db.Column('participant_id', db.Integer, db.ForeignKey('participant.id')),
+    db.Column('hacknight_id', db.Integer, db.ForeignKey('hacknight.id'))
+)
+
+
 class Participant(db.Model):
     """Participant model."""
     __tablename__ = 'participant'
@@ -43,6 +50,12 @@ class Hacknight(db.Model):
     __tablename__ = 'hacknight'
     id = Column(Integer, autoincrement=True, primary_key=True)
     date = Column(Date)
+    participants = db.relationship(
+        "Participant",
+        secondary=participant_hacknight,
+        lazy='subquery',
+        backref=db.backref('hacknights', lazy=True)
+    )
 
 
 class JWTToken(db.Model):
