@@ -84,6 +84,7 @@ def new_hacknight():
     return hacknight
 
 
+@pytest.fixture
 def registered_user(new_user, app, _db):
     new_user = User(
         username=new_user['username'],
