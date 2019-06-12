@@ -6,6 +6,7 @@ import pytest
 
 from backend.app import create_app
 from backend.extensions import db
+from backend.models import User
 
 
 @pytest.fixture
@@ -81,3 +82,37 @@ def new_participant():
 def new_hacknight():
     hacknight = {'date': datetime.date(2000, 10, 10)}
     return hacknight
+
+
+def registered_user(new_user, app, _db):
+    new_user = User(
+        username=new_user['username'],
+        password=new_user['password']
+    )
+    with app.app_context():
+        db = _db
+        db.session.add(new_user)
+        db.session.commit()
+    return new_user
+
+
+@pytest.fixture
+def access_token(client, new_user, registered_user):
+    rv = client.post(
+        '/auth/login',
+        json={'username': new_user['username'],
+              'password': new_user['password']}
+    )
+    access_token = rv.get_json()['access_token']
+    return access_token
+
+
+@pytest.fixture
+def new_msg():
+    msg = {
+        "name": "TestName",
+        "email": "test@test.com",
+        "phone": "777222333",
+        "content": "Lorem Ipsum cos tam cos tam"
+    }
+    return msg
