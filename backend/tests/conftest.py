@@ -1,4 +1,5 @@
 import os
+import datetime
 import tempfile
 
 import pytest
@@ -67,6 +68,23 @@ def new_user():
 
 
 @pytest.fixture
+def new_participant():
+    participant = {
+        'name': 'Jon',
+        'lastname': 'Doe',
+        'email': 'test@test.com',
+        'phone': '123456789'
+    }
+    return participant
+
+
+@pytest.fixture
+def new_hacknight():
+    hacknight = {'date': datetime.date(2000, 10, 10)}
+    return hacknight
+
+
+@pytest.fixture
 def registered_user(new_user, app, _db):
     new_user = User(
         username=new_user['username'],
@@ -88,3 +106,14 @@ def access_token(client, new_user, registered_user):
     )
     access_token = rv.get_json()['access_token']
     return access_token
+
+
+@pytest.fixture
+def new_msg():
+    msg = {
+        "name": "TestName",
+        "email": "test@test.com",
+        "phone": "777222333",
+        "content": "Lorem Ipsum cos tam cos tam"
+    }
+    return msg
