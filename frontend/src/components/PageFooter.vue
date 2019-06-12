@@ -4,12 +4,6 @@
     </div>
 </template>
 
-<script>
-export default {
-    
-}
-</script>
-
 <style lang="scss" scoped>
 @import "./../main.scss";
 footer {
@@ -18,7 +12,6 @@ footer {
     padding: 25px;
     display: flex;
     justify-content: center;
-    align-items: center;
 }
 </style>
 
