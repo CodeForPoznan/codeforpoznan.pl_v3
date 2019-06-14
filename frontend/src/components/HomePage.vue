@@ -32,7 +32,7 @@
 import { mapGetters } from 'vuex'
 import ContactUs from './ContactUs.vue'
 import AboutUs from './AboutUs.vue'
-import OurProjects from './OurProjects/OurProjects.vue'
+import OurProjects from './OurProjects.vue'
 export default {
   components: {
     'app-contact-us': ContactUs,
