@@ -21,6 +21,7 @@
       </div>
       <app-about-us/>
       <app-contact-us/>
+      <page-footer/>
     </v-app>
   </div>
 </template>
@@ -29,10 +30,12 @@
 import { mapGetters } from 'vuex'
 import ContactUs from './ContactUs.vue'
 import AboutUs from './AboutUs.vue'
+import PageFooter from './PageFooter.vue';
 export default {
   components: {
     'app-contact-us': ContactUs,
-    'app-about-us': AboutUs
+    'app-about-us': AboutUs,
+    'page-footer': PageFooter,
   },
   methods: {
     onCloseAlert() {
