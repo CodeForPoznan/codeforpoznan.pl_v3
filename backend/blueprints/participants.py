@@ -13,4 +13,4 @@ def get_participants_list():
     if participants_list:
         participants = participants_schema.dump(participants_list)
         return jsonify({"participants": participants}), 200
-    return {"message": "participants not found"}, 400
+    return jsonify({"message": "participants not found"}), 404
