@@ -22,6 +22,7 @@
       <app-about-us/>
       <app-contact-us/>
       <social-media/>
+      <page-footer/>
     </v-app>
   </div>
 </template>
@@ -31,11 +32,13 @@ import { mapGetters } from 'vuex'
 import ContactUs from './ContactUs.vue'
 import AboutUs from './AboutUs.vue'
 import SocialMedia from './SocialMedia.vue';
+import PageFooter from './PageFooter.vue';
 export default {
   components: {
     'app-contact-us': ContactUs,
     'app-about-us': AboutUs,
     'social-media': SocialMedia,
+    'page-footer': PageFooter,
   },
   methods: {
     onCloseAlert() {

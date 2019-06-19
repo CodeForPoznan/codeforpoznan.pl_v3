@@ -50,10 +50,12 @@ class Hacknight(db.Model):
     __tablename__ = 'hacknight'
     id = Column(Integer, autoincrement=True, primary_key=True)
     date = Column(Date)
-    participants = db.relationship("Participant",
-                                   secondary=participant_hacknight,
-                                   lazy='subquery',
-                                   backref=db.backref('hacknights', lazy=True))
+    participants = db.relationship(
+        "Participant",
+        secondary=participant_hacknight,
+        lazy='subquery',
+        backref=db.backref('hacknights', lazy=True)
+    )
 
 
 class JWTToken(db.Model):
