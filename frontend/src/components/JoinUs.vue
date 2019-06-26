@@ -12,11 +12,11 @@
                 <v-flex md6 xs12>
                     <v-card flat dark tile color="transparent">
                         <v-card-text>
-                            Kodujesz? Jesteś grafikiem? UX-owcem?
-                            Robisz cokolwiek innego, co może się przydać w
-                            kodowaniu dla Poznania? Dołącz do nas! Spotykamy
-                            się w każdą środę od godz. 17:00 w firmie STX Next
-                            przy ul. Morawskiego 12 (koło Areny).
+                            Kodujesz? Jesteś grafikiem? UX-owcem? Robisz
+                            cokolwiek innego, co może się przydać w kodowaniu
+                            dla Poznania? Dołącz do nas! Spotykamy się w każdą
+                            środę od godz. 17:00 w firmie STX Next przy ul.
+                            Morawskiego 12 (koło Areny).
                         </v-card-text>
                     </v-card>
                 </v-flex>
@@ -26,7 +26,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import "./../main.scss";
+@import './../main.scss';
 #container {
     background: $blue;
 }
@@ -37,7 +37,7 @@
     padding-bottom: 20px;
 }
 #title::before {
-    content: "";
+    content: '';
     position: absolute;
     bottom: 0;
     left: 50%;
