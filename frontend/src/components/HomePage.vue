@@ -23,6 +23,7 @@
             </div>
             <app-about-us />
             <our-projects />
+            <app-join-us />
             <app-contact-us />
             <social-media />
             <page-footer />
@@ -37,6 +38,7 @@ import AboutUs from './AboutUs.vue';
 import SocialMedia from './SocialMedia.vue';
 import PageFooter from './PageFooter.vue';
 import OurProjects from './OurProjects.vue';
+import JoinUs from './JoinUs.vue';
 export default {
     components: {
         'app-contact-us': ContactUs,
@@ -44,6 +46,8 @@ export default {
         'social-media': SocialMedia,
         'page-footer': PageFooter,
         'our-projects': OurProjects
+        'app-join-us': JoinUs,
+        'page-footer': PageFooter
     },
     methods: {
         onCloseAlert() {
