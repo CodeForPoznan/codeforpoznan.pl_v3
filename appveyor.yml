@@ -1,0 +1,10 @@
+build: false
+
+environment:
+  nodejs_version: "10.15.3"
+
+install:
+  - npm install
+
+test_script:
+  - npm run lint
