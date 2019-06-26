@@ -2,20 +2,20 @@
     <div id="container">
         <v-container fluid text-xs-center>
             <v-layout row id="title">
-                <v-flex> 
+                <v-flex>
                     <v-card flat dark tile color="transparent">
                         <v-card-text>O NAS</v-card-text>
-                    </v-card>            
+                    </v-card>
                 </v-flex>
-            </v-layout>    
+            </v-layout>
             <v-layout row wrap id="content">
-                <v-flex md6 xs12> 
+                <v-flex md6 xs12>
                     <v-card flat dark tile color="transparent">
                         <v-card-text>
                             KIM JESTEŚMY?
-                            <br><br>
-                            Grupą osób, która uważa, że warto ulepszać
-                            świat za pomocą technologii i&nbsp;chce dostarczać narzędzia,
+                            <br /><br />
+                            Grupą osób, która uważa, że warto ulepszać świat za
+                            pomocą technologii i&nbsp;chce dostarczać narzędzia,
                             dzięki którym każdy będzie mógł to robić.
                         </v-card-text>
                     </v-card>
@@ -24,21 +24,21 @@
                     <v-card flat dark tile color="transparent">
                         <v-card-text>
                             CO ROBIMY?
-                            <br><br>
+                            <br /><br />
                             Projektujemy. Programujemy. Testujemy. Poprawiamy.
-                            Tworzymy aplikacje społeczne, które aktywują użytkowników
-                            do działania na rzecz swojej społeczności czy jakiegoś
-                            interesu społecznego.
+                            Tworzymy aplikacje społeczne, które aktywują
+                            użytkowników do działania na rzecz swojej
+                            społeczności czy jakiegoś interesu społecznego.
                         </v-card-text>
                     </v-card>
                 </v-flex>
-            </v-layout>    
-        </v-container>    
+            </v-layout>
+        </v-container>
     </div>
 </template>
 
 <style lang="scss" scoped>
-@import "./../main.scss";
+@import './../main.scss';
 #container {
     background: $blue;
 }
@@ -46,10 +46,10 @@
     font-family: $font-header;
     font-size: 42px;
     position: relative;
-    padding-bottom: 20px; 
+    padding-bottom: 20px;
 }
 #title::before {
-    content: "";
+    content: '';
     position: absolute;
     bottom: 0;
     left: 50%;

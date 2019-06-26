@@ -5,7 +5,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import "./../main.scss";
+@import './../main.scss';
 footer {
     color: $white;
     background-color: $blue-nav-footer;
@@ -14,4 +14,3 @@ footer {
     justify-content: center;
 }
 </style>
-
