@@ -22,6 +22,7 @@
                 </v-alert>
             </div>
             <app-about-us />
+            <our-projects/>
             <app-contact-us />
             <social-media />
             <page-footer />
@@ -35,12 +36,14 @@ import ContactUs from './ContactUs.vue';
 import AboutUs from './AboutUs.vue';
 import SocialMedia from './SocialMedia.vue';
 import PageFooter from './PageFooter.vue';
+import OurProjects from './OurProjects.vue';
 export default {
     components: {
         'app-contact-us': ContactUs,
         'app-about-us': AboutUs,
         'social-media': SocialMedia,
-        'page-footer': PageFooter
+        'page-footer': PageFooter,
+        'our-projects': OurProjects
     },
     methods: {
         onCloseAlert() {
