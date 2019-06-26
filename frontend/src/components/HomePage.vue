@@ -22,7 +22,7 @@
                 </v-alert>
             </div>
             <app-about-us />
-            <our-projects/>
+            <our-projects />
             <app-contact-us />
             <social-media />
             <page-footer />
