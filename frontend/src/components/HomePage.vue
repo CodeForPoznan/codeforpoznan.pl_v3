@@ -21,6 +21,7 @@
       </div>
       <app-about-us/>
       <app-contact-us/>
+      <app-join-us/>
       <page-footer/>
     </v-app>
   </div>
@@ -31,11 +32,13 @@ import { mapGetters } from 'vuex'
 import ContactUs from './ContactUs.vue'
 import AboutUs from './AboutUs.vue'
 import PageFooter from './PageFooter.vue';
+import JoinUs from './JoinUs.vue';
 export default {
   components: {
     'app-contact-us': ContactUs,
     'app-about-us': AboutUs,
-    'page-footer': PageFooter,
+    'app-join-us': JoinUs,
+    'page-footer': PageFooter
   },
   methods: {
     onCloseAlert() {
@@ -60,4 +63,3 @@ export default {
     padding: 2px;
   }
 </style>
-
