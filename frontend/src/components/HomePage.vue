@@ -44,8 +44,7 @@ export default {
         'app-contact-us': ContactUs,
         'app-about-us': AboutUs,
         'social-media': SocialMedia,
-        'page-footer': PageFooter,
-        'our-projects': OurProjects
+        'our-projects': OurProjects,
         'app-join-us': JoinUs,
         'page-footer': PageFooter
     },
