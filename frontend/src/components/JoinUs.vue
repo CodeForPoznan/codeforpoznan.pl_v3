@@ -4,7 +4,7 @@
             <v-layout row id="title">
                 <v-flex>
                     <v-card flat dark tile color="transparent">
-                        <v-card-text>O NAS</v-card-text>
+                        <v-card-text>DOŁĄCZ DO NAS</v-card-text>
                     </v-card>
                 </v-flex>
             </v-layout>
@@ -12,23 +12,11 @@
                 <v-flex md6 xs12>
                     <v-card flat dark tile color="transparent">
                         <v-card-text>
-                            KIM JESTEŚMY?
-                            <br /><br />
-                            Grupą osób, która uważa, że warto ulepszać świat za
-                            pomocą technologii i&nbsp;chce dostarczać narzędzia,
-                            dzięki którym każdy będzie mógł to robić.
-                        </v-card-text>
-                    </v-card>
-                </v-flex>
-                <v-flex md6 xs12>
-                    <v-card flat dark tile color="transparent">
-                        <v-card-text>
-                            CO ROBIMY?
-                            <br /><br />
-                            Projektujemy. Programujemy. Testujemy. Poprawiamy.
-                            Tworzymy aplikacje społeczne, które aktywują
-                            użytkowników do działania na rzecz swojej
-                            społeczności czy jakiegoś interesu społecznego.
+                            Kodujesz? Jesteś grafikiem? UX-owcem? Robisz
+                            cokolwiek innego, co może się przydać w kodowaniu
+                            dla Poznania? Dołącz do nas! Spotykamy się w każdą
+                            środę od godz. 17:00 w firmie STX Next przy ul.
+                            Morawskiego 12 (koło Areny).
                         </v-card-text>
                     </v-card>
                 </v-flex>
@@ -65,5 +53,6 @@
     line-height: 1.43;
     padding-right: 50px;
     padding-left: 50px;
+    justify-content: center;
 }
 </style>
