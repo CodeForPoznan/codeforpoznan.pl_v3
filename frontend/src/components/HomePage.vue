@@ -20,6 +20,7 @@
         </v-alert>
       </div>
       <app-contact-us/>
+      <app-header></app-header>
     </v-app>
   </div>
 </template>
@@ -27,9 +28,11 @@
 <script>
 import { mapGetters } from 'vuex'
 import ContactUs from './ContactUs.vue'
+import Header from './Header.vue'
 export default {
   components: {
-    'app-contact-us': ContactUs
+    'app-contact-us': ContactUs,
+    'app-header': Header
   },
   methods: {
     onCloseAlert() {
@@ -44,9 +47,11 @@ export default {
       sent: 'contact/successfullySent',
       msgError: 'contact/msgErrorRaised'
     })
-  },
+  }
 }
 </script>
 
 <style lang="css">
+
 </style>
+
