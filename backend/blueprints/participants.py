@@ -45,6 +45,5 @@ def create_praticipant():
     )
     db.session.add(participant)
     db.session.commit()
-    # result = ParticipantSchema.dump(participant).data
 
     return jsonify({"message": "Participant created successfully."}), 201
