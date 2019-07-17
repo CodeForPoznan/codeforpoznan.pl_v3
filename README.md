@@ -10,3 +10,6 @@ We use Docker for development purposes. To start working, your computer needs to
 | `make start` | starts project |
 | `make stop`  | stops project  |
 | `make logs`  | shows logs     |
+
+### Default User password
+'pass123'
