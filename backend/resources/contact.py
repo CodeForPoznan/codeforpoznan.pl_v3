@@ -18,7 +18,7 @@ class SendMessage(Resource):
             subject='Email z cdf_v3 od {}'.format(new_msg["name"]),
             sender=new_msg["email"],
             reply_to=new_msg["email"],
-            recipients=["cfp_v3@cfp_v3.com"]  # has to be change to valid email
+            recipients=["cfp@codeforpoznan.test"]
         )
         msg.body = 'Nowa wiadomość od {}, nr tel: {} \nTreść:\n {}'.format(
             new_msg["name"],
