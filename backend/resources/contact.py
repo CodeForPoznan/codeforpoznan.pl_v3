@@ -15,7 +15,7 @@ class SendMessage(Resource):
         except ValidationError as err:
             return {"message": err.messages}, 400
         msg = Message(
-            subject='Email z cdf_v3 od {}'.format(new_msg["name"]),
+            subject='Email z cfp_v3 od {}'.format(new_msg["name"]),
             sender=new_msg["email"],
             reply_to=new_msg["email"],
             recipients=["cfp@codeforpoznan.test"]
