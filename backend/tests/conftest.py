@@ -122,7 +122,6 @@ def new_msg():
 
 @pytest.fixture
 def add_participants(app, _db):
-    db = _db
     for _ in range(10):
         ParticipantFactory.create()
-    db.session.commit()
+    _db.session.commit()
