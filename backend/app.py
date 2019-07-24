@@ -2,9 +2,10 @@ from flask import Flask
 from flask_cors import CORS
 
 from backend.commands.populate_database import populate_database
-from backend.extensions import db, mail, migrate, jwt
-from backend.blueprints import auth
-from backend.blueprints.contact import contact
+from backend.extensions import api, db, mail, migrate, jwt
+from backend.resources.auth import UserLogin, UserLogout
+from backend.resources.contact import SendMessage
+from backend.resources.participant import ParticipantsList
 
 
 def create_app():
@@ -15,7 +16,6 @@ def create_app():
 
     CORS(app)
     initialize_extensions(app)
-    register_blueprints(app)
 
     @jwt.token_in_blacklist_loader
     def check_if_token_revoked(decoded_token):
@@ -26,12 +26,14 @@ def create_app():
 
 def initialize_extensions(app):
     """Helper functions"""
+    api.init_app(app)
     db.init_app(app)
     mail.init_app(app)
     migrate.init_app(app, db, directory='migrations')
     jwt.init_app(app)
 
 
-def register_blueprints(app):
-    app.register_blueprint(auth.auth_blueprint)
-    app.register_blueprint(contact)
+api.add_resource(UserLogin, "/auth/login")
+api.add_resource(UserLogout, "/auth/logout")
+api.add_resource(SendMessage, "/send-email/")
+api.add_resource(ParticipantsList, "/participants/")

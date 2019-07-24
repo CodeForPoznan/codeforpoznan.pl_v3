@@ -1,3 +1,4 @@
+from http import HTTPStatus
 import pytest
 
 
@@ -9,7 +10,7 @@ def test_login_with_valid_user(client, new_user, registered_user):
               'password': new_user['password']}
     )
     response = rv.get_json()
-    assert rv.status == '201 CREATED'
+    assert rv.status_code == HTTPStatus.CREATED
     assert response['access_token']
 
 
@@ -21,7 +22,7 @@ def test_login_with_invalid_password(client, new_user, registered_user):
               'password': 'WrongPassword'}
     )
     response = rv.get_json()
-    assert rv.status == '401 UNAUTHORIZED'
+    assert rv.status_code == HTTPStatus.UNAUTHORIZED
     assert response['msg'] == 'Not authorized'
 
 
@@ -33,5 +34,5 @@ def test_login_with_invalid_name_password(client):
               'password': 'WrongPassword'}
     )
     response = rv.get_json()
-    assert rv.status == '401 UNAUTHORIZED'
+    assert rv.status_code == HTTPStatus.UNAUTHORIZED
     assert response['msg'] == 'Not authorized'
