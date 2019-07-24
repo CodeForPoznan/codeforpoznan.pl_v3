@@ -1,0 +1,9 @@
+language: python
+python: 3.5
+install:
+  - pip install -r backend/requirements.txt
+
+  - nvm install 10.13.0
+  - cd frontend && yarn install && cd -
+script:
+  - cd frontend && yarn lint
