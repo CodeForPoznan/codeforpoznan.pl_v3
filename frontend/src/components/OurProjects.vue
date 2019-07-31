@@ -29,16 +29,7 @@
                                 </div>
                             </v-expand-transition>
                             <v-dialog v-model="dialog" width="300">
-                                <v-card>
-                                    <v-card-title>
-                                        {{ project.name }}
-                                    </v-card-title>
-<!--                                    <v-card-actions>-->
-<!--                                        <v-btn @click="clickImage">-->
-<!--                                        zamknij-->
-<!--                                        </v-btn>-->
-<!--                                    </v-card-actions>-->
-                                </v-card>
+                                <app-modal-content></app-modal-content>
                             </v-dialog>
                         </v-card>
                     </v-hover>
@@ -49,7 +40,11 @@
 </template>
 
 <script>
+import ModalContent from './OurProjects-ModalContent.vue';
 export default {
+    components: {
+        'app-modal-content': ModalContent
+    },
     data() {
         return {
             hoveredImg: require('@/assets/images/Antu_dialog-icon-preview.svg'),
