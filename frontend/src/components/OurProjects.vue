@@ -1,16 +1,16 @@
 <template>
-    <v-item-group>
-        <v-container grid-list>
-            <v-layout wrap>
-                <v-flex
-                    id="items"
-                    v-for="project in projects"
-                    :key="project.name"
-                    xs12
-                    md6
-                    lg4
-                    xl3
-                >
+    <v-container>
+        <v-layout row wrap>
+            <v-flex
+                id="items"
+                v-for="project in projects"
+                :key="project.name"
+                xs12
+                md6
+                lg4
+                xl3
+            >
+                <v-item-group>
                     <v-hover>
                         <v-card slot-scope="{ hover }" @click.stop="clickImage">
                             <v-img
@@ -42,10 +42,10 @@
                             </v-dialog>
                         </v-card>
                     </v-hover>
-                </v-flex>
-            </v-layout>
-        </v-container>
-    </v-item-group>
+                </v-item-group>
+            </v-flex>
+        </v-layout>
+    </v-container>
 </template>
 
 <script>
