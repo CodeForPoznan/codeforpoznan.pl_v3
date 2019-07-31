@@ -70,8 +70,8 @@ def new_user():
 @pytest.fixture
 def new_participant():
     participant = {
-        'name': 'Jon',
-        'lastname': 'Doe',
+        'first_name': 'Jon',
+        'last_name': 'Doe',
         'email': 'test@test.com',
         'phone': '123456789'
     }

@@ -29,18 +29,18 @@ def test_add_new_participant_to_db(_db, new_participant):
     assert len(db.session.query(Participant).all()) == 0
 
     new_participant = Participant(
-        name=new_participant['name'],
-        lastname=new_participant['lastname'],
+        first_name=new_participant['first_name'],
+        last_name=new_participant['last_name'],
         email=new_participant['email'],
         phone=new_participant['phone']
     )
     db.session.add(new_participant)
     db.session.commit()
 
-    participant = db.session.query(Participant).filter_by(name="Jon").first()
+    participant = db.session.query(Participant).filter_by(first_name="Jon").first()
 
-    assert participant.name == 'Jon'
-    assert participant.lastname == 'Doe'
+    assert participant.first_name == 'Jon'
+    assert participant.last_name == 'Doe'
     assert participant.email == 'test@test.com'
     assert participant.phone == '123456789'
 
