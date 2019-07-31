@@ -13,4 +13,4 @@ class ParticipantsList(Resource):
         if participants_list:
             participants = participants_schema.dump(participants_list)
             return {"participants": participants}, 200
-        return {"message": "Participants not found"}, 404
+        return {"participants": []}, 200
