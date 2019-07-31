@@ -16,8 +16,8 @@ class ParticipantsList(Resource):
         participants_list = Participant.query.all()
         if participants_list:
             participants = participants_schema.dump(participants_list)
-            return {"participants": participants}, 200
-        return {"message": "Participants not found"}, 404
+            return {'participants': participants}, 200
+        return {'message': 'Participants not found'}, 404
 
     @jwt_required
     def post(self):
@@ -31,7 +31,7 @@ class ParticipantsList(Resource):
 
         participant = Participant.query.filter_by(name=data['name']).first()
         if participant:
-            return ({"message": "Participant already exists."}), 400
+            return ({'message': 'Participant already exists.'}), 400
         participant = Participant(
             name=json_data['name'],
             lastname=json_data['lastname'],
@@ -42,4 +42,4 @@ class ParticipantsList(Resource):
         db.session.add(participant)
         db.session.commit()
 
-        return ({"message": "Participant created successfully."}), 201
+        return ({'message': 'Participant created successfully.'}), 201
