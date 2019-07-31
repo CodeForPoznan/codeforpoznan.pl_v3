@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from http import HTTPStatus
 
 from backend.extensions import db
 from backend.models import User, JWTToken
@@ -21,23 +22,24 @@ class UserLogin(Resource):
         if current_user:
             return {
                 "msg": "User already logged in as {}".format(current_user)
-            }, 401
+            }, HTTPStatus.UNAUTHORIZED
 
         if not request.is_json:
-            return {"msg": "No input data provided"}, 400
+            return {"msg": "No input data provided"}, HTTPStatus.BAD_REQUEST
 
         schema = LoginSchema()
         try:
             result = schema.load(request.json)
         except ValidationError as error:
             return {"msg": "Wrong input data",
-                    "errors": error.messages}, 400
+                    "errors": error.messages}, HTTPStatus.BAD_REQUEST
 
         username = result['username']
         password = result['password']
 
         if not (username and password):
-            return {"msg": "Username and password required"}, 400
+            return {"msg": "Username and password required"},
+            HTTPStatus.BAD_REQUEST
 
         user = User.query.filter_by(username=username).first()
 
@@ -49,9 +51,9 @@ class UserLogin(Resource):
                 access_token, app.config['JWT_IDENTITY_CLAIM']
             )
 
-            return {'access_token': access_token}, 201
+            return {'access_token': access_token}, HTTPStatus.CREATED
         else:
-            return {"msg": "Not authorized"}, 401
+            return {"msg": "Not authorized"}, HTTPStatus.UNAUTHORIZED
 
 
 class UserLogout(Resource):
@@ -61,7 +63,7 @@ class UserLogout(Resource):
         token = JWTToken.query.filter_by(jti=jti).one()
         token.revoked = True
         db.session.commit()
-        return {"msg": "Successfully logged out"}, 200
+        return {"msg": "Successfully logged out"}, HTTPStatus.OK
 
 
 def add_token_to_database(encoded_token, identity_claim):
