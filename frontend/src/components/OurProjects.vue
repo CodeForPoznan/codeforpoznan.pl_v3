@@ -1,7 +1,15 @@
 <template>
     <v-container>
         <v-layout row wrap>
-            <v-flex id="items" v-for="project in projects" xs12 md6 lg4 xl3>
+            <v-flex
+                id="items"
+                v-for="project in projects"
+                :key="project.name"
+                xs12
+                md6
+                lg4
+                xl3
+            >
                 <v-item-group>
                     <v-hover>
                         <v-card slot-scope="{ hover }">
