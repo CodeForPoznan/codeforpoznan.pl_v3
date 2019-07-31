@@ -21,4 +21,4 @@ class ParticipantSchema(Schema):
 
 
 participant_schema = ParticipantSchema()
-participants_schema = ParticipantSchema(many=True)
+participants_schema = ParticipantSchema(many=True, exclude=('hacknights',))

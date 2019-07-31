@@ -8,10 +8,10 @@ class HacknightSchema(Schema):
 
     participants = fields.Nested(
         'ParticipantSchema',
-        only=('id', 'github'),
+        exclude=('name', 'lastname', 'email', 'hacknights', 'phone'),
         many=True
     )
 
 
 hacknight_schema = HacknightSchema()
-hacknights_schema = HacknightSchema(many=True)
+hacknights_schema = HacknightSchema(many=True, exclude=('participants',))
