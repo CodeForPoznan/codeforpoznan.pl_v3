@@ -1,5 +1,7 @@
 from backend.extensions import db
 
+from http import HTTPStatus
+
 from flask import request
 from flask_jwt_extended import jwt_required
 from flask_restful import Resource
@@ -16,22 +18,22 @@ class ParticipantsList(Resource):
         participants_list = Participant.query.all()
         if participants_list:
             participants = participants_schema.dump(participants_list)
-            return {'participants': participants}, 200
-        return {'message': 'Participants not found'}, 404
+            return {"participants": participants}, HTTPStatus.OK
+        return {"message": "Participants not found"}, HTTPStatus.NOT_FOUND
 
     @jwt_required
     def post(self):
         json_data = request.get_json(force=True)
         if not json_data:
-            return {'message': 'No input data provided'}, 400
+            return {'message': 'No input data provided'}, HTTPStatus.BAD_REQUEST
         try:
             data = participant_schema.load(json_data)
         except ValidationError as err:
-            return (err.messages), 400
+            return (err.messages), HTTPStatus.BAD_REQUEST
 
         participant = Participant.query.filter_by(name=data['name']).first()
         if participant:
-            return ({'message': 'Participant already exists.'}), 400
+            return ({'message': 'Participant already exists.'}), HTTPStatus.BAD_REQUEST
         participant = Participant(
             name=json_data['name'],
             lastname=json_data['lastname'],
@@ -42,4 +44,4 @@ class ParticipantsList(Resource):
         db.session.add(participant)
         db.session.commit()
 
-        return ({'message': 'Participant created successfully.'}), 201
+        return ({"message": "Participant created successfully."}), HTTPStatus.CREATED
