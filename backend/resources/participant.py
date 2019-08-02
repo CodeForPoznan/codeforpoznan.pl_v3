@@ -16,8 +16,8 @@ class ParticipantsList(Resource):
         participants_list = Participant.query.all()
         if participants_list:
             participants = participants_schema.dump(participants_list)
-            return {"participants": participants}, 200
-        return {"message": "Participants not found"}, 404
+            return {"participants": participants}, HTTPStatus.OK
+        return {"participants": []}, HTTPStatus.OK
 
 
 class ParticipantDetails(Resource):
