@@ -23,8 +23,8 @@ def test_get_participants_with_empty_db(client, access_token):
         headers={'Authorization': 'Bearer {}'.format(access_token)}
     )
     response = rv.get_json()
-    assert rv.status_code == HTTPStatus.NOT_FOUND
-    assert response["message"] == "Participants not found"
+    assert rv.status_code == HTTPStatus.OK
+    assert not response["participants"]
 
 
 def test_get_participants_unauthorized(client, add_participants):
