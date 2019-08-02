@@ -1,5 +1,7 @@
 from backend.extensions import db
 
+from http import HTTPStatus
+
 from flask import request
 
 from flask_jwt_extended import jwt_required
@@ -18,26 +20,26 @@ class HacknightList(Resource):
         hacknight_list = Hacknight.query.all()
         if hacknight_list:
             hacknights = hacknights_schema.dump(hacknight_list)
-            return {"hacknights": hacknights}, 200
-        return {"message": "Hacknight not found"}, 404
+            return {"hacknights": hacknights}, HTTPStatus.OK
+        return {"message": "Hacknight not found"}, HTTPStatus.NOT_FOUND
 
     @jwt_required
     def post(self):
         json_data = request.get_json(force=True)
         if not json_data:
-            return {'message': 'No input data provided'}, 400
+            return {'message': 'No input data provided'}, HTTPStatus.BAD_REQUEST
         try:
             data = hacknight_schema.load(json_data)
         except ValidationError as err:
-            return (err.messages), 400
+            return (err.messages), HTTPStatus.BAD_REQUEST
 
         hacknight = Hacknight.query.filter_by(date=data['date']).first()
         if hacknight:
-            return ({'message': 'Hacknight already exists.'}), 400
+            return ({'message': 'Hacknight already exists.'}), HTTPStatus.BAD_REQUEST
         hacknight = Hacknight(
             date=json_data['date'],
         )
         db.session.add(hacknight)
         db.session.commit()
 
-        return ({'message': 'Hacknight created successfully.'}), 201
+        return ({'message': 'Hacknight created successfully.'}), HTTPStatus.CREATED
