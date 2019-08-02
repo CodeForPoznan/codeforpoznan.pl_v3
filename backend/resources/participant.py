@@ -15,4 +15,5 @@ class ParticipantsList(Resource):
         if participants_list:
             participants = participants_schema.dump(participants_list)
             return {"participants": participants}, HTTPStatus.OK
-        return {"message": "Participants not found"}, HTTPStatus.NOT_FOUND
+        return {"participants": []}, HTTPStatus.OK
+
