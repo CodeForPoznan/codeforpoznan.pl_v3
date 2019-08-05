@@ -16,4 +16,3 @@ class ParticipantsList(Resource):
             participants = participants_schema.dump(participants_list)
             return {"participants": participants}, HTTPStatus.OK
         return {"participants": []}, HTTPStatus.OK
-

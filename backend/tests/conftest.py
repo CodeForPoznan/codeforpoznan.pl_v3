@@ -6,6 +6,7 @@ import pytest
 
 from backend.app import create_app
 from backend.extensions import db
+from backend.factories import HacknightFactory
 from backend.models import User
 
 
@@ -117,3 +118,10 @@ def new_msg():
         "content": "Lorem Ipsum cos tam cos tam"
     }
     return msg
+
+
+@pytest.fixture
+def add_hacknights(app, _db):
+    for _ in range(10):
+        HacknightFactory.create()
+    _db.session.commit()
