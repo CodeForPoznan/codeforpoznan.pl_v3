@@ -7,9 +7,7 @@ from flask_jwt_extended import jwt_required
 from flask_restful import Resource
 
 from backend.models import Participant
-from backend.serializers.participant_serializer import (
-    participants_schema, participant_schema
-)
+from backend.serializers.participant_serializer import *
 
 from marshmallow import ValidationError
 
@@ -17,11 +15,13 @@ from marshmallow import ValidationError
 class ParticipantsList(Resource):
     @jwt_required
     def get(self):
-        return {"participants": participants_schema.dump(
+        participant_schema = ParticipantSchema()
+        return {"participants": participant_schema.dump(
             Participant.query.all())}, HTTPStatus.OK
 
     @jwt_required
     def post(self):
+        participant_schema = ParticipantSchema()
         json_data = request.get_json(force=True)
         if not json_data:
             return {'message': 'No input data provided'}, \
