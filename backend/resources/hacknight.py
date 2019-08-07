@@ -37,7 +37,7 @@ class HacknightList(Resource):
         if hacknight:
             return ({'message': 'Hacknight already exists.'}), HTTPStatus.BAD_REQUEST
         hacknight = Hacknight(
-            date=json_data['date'],
+            date=data['date'],
         )
         db.session.add(hacknight)
         db.session.commit()
