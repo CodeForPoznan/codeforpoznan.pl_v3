@@ -7,7 +7,9 @@ from flask_jwt_extended import jwt_required
 from flask_restful import Resource
 
 from backend.models import Participant
-from backend.serializers.participant_serializer import participants_schema, participant_schema
+from backend.serializers.participant_serializer import (
+    participants_schema, participant_schema
+)
 
 from marshmallow import ValidationError
 
@@ -25,7 +27,8 @@ class ParticipantsList(Resource):
     def post(self):
         json_data = request.get_json(force=True)
         if not json_data:
-            return {'message': 'No input data provided'}, HTTPStatus.BAD_REQUEST
+            return {'message': 'No input data provided'}, \
+                HTTPStatus.BAD_REQUEST
         try:
             data = participant_schema.load(json_data)
         except ValidationError as err:
@@ -33,7 +36,8 @@ class ParticipantsList(Resource):
 
         participant = Participant.query.filter_by(name=data['name']).first()
         if participant:
-            return ({'message': 'Participant already exists.'}), HTTPStatus.BAD_REQUEST
+            return ({'message': 'Participant already exists.'}), \
+                HTTPStatus.BAD_REQUEST
         participant = Participant(
             name=json_data['name'],
             lastname=json_data['lastname'],
@@ -44,4 +48,5 @@ class ParticipantsList(Resource):
         db.session.add(participant)
         db.session.commit()
 
-        return ({"message": "Participant created successfully."}), HTTPStatus.CREATED
+        return ({"message": "Participant created successfully."}), \
+            HTTPStatus.CREATED
