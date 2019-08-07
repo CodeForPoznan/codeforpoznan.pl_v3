@@ -4,8 +4,8 @@ from backend.models import Participant
 
 
 def test_get_participants_when_logged_in(
-        client, access_token, add_participants
-     ):
+    client, access_token, add_participants
+):
     """Test get participants list for logged in user."""
     rv = client.get(
         '/participants/',
