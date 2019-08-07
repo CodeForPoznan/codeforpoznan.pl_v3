@@ -37,11 +37,11 @@ class ParticipantsList(Resource):
             return ({'message': 'Participant already exists.'}), \
                 HTTPStatus.BAD_REQUEST
         participant = Participant(
-            name=json_data['name'],
-            lastname=json_data['lastname'],
-            email=json_data['email'],
-            github=json_data['github'],
-            phone=json_data['phone']
+            name=data['name'],
+            lastname=data['lastname'],
+            email=data['email'],
+            github=data['github'],
+            phone=data['phone']
         )
         db.session.add(participant)
         db.session.commit()
