@@ -1,7 +1,5 @@
 from http import HTTPStatus
 
-from backend.models import Participant
-
 
 def test_get_participants_when_logged_in(
     client, access_token, add_participants
