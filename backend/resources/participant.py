@@ -17,11 +17,8 @@ from marshmallow import ValidationError
 class ParticipantsList(Resource):
     @jwt_required
     def get(self):
-        participants_list = Participant.query.all()
-        if participants_list:
-            participants = participants_schema.dump(participants_list)
-            return {"participants": participants}, HTTPStatus.OK
-        return {"message": "Participants not found"}, HTTPStatus.NOT_FOUND
+        return {"participants": participants_schema.dump(
+            Participant.query.all())}, HTTPStatus.OK
 
     @jwt_required
     def post(self):
