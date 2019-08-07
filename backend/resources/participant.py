@@ -15,7 +15,8 @@ from marshmallow import ValidationError
 class ParticipantsList(Resource):
     @jwt_required
     def get(self):
-        participant_schema = ParticipantSchema()
+        participant_schema = ParticipantSchema(
+            many=True, exclude=('hacknights',))
         return {"participants": participant_schema.dump(
             Participant.query.all())}, HTTPStatus.OK
 
