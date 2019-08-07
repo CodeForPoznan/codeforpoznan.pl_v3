@@ -18,7 +18,3 @@ class ParticipantSchema(Schema):
         many=True
     )
     phone = fields.Str(validate=[validate.Length(max=13)])
-
-
-participant_schema = ParticipantSchema()
-participants_schema = ParticipantSchema(many=True, exclude=('hacknights',))

@@ -11,7 +11,3 @@ class HacknightSchema(Schema):
         exclude=('name', 'lastname', 'email', 'hacknights', 'phone'),
         many=True
     )
-
-
-hacknight_schema = HacknightSchema()
-hacknights_schema = HacknightSchema(many=True, exclude=('participants',))
