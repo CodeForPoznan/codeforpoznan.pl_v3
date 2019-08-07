@@ -11,12 +11,14 @@ from marshmallow import ValidationError
 
 from backend.models import Hacknight
 
-from backend.serializers.hacknight_serializer import hacknight_schema, hacknights_schema
+from backend.serializers.hacknight_serializer import *
 
 
 class HacknightList(Resource):
     @jwt_required
     def get(self):
+        hacknight_list = HacknightSchema(
+            many=True, exclude=('participants',))
         hacknight_list = Hacknight.query.all()
         if hacknight_list:
             hacknights = hacknights_schema.dump(hacknight_list)
@@ -25,6 +27,7 @@ class HacknightList(Resource):
 
     @jwt_required
     def post(self):
+        hacknight_schema = HacknightSchema()
         json_data = request.get_json(force=True)
         if not json_data:
             return {'message': 'No input data provided'}, HTTPStatus.BAD_REQUEST
