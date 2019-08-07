@@ -3,16 +3,16 @@
         <v-layout row wrap>
             <v-flex
                 id="items"
-                v-for="project in projects"
-                :key="project.name"
+                v-for="(project, index) in projects"
+                :key="index"
                 xs12
                 md6
                 lg4
                 xl3
             >
                 <v-item-group>
-                    <v-hover>
-                        <v-card slot-scope="{ hover }" @click.stop="clickImage">
+                    <v-hover v-slot="{ hover }">
+                        <v-card @click.stop="clickImage(project)">
                             <v-img
                                 :src="project.image"
                                 aspect-ratio="1.9"
@@ -29,7 +29,10 @@
                                 </div>
                             </v-expand-transition>
                             <v-dialog v-model="dialog" width="300">
-                                <app-modal-content></app-modal-content>
+                                <app-modal-content
+                                    :selectedProject="selectedProject"
+                                    :dialog="dialog"
+                                ></app-modal-content>
                             </v-dialog>
                         </v-card>
                     </v-hover>
@@ -48,6 +51,7 @@ export default {
     data() {
         return {
             hoveredImg: require('@/assets/images/Antu_dialog-icon-preview.svg'),
+            selectedProject: [],
             dialog: false,
             projects: [
                 {
@@ -75,8 +79,9 @@ export default {
         };
     },
     methods:{
-        clickImage() {
-            this.dialog = !this.dialog;
+        clickImage(project) {
+            this.dialog = true;
+            this.selectedProject = project;
         }
     }
 };
