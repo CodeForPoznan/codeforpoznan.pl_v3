@@ -61,7 +61,7 @@ export default {
                 },
                 {
                     name: 'Wysadź ulicę',
-                    image: require('@/assets/images/wysadz_ulice.png'),
+                    image: require('@/assets/images/wysadz_ulice.png')
                 },
                 {
                     name: 'Bank Empatii',
@@ -78,7 +78,7 @@ export default {
             ]
         };
     },
-    methods:{
+    methods: {
         clickImage(project) {
             this.dialog = true;
             this.selectedProject = project;
