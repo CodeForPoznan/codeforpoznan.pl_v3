@@ -28,17 +28,17 @@
                                     ></v-img>
                                 </div>
                             </v-expand-transition>
-                            <v-dialog v-model="dialog" width="300">
-                                <app-modal-content
-                                    :selectedProject="selectedProject"
-                                    :dialog="dialog"
-                                ></app-modal-content>
-                            </v-dialog>
                         </v-card>
                     </v-hover>
                 </v-item-group>
             </v-flex>
         </v-layout>
+        <v-dialog v-model="dialog" width="300">
+            <app-modal-content
+                :selectedProject="selectedProject"
+                :dialog="dialog"
+            ></app-modal-content>
+        </v-dialog>
     </v-container>
 </template>
 

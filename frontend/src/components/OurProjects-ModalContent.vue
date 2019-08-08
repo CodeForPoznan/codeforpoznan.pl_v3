@@ -3,7 +3,7 @@
         <v-card-title> {{ selectedProject.name }} </v-card-title>
         <v-card-text> {{ selectedProject.description }}</v-card-text>
         <v-card-actions>
-<!--            <v-btn text>Zamknij</v-btn>-->
+            <v-btn text>Zamknij</v-btn>
         </v-card-actions>
     </v-card>
 </template>
