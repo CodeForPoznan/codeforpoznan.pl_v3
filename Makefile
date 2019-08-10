@@ -20,3 +20,6 @@ psql:   ## Go to the db and make SQL queries
 
 populate_database: ## Populate database with fake data
 	docker exec -ti codeforpoznanpl_v3_backend_1 flask populate-database
+
+test: 	## Run unittests
+	docker-compose exec backend pytest
