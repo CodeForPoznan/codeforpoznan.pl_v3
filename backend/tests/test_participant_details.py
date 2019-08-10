@@ -5,7 +5,7 @@ from backend.serializers.participant_serializer import participant_schema
 
 
 def test_get_participant_when_logged_in(
-        client, access_token, add_participants
+    client, access_token, add_participants
 ):
     """Test get participant details for logged in user."""
     rv = client.get(
