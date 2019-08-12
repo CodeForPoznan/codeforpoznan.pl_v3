@@ -11,19 +11,16 @@ from marshmallow import ValidationError
 
 from backend.models import Hacknight
 
-from backend.serializers.hacknight_serializer import *
+from backend.serializers.hacknight_serializer import HacknightSchema
 
 
 class HacknightList(Resource):
     @jwt_required
     def get(self):
-        hacknight_list = HacknightSchema(
+        hacknight_schema = HacknightSchema(
             many=True, exclude=('participants',))
-        hacknight_list = Hacknight.query.all()
-        if hacknight_list:
-            hacknights = hacknights_schema.dump(hacknight_list)
-            return {"hacknights": hacknights}, HTTPStatus.OK
-        return {"message": "Hacknight not found"}, HTTPStatus.NOT_FOUND
+        return {'hacknights': hacknight_schema.dump(
+            Hacknight.query.all())}, HTTPStatus.OK
 
     @jwt_required
     def post(self):
