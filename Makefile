@@ -23,3 +23,6 @@ populate_database: ## Populate database with fake data
 
 rebuild: ## Rebuild docker images
 	docker-compose build --no-cache
+
+test: 	## Run unittests
+	docker-compose exec backend pytest

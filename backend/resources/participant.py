@@ -3,13 +3,15 @@ from backend.extensions import db
 from http import HTTPStatus
 
 from flask import request
+
 from flask_jwt_extended import jwt_required
 from flask_restful import Resource
 
 from backend.models import Participant
-from backend.serializers.participant_serializer import *
 
 from marshmallow import ValidationError
+
+from backend.serializers.participant_serializer import ParticipantSchema
 
 
 class ParticipantsList(Resource):
