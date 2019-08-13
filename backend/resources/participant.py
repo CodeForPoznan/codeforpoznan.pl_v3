@@ -32,10 +32,6 @@ class ParticipantsList(Resource):
         except ValidationError as err:
             return (err.messages), HTTPStatus.BAD_REQUEST
 
-        participant = Participant.query.filter_by(name=data['name']).first()
-        if participant:
-            return {'message': 'Participant already exists.'}, \
-                HTTPStatus.CONFLICT
         participant = Participant(**data)
         db.session.add(participant)
         db.session.commit()
