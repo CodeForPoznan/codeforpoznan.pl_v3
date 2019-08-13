@@ -1,5 +1,3 @@
-from backend.extensions import db
-
 from http import HTTPStatus
 
 from flask import request
@@ -7,10 +5,10 @@ from flask import request
 from flask_jwt_extended import jwt_required
 from flask_restful import Resource
 
-from backend.models import Participant
-
 from marshmallow import ValidationError
 
+from backend.extensions import db
+from backend.models import Participant
 from backend.serializers.participant_serializer import ParticipantSchema
 
 
@@ -36,17 +34,11 @@ class ParticipantsList(Resource):
 
         participant = Participant.query.filter_by(name=data['name']).first()
         if participant:
-            return ({'message': 'Participant already exists.'}), \
-                HTTPStatus.BAD_REQUEST
-        participant = Participant(
-            name=data['name'],
-            lastname=data['lastname'],
-            email=data['email'],
-            github=data['github'],
-            phone=data['phone']
-        )
+            return {'message': 'Participant already exists.'}, \
+                HTTPStatus.CONFLICT
+        participant = Participant(**data)
         db.session.add(participant)
         db.session.commit()
 
-        return ({"message": "Participant created successfully."}), \
-            HTTPStatus.CREATED
+        return {"message": "Participant created successfully.",
+                "participant": participant}, HTTPStatus.CREATED
