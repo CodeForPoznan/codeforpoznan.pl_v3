@@ -9,7 +9,11 @@
                 </v-flex>
             </v-layout>
             <v-layout row wrap id="content">
-                <v-flex md6 xs12>
+                <v-flex
+                xs12
+                md6
+                lg6
+                xl3>
                     <v-card flat dark tile color="transparent">
                         <v-card-text>
                             KIM JESTEŚMY?
@@ -20,7 +24,11 @@
                         </v-card-text>
                     </v-card>
                 </v-flex>
-                <v-flex md6 xs12>
+                <v-flex
+                xs12
+                md6
+                lg6
+                xl3>
                     <v-card flat dark tile color="transparent">
                         <v-card-text>
                             CO ROBIMY?
@@ -39,6 +47,9 @@
 
 <style lang="scss" scoped>
 @import './../main.scss';
+.row {
+    justify-content: center;
+}
 #container {
     background: $blue;
 }
