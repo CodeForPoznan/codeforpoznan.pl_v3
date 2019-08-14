@@ -13,7 +13,7 @@
                 xs12
                 md6
                 lg6
-                xl3>
+                xl4>
                     <v-card flat dark tile color="transparent">
                         <v-card-text>
                             KIM JESTEŚMY?
@@ -28,7 +28,7 @@
                 xs12
                 md6
                 lg6
-                xl3>
+                xl4>
                     <v-card flat dark tile color="transparent">
                         <v-card-text>
                             CO ROBIMY?
