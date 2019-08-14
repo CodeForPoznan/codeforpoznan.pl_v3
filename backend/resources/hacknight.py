@@ -1,5 +1,3 @@
-from backend.extensions import db
-
 from http import HTTPStatus
 
 from flask import request
@@ -9,8 +7,8 @@ from flask_restful import Resource
 
 from marshmallow import ValidationError
 
+from backend.extensions import db
 from backend.models import Hacknight
-
 from backend.serializers.hacknight_serializer import HacknightSchema
 
 
@@ -27,7 +25,8 @@ class HacknightList(Resource):
         hacknight_schema = HacknightSchema()
         json_data = request.get_json(force=True)
         if not json_data:
-            return {'message': 'No input data provided'}, HTTPStatus.BAD_REQUEST
+            return {'message': 'No input data provided'}, \
+                HTTPStatus.BAD_REQUEST
         try:
             data = hacknight_schema.load(json_data)
         except ValidationError as err:
@@ -35,11 +34,13 @@ class HacknightList(Resource):
 
         hacknight = Hacknight.query.filter_by(date=data['date']).first()
         if hacknight:
-            return ({'message': 'Hacknight already exists.'}), HTTPStatus.BAD_REQUEST
+            return {'message': 'Hacknight already exists.'}, \
+                HTTPStatus.CONFLICT
         hacknight = Hacknight(
             date=data['date'],
         )
         db.session.add(hacknight)
         db.session.commit()
 
-        return ({'message': 'Hacknight created successfully.'}), HTTPStatus.CREATED
+        return {'message': 'Hacknight created successfully.',
+                "hacknight": hacknight}, HTTPStatus.CREATED
