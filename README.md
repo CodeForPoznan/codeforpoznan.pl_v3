@@ -11,5 +11,7 @@ We use Docker for development purposes. To start working, your computer needs to
 | `make stop`  | stops project  |
 | `make logs`  | shows logs     |
 
+Type: `less Makefile` to see other commands
+
 ### Default User password
 'pass123'

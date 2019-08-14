@@ -44,10 +44,6 @@ class Participant(db.Model):
     github = Column(String(200), default="")
     phone = Column(String(13))
 
-    @classmethod
-    def find_by_id(cls, _id):
-        return cls.query.filter_by(id=_id).first()
-
 
 class Hacknight(db.Model):
     """Hacknight model."""
