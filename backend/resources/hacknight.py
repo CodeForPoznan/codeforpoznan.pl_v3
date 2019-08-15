@@ -43,4 +43,4 @@ class HacknightList(Resource):
         db.session.commit()
 
         return {'message': 'Hacknight created successfully.',
-                "hacknight": hacknight}, HTTPStatus.CREATED
+                "hacknight": data}, HTTPStatus.CREATED
