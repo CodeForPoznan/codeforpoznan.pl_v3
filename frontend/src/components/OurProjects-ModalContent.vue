@@ -4,6 +4,7 @@
             <v-card-title id="title">
                 {{ selectedProject.name }}
             </v-card-title>
+            <v-card-actions></v-card-actions>
             <v-btn flat round :href="selectedProject.website" target="_blank">
                 <v-icon>language</v-icon> Strona
             </v-btn>
@@ -42,25 +43,17 @@
             </v-layout>
             <v-layout>
                 Stack:
-                <v-btn v-for="(item, index) in selectedProject.stack" :key="index" :href="item.documentation" target="_blank" round>
+                <v-btn
+                    v-for="(item, index) in selectedProject.stack"
+                    :key="index"
+                    :href="item.documentation"
+                    target="_blank"
+                    round
+                >
                     {{ item.type }}: {{ item.name }} {{ item.version }}
                 </v-btn>
             </v-layout>
         </v-card-text>
-        <v-card-actions>
-<!--            <v-btn-->
-<!--                flat-->
-<!--                text-->
-<!--                color="info"-->
-<!--                :href="selectedProject.website"-->
-<!--                target="_blank"-->
-<!--            >-->
-<!--                Strona projektu-->
-<!--            </v-btn>-->
-<!--            <v-btn color="info" :href="selectedProject.github" target="_blank">-->
-<!--                Repozytorium na Github-->
-<!--            </v-btn>-->
-        </v-card-actions>
     </v-card>
 </template>
 
