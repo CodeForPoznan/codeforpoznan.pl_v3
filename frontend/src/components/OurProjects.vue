@@ -2,7 +2,7 @@
     <v-container>
         <v-layout row wrap>
             <v-flex
-                id="items"
+                id="items--list"
                 v-for="(project, index) in projects"
                 :key="index"
                 xs12
@@ -17,13 +17,13 @@
                                 :src="project.image"
                                 aspect-ratio="1.9"
                             ></v-img>
-                            <v-card-title>
+                            <v-card-title id="card--style">
                                 {{ project.name }}
                             </v-card-title>
                             <v-expand-transition>
                                 <div v-if="hover" id="card--reveal">
                                     <v-img
-                                        id="hoverd-img"
+                                        id="card--hover"
                                         :src="hoveredImg"
                                     ></v-img>
                                 </div>
@@ -33,7 +33,7 @@
                 </v-item-group>
             </v-flex>
         </v-layout>
-        <v-dialog v-model="dialog" width="300">
+        <v-dialog v-model="dialog" width="60%">
             <app-modal-content
                 :selectedProject="selectedProject"
                 :dialog="dialog"
@@ -50,32 +50,138 @@ export default {
     },
     data() {
         return {
-            hoveredImg: require('@/assets/images/Antu_dialog-icon-preview.svg'),
-            selectedProject: [],
             dialog: false,
+            hoveredImg: require('@/assets/images/Antu_dialog-icon-preview.svg'),
             projects: [
                 {
-                    name: 'Volontulo',
-                    image: require('@/assets/images/volontulo.png'),
-                    description: 'cokolwiek'
+                    description: '',
+                    github: '',
+                    image: '',
+                    license: '',
+                    licensePage: '',
+                    name: 'Fleet manager',
+                    partner: 'Polska Akcja Humanitarna',
+                    partnerPage: 'https://www.pah.org.pl/',
+                    stack: [
+                        {
+                            type: '',
+                            name: '',
+                            version: '',
+                            documentation: ''
+                        },
+                        {
+                            type: '',
+                            name: '',
+                            version: '',
+                            documentation: ''
+                        }
+                    ],
+                    website: ''
                 },
                 {
-                    name: 'Wysadź ulicę',
-                    image: require('@/assets/images/wysadz_ulice.png')
-                },
-                {
-                    name: 'Bank Empatii',
-                    image: require('@/assets/images/bank_empatii.png')
-                },
-                {
+                    description: '',
+                    github: '',
+                    image: '',
+                    license: '',
+                    licensePage: '',
                     name: 'Alinka',
-                    image: ''
+                    partner: '',
+                    partnerPage: '',
+                    stack: [
+                        {
+                            type: '',
+                            name: '',
+                            version: '',
+                            documentation: ''
+                        },
+                        {
+                            type: '',
+                            name: '',
+                            version: '',
+                            documentation: ''
+                        }
+                    ],
+                    website: ''
                 },
                 {
-                    name: 'Polska Akcja Humanitarna',
-                    image: ''
-                }
-            ]
+                    description:
+                        'Portal Volontulo powstał dla ludzi i organizacji skupionych wokół idei pomocy innym poprzez udział we wolontariacie. Celem projektu jest pomoc we wzajemnym odnalezieniu się ludzi, którzy chcą realizować się jako wolontariusze/szki oraz organizacji i instytucji, które takich osób poszukują. Podział na strefę "Wolontariusza" oraz "Strefę organizacji i instytucji" umożliwa użytkownikom zwinną nawigację na stronie.',
+                    github: 'https://github.com/CodeForPoznan/volontulo',
+                    image: require('@/assets/images/volontulo.png'),
+                    license: 'MIT',
+                    licensePage: 'https://pl.wikipedia.org/wiki/Licencja_MIT',
+                    name: 'Volontulo',
+                    partner: 'WRK',
+                    partnerPage: 'https://centrum.wrk.org.pl/',
+                    stack: [
+                        {
+                            type: 'frontend',
+                            name: 'Angular',
+                            version: '2.0',
+                            documentation: 'https://angular.io/'
+                        },
+                        {
+                            type: 'backend',
+                            name: 'Django',
+                            version: '2.2',
+                            documentation:
+                                'https://docs.djangoproject.com/en/2.2/'
+                        }
+                    ],
+                    website: 'http://volontuloapp.org/o'
+                },
+                {
+                    description: '',
+                    github: '',
+                    image: require('@/assets/images/bank_empatii.png'),
+                    license: '',
+                    licensePage: '',
+                    name: 'Bank empatii',
+                    partner: '',
+                    partnerPage: '',
+                    stack: [
+                        {
+                            type: '',
+                            name: '',
+                            version: '',
+                            documentation: ''
+                        },
+                        {
+                            type: '',
+                            name: '',
+                            version: '',
+                            documentation: ''
+                        }
+                    ],
+                    website: ''
+                },
+                {
+                    description: '',
+                    github: '',
+                    image: require('@/assets/images/wysadz_ulice.png'),
+                    license: '',
+                    licensePage: '',
+                    name: 'Wysadź ulicę',
+                    partner: '',
+                    partnerPage: '',
+                    stack: [
+                        {
+                            type: '',
+                            name: '',
+                            version: '',
+                            documentation: ''
+                        },
+                        {
+                            type: '',
+                            name: '',
+                            version: '',
+                            documentation: ''
+                        }
+                    ],
+                    website: ''
+                },
+            ],
+            selectedProject: []
         };
     },
     methods: {
@@ -83,6 +189,11 @@ export default {
             this.dialog = true;
             this.selectedProject = project;
         }
+    },
+    mounted() {
+        this.$root.$on('close', () => {
+            this.dialog = false;
+        });
     }
 };
 </script>
@@ -90,8 +201,14 @@ export default {
 <style lang="scss" scoped>
 @import './../main.scss';
 
-#items {
+#items--list {
     padding: 10px;
+}
+
+#card--style {
+    font-family: $font-header;
+    font-size: 1.5rem;
+    justify-content: center;
 }
 
 #card--reveal {
@@ -106,11 +223,11 @@ export default {
     height: 100%;
 }
 
-#hoverd-img {
+#card--hover {
     max-width: 50%;
 }
 
-#modal-content {
-    background: $white;
+#modal {
+    width: 300px;
 }
 </style>
