@@ -26,7 +26,7 @@ def upgrade():
     op.create_table('participant',
     sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('name', sa.String(length=20), nullable=True),
-    sa.Column('last_name', sa.String(length=20), nullable=True),
+    sa.Column('lastname', sa.String(length=20), nullable=True),
     sa.Column('email', sa.String(length=30), nullable=True),
     sa.Column('github', sa.String(length=200), nullable=True),
     sa.Column('phone', sa.Integer(), nullable=True),

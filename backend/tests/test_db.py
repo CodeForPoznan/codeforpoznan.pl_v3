@@ -28,12 +28,7 @@ def test_add_new_participant_to_db(_db, new_participant):
     db = _db
     assert len(db.session.query(Participant).all()) == 0
 
-    new_participant = Participant(
-        first_name=new_participant['first_name'],
-        last_name=new_participant['last_name'],
-        email=new_participant['email'],
-        phone=new_participant['phone']
-    )
+    new_participant = Participant(**new_participant)
     db.session.add(new_participant)
     db.session.commit()
 
