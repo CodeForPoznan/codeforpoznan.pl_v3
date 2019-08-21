@@ -8,4 +8,4 @@ install:
 script:
   - cd frontend && yarn lint
   - cd ..
-  - cd backenf && pytest
+  - cd backend && pytest
