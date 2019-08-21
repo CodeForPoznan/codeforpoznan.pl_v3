@@ -2,7 +2,7 @@
     <v-container>
         <v-layout row wrap>
             <v-flex
-                id="items--list"
+                id="items"
                 v-for="(project, index) in projects"
                 :key="index"
                 xs12
@@ -17,7 +17,7 @@
                                 :src="project.image"
                                 aspect-ratio="1.9"
                             ></v-img>
-                            <v-card-title id="card--style">
+                            <v-card-title id="card">
                                 {{ project.name }}
                             </v-card-title>
                             <v-expand-transition>
@@ -36,7 +36,6 @@
         <v-dialog v-model="dialog" width="60%">
             <app-modal-content
                 :selectedProject="selectedProject"
-                :dialog="dialog"
             ></app-modal-content>
         </v-dialog>
     </v-container>
@@ -201,11 +200,11 @@ export default {
 <style lang="scss" scoped>
 @import './../main.scss';
 
-#items--list {
+#items {
     padding: 10px;
 }
 
-#card--style {
+#card {
     font-family: $font-header;
     font-size: 1.5rem;
     justify-content: center;
