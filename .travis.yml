@@ -8,4 +8,6 @@ install:
 script:
   - cd frontend && yarn lint
   - cd ..
-  - cd backend && pytest
+  - cd backend
+  - export SECRET_KEY="codeforpoznan"
+  - pytest
