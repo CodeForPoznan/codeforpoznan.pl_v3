@@ -8,6 +8,6 @@ class HacknightSchema(Schema):
 
     participants = fields.Nested(
         'ParticipantSchema',
-        exclude=('hacknights', ),
+        exclude=('hacknights',),
         many=True
     )
