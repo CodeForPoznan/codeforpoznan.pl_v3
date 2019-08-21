@@ -7,3 +7,5 @@ install:
   - cd frontend && yarn install && cd -
 script:
   - cd frontend && yarn lint
+  - cd ..
+  - cd backenf && pytest
