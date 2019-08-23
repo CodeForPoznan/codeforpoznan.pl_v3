@@ -1,6 +1,6 @@
 <template id="modal">
     <v-card>
-        <v-layout row wrap>
+        <v-layout id="header" row wrap>
             <v-flex>
                 <v-card-title id="title">
                     {{ selectedProject.name }}
@@ -9,14 +9,19 @@
             <v-flex id="close">
                 <v-card-actions>
                     <v-btn icon @click="onClick()">
-                        <v-icon>close</v-icon>
+                        <v-icon id="close">close</v-icon>
                     </v-btn>
                 </v-card-actions>
             </v-flex>
         </v-layout>
         <v-layout>
-            <v-btn>
-
+            <v-btn
+                flat
+                round
+                :href="selectedProject.licensePage"
+                target="_blank"
+            >
+                <v-icon>far fa-copyright</v-icon>
             </v-btn>
             <v-btn flat round :href="selectedProject.website" target="_blank">
                 <v-icon>language</v-icon> Strona
@@ -69,6 +74,11 @@
 
 <script>
 export default {
+    data() {
+        return {
+            copyleftIcon: require('@/assets/images/Copyleft.svg')
+        };
+    },
     props: ['selectedProject', 'dialog'],
     methods: {
         onClick() {
@@ -84,11 +94,17 @@ export default {
 #close {
     display: flex;
     justify-content: end;
+    color: $white;
+}
+
+#header {
+    background: $blue;
 }
 
 #title {
     font-family: $font-header;
     font-size: 3rem;
+    color: $white;
     position: relative;
     height: 8rem;
 }
