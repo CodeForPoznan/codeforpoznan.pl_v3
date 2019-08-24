@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import ModalContent from './OurProjects-ModalContent.vue';
+import ModalContent from './ModalContent.vue';
 export default {
     components: {
         'app-modal-content': ModalContent
