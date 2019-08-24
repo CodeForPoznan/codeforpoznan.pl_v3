@@ -1,5 +1,12 @@
 <template>
-    <v-container>
+    <v-container text-xs-center>
+        <v-layout row id="title">
+            <v-flex>
+                <v-card flat color="transparent">
+                    <v-card-text>NASZE PROJEKTY</v-card-text>
+                </v-card>
+            </v-flex>
+        </v-layout>
         <v-layout row wrap>
             <v-flex
                 id="items"
@@ -110,7 +117,7 @@ export default {
                     license: 'MIT',
                     licensePage: 'https://pl.wikipedia.org/wiki/Licencja_MIT',
                     name: 'Volontulo',
-                    partner: 'WRK',
+                    partner: 'Wielkopolska Rada Koordynacyjna',
                     partnerPage: 'https://centrum.wrk.org.pl/',
                     stack: [
                         {
