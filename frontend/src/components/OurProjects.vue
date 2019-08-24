@@ -232,8 +232,4 @@ export default {
 #card--hover {
     max-width: 50%;
 }
-
-#modal {
-    width: 300px;
-}
 </style>
