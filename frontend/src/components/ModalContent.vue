@@ -2,21 +2,13 @@
     <v-card>
         <v-layout id="header">
             <v-flex id="title">
-                <v-card-title id="title">
+                <v-card-title>
                     {{ selectedProject.name }}
                 </v-card-title>
             </v-flex>
             <v-flex id="close">
                 <v-card-actions id="close">
-                    <v-btn
-                        absolute
-                        right
-                        height
-                        fab
-                        large
-                        icon
-                        @click="onClick()"
-                    >
+                    <v-btn absolute fab icon large right @click="onClick()">
                         <v-icon size="3.5rem" color="white">close</v-icon>
                     </v-btn>
                 </v-card-actions>
@@ -93,7 +85,7 @@
 export default {
     data() {
         return {
-            copyleftIcon: require('@/assets/images/Copyleft.svg')
+            copyleftIcon: require('@/assets/images/copyleft.svg')
         };
     },
     props: ['selectedProject', 'dialog'],

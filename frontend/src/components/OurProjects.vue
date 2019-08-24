@@ -40,7 +40,7 @@
                 </v-item-group>
             </v-flex>
         </v-layout>
-        <v-dialog v-model="dialog" width="60%">
+        <v-dialog v-model="dialog" width="50rem">
             <app-modal-content
                 :selectedProject="selectedProject"
             ></app-modal-content>
@@ -57,7 +57,7 @@ export default {
     data() {
         return {
             dialog: false,
-            hoveredImg: require('@/assets/images/Antu_dialog-icon-preview.svg'),
+            hoveredImg: require('@/assets/images/magnifier.svg'),
             projects: [
                 {
                     description: '',
