@@ -1,48 +1,52 @@
 <template>
-    <div>
-        <v-app>
-            <v-container>
-                <form @submit.prevent="onSubmit">
-                    <v-text-field
-                        v-model="name"
-                        :error-messages="nameErrors"
-                        label="Imię"
-                        required
-                        @input="$v.name.$touch()"
-                        @blur="$v.name.$touch()"
-                    ></v-text-field>
-                    <v-text-field
-                        v-model="email"
-                        :error-messages="emailErrors"
-                        label="E-mail"
-                        required
-                        @input="$v.email.$touch()"
-                        @blur="$v.email.$touch()"
-                    ></v-text-field>
-                    <v-text-field
-                        v-model="phone_no"
-                        mask="###-###-###"
-                        :error-messages="phoneErrors"
-                        :counter="9"
-                        label="Telefon"
-                        @input="$v.phone_no.$touch()"
-                        @blur="$v.phone_no.$touch()"
-                    ></v-text-field>
-                    <v-textarea
-                        v-model="content"
-                        :error-messages="contentErrors"
-                        label="Wiadomość"
-                        required
-                        @input="$v.content.$touch()"
-                        @blur="$v.content.$touch()"
-                    ></v-textarea>
-                    <v-btn type="submit" :disabled="$v.$invalid" color="info"
-                        >Wyślij</v-btn
-                    >
-                </form>
-            </v-container>
-        </v-app>
-    </div>
+    <v-container text-xs-center>
+        <v-layout row id="title">
+            <v-flex>
+                <v-card flat color="transparent">
+                    <v-card-text>SKONTAKTUJ SIĘ</v-card-text>
+                </v-card>
+            </v-flex>
+        </v-layout>
+        <form @submit.prevent="onSubmit">
+            <v-text-field
+                v-model="name"
+                :error-messages="nameErrors"
+                label="Imię"
+                required
+                @input="$v.name.$touch()"
+                @blur="$v.name.$touch()"
+            ></v-text-field>
+            <v-text-field
+                v-model="email"
+                :error-messages="emailErrors"
+                label="E-mail"
+                required
+                @input="$v.email.$touch()"
+                @blur="$v.email.$touch()"
+            ></v-text-field>
+            <v-text-field
+                v-model="phone_no"
+                mask="###-###-###"
+                :error-messages="phoneErrors"
+                :counter="9"
+                label="Telefon"
+                @input="$v.phone_no.$touch()"
+                @blur="$v.phone_no.$touch()"
+            ></v-text-field>
+            <v-textarea
+                v-model="content"
+                :error-messages="contentErrors"
+                label="Wiadomość"
+                required
+                @input="$v.content.$touch()"
+                @blur="$v.content.$touch()"
+            ></v-textarea>
+            <v-btn type="submit" :disabled="$v.$invalid" color="info"
+                >Wyślij</v-btn
+            >
+        </form>
+        <v-layout> </v-layout>
+    </v-container>
 </template>
 
 <script>
@@ -140,4 +144,21 @@ export default {
 
 <style lang="scss" scoped>
 @import './../main.scss';
+
+#title {
+    font-family: $font-header;
+    font-size: 42px;
+    position: relative;
+    padding-bottom: 20px;
+}
+#title::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 250px;
+    height: 5px;
+    background-color: black;
+    margin-left: -125px;
+}
 </style>
