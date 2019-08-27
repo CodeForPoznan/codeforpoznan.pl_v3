@@ -6,7 +6,7 @@ from backend.extensions import api, db, mail, migrate, jwt
 from backend.resources.auth import UserLogin, UserLogout
 from backend.resources.contact import SendMessage
 from backend.resources.hacknight import HacknightList
-from backend.resources.participant import ParticipantsList
+from backend.resources.participant import ParticipantDetails, ParticipantsList
 
 
 def create_app():
@@ -38,4 +38,5 @@ api.add_resource(UserLogin, "/auth/login")
 api.add_resource(UserLogout, "/auth/logout")
 api.add_resource(SendMessage, "/send-email/")
 api.add_resource(ParticipantsList, "/participants/")
+api.add_resource(ParticipantDetails, "/participants/<int:id>/")
 api.add_resource(HacknightList, "/hacknights/")
