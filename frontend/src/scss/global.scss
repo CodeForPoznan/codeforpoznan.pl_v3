@@ -5,6 +5,13 @@ a {
     text-decoration: none;
 }
 
+#title {
+    font-family: $font-header;
+    font-size: 42px;
+    position: relative;
+    padding-bottom: 3rem;
+}
+
 #white-title {
     font-family: $font-header;
     font-size: 42px;
