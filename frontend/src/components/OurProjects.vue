@@ -1,6 +1,6 @@
 <template>
     <v-container text-xs-center>
-        <v-layout row id="title">
+        <v-layout row id="black-title">
             <v-flex>
                 <v-card flat color="transparent">
                     <v-card-text>NASZE PROJEKTY</v-card-text>
