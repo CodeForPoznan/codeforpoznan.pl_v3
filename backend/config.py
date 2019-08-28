@@ -26,6 +26,6 @@ class DevelopmentConfig(Config):
             port=5432,
             databasename=os.environ.get('DB_NAME'),
         ))
-    SQLALCHEMY_POOL_RECYCLE = 299
+    SQLALCHEMY_ENGINE_OPTIONS = {'pool_recycle': 299}
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = os.environ.get('SECRET_KEY')

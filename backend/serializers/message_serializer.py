@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from marshmallow import fields, Schema, validate
 
 
@@ -10,14 +12,11 @@ class MessageSchema(Schema):
         required=True,
         error_messages={'required':
                         {'message': 'Valid email is required',
-                         'code': 400}})
+                         'code': HTTPStatus.BAD_REQUEST}})
     phone = fields.Str()
     content = fields.Str(
         required=True,
         validate=[validate.Length(min=10)],
         error_messages={'required':
                         {'message': 'Content of message is required',
-                         'code': 400}})
-
-
-message_schema = MessageSchema()
+                         'code': HTTPStatus.BAD_REQUEST}})

@@ -7,7 +7,7 @@ start:	## Start the environment in the background
 	docker-compose up -d
 
 logs:	## Display logs from containers
-	docker-compose logs
+	docker-compose logs --tail 100 -f
 
 stop:	## Stop the environment
 	docker-compose stop
@@ -20,3 +20,9 @@ psql:   ## Go to the db and make SQL queries
 
 populate_database: ## Populate database with fake data
 	docker exec -ti codeforpoznanpl_v3_backend_1 flask populate-database
+
+rebuild: ## Rebuild docker images
+	docker-compose build --no-cache
+
+test: 	## Run unittests
+	docker-compose exec backend pytest
