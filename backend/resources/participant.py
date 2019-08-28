@@ -47,3 +47,25 @@ class ParticipantDetails(Resource):
 
         return {"message": "Participant created successfully.",
                 "participant": data}, HTTPStatus.CREATED
+
+    @jwt_required
+    def put(self, id):
+        participant_schema = ParticipantSchema()
+        participant = participant_schema.dump(
+            Participant.query.get_or_404(id)
+        ), HTTPStatus.OK
+        json_data = request.get_json(force=True)
+        if participant:
+            pass
+        else:
+            try:
+                data = participant_schema.load(json_data)
+                participant = Participant(**data)
+            except ValidationError as err:
+                return err.messages, HTTPStatus.BAD_REQUEST
+
+        db.session.add(participant)
+        db.session.commit()
+
+        return {"message": "Participant updated successfully.",
+                "participant": data}, HTTPStatus.CREATED
