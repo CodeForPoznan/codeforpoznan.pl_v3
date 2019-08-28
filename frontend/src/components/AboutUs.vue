@@ -9,11 +9,7 @@
                 </v-flex>
             </v-layout>
             <v-layout row wrap id="content">
-                <v-flex
-                xs12
-                md6
-                lg6
-                xl4>
+                <v-flex xs12 md6 lg6 xl4>
                     <v-card flat dark tile color="transparent">
                         <v-card-text>
                             KIM JESTEŚMY?
@@ -24,11 +20,7 @@
                         </v-card-text>
                     </v-card>
                 </v-flex>
-                <v-flex
-                xs12
-                md6
-                lg6
-                xl4>
+                <v-flex xs12 md6 lg6 xl4>
                     <v-card flat dark tile color="transparent">
                         <v-card-text>
                             CO ROBIMY?
