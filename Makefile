@@ -13,13 +13,13 @@ stop:	## Stop the environment
 	docker-compose stop
 
 bash:	## Go to the backend container
-	docker exec -ti cfp_v3_backend_1 bash
+	docker exec -ti cfp_v3_backend bash
 
 psql:   ## Go to the db and make SQL queries
-	docker exec -ti cfp_v3_db_1 psql -U cfp_v3
+	docker exec -ti cfp_v3_db psql -U cfp_v3
 
 populate_database: ## Populate database with fake data
-	docker exec -ti cfp_v3_backend_1 flask populate-database
+	docker exec -ti cfp_v3_backend flask populate-database
 
 test: 	## Run unittests
 	docker-compose exec backend pytest

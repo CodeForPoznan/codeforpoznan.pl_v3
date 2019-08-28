@@ -3,7 +3,7 @@ version: "3"
 services:
 
   frontend:
-    container_name: cfp_v3_frontend_1
+    container_name: cfp_v3_frontend
     build: frontend
     ports:
       - 8080:8080
@@ -12,7 +12,7 @@ services:
 
 
   backend:
-    container_name: cfp_v3_backend_1
+    container_name: cfp_v3_backend
     build: backend
     ports:
       - 5000:5000
@@ -28,7 +28,7 @@ services:
       SECRET_KEY: codeforpoznan
 
   db:
-    container_name: cfp_v3_db_1
+    container_name: cfp_v3_db
     image: postgres:9.5
     environment:
       POSTGRES_DB: cfp_v3
