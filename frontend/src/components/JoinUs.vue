@@ -1,7 +1,7 @@
 <template>
     <div id="container">
         <v-container fluid text-xs-center>
-            <v-layout row id="title">
+            <v-layout row id="white-title">
                 <v-flex>
                     <v-card flat dark tile color="transparent">
                         <v-card-text>DOŁĄCZ DO NAS</v-card-text>

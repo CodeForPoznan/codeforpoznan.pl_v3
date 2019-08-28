@@ -1,6 +1,6 @@
 <template>
     <v-container text-xs-center>
-        <v-layout row id="title">
+        <v-layout row id="black-title">
             <v-flex>
                 <v-card flat color="transparent">
                     <v-card-text>SKONTAKTUJ SIĘ</v-card-text>
@@ -144,21 +144,4 @@ export default {
 
 <style lang="scss" scoped>
 @import './../main.scss';
-
-#title {
-    font-family: $font-header;
-    font-size: 42px;
-    position: relative;
-    padding-bottom: 20px;
-}
-#title::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 250px;
-    height: 5px;
-    background-color: black;
-    margin-left: -125px;
-}
 </style>
