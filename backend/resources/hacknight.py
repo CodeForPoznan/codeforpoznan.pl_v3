@@ -8,8 +8,9 @@ from flask_restful import Resource
 from marshmallow import ValidationError
 
 from backend.extensions import db
-from backend.models import Hacknight
+from backend.models import Hacknight, Participant
 from backend.serializers.hacknight_serializer import HacknightSchema
+from backend.serializers.participant_serializer import ParticipantIdSchema
 
 
 class HacknightList(Resource):
@@ -44,3 +45,37 @@ class HacknightList(Resource):
 
         return {'message': 'Hacknight created successfully.',
                 "hacknight": data}, HTTPStatus.CREATED
+
+
+class HacknightDetails(Resource):
+    @jwt_required
+    def patch(self, id):
+        hacknight = Hacknight.query.get_or_404(id)
+        participants = [
+            participant.id for participant in hacknight.participants
+        ]
+
+        json_data = request.get_json(force=True)
+        ids_schema = ParticipantIdSchema()
+        try:
+            data = ids_schema.load(json_data)
+        except ValidationError as err:
+            return (err.messages), HTTPStatus.BAD_REQUEST
+
+        new_participants = [
+            id for id in data['participants'] if id not in participants
+        ]
+
+        if not new_participants:
+            return {'message': 'No new participant has been provided'}, \
+                HTTPStatus.BAD_REQUEST
+
+        for new_particpiant in new_participants:
+            hacknight.participants.append(
+                Participant.query.get_or_404(new_particpiant)
+            )
+        db.session.commit()
+
+        hacknight_schema = HacknightSchema()
+        return {"hacknight": hacknight_schema.dump(hacknight)}, \
+            HTTPStatus.OK

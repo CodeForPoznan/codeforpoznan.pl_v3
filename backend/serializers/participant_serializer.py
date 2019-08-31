@@ -18,3 +18,10 @@ class ParticipantSchema(Schema):
         many=True
     )
     phone = fields.Str(validate=[validate.Length(max=13)])
+
+
+class ParticipantIdSchema(Schema):
+    class Meta:
+        fields = ('participants', )
+
+    participants = fields.List(fields.Int(), required=True)
