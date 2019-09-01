@@ -1,3 +1,49 @@
+@import 'typography.scss';
+@import "colors";
+
 a {
     text-decoration: none;
-} 
+}
+
+#title {
+    font-family: $font-header;
+    font-size: 42px;
+    position: relative;
+    padding-bottom: 3rem;
+}
+
+#white-title {
+    font-family: $font-header;
+    font-size: 42px;
+    position: relative;
+    padding-bottom: 3rem;
+}
+#white-title::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 250px;
+    height: 5px;
+    background-color: $white;
+    margin-left: -125px;
+    margin-bottom: 3rem;
+}
+
+#black-title {
+    font-family: $font-header;
+    font-size: 42px;
+    position: relative;
+    padding-bottom: 3rem;
+}
+#black-title::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 250px;
+    height: 5px;
+    background-color: black;
+    margin-left: -125px;
+    margin-bottom: 3rem;
+}

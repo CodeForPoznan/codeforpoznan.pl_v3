@@ -1,6 +1,9 @@
 <template>
     <div>
         <v-app>
+            <app-about-us />
+            <our-projects />
+            <app-join-us />
             <div>
                 <v-alert
                     :value="sent"
@@ -21,9 +24,6 @@
                     Błąd w trakcie wysyłania wiadomości
                 </v-alert>
             </div>
-            <app-about-us />
-            <our-projects />
-            <app-join-us />
             <app-contact-us />
             <social-media />
             <page-footer />
