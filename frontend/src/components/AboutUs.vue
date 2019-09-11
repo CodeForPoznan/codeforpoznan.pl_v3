@@ -1,6 +1,6 @@
 <template>
     <div id="container">
-        <v-container fluid text-xs-center>
+        <v-container text-xs-center>
             <v-layout row id="white-title">
                 <v-flex>
                     <v-card flat dark tile color="transparent">
