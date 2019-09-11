@@ -3,7 +3,9 @@ from flask_cors import CORS
 
 from backend.commands.populate_database import populate_database
 from backend.extensions import api, db, mail, migrate, jwt
-from backend.resources.auth import UserLogin, UserLogout
+from backend.resources.auth import (
+    UserLogin, UserLogout, RefreshAccessToken, RevokeRefreshToken
+)
 from backend.resources.contact import SendMessage
 from backend.resources.hacknight import HacknightList
 from backend.resources.participant import ParticipantsList
@@ -18,10 +20,6 @@ def create_app():
     CORS(app)
     initialize_extensions(app)
 
-    @jwt.token_in_blacklist_loader
-    def check_if_token_revoked(decoded_token):
-        return auth.is_token_revoked(decoded_token)
-
     return app
 
 
@@ -34,8 +32,10 @@ def initialize_extensions(app):
     jwt.init_app(app)
 
 
-api.add_resource(UserLogin, "/auth/login")
-api.add_resource(UserLogout, "/auth/logout")
-api.add_resource(SendMessage, "/send-email/")
-api.add_resource(ParticipantsList, "/participants/")
 api.add_resource(HacknightList, "/hacknights/")
+api.add_resource(ParticipantsList, "/participants/")
+api.add_resource(RefreshAccessToken, "/auth/refresh/")
+api.add_resource(RevokeRefreshToken, "/auth/revoke-refresh-token/")
+api.add_resource(SendMessage, "/send-email/")
+api.add_resource(UserLogin, "/auth/login/")
+api.add_resource(UserLogout, "/auth/logout/")
