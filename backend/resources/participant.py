@@ -47,3 +47,14 @@ class ParticipantDetails(Resource):
 
         return {"message": "Participant created successfully.",
                 "participant": data}, HTTPStatus.CREATED
+
+    @jwt_required
+    def delete(self, id):
+        participant_schema = ParticipantSchema()
+        participant =  participant_schema.dump(
+            Participant.query.get_or_404(id)
+        ), HTTPStatus.OK
+        db.session.delete(participant)
+        db.session.commit()
+
+        return {"message": "Participant deleted successfully."}, HTTPStatus.OK
