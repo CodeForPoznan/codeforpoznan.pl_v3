@@ -44,3 +44,12 @@ class HacknightList(Resource):
 
         return {'message': 'Hacknight created successfully.',
                 "hacknight": data}, HTTPStatus.CREATED
+
+
+class HacknightDetails(Resource):
+    def get(self, id):
+        hacknight_schema = HacknightSchema(only=('date', 'id', 'participants'))
+
+        return {'hacknights': hacknight_schema.dump(Hacknight.query.get_or_404(
+            id))
+        }, HTTPStatus.OK
