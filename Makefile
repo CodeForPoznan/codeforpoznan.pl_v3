@@ -13,13 +13,13 @@ stop:	## Stop the environment
 	docker-compose stop
 
 bash:	## Go to the backend container
-	docker exec -ti codeforpoznanpl_v3_backend_1 bash
+	docker-compose exec backend bash
 
 psql:   ## Go to the db and make SQL queries
-	docker exec -ti codeforpoznanpl_v3_db_1 psql -U cfp_v3
+	docker-compose exec db psql -U cfp_v3
 
 populate_database: ## Populate database with fake data
-	docker exec -ti codeforpoznanpl_v3_backend_1 flask populate-database
+	docker-compose exec backend flask populate-database
 
 rebuild: ## Rebuild docker images
 	docker-compose build --no-cache
