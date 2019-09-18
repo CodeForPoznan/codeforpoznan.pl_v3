@@ -66,10 +66,10 @@ def test_add_participants_to_hacknight_unauthorized(
     assert response['msg'] == 'Missing Authorization Header'
 
 
-def test_add_nonexistent_participants_to_hacknight(
+def test_add_nonexisting_participants_to_hacknight(
     access_token, add_hacknights, client
 ):
-    """Test add non-existent participants ids to hacknight."""
+    """Test add non-existing participants ids to hacknight."""
     payload = {'participants': [1, 3]}
     rv = client.patch(
         '/hacknights/1/',
@@ -80,7 +80,7 @@ def test_add_nonexistent_participants_to_hacknight(
     assert rv.status_code == HTTPStatus.NOT_FOUND
 
 
-def test_add_participants_to_nonexistent_hacknight(
+def test_add_participants_to_non_existing_hacknight(
     access_token, add_participants, client
 ):
     """Test add participants to non-existent hacknight."""
@@ -97,7 +97,7 @@ def test_add_participants_to_nonexistent_hacknight(
 def test_duplicate_participant_in_hacknight(
     access_token, add_hacknights, add_participants, client, _db
 ):
-    """Test add participant who is in hacknight already."""
+    """Test add participant who is already in hacknight.."""
     hacknight = _db.session.query(Hacknight).first()
     participant = _db.session.query(Participant).first()
     hacknight.participants.append(participant)

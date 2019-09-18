@@ -70,9 +70,9 @@ class HacknightDetails(Resource):
             return {'message': 'No new participant has been provided'}, \
                 HTTPStatus.BAD_REQUEST
 
-        for new_particpiant in new_participants:
+        for new_participant in new_participants:
             hacknight.participants.append(
-                Participant.query.get_or_404(new_particpiant)
+                Participant.query.get_or_404(new_participant)
             )
         db.session.commit()
 
