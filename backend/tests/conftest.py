@@ -132,3 +132,12 @@ def add_hacknights(app, _db):
     for _ in range(10):
         HacknightFactory.create()
     _db.session.commit()
+
+
+@pytest.fixture
+def add_participants_to_hacknight(app, _db):
+    hacknight = HacknightFactory.create()
+    participants = [ParticipantFactory.create() for _ in range(10)]
+    for participant in participants:
+        hacknight.participants.append(participant)
+    _db.session.commit()
