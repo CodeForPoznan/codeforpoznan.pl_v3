@@ -98,8 +98,7 @@ class RefreshAccessToken(Resource):
             access_token, identity_claim
         )
 
-        ret = {'access_token': access_token}
-        return ret, HTTPStatus.CREATED
+        return {'access_token': access_token}, HTTPStatus.CREATED
 
 
 class RevokeRefreshToken(Resource):
