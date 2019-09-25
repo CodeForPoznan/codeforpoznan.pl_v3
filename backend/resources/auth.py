@@ -6,8 +6,9 @@ from backend.models import User, JWTToken
 from backend.serializers.login_serializer import LoginSchema
 from flask import current_app as app, request
 from flask_jwt_extended import (
-    create_access_token, decode_token,
-    get_jwt_identity, jwt_required, jwt_optional, get_raw_jwt
+    create_access_token, create_refresh_token, decode_token,
+    get_jwt_identity, jwt_refresh_token_required, jwt_required,
+    jwt_optional, get_raw_jwt
 )
 from flask_restful import Resource
 from marshmallow import ValidationError
@@ -47,11 +48,23 @@ class UserLogin(Resource):
             access_token = create_access_token(
                 identity=username, expires_delta=timedelta(minutes=60))
 
-            add_token_to_database(
-                access_token, app.config['JWT_IDENTITY_CLAIM']
-            )
+            refresh_token = create_refresh_token(
+                identity=username, expires_delta=timedelta(weeks=1))
 
-            return {'access_token': access_token}, HTTPStatus.CREATED
+            ret = {
+                'access_token': access_token,
+                'refresh_token': refresh_token
+            }
+
+            identity_claim = app.config['JWT_IDENTITY_CLAIM']
+
+            add_token_to_database(
+                access_token, identity_claim
+            )
+            add_token_to_database(
+                refresh_token, identity_claim
+            )
+            return ret, HTTPStatus.CREATED
         else:
             return {"msg": "Not authorized"}, HTTPStatus.UNAUTHORIZED
 
@@ -64,6 +77,38 @@ class UserLogout(Resource):
         token.revoked = True
         db.session.commit()
         return {"msg": "Successfully logged out"}, HTTPStatus.OK
+
+
+class RefreshAccessToken(Resource):
+    @jwt_refresh_token_required
+    def post(self):
+        jti = get_raw_jwt()['jti']
+        token = JWTToken.query.filter_by(jti=jti).one()
+
+        if token.revoked:
+            return {'msg': 'token has been revoked'}, HTTPStatus.UNAUTHORIZED
+
+        current_user = get_jwt_identity()
+        identity_claim = app.config['JWT_IDENTITY_CLAIM']
+
+        access_token = create_access_token(
+            identity=current_user, expires_delta=timedelta(minutes=60)
+        )
+        add_token_to_database(
+            access_token, identity_claim
+        )
+
+        return {'access_token': access_token}, HTTPStatus.CREATED
+
+
+class RevokeRefreshToken(Resource):
+    @jwt_refresh_token_required
+    def delete(self):
+        jti = get_raw_jwt()['jti']
+        token = JWTToken.query.filter_by(jti=jti).one()
+        token.revoked = True
+        db.session.commit()
+        return {"msg": "Refresh token successfully revoked"}, HTTPStatus.OK
 
 
 def add_token_to_database(encoded_token, identity_claim):
@@ -87,18 +132,3 @@ def add_token_to_database(encoded_token, identity_claim):
     )
     db.session.add(db_token)
     db.session.commit()
-
-
-def is_token_revoked(decoded_token):
-    """
-    Checks if the given token is revoked or not. Because we are adding all the
-    tokens that we create into this database, if the token is not present
-    in the database we are going to consider it revoked, as we don't know where
-    it was created.
-    """
-    jti = decoded_token['jti']
-    try:
-        token = JWTToken.query.filter_by(jti=jti).one()
-        return token.revoked
-    except NoResultFound:
-        return True
