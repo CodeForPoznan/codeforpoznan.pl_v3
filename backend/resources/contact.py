@@ -6,13 +6,14 @@ from flask_restful import Resource
 
 from marshmallow import ValidationError
 
-from backend.serializers.message_serializer import message_schema
+from backend.serializers.message_serializer import MessageSchema
 from backend.extensions import mail
 
 
 class SendMessage(Resource):
     def post(self):
         try:
+            message_schema = MessageSchema()
             new_msg = message_schema.load(request.json)
         except ValidationError as err:
             return {"message": err.messages}, HTTPStatus.BAD_REQUEST

@@ -20,6 +20,3 @@ class MessageSchema(Schema):
         error_messages={'required':
                         {'message': 'Content of message is required',
                          'code': HTTPStatus.BAD_REQUEST}})
-
-
-message_schema = MessageSchema()

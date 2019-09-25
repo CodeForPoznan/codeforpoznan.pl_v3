@@ -101,7 +101,7 @@ def registered_user(new_user, app, _db):
 @pytest.fixture
 def access_token(client, new_user, registered_user):
     rv = client.post(
-        '/auth/login',
+        '/auth/login/',
         json={'username': new_user['username'],
               'password': new_user['password']}
     )
