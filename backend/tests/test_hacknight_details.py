@@ -4,7 +4,7 @@ from http import HTTPStatus
 def test_get_hacknight_details_authorized(
     client, access_token, add_participants_to_hacknight
 ):
-    """Test get participant details for logged in user."""
+    """Test get hacknight details for logged in user."""
     rv = client.get(
         '/hacknights/1/',
         headers={'Authorization': 'Bearer {}'.format(access_token)}
