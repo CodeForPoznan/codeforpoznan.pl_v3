@@ -5,7 +5,7 @@ import pytest
 def test_login_with_valid_user(client, new_user, registered_user):
     """Test logging with valid data."""
     rv = client.post(
-        '/auth/login',
+        '/auth/login/',
         json={'username': new_user['username'],
               'password': new_user['password']}
     )
@@ -17,7 +17,7 @@ def test_login_with_valid_user(client, new_user, registered_user):
 def test_login_with_invalid_password(client, new_user, registered_user):
     """Test logging with invalid password."""
     rv = client.post(
-        '/auth/login',
+        '/auth/login/',
         json={'username': new_user['username'],
               'password': 'WrongPassword'}
     )
@@ -29,7 +29,7 @@ def test_login_with_invalid_password(client, new_user, registered_user):
 def test_login_with_invalid_name_password(client):
     """Test logging with invalid name and password."""
     rv = client.post(
-        '/auth/login',
+        '/auth/login/',
         json={'username': 'WrongName',
               'password': 'WrongPassword'}
     )
