@@ -1,6 +1,6 @@
 <template>
     <div>
-      <app-hacknight />
+        <app-hacknight />
     </div>
 </template>
 
@@ -9,7 +9,7 @@ import Hacknight from './Hacknight.vue';
 
 export default {
     components: {
-      'app-hacknight': Hacknight,
+        'app-hacknight': Hacknight
     }
 };
 </script>

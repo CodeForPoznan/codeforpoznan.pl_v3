@@ -1,31 +1,31 @@
 <template>
     <div>
-          <app-about-us />
-          <our-projects />
-          <app-join-us />
-          <div>
-              <v-alert
-                  :value="sent"
-                  dismissible
-                  @click="onCloseAlert"
-                  type="success"
-                  transition="slide-y-transition"
-              >
-                  Twoja wiadomość została wysłana
-              </v-alert>
-              <v-alert
-                  :value="msgError"
-                  dismissible
-                  @click="onErrorAlert"
-                  type="error"
-                  transition="slide-y-transition"
-              >
-                  Błąd w trakcie wysyłania wiadomości
-              </v-alert>
-          </div>
-          <app-contact-us />
-          <social-media />
-          <page-footer />
+        <app-about-us />
+        <our-projects />
+        <app-join-us />
+        <div>
+            <v-alert
+                :value="sent"
+                dismissible
+                @click="onCloseAlert"
+                type="success"
+                transition="slide-y-transition"
+            >
+                Twoja wiadomość została wysłana
+            </v-alert>
+            <v-alert
+                :value="msgError"
+                dismissible
+                @click="onErrorAlert"
+                type="error"
+                transition="slide-y-transition"
+            >
+                Błąd w trakcie wysyłania wiadomości
+            </v-alert>
+        </div>
+        <app-contact-us />
+        <social-media />
+        <page-footer />
     </div>
 </template>
 
