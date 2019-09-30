@@ -1,9 +1,17 @@
 <template>
-    <div></div>
+    <div>
+      <app-hacknight />
+    </div>
 </template>
 
 <script>
-export default {};
+import Hacknight from './Hacknight.vue';
+
+export default {
+    components: {
+      'app-hacknight': Hacknight,
+    }
+};
 </script>
 
 <style lang="scss" scoped></style>

@@ -4,14 +4,22 @@ import Vuelidate from 'vuelidate';
 import Vuetify from 'vuetify/lib';
 import 'vuetify/dist/vuetify.min.css';
 
+import axios from 'axios'
 import router from './router';
 import store from './store';
 import vuetify from './plugins/vuetify';
 
+Vue.config.productionTip = false;
+
 Vue.use(Vuelidate);
 Vue.use(Vuetify);
 
-Vue.config.productionTip = false;
+axios.defaults.baseURL = 'http://0.0.0.0:5000/';
+
+const token = localStorage.getItem('token')
+if (token) {
+  axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
+}
 
 new Vue({
     router,
