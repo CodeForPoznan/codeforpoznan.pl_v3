@@ -48,6 +48,13 @@ class HacknightList(Resource):
 
 
 class HacknightDetails(Resource):
+    def get(self, id):
+        hacknight_schema = HacknightSchema()
+
+        return {'hacknights': hacknight_schema.dump(Hacknight.query.get_or_404(
+            id))
+        }, HTTPStatus.OK
+
     @jwt_required
     def patch(self, id):
         hacknight = Hacknight.query.get_or_404(id)
