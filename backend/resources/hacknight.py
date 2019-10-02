@@ -10,7 +10,7 @@ from marshmallow import ValidationError
 from backend.extensions import db
 from backend.models import Hacknight, Participant
 from backend.serializers.hacknight_serializer import HacknightSchema
-from backend.serializers.participant_serializer import ParticipantIdSchema
+from backend.serializers.participant_serializer import ParticipantSchema
 
 
 class HacknightList(Resource):
@@ -56,14 +56,14 @@ class HacknightDetails(Resource):
         ]
 
         json_data = request.get_json(force=True)
-        ids_schema = ParticipantIdSchema()
+        ids_schema = ParticipantSchema(only=('participants_ids',))
         try:
             data = ids_schema.load(json_data)
         except ValidationError as err:
             return (err.messages), HTTPStatus.BAD_REQUEST
 
         new_participants = [
-            id for id in data['participants'] if id not in participants
+            id for id in data['participants_ids'] if id not in participants
         ]
 
         if not new_participants:
@@ -74,6 +74,7 @@ class HacknightDetails(Resource):
             hacknight.participants.append(
                 Participant.query.get_or_404(new_participant)
             )
+        db.session.add(hacknight)
         db.session.commit()
 
         hacknight_schema = HacknightSchema()

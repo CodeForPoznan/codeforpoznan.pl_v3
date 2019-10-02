@@ -40,7 +40,7 @@ def test_add_participants_to_hacknight(
     access_token, add_hacknights, add_participants, client
 ):
     """Test add new participant to hacknight."""
-    payload = {'participants': [1, 3]}
+    payload = {'participants_ids': [1, 3]}
     rv = client.patch(
         '/hacknights/1/',
         headers={'Authorization': 'Bearer {}'.format(access_token)},
@@ -51,15 +51,19 @@ def test_add_participants_to_hacknight(
         participant['id'] for participant in resp['hacknight']['participants']
     ]
     assert rv.status_code == HTTPStatus.OK
+
+    hacknight_db = Hacknight.query.get(1)
+    ids_from_db = [part.id for part in hacknight_db.participants]
     for participant in resp['hacknight']['participants']:
-        assert participant['id'] in payload['participants']
+        assert participant['id'] in payload['participants_ids']
+    assert ids_from_db == payload['participants_ids']
 
 
 def test_add_participants_to_hacknight_unauthorized(
     add_hacknights, add_participants, client
 ):
     """Test add participants to hacknight when user is not logged in."""
-    payload = {'participants': [1, 3]}
+    payload = {'participants_ids': [1, 3]}
     rv = client.patch('/hacknights/1/', data=json.dumps(payload))
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.UNAUTHORIZED
@@ -70,7 +74,7 @@ def test_add_nonexisting_participants_to_hacknight(
     access_token, add_hacknights, client
 ):
     """Test add non-existing participants ids to hacknight."""
-    payload = {'participants': [1, 3]}
+    payload = {'participants_ids': [1, 3]}
     rv = client.patch(
         '/hacknights/1/',
         headers={'Authorization': 'Bearer {}'.format(access_token)},
@@ -80,11 +84,11 @@ def test_add_nonexisting_participants_to_hacknight(
     assert rv.status_code == HTTPStatus.NOT_FOUND
 
 
-def test_add_participants_to_non_existing_hacknight(
+def test_add_participants_to_nonexisting_hacknight(
     access_token, add_participants, client
 ):
-    """Test add participants to non-existent hacknight."""
-    payload = {'participants': [1, 3]}
+    """Test add participants to non-existing hacknight."""
+    payload = {'participants_ids': [1, 3]}
     rv = client.patch(
         '/hacknights/1/',
         headers={'Authorization': 'Bearer {}'.format(access_token)},
@@ -102,7 +106,7 @@ def test_duplicate_participant_in_hacknight(
     participant = _db.session.query(Participant).first()
     hacknight.participants.append(participant)
 
-    payload = {'participants': [participant.id]}
+    payload = {'participants_ids': [participant.id]}
     rv = client.patch(
         '/hacknights/{}/'.format(hacknight.id),
         headers={'Authorization': 'Bearer {}'.format(access_token)},
