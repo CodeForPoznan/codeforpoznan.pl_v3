@@ -39,7 +39,7 @@ def test_get_participants_unauthorized(client, add_participants):
 def test_create_participant_when_logged_in(
     app, client, access_token, new_participant
 ):
-    """Test create new participant with logged in user, and valid data."""
+    """Test create new participant with logged in user and valid data."""
     with app.app_context():
         rv = client.post(
             '/participants/',
