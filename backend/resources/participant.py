@@ -20,15 +20,6 @@ class ParticipantsList(Resource):
         return {"participants": participant_schema.dump(
             Participant.query.all())}, HTTPStatus.OK
 
-
-class ParticipantDetails(Resource):
-    @jwt_required
-    def get(self, id):
-        participant_schema = ParticipantSchema()
-        return participant_schema.dump(
-            Participant.query.get_or_404(id)
-        ), HTTPStatus.OK
-
     @jwt_required
     def post(self):
         participant_schema = ParticipantSchema()
@@ -47,3 +38,12 @@ class ParticipantDetails(Resource):
 
         return {"message": "Participant created successfully.",
                 "participant": data}, HTTPStatus.CREATED
+
+
+class ParticipantDetails(Resource):
+    @jwt_required
+    def get(self, id):
+        participant_schema = ParticipantSchema()
+        return participant_schema.dump(
+            Participant.query.get_or_404(id)
+        ), HTTPStatus.OK
