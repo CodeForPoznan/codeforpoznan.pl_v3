@@ -50,10 +50,7 @@ class ParticipantDetails(Resource):
 
     @jwt_required
     def delete(self, id):
-        participant_schema = ParticipantSchema()
-        participant =  participant_schema.dump(
-            Participant.query.get_or_404(id)
-        ), HTTPStatus.OK
+        participant = Participant.query.get_or_404(id)
         db.session.delete(participant)
         db.session.commit()
 
