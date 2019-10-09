@@ -55,6 +55,8 @@ def test_create_participant_when_logged_in(
     assert response["participant"]["email"] == new_participant["email"]
     for value in new_participant.values():
         assert value in participant.values()
+    for value in [*participant.keys()]:
+        assert value in response["participant"]
 
 
 def test_try_create_participant_without_payload(client, access_token):
