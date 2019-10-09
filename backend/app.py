@@ -4,7 +4,7 @@ from flask_cors import CORS
 from backend.commands.populate_database import populate_database
 from backend.extensions import api, db, mail, migrate, jwt
 from backend.resources.auth import (
-    UserLogin, UserLogout, RefreshAccessToken, RevokeRefreshToken
+    UserLogin, UserLogout, RefreshAccessToken, RefreshToken
 )
 from backend.resources.contact import SendMessage
 from backend.resources.hacknight import HacknightList
@@ -36,7 +36,7 @@ api.add_resource(HacknightList, "/hacknights/")
 api.add_resource(ParticipantDetails, "/participants/<int:id>/")
 api.add_resource(ParticipantsList, "/participants/")
 api.add_resource(RefreshAccessToken, "/auth/refresh/")
-api.add_resource(RevokeRefreshToken, "/auth/revoke-refresh-token/")
+api.add_resource(RefreshToken, "/auth/refresh-token/")
 api.add_resource(SendMessage, "/send-email/")
 api.add_resource(UserLogin, "/auth/login/")
 api.add_resource(UserLogout, "/auth/logout/")
