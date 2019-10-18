@@ -5,14 +5,12 @@ from backend.models import Hacknight, Participant, User
 
 
 class BaseFactory(factory.alchemy.SQLAlchemyModelFactory):
-
     class Meta:
         abstract = True
         sqlalchemy_session = db.session
 
 
 class UserFactory(BaseFactory):
-
     class Meta:
         model = User
 
@@ -21,15 +19,12 @@ class UserFactory(BaseFactory):
 
 
 class ParticipantFactory(BaseFactory):
-
     class Meta:
         model = Participant
 
     name = factory.Faker("first_name", locale="pl_PL")
     lastname = factory.Faker("last_name", locale="pl_PL")
-    email = factory.LazyAttribute(
-        lambda obj: "{}@cfp.com".format(obj.lastname)
-    )
+    email = factory.LazyAttribute(lambda obj: "{}@cfp.com".format(obj.lastname))
     github = factory.LazyAttribute(
         lambda obj: "https://github.com/{}{}".format(obj.name, obj.lastname)
     )
@@ -37,7 +32,6 @@ class ParticipantFactory(BaseFactory):
 
 
 class HacknightFactory(BaseFactory):
-
     class Meta:
         model = Hacknight
 
