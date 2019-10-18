@@ -26,3 +26,6 @@ rebuild: ## Rebuild docker images
 
 test: 	## Run unittests
 	docker-compose exec backend pytest
+
+black: ## Run black
+	docker-compose exec backend black .
