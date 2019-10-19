@@ -1,54 +1,44 @@
 <template>
-    <div id="container">
-        <v-container fluid text-xs-center>
-            <v-layout row id="white-title">
-                <v-flex>
-                    <v-card flat dark tile color="transparent">
-                        <v-card-text>O NAS</v-card-text>
-                    </v-card>
-                </v-flex>
-            </v-layout>
-            <v-layout row wrap id="content">
-                <v-flex md6 xs12>
-                    <v-card flat dark tile color="transparent">
-                        <v-card-text>
-                            KIM JESTEŚMY?
-                            <br /><br />
+    <v-container text-xs-center id="blue-container">
+        <v-row>
+            <v-col>
+                <v-card flat dark tile color="transparent">
+                    <v-card-text id="white-title">O NAS</v-card-text>
+                </v-card>
+            </v-col>
+        </v-row>
+        <v-row wrap>
+            <v-col md6 xs12>
+                <v-card flat dark tile color="transparent">
+                    <v-card-text>
+                        <p id="sub-title">Kim jesteśmy?</p>
+                        <p id="content">
                             Grupą osób, która uważa, że warto ulepszać świat za
-                            pomocą technologii i&nbsp;chce dostarczać narzędzia,
+                            pomocą technologii i chce dostarczać narzędzia,
                             dzięki którym każdy będzie mógł to robić.
-                        </v-card-text>
-                    </v-card>
-                </v-flex>
-                <v-flex md6 xs12>
-                    <v-card flat dark tile color="transparent">
-                        <v-card-text>
-                            CO ROBIMY?
-                            <br /><br />
+                        </p>
+
+                        <p />
+                    </v-card-text>
+                </v-card>
+            </v-col>
+            <v-col md6 xs12>
+                <v-card flat dark tile color="transparent">
+                    <v-card-text wrap id="content">
+                        <p id="sub-title">Co robimy?</p>
+                        <p id="content">
                             Projektujemy. Programujemy. Testujemy. Poprawiamy.
                             Tworzymy aplikacje społeczne, które aktywują
                             użytkowników do działania na rzecz swojej
                             społeczności czy jakiegoś interesu społecznego.
-                        </v-card-text>
-                    </v-card>
-                </v-flex>
-            </v-layout>
-        </v-container>
-    </div>
+                        </p>
+                    </v-card-text>
+                </v-card>
+            </v-col>
+        </v-row>
+    </v-container>
 </template>
 
 <style lang="scss" scoped>
 @import './../main.scss';
-#container {
-    background: $blue;
-}
-
-#content {
-    font-family: $font-content;
-    font-size: 20px;
-    margin: 0px 0px 10px;
-    line-height: 1.43;
-    padding-right: 50px;
-    padding-left: 50px;
-}
 </style>

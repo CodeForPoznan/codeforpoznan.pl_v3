@@ -4,19 +4,27 @@
 a {
     text-decoration: none;
 }
+// Container classes
 
-#title {
-    font-family: $font-header;
-    font-size: 42px;
-    position: relative;
-    padding-bottom: 3rem;
+#blue-container {
+    background: $blue;
+    padding: 1rem 2rem;
 }
+
+#white-container {
+    background: $white;
+    padding: 1rem 2rem;
+}
+
+// Container title classes
 
 #white-title {
     font-family: $font-header;
     font-size: 42px;
-    position: relative;
-    padding-bottom: 3rem;
+    color: $white;
+    display: flex;
+    justify-content: center;
+    padding: 3rem;
 }
 #white-title::before {
     content: '';
@@ -27,7 +35,7 @@ a {
     height: 5px;
     background-color: $white;
     margin-left: -125px;
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
 }
 
 #black-title {
@@ -45,5 +53,30 @@ a {
     height: 5px;
     background-color: black;
     margin-left: -125px;
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
+}
+
+// Content classes
+
+#title {
+    font-family: $font-header;
+    font-size: 42px;
+    position: relative;
+    padding-bottom: 2rem;
+}
+
+#sub-title {
+    font-family: $font-header;
+    font-size: 1.2rem;
+    color: $white;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-around;
+}
+
+#content {
+    color: $white;
+    font-family: $font-content;
+    font-size: 1.2rem;
+    line-height: 1.43;
 }
