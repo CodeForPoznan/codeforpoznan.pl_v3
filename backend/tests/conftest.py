@@ -101,7 +101,7 @@ def registered_user(new_user, app, _db):
 @pytest.fixture
 def access_token(client, new_user, registered_user):
     rv = client.post(
-        '/auth/login',
+        '/auth/login/',
         json={'username': new_user['username'],
               'password': new_user['password']}
     )
@@ -131,4 +131,10 @@ def add_participants(app, _db):
 def add_hacknights(app, _db):
     for _ in range(10):
         HacknightFactory.create()
+    _db.session.commit()
+
+
+@pytest.fixture
+def add_participants_to_hacknight(app, _db):
+    HacknightFactory(participants=ParticipantFactory.create_batch(10))
     _db.session.commit()
