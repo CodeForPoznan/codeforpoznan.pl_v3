@@ -10,7 +10,7 @@ Vue.use(VueRouter);
 const routes = [
     { path: '/', component: HomePage },
     { path: '/login', component: Login },
-    { path: '/dashboard', component: Dashboard }
+    { path: '/dashboard', component: Dashboard}
 ];
 
 export default new VueRouter({ mode: 'history', routes });
