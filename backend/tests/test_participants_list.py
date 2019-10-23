@@ -37,13 +37,13 @@ def test_get_participants_unauthorized(client, add_participants):
 
 
 def test_create_participant_when_logged_in(
-    app, client, access_token, new_participant
+    app, client, tokens, new_participant
 ):
     """Test create new participant with logged in user and valid data."""
     with app.app_context():
         rv = client.post(
             '/participants/',
-            headers={'Authorization': 'Bearer {}'.format(access_token)},
+            headers={'Authorization': 'Bearer {}'.format(tokens["access"])},
             json=new_participant
         )
 
@@ -57,11 +57,11 @@ def test_create_participant_when_logged_in(
         assert value in participant.values()
 
 
-def test_try_create_participant_without_payload(client, access_token):
+def test_try_create_participant_without_payload(client, tokens):
     """Test try to create new participant without payload."""
     rv = client.post(
         '/participants/',
-        headers={'Authorization': 'Bearer {}'.format(access_token)},
+        headers={'Authorization': 'Bearer {}'.format(tokens["access"])},
         json={}
     )
     response = rv.get_json()
@@ -70,14 +70,14 @@ def test_try_create_participant_without_payload(client, access_token):
 
 
 def test_try_create_participant_with_invalid_email(
-    client, access_token, new_participant
+    client, tokens, new_participant
 ):
     """Test try to create new participant with invalid email address."""
     new_participant['email'] = "test"
 
     rv = client.post(
         '/participants/',
-        headers={'Authorization': 'Bearer {}'.format(access_token)},
+        headers={'Authorization': 'Bearer {}'.format(tokens["access"])},
         json=new_participant
     )
     response = rv.get_json()
@@ -86,14 +86,14 @@ def test_try_create_participant_with_invalid_email(
 
 
 def test_try_create_participant_without_name(
-    client, access_token, new_participant
+    client, tokens, new_participant
 ):
     """Test try create new participant without name."""
     del new_participant['name']
 
     rv = client.post(
         '/participants/',
-        headers={'Authorization': 'Bearer {}'.format(access_token)},
+        headers={'Authorization': 'Bearer {}'.format(tokens["access"])},
         json=new_participant
     )
     response = rv.get_json()

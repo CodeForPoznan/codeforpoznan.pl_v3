@@ -18,17 +18,10 @@ def test_create_new_user(new_user):
 
 def test_create_new_participant(new_participant):
     """Test participant model."""
-    new_participant = Participant(
-        name=new_participant['name'],
-        lastname=new_participant['lastname'],
-        email=new_participant['email'],
-        phone=new_participant['phone']
-    )
+    participant = Participant(**new_participant)
 
-    assert new_participant.name == 'Jon'
-    assert new_participant.lastname == 'Doe'
-    assert new_participant.email == 'test@test.com'
-    assert new_participant.phone == '123456789'
+    for key, value in new_participant.items():
+        assert getattr(participant, key) == value
 
 
 def test_create_new_hacknight(new_hacknight):

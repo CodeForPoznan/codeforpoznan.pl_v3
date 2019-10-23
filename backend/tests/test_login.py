@@ -6,8 +6,7 @@ def test_login_with_valid_user(client, new_user, registered_user):
     """Test logging with valid data."""
     rv = client.post(
         '/auth/login/',
-        json={'username': new_user['username'],
-              'password': new_user['password']}
+        json=new_user
     )
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.CREATED
