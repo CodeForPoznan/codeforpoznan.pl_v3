@@ -12,6 +12,19 @@ def test_login_with_valid_user(client, new_user, registered_user):
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.CREATED
     assert response['access_token']
+    assert response["refresh_token"]
+
+
+def test_refresh_access_token(client, tokens):
+    """Test refresh access token with refresh token."""
+    rv = client.post(
+        "/auth/refresh/",
+        headers={"Authorization": "Bearer {}".format(tokens["refresh"])}
+    )
+
+    response = rv.get_json()
+    assert rv.status_code == HTTPStatus.CREATED
+    assert response["access_token"]
 
 
 def test_login_with_invalid_password(client, new_user, registered_user):

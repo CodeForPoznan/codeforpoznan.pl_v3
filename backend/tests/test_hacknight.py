@@ -2,23 +2,23 @@ from http import HTTPStatus
 
 
 def test_get_hacknights_when_logged_in(
-    client, access_token, add_hacknights
+    client, tokens, add_hacknights
 ):
     """Test get list of hacknights for logged in user."""
     rv = client.get(
         '/hacknights/',
-        headers={'Authorization': 'Bearer {}'.format(access_token)}
+        headers={'Authorization': 'Bearer {}'.format(tokens["access"])}
     )
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.OK
     assert len(response['hacknights']) == 10
 
 
-def test_get_hacknights_with_empty_db(client, access_token):
+def test_get_hacknights_with_empty_db(client, tokens):
     """Test get list of hacknights when no hacknight added to db."""
     rv = client.get(
         '/hacknights/',
-        headers={'Authorization': 'Bearer {}'.format(access_token)}
+        headers={'Authorization': 'Bearer {}'.format(tokens["access"])}
     )
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.OK

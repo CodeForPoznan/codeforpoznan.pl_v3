@@ -5,12 +5,12 @@ from backend.serializers.participant_serializer import ParticipantSchema
 
 
 def test_get_participant_when_logged_in(
-    client, access_token, add_participants
+    client, tokens, add_participants
 ):
     """Test get participant details for logged in user."""
     rv = client.get(
         '/participants/1/',
-        headers={'Authorization': 'Bearer {}'.format(access_token)}
+        headers={'Authorization': 'Bearer {}'.format(tokens["access"])}
     )
     response = rv.get_json()
     participant_schema = ParticipantSchema()
@@ -19,12 +19,12 @@ def test_get_participant_when_logged_in(
 
 
 def test_get_non_existent_participant(
-    client, access_token, add_participants
+    client, tokens, add_participants
 ):
     """Test get detais of non-existent participant"""
     rv = client.get(
         '/participants/11/',
-        headers={'Authorization': 'Bearer {}'.format(access_token)}
+        headers={'Authorization': 'Bearer {}'.format(tokens["access"])}
     )
     assert rv.status_code == HTTPStatus.NOT_FOUND
 
