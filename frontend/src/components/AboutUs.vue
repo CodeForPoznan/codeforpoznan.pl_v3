@@ -1,9 +1,9 @@
 <template>
-    <v-container text-xs-center id="blue-container">
+    <v-container fluid class="blue-container">
         <v-row>
             <v-col>
                 <v-card flat dark tile color="transparent">
-                    <v-card-text id="white-title">O NAS</v-card-text>
+                    <v-card-text class="white-title">O NAS</v-card-text>
                 </v-card>
             </v-col>
         </v-row>
@@ -11,8 +11,8 @@
             <v-col md6 xs12>
                 <v-card flat dark tile color="transparent">
                     <v-card-text>
-                        <p id="sub-title">Kim jesteśmy?</p>
-                        <p id="content">
+                        <p class="sub-title">Kim jesteśmy?</p>
+                        <p class="content">
                             Grupą osób, która uważa, że warto ulepszać świat za
                             pomocą technologii i chce dostarczać narzędzia,
                             dzięki którym każdy będzie mógł to robić.
@@ -25,8 +25,8 @@
             <v-col md6 xs12>
                 <v-card flat dark tile color="transparent">
                     <v-card-text wrap id="content">
-                        <p id="sub-title">Co robimy?</p>
-                        <p id="content">
+                        <p class="sub-title">Co robimy?</p>
+                        <p class="content">
                             Projektujemy. Programujemy. Testujemy. Poprawiamy.
                             Tworzymy aplikacje społeczne, które aktywują
                             użytkowników do działania na rzecz swojej

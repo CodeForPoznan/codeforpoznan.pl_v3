@@ -4,68 +4,60 @@
 a {
     text-decoration: none;
 }
+
 // Container classes
 
-#blue-container {
+.blue-container,
+.white-container {
     background: $blue;
-    padding: 1rem 2rem;
+    padding: 2rem 5rem;
 }
-
-#white-container {
+.white-container {
     background: $white;
-    padding: 1rem 2rem;
 }
 
 // Container title classes
 
-#white-title {
+
+.white-title,
+.blue-title {
     font-family: $font-header;
-    font-size: 42px;
-    color: $white;
+    font-size: 2.8rem;
+    color: $white !important;
     display: flex;
     justify-content: center;
     padding: 3rem;
+
+    &::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 250px;
+        height: 5px;
+        background-color: $white;
+        margin-left: -125px;
+        margin-bottom: 1rem;
+    }
 }
-#white-title::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 250px;
-    height: 5px;
-    background-color: $white;
-    margin-left: -125px;
-    margin-bottom: 1rem;
+.blue-title {
+    color: $blue !important;
+
+    &::before {
+        background-color: $blue;
+    }
 }
 
-#black-title {
-    font-family: $font-header;
-    font-size: 42px;
-    position: relative;
-    padding-bottom: 3rem;
-}
-#black-title::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 250px;
-    height: 5px;
-    background-color: black;
-    margin-left: -125px;
-    margin-bottom: 1rem;
-}
+// General content classes
 
-// Content classes
-
-#title {
+.modal-title {
     font-family: $font-header;
     font-size: 42px;
     position: relative;
     padding-bottom: 2rem;
 }
 
-#sub-title {
+.sub-title {
     font-family: $font-header;
     font-size: 1.2rem;
     color: $white;
@@ -74,9 +66,12 @@ a {
     justify-content: space-around;
 }
 
-#content {
-    color: $white;
+.content {
+    color: $white !important;
+    display: flex;
+    justify-content: center;
     font-family: $font-content;
     font-size: 1.2rem;
     line-height: 1.43;
+    text-align: center;
 }
