@@ -15,17 +15,20 @@ stop:	## Stop the environment
 bash:	## Go to the backend container
 	docker-compose exec backend bash
 
-psql:   ## Go to the db and make SQL queries
+psql:	## Go to the db and make SQL queries
 	docker-compose exec db psql -U cfp_v3
 
-populate_database: ## Populate database with fake data
+populate_database:	## Populate database with fake data
 	docker-compose exec backend flask populate-database
 
-rebuild: ## Rebuild docker images
+rebuild:	## Rebuild docker images
 	docker-compose build --no-cache
 
-test: 	## Run unittests
+test:	## Run unittests
 	docker-compose exec backend pytest
 
-black: ## Run black
+black:	## Run black
 	docker-compose exec backend black .
+
+black-check:	## Run black
+	docker-compose exec backend black --check .
