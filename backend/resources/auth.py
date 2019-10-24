@@ -17,7 +17,6 @@ from flask_jwt_extended import (
 )
 from flask_restful import Resource
 from marshmallow import ValidationError
-from sqlalchemy.orm.exc import NoResultFound
 
 
 class UserLogin(Resource):
@@ -47,8 +46,7 @@ class UserLogin(Resource):
         password = result["password"]
 
         if not (username and password):
-            return ({"msg": "Username and password required"},)
-            HTTPStatus.BAD_REQUEST
+            return {"msg": "Username and password required"}, HTTPStatus.BAD_REQUEST
 
         user = User.query.filter_by(username=username).first()
 
