@@ -47,13 +47,10 @@ def test_add_participants_to_hacknight(
         data=json.dumps(payload)
     )
     resp = rv.get_json()
-    participants_ids = [
-        participant['id'] for participant in resp['hacknight']['participants']
-    ]
     assert rv.status_code == HTTPStatus.OK
 
     hacknight_db = Hacknight.query.get(1)
-    ids_from_db = [part.id for part in hacknight_db.participants]
+    ids_from_db = [participant.id for participant in hacknight_db.participants]
     for participant in resp['hacknight']['participants']:
         assert participant['id'] in payload['participants_ids']
     assert ids_from_db == payload['participants_ids']
@@ -80,7 +77,6 @@ def test_add_nonexisting_participants_to_hacknight(
         headers={'Authorization': 'Bearer {}'.format(access_token)},
         data=json.dumps(payload)
     )
-    response = rv.get_json()
     assert rv.status_code == HTTPStatus.NOT_FOUND
 
 
@@ -94,14 +90,13 @@ def test_add_participants_to_nonexisting_hacknight(
         headers={'Authorization': 'Bearer {}'.format(access_token)},
         data=json.dumps(payload)
     )
-    response = rv.get_json()
     assert rv.status_code == HTTPStatus.NOT_FOUND
 
 
 def test_duplicate_participant_in_hacknight(
     access_token, add_hacknights, add_participants, client, _db
 ):
-    """Test add participant who is already in hacknight.."""
+    """Test add participant who is already in hacknight."""
     hacknight = _db.session.query(Hacknight).first()
     participant = _db.session.query(Participant).first()
     hacknight.participants.append(participant)
