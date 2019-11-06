@@ -1,5 +1,5 @@
 <template>
-    <v-container flui class="white-container">
+    <v-container fluid class="white-container">
         <v-layout row wrap>
             <v-flex
                 id="items"

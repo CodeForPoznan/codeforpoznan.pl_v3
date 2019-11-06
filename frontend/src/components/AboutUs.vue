@@ -7,8 +7,8 @@
                 </v-card>
             </v-col>
         </v-row>
-        <v-row wrap>
-            <v-col md6 xs12>
+        <v-row>
+            <v-col xl="6" lg="6" md="6" sm="12" xs="12">
                 <v-card flat dark tile color="transparent">
                     <v-card-text>
                         <p class="sub-title">Kim jesteśmy?</p>
@@ -22,9 +22,9 @@
                     </v-card-text>
                 </v-card>
             </v-col>
-            <v-col md6 xs12>
+            <v-col xl="6" lg="6" md="6" sm="12" xs="12">
                 <v-card flat dark tile color="transparent">
-                    <v-card-text wrap id="content">
+                    <v-card-text>
                         <p class="sub-title">Co robimy?</p>
                         <p class="content">
                             Projektujemy. Programujemy. Testujemy. Poprawiamy.
