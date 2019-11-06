@@ -8,9 +8,9 @@ import Dashboard from './components/Dashboard.vue';
 Vue.use(VueRouter);
 
 const routes = [
-    { path: '/', component: HomePage },
-    { path: '/login', component: Login },
-    { path: '/dashboard', component: Dashboard}
+  { path: '/', component: HomePage },
+  { path: '/login', component: Login },
+  { path: '/dashboard', component: Dashboard }
 ];
 
 export default new VueRouter({ mode: 'history', routes });

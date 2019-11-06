@@ -30,7 +30,7 @@ def test_get_non_existent_participant(
 
 
 def test_get_participant_unauthorized(client, add_participants):
-    """Test get participant details for logged in user."""
+    """Test get participant details for not logged in user."""
     rv = client.get('/participants/1/')
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.UNAUTHORIZED
