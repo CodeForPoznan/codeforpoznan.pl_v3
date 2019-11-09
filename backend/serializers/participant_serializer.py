@@ -9,8 +9,8 @@ class ParticipantSchema(Schema):
         )
         dump_only = ('id', 'hacknights')
 
-    name = fields.Str(required=True, validate=[validate.Length(max=50)])
-    lastname = fields.Str(validate=[validate.Length(max=50)])
+    first_name = fields.Str(required=True, validate=[validate.Length(max=50)])
+    last_name = fields.Str(validate=[validate.Length(max=50)])
     email = fields.Email(validate=[validate.Length(max=200)])
     github = fields.Str(validate=[validate.Length(max=200)])
     hacknights = fields.Nested(
