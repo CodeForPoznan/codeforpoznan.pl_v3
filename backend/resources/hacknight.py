@@ -5,12 +5,11 @@ from flask import request
 from flask_jwt_extended import jwt_required
 from flask_restful import Resource
 
-from marshmallow import ValidationError
+from marshmallow import fields, Schema, ValidationError
 
 from backend.extensions import db
 from backend.models import Hacknight, Participant
 from backend.serializers.hacknight_serializer import HacknightSchema
-from backend.serializers.participant_serializer import ParticipantSchema
 
 
 class HacknightList(Resource):
@@ -64,9 +63,11 @@ class HacknightDetails(Resource):
         ]
 
         json_data = request.get_json(force=True)
-        ids_schema = ParticipantSchema(only=('participants_ids',))
+        ids_schema = Schema.from_dict(
+            {"participants_ids": fields.List(fields.Int())}
+        )
         try:
-            data = ids_schema.load(json_data)
+            data = ids_schema().load(json_data)
         except ValidationError as err:
             return (err.messages), HTTPStatus.BAD_REQUEST
 

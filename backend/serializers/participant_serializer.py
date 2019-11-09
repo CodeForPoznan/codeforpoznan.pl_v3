@@ -4,12 +4,11 @@ from marshmallow import Schema, fields, validate
 class ParticipantSchema(Schema):
     class Meta:
         fields = (
-            'id', 'participants_ids', 'name', 'lastname',
-            'email', 'github', 'hacknights', 'phone'
+            'id', 'name', 'lastname', 'email',
+            'github', 'hacknights', 'phone'
         )
         dump_only = ('id', 'hacknights')
 
-    participants_ids = fields.List(fields.Int())
     name = fields.Str(required=True, validate=[validate.Length(max=50)])
     lastname = fields.Str(validate=[validate.Length(max=50)])
     email = fields.Email(validate=[validate.Length(max=200)])
