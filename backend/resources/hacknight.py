@@ -48,6 +48,7 @@ class HacknightList(Resource):
 
 
 class HacknightDetails(Resource):
+    @jwt_required
     def get(self, id):
         hacknight_schema = HacknightSchema()
 
