@@ -3,7 +3,9 @@
         <v-row>
             <v-col>
                 <v-card flat dark tile color="transparent">
-                    <v-card-text class="white-title">O NAS</v-card-text>
+                    <v-card-text class="title">
+                        <p class="white-title"> O NAS </p>
+                    </v-card-text>
                 </v-card>
             </v-col>
         </v-row>

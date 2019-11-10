@@ -1,5 +1,6 @@
 @import 'typography.scss';
-@import "colors";
+@import 'mixins.scss';
+@import 'colors';
 
 a {
     text-decoration: none;
@@ -7,42 +8,44 @@ a {
 
 // Container classes
 
-.blue-container,
-.white-container {
+.blue-container {
     background: $blue;
     padding: 2rem 6rem;
 }
+
 .white-container {
     background: $white;
+    padding: 2rem 6rem;
 }
 
-// Container title classes
+// Container title class
 
-.white-title,
-.blue-title {
-    font-family: $font-header;
-    font-size: 2.8rem;
-    color: $white !important;
+.title {
     display: flex;
     justify-content: center;
     padding: 3rem;
+}
+
+// Title classes
+
+.white-title {
+    color: $white;
+    font-family: $font-header;
+    font-size: 2.8rem;
 
     &::before {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        width: 250px;
-        height: 5px;
+        @include title-before;
         background-color: $white;
-        margin-left: -125px;
-        margin-bottom: 1rem;
     }
 }
+
 .blue-title {
-    color: $blue !important;
+    color: $blue;
+    font-family: $font-header;
+    font-size: 2.8rem;
 
     &::before {
+        @include title-before;
         background-color: $blue;
     }
 }
@@ -66,7 +69,7 @@ a {
 }
 
 .content {
-    color: $white !important;
+    color: $white;
     display: flex;
     justify-content: center;
     font-family: $font-content;
