@@ -43,7 +43,7 @@
                 @input="$v.content.$touch()"
                 @blur="$v.content.$touch()"
             ></v-textarea>
-            <v-btn type="submit" :disabled="$v.$invalid" id="button"
+            <v-btn type="submit" :disabled="$v.$invalid" id="submit-button"
                 >Wyślij</v-btn
             >
         </form>
@@ -147,7 +147,7 @@ export default {
 <style lang="scss" scoped>
 @import './../main.scss';
 
-#button {
+#submit-button {
     background: $blue;
     color: $white;
 }

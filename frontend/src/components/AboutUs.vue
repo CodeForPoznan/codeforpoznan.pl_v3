@@ -19,8 +19,6 @@
                             pomocą technologii i chce dostarczać narzędzia,
                             dzięki którym każdy będzie mógł to robić.
                         </p>
-
-                        <p />
                     </v-card-text>
                 </v-card>
             </v-col>
