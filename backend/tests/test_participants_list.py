@@ -85,11 +85,11 @@ def test_try_create_participant_with_invalid_email(
     assert 'Not a valid email address.' in response['email']
 
 
-def test_try_create_participant_without_name(
+def test_try_create_participant_without_first_name(
     client, access_token, new_participant
 ):
     """Test try create new participant without name."""
-    del new_participant['name']
+    del new_participant['first_name']
 
     rv = client.post(
         '/participants/',
@@ -98,7 +98,7 @@ def test_try_create_participant_without_name(
     )
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.BAD_REQUEST
-    assert 'Missing data for required field.' in response['name']
+    assert 'Missing data for required field.' in response['first_name']
 
 
 def test_create_participant_unauthorized(client, new_participant):

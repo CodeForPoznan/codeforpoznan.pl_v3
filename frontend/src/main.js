@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import App from './App.vue';
 import Vuelidate from 'vuelidate';
-import Vuetify from 'vuetify/lib';
 import 'vuetify/dist/vuetify.min.css';
 
 import axios from 'axios';
@@ -10,7 +9,6 @@ import store from './store';
 import vuetify from './plugins/vuetify';
 
 Vue.use(Vuelidate);
-Vue.use(Vuetify);
 
 Vue.config.productionTip = false;
 axios.defaults.baseURL = 'http://0.0.0.0:5000/';
