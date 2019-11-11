@@ -71,8 +71,8 @@ def new_user():
 @pytest.fixture
 def new_participant():
     participant = {
-        'name': 'Jon',
-        'lastname': 'Doe',
+        'first_name': 'Jon',
+        'last_name': 'Doe',
         'email': 'test@test.com',
         'phone': '123456789'
     }
@@ -87,10 +87,7 @@ def new_hacknight():
 
 @pytest.fixture
 def registered_user(new_user, app, _db):
-    new_user = User(
-        username=new_user['username'],
-        password=new_user['password']
-    )
+    new_user = User(**new_user)
     with app.app_context():
         db = _db
         db.session.add(new_user)
@@ -102,8 +99,7 @@ def registered_user(new_user, app, _db):
 def tokens(client, new_user, registered_user):
     rv = client.post(
         '/auth/login/',
-        json={'username': new_user['username'],
-              'password': new_user['password']}
+        json=new_user
     )
     response = rv.get_json()
     return {

@@ -29,10 +29,10 @@ def test_add_new_participant_to_db(_db, new_participant):
     db.session.add(participant)
     db.session.commit()
 
-    participant = db.session.query(Participant).filter_by(name="Jon").first()
+    participant_db = db.session.query(Participant).filter_by(first_name="Jon").first()
 
     for key, value in new_participant.items():
-        assert getattr(participant, key) == value
+        assert getattr(participant_db, key) == value
 
 
 def test_add_new_hacknight_to_db(_db, new_hacknight):

@@ -1,5 +1,4 @@
 import datetime
-import pytest
 
 from backend.models import User, Participant, Hacknight
 

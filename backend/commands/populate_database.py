@@ -23,7 +23,7 @@ def populate_database():
     for _ in tqdm(range(50)):
         ParticipantFactory.create()
 
-    click.echo("Creating 50 hacknights")
+    click.echo("Creating 30 hacknights")
     all_participants = Participant.query.all()
     for _ in tqdm(range(30)):
         HacknightFactory.create(

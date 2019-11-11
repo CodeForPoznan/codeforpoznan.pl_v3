@@ -26,3 +26,9 @@ rebuild: ## Rebuild docker images
 
 test: 	## Run unittests
 	docker-compose exec backend pytest
+
+code-cov: ## Run pytest with code coverage
+	docker-compose exec backend pytest --cov=backend
+
+cov-report: ## Generate coverage raport in HTML
+	docker-compose exec backend pytest --cov=backend --cov-report=html
