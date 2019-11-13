@@ -35,33 +35,33 @@
 
 <script>
 export default {
-    data() {
-        return {
-            hoveredImg: require('@/assets/images/Antu_dialog-icon-preview.svg'),
-            projects: [
-                {
-                    name: 'Volontulo',
-                    image: require('@/assets/images/volontulo.png')
-                },
-                {
-                    name: 'Wysadź ulicę',
-                    image: require('@/assets/images/wysadz_ulice.png')
-                },
-                {
-                    name: 'Bank Empatii',
-                    image: require('@/assets/images/bank_empatii.png')
-                },
-                {
-                    name: 'Alinka',
-                    image: ''
-                },
-                {
-                    name: 'Polska Akcja Humanitarna',
-                    image: ''
-                }
-            ]
-        };
-    }
+  data() {
+    return {
+      hoveredImg: require('@/assets/images/Antu_dialog-icon-preview.svg'),
+      projects: [
+        {
+          name: 'Volontulo',
+          image: require('@/assets/images/volontulo.png')
+        },
+        {
+          name: 'Wysadź ulicę',
+          image: require('@/assets/images/wysadz_ulice.png')
+        },
+        {
+          name: 'Bank Empatii',
+          image: require('@/assets/images/bank_empatii.png')
+        },
+        {
+          name: 'Alinka',
+          image: ''
+        },
+        {
+          name: 'Polska Akcja Humanitarna',
+          image: ''
+        }
+      ]
+    };
+  }
 };
 </script>
 
@@ -69,22 +69,22 @@ export default {
 @import './../main.scss';
 
 #items {
-    padding: 10px;
+  padding: 10px;
 }
 
 #card--reveal {
-    background: $blue;
-    bottom: 0;
-    color: $white;
-    display: flex;
-    justify-content: center;
-    opacity: 0.9;
-    position: absolute;
-    width: 100%;
-    height: 100%;
+  background: $blue;
+  bottom: 0;
+  color: $white;
+  display: flex;
+  justify-content: center;
+  opacity: 0.9;
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
 #hoverd-img {
-    max-width: 50%;
+  max-width: 50%;
 }
 </style>
