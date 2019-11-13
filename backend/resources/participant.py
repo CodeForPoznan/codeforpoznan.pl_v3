@@ -1,3 +1,5 @@
+from builtins import setattr
+
 from http import HTTPStatus
 
 from flask import request
@@ -59,18 +61,16 @@ class ParticipantDetails(Resource):
     @jwt_required
     def put(self, id):
         participant_schema = ParticipantSchema()
-        participant = participant_schema.dump(
-            Participant.query.get_or_404(id)
-        ), HTTPStatus.OK
+        participant = Participant.query.get_or_404(id)
         json_data = request.get_json(force=True)
-
         try:
             data = participant_schema.load(json_data)
         except ValidationError as err:
             return (err.messages), HTTPStatus.BAD_REQUEST
 
-        participant = Participant(**data)
+        for key, value in data.items():
+            setattr(participant, key, value)
         db.session.add(participant)
         db.session.commit()
         return {"message": "Participant updated successfully.",
-                "participant": data}, HTTPStatus.CREATED
+                "participant": participant_schema.dump(participant)}, HTTPStatus.CREATED
