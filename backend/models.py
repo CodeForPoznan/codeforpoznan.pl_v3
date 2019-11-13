@@ -38,8 +38,8 @@ class Participant(db.Model):
     """Participant model."""
     __tablename__ = 'participant'
     id = Column(Integer, autoincrement=True, primary_key=True)
-    name = Column(String(50))
-    lastname = Column(String(50))
+    first_name = Column(String(50))
+    last_name = Column(String(50))
     email = Column(String(200))
     github = Column(String(200), default="")
     phone = Column(String(13))
