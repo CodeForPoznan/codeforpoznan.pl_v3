@@ -1,36 +1,30 @@
 <template>
-    <v-container fluid class="white-container">
-        <v-layout row wrap>
-            <v-flex
-                id="items"
-                v-for="project in projects"
-                :key="project.name"
-                xs12
-                md6
-                lg4
-                xl3
-            >
-                <v-item-group>
-                    <v-hover>
-                        <v-card slot-scope="{ hover }">
-                            <v-img
-                                :src="project.image"
-                                aspect-ratio="1.9"
-                            ></v-img>
-                            <v-expand-transition>
-                                <div v-if="hover" id="card--reveal">
-                                    <v-img
-                                        id="hoverd-img"
-                                        :src="hoveredImg"
-                                    ></v-img>
-                                </div>
-                            </v-expand-transition>
-                        </v-card>
-                    </v-hover>
-                </v-item-group>
-            </v-flex>
-        </v-layout>
-    </v-container>
+  <v-container fluid class="white-container">
+    <v-layout row wrap>
+      <v-flex
+        id="items"
+        v-for="project in projects"
+        :key="project.name"
+        xs12
+        md6
+        lg4
+        xl3
+      >
+        <v-item-group>
+          <v-hover>
+            <v-card slot-scope="{ hover }">
+              <v-img :src="project.image" aspect-ratio="1.9"></v-img>
+              <v-expand-transition>
+                <div v-if="hover" id="card--reveal">
+                  <v-img id="hoverd-img" :src="hoveredImg"></v-img>
+                </div>
+              </v-expand-transition>
+            </v-card>
+          </v-hover>
+        </v-item-group>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
