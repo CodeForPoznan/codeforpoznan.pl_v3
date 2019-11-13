@@ -1,53 +1,43 @@
 <template>
-  <div id="container">
-    <v-container fluid text-xs-center>
-      <v-layout row id="white-title">
-        <v-flex>
-          <v-card flat dark tile color="transparent">
-            <v-card-text>O NAS</v-card-text>
-          </v-card>
-        </v-flex>
-      </v-layout>
-      <v-layout row wrap id="content">
-        <v-flex md6 xs12>
-          <v-card flat dark tile color="transparent">
-            <v-card-text>
-              KIM JESTEŚMY?
-              <br /><br />
+  <v-container fluid class="blue-container">
+    <v-row>
+      <v-col>
+        <v-card flat dark tile color="transparent">
+          <v-card-text class="title">
+            <p class="white-title">O NAS</p>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col xl="6" lg="6" md="6" sm="12" xs="12">
+        <v-card flat dark tile color="transparent">
+          <v-card-text>
+            <p class="sub-title">Kim jesteśmy?</p>
+            <p class="content">
               Grupą osób, która uważa, że warto ulepszać świat za pomocą
-              technologii i&nbsp;chce dostarczać narzędzia, dzięki którym każdy
+              technologii i chce dostarczać narzędzia, dzięki którym każdy
               będzie mógł to robić.
-            </v-card-text>
-          </v-card>
-        </v-flex>
-        <v-flex md6 xs12>
-          <v-card flat dark tile color="transparent">
-            <v-card-text>
-              CO ROBIMY?
-              <br /><br />
+            </p>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col xl="6" lg="6" md="6" sm="12" xs="12">
+        <v-card flat dark tile color="transparent">
+          <v-card-text>
+            <p class="sub-title">Co robimy?</p>
+            <p class="content">
               Projektujemy. Programujemy. Testujemy. Poprawiamy. Tworzymy
               aplikacje społeczne, które aktywują użytkowników do działania na
               rzecz swojej społeczności czy jakiegoś interesu społecznego.
-            </v-card-text>
-          </v-card>
-        </v-flex>
-      </v-layout>
-    </v-container>
-  </div>
+            </p>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <style lang="scss" scoped>
 @import './../main.scss';
-#container {
-  background: $blue;
-}
-
-#content {
-  font-family: $font-content;
-  font-size: 20px;
-  margin: 0px 0px 10px;
-  line-height: 1.43;
-  padding-right: 50px;
-  padding-left: 50px;
-}
 </style>
