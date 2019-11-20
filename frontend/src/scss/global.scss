@@ -1,49 +1,79 @@
 @import 'typography.scss';
-@import "colors";
+@import 'mixins.scss';
+@import 'colors';
 
 a {
     text-decoration: none;
 }
 
-#title {
-    font-family: $font-header;
-    font-size: 42px;
-    position: relative;
-    padding-bottom: 3rem;
+// Container classes
+
+.blue-container {
+    background: $blue;
+    padding: 2rem 6rem;
 }
 
-#white-title {
-    font-family: $font-header;
-    font-size: 42px;
-    position: relative;
-    padding-bottom: 3rem;
-}
-#white-title::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 250px;
-    height: 5px;
-    background-color: $white;
-    margin-left: -125px;
-    margin-bottom: 3rem;
+.white-container {
+    background: $white;
+    padding: 2rem 6rem;
 }
 
-#black-title {
+// Container title class
+
+.title {
+    display: flex;
+    justify-content: center;
+    padding: 3rem;
+}
+
+// Title classes
+
+.white-title {
+    color: $white;
+    font-family: $font-header;
+    font-size: 2.8rem;
+
+    &::before {
+        @include title-before;
+        background-color: $white;
+    }
+}
+
+.blue-title {
+    color: $blue;
+    font-family: $font-header;
+    font-size: 2.8rem;
+
+    &::before {
+        @include title-before;
+        background-color: $blue;
+    }
+}
+
+// General content classes
+
+.modal-title {
     font-family: $font-header;
     font-size: 42px;
     position: relative;
-    padding-bottom: 3rem;
+    padding-bottom: 2rem;
 }
-#black-title::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 250px;
-    height: 5px;
-    background-color: black;
-    margin-left: -125px;
-    margin-bottom: 3rem;
+
+.sub-title {
+    font-family: $font-header;
+    font-size: 1.2rem;
+    color: $white;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-around;
+}
+
+.content {
+    color: $white;
+    display: flex;
+    justify-content: center;
+    font-family: $font-content;
+    font-size: 1.2rem;
+    line-height: 1.43;
+    text-align: center;
 }

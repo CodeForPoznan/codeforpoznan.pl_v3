@@ -1,5 +1,4 @@
 import datetime
-import pytest
 
 from backend.models import User, Participant, Hacknight
 
@@ -15,15 +14,10 @@ def test_create_new_user(new_user):
 
 def test_create_new_participant(new_participant):
     """Test participant model."""
-    new_participant = Participant(
-        name=new_participant["name"],
-        lastname=new_participant["lastname"],
-        email=new_participant["email"],
-        phone=new_participant["phone"],
-    )
+    new_participant = Participant(**new_participant)
 
-    assert new_participant.name == "Jon"
-    assert new_participant.lastname == "Doe"
+    assert new_participant.first_name == "Jon"
+    assert new_participant.last_name == "Doe"
     assert new_participant.email == "test@test.com"
     assert new_participant.phone == "123456789"
 

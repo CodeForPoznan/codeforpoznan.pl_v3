@@ -2,16 +2,10 @@ FROM python:3.8
 
 EXPOSE 5000
 
-ENV LC_ALL=C.UTF-8
-ENV LANG=C.UTF-8
-
 RUN apt-get update -y && apt-get install -y libpq-dev && apt-get autoremove
 
-RUN pip install --upgrade pip
-RUN apt-get update
-
 # update pip
-RUN python -m pip install pip --upgrade
+RUN pip install --upgrade pip
 
 ADD . /cfp_v3/backend
 WORKDIR /cfp_v3/backend

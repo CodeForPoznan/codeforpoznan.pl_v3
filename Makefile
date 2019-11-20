@@ -32,3 +32,9 @@ black:	## Run black
 
 black-check:	## Run black
 	docker-compose exec backend black --check .
+
+code-cov: ## Run pytest with code coverage
+	docker-compose exec backend pytest --cov=backend
+
+cov-report: ## Generate coverage raport in HTML
+	docker-compose exec backend pytest --cov=backend --cov-report=html
