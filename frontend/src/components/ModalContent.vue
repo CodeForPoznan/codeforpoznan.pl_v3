@@ -1,35 +1,33 @@
 <template>
   <v-card>
-    <v-layout id="header">
-      <v-flex id="title">
-        <v-card-title>
-          {{ selectedProject.name }}
-        </v-card-title>
-      </v-flex>
-      <v-flex id="close">
-        <v-card-actions id="close">
-          <v-btn absolute fab icon large right @click="onClick()">
+    <v-row id="header">
+      <v-col d-flex justify-content>
+        <p id="title">{{ selectedProject.projectName }}</p>
+      </v-col>
+      <v-col id="close">
+        <v-card-actions>
+          <v-btn absolute fab rounded icon large right @click="onClick()">
             <v-icon size="3.5rem" color="white">close</v-icon>
           </v-btn>
         </v-card-actions>
-      </v-flex>
-    </v-layout>
-    <v-layout class="pa-2">
+      </v-col>
+    </v-row>
+    <v-row class="pa-2">
       <v-card-actions>
         <v-btn flat round :href="selectedProject.licensePage" target="_blank">
           <v-icon>far fa-copyright</v-icon>
-          <p class="buttons">Licencja {{ selectedProject.license }}</p>
+          <p class="buttons">Licencja {{ selectedProject.licenseName }}</p>
         </v-btn>
-        <v-btn flat round :href="selectedProject.website" target="_blank">
+        <v-btn flat round :href="selectedProject.websiteLink" target="_blank">
           <v-icon>language</v-icon>
           <p class="buttons">Strona WWW</p>
         </v-btn>
-        <v-btn flat round :href="selectedProject.github" target="_blank">
+        <v-btn flat round :href="selectedProject.githubLink" target="_blank">
           <v-icon>fab fa-github</v-icon>
           <p class="buttons">Repozytorium</p>
         </v-btn>
       </v-card-actions>
-    </v-layout>
+    </v-row>
     <v-card-text class="content">
       <v-layout class="pa-2">
         <p class="partner font-weight-bold align-center">
@@ -102,7 +100,7 @@ export default {
   font-family: $font-header;
   font-size: 3rem;
   color: $white;
-  margin: 0.5rem;
+  margin: 0rem 0rem 0rem 2rem;
 }
 
 .content {

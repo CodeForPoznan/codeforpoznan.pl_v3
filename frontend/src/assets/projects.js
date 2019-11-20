@@ -2,11 +2,11 @@ const projects = [
   {
     description:
       'Portal Volontulo powstał dla ludzi i organizacji skupionych wokół idei pomocy innym poprzez udział we wolontariacie. Celem projektu jest pomoc we wzajemnym odnalezieniu się ludzi, którzy chcą realizować się jako wolontariusze/szki oraz organizacji i instytucji, które takich osób poszukują. Podział na strefę "Wolontariusza" oraz "Strefę organizacji i instytucji" umożliwa użytkownikom zwinną nawigację na stronie.',
-    github: 'https://github.com/CodeForPoznan/volontulo',
-    image: require('@/assets/images/volontulo.png'),
-    license: 'MIT',
+    githubLink: 'https://github.com/CodeForPoznan/volontulo',
+    imageAdress: require('@/assets/images/volontulo.png'),
+    licenseName: 'MIT',
     licensePage: 'https://pl.wikipedia.org/wiki/Licencja_MIT',
-    name: 'Volontulo',
+    projectName: 'Volontulo',
     partner: 'Wielkopolska Rada Koordynacyjna',
     partnerPage: 'https://centrum.wrk.org.pl/',
     stack: [
@@ -23,12 +23,11 @@ const projects = [
         documentation: 'https://docs.djangoproject.com/en/2.2/'
       }
     ],
-    website: 'http://volontuloapp.org/o'
+    websiteLink: 'http://volontuloapp.org/o'
   },
   {
-    description:
-      'Portal Volontulo powstał dla ludzi i organizacji skupionych wokół idei pomocy innym poprzez udział we wolontariacie. Celem projektu jest pomoc we wzajemnym odnalezieniu się ludzi, którzy chcą realizować się jako wolontariusze/szki oraz organizacji i instytucji, które takich osób poszukują. Podział na strefę "Wolontariusza" oraz "Strefę organizacji i instytucji" umożliwa użytkownikom zwinną nawigację na stronie.',
-    github: 'https://github.com/CodeForPoznan/volontulo',
+    description: '',
+    githubLink: 'https://github.com/CodeForPoznan/volontulo',
     image: require('@/assets/images/volontulo.png'),
     license: 'MIT',
     licensePage: 'https://pl.wikipedia.org/wiki/Licencja_MIT',

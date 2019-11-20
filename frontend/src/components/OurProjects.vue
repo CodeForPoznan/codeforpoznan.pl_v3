@@ -1,12 +1,14 @@
 <template>
   <v-container fluid class="white-container">
-    <v-layout row id="black-title">
-      <v-flex>
+    <v-row>
+      <v-col>
         <v-card flat color="transparent">
-          <v-card-text>NASZE PROJEKTY</v-card-text>
+          <v-card-text class="title">
+            <p class="blue-title">NASZE PROJEKTY</p>
+          </v-card-text>
         </v-card>
-      </v-flex>
-    </v-layout>
+      </v-col>
+    </v-row>
     <v-layout row wrap>
       <v-flex
         id="items"
@@ -20,9 +22,9 @@
         <v-item-group>
           <v-hover v-slot="{ hover }">
             <v-card @click.stop="clickImage(project)">
-              <v-img :src="project.image" aspect-ratio="1.9"></v-img>
+              <v-img :src="project.imageAdress" aspect-ratio="1.9"></v-img>
               <v-card-title id="card">
-                {{ project.name }}
+                {{ project.projectName }}
               </v-card-title>
               <v-expand-transition>
                 <div v-if="hover" id="card--reveal">
@@ -206,9 +208,9 @@ export default {
 }
 
 #card {
-    font-family: $font-header;
-    font-size: 1.5rem;
-    justify-content: center;
+  font-family: $font-header;
+  font-size: 1.5rem;
+  justify-content: center;
 }
 
 #card--reveal {
@@ -223,12 +225,7 @@ export default {
   height: 100%;
 }
 
-<<<<<<< HEAD
 #card--hover {
-    max-width: 50%;
-=======
-#hoverd-img {
   max-width: 50%;
->>>>>>> master
 }
 </style>
