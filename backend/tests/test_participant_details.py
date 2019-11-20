@@ -15,7 +15,7 @@ def test_get_participant_when_logged_in(
     response = rv.get_json()
     participant_schema = ParticipantSchema()
     assert rv.status_code == HTTPStatus.OK
-    assert response == participant_schema.dump(Participant.query.get(1))
+    assert response["participant"] == participant_schema.dump(Participant.query.get(1))
 
 
 def test_get_non_existent_participant(

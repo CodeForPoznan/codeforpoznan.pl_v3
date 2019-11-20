@@ -44,6 +44,6 @@ class ParticipantDetails(Resource):
     @jwt_required
     def get(self, id):
         participant_schema = ParticipantSchema()
-        return participant_schema.dump(
-            Participant.query.get_or_404(id)
-        ), HTTPStatus.OK
+        return {"message": "Participant details:",
+                "participant": participant_schema.dump(
+                    Participant.query.get_or_404(id))}, HTTPStatus.OK
