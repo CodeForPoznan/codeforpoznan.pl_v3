@@ -11,3 +11,4 @@ script:
   - cd backend
   - export SECRET_KEY="codeforpoznan"
   - pytest
+  - black --check .
