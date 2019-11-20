@@ -67,12 +67,7 @@
 
 <script>
 export default {
-  data() {
-    return {
-      copyleftIcon: require('@/assets/images/copyleft.svg')
-    };
-  },
-  props: ['selectedProject', 'dialog'],
+  props: ['selectedProject'],
   methods: {
     onClick() {
       this.$root.$emit('close');
@@ -101,9 +96,10 @@ a {
   margin: 1rem;
 }
 
-#title-header {
-  background: $blue;
-  height: 7rem;
+.content {
+  color: black;
+  text-align: justify;
+  margin: 1rem 1.5rem;
 }
 
 #modal-title {
@@ -113,12 +109,6 @@ a {
   font-size: 3rem;
   color: $white;
   margin: 0.5rem 0rem 0rem 2rem;
-}
-
-.content {
-  color: black;
-  text-align: justify;
-  margin: 1rem 1.5rem;
 }
 
 .modal-sub-title {
@@ -135,5 +125,10 @@ a {
 #stack-list {
   background-color: $blue;
   color: $white;
+}
+
+#title-header {
+  background: $blue;
+  height: 7rem;
 }
 </style>
