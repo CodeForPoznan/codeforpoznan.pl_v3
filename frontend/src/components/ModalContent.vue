@@ -1,58 +1,66 @@
 <template>
   <v-card>
-    <v-row id="header">
-      <v-col d-flex justify-content>
-        <p id="title">{{ selectedProject.projectName }}</p>
-      </v-col>
-      <v-col id="close">
+    <v-card-title id="title-header">
+      <v-row>
+        <p id="modal-title">{{ selectedProject.name }}</p>
         <v-card-actions>
-          <v-btn absolute fab rounded icon large right @click="onClick()">
+          <v-btn
+            class="mr-2"
+            absolute
+            fab
+            rounded
+            icon
+            large
+            right
+            @click="onClick()"
+          >
             <v-icon size="3.5rem" color="white">close</v-icon>
           </v-btn>
         </v-card-actions>
-      </v-col>
-    </v-row>
-    <v-row class="pa-2">
+      </v-row>
+    </v-card-title>
+    <v-card-text>
       <v-card-actions>
-        <v-btn flat round :href="selectedProject.licensePage" target="_blank">
+        <v-btn text rounded :href="selectedProject.licensePage" target="_blank">
           <v-icon>far fa-copyright</v-icon>
           <p class="buttons">Licencja {{ selectedProject.licenseName }}</p>
         </v-btn>
-        <v-btn flat round :href="selectedProject.websiteLink" target="_blank">
+        <v-btn text rounded :href="selectedProject.websiteLink" target="_blank">
           <v-icon>language</v-icon>
           <p class="buttons">Strona WWW</p>
         </v-btn>
-        <v-btn flat round :href="selectedProject.githubLink" target="_blank">
+        <v-btn text rounded :href="selectedProject.githubLink" target="_blank">
           <v-icon>fab fa-github</v-icon>
           <p class="buttons">Repozytorium</p>
         </v-btn>
       </v-card-actions>
-    </v-row>
-    <v-card-text class="content">
-      <v-layout class="pa-2">
-        <p class="partner font-weight-bold align-center">
+    </v-card-text>
+    <v-card-text>
+      <v-row>
+        <p class="modal-sub-title font-weight-bold align-center">
           Partner projektu:
         </p>
-        <v-btn round flat :href="selectedProject.partnerPage" target="_blank">
-          <p class="partner">{{ selectedProject.partner }}</p>
+        <v-btn rounded text :href="selectedProject.partnerPage" target="_blank">
+          <p class="modal-sub-title">{{ selectedProject.partner }}</p>
         </v-btn>
-      </v-layout>
-      <v-layout class="pa-2">
-        {{ selectedProject.description }}
-      </v-layout>
-      <v-layout class="pa-2">
-        <p class="partner font-weight-bold align-center">Stack:</p>
+      </v-row>
+      <v-row>
+        <p class="content">{{ selectedProject.description }}</p>
+      </v-row>
+      <v-row>
+        <p class="modal-sub-title font-weight-bold align-center">Stack:</p>
         <v-btn
           v-for="(item, index) in selectedProject.stack"
           :key="index"
           :href="item.documentation"
           target="_blank"
-          round
+          rounded
+          class="ma-2"
           id="stack-list"
         >
           {{ item.type }}: {{ item.name }} {{ item.version }}
         </v-btn>
-      </v-layout>
+      </v-row>
     </v-card-text>
   </v-card>
 </template>
@@ -76,48 +84,52 @@ export default {
 <style lang="scss" scoped>
 @import './../main.scss';
 
+a {
+  text-transform: none;
+}
+
 .buttons {
   display: flex;
   align-content: center;
   margin: 0.5rem;
 }
 
-#close {
+#close-button {
   display: flex;
   color: $white;
   max-width: 3rem;
   margin: 1rem;
 }
 
-#header {
+#title-header {
   background: $blue;
   height: 7rem;
 }
 
-#title {
+#modal-title {
   display: flex;
   align-content: center;
   font-family: $font-header;
   font-size: 3rem;
   color: $white;
-  margin: 0rem 0rem 0rem 2rem;
+  margin: 0.5rem 0rem 0rem 2rem;
 }
 
 .content {
-  font-family: $font-content;
-  font-size: 1.5rem;
-  padding: 0rem 1rem 1rem 1rem;
-  line-height: 1.43;
+  color: black;
+  text-align: justify;
+  margin: 1rem 1.5rem;
 }
 
-.partner {
+.modal-sub-title {
+  color: black;
   display: flex;
   position: relative;
   align-content: center;
   font-family: $font-content;
   font-size: 1.5rem;
   line-height: 1.43;
-  margin: 0.1rem;
+  margin: 0rem 0rem 0rem 1.5rem;
 }
 
 #stack-list {

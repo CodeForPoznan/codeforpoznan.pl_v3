@@ -6,18 +6,18 @@ const projects = [
     imageAdress: require('@/assets/images/volontulo.png'),
     licenseName: 'MIT',
     licensePage: 'https://pl.wikipedia.org/wiki/Licencja_MIT',
-    projectName: 'Volontulo',
+    name: 'Volontulo',
     partner: 'Wielkopolska Rada Koordynacyjna',
     partnerPage: 'https://centrum.wrk.org.pl/',
     stack: [
       {
-        type: 'frontend',
+        type: 'Frontend',
         name: 'Angular',
         version: '2.0',
         documentation: 'https://angular.io/'
       },
       {
-        type: 'backend',
+        type: 'Backend',
         name: 'Django',
         version: '2.2',
         documentation: 'https://docs.djangoproject.com/en/2.2/'
@@ -27,28 +27,153 @@ const projects = [
   },
   {
     description: '',
-    githubLink: 'https://github.com/CodeForPoznan/volontulo',
-    image: require('@/assets/images/volontulo.png'),
-    license: 'MIT',
-    licensePage: 'https://pl.wikipedia.org/wiki/Licencja_MIT',
-    name: 'Volontulo',
-    partner: 'Wielkopolska Rada Koordynacyjna',
-    partnerPage: 'https://centrum.wrk.org.pl/',
+    githubLink: '',
+    image: '',
+    license: '',
+    licensePage: '',
+    name: 'Fleet Manager',
+    partner: '',
+    partnerPage: '',
     stack: [
       {
-        type: 'frontend',
-        name: 'Angular',
-        version: '2.0',
-        documentation: 'https://angular.io/'
+        type: 'Frontend',
+        name: '',
+        version: '',
+        documentation: ''
       },
       {
-        type: 'backend',
-        name: 'Django',
-        version: '2.2',
-        documentation: 'https://docs.djangoproject.com/en/2.2/'
+        type: 'Backend',
+        name: '',
+        version: '',
+        documentation: ''
       }
     ],
-    website: 'http://volontuloapp.org/o'
+    website: ''
+  },
+  {
+    description: '',
+    githubLink: '',
+    image: '',
+    license: '',
+    licensePage: '',
+    name: 'Alinka',
+    partner: '',
+    partnerPage: '',
+    stack: [
+      {
+        type: 'Frontend',
+        name: '',
+        version: '',
+        documentation: ''
+      },
+      {
+        type: 'Backend',
+        name: '',
+        version: '',
+        documentation: ''
+      }
+    ],
+    website: ''
+  },
+  {
+    description: '',
+    githubLink: '',
+    image: '',
+    license: '',
+    licensePage: '',
+    name: 'Bank Empatii',
+    partner: '',
+    partnerPage: '',
+    stack: [
+      {
+        type: 'Frontend',
+        name: '',
+        version: '',
+        documentation: ''
+      },
+      {
+        type: 'Backend',
+        name: '',
+        version: '',
+        documentation: ''
+      }
+    ],
+    website: ''
+  },
+  {
+    description: '',
+    githubLink: '',
+    image: '',
+    license: '',
+    licensePage: '',
+    name: 'StreetMix',
+    partner: '',
+    partnerPage: '',
+    stack: [
+      {
+        type: 'Frontend',
+        name: '',
+        version: '',
+        documentation: ''
+      },
+      {
+        type: 'Backend',
+        name: '',
+        version: '',
+        documentation: ''
+      }
+    ],
+    website: ''
+  },
+  {
+    description: '',
+    githubLink: '',
+    image: '',
+    license: '',
+    licensePage: '',
+    name: 'Wysadź ulicę',
+    partner: '',
+    partnerPage: '',
+    stack: [
+      {
+        type: 'Frontend',
+        name: '',
+        version: '',
+        documentation: ''
+      },
+      {
+        type: 'Backend',
+        name: '',
+        version: '',
+        documentation: ''
+      }
+    ],
+    website: ''
+  },
+  {
+    description: '',
+    githubLink: '',
+    image: '',
+    license: '',
+    licensePage: '',
+    name: 'Strona społeczności',
+    partner: '',
+    partnerPage: '',
+    stack: [
+      {
+        type: 'Frontend',
+        name: '',
+        version: '',
+        documentation: ''
+      },
+      {
+        type: 'Backend',
+        name: '',
+        version: '',
+        documentation: ''
+      }
+    ],
+    website: ''
   }
 ];
 

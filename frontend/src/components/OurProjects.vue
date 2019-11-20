@@ -24,7 +24,7 @@
             <v-card @click.stop="clickImage(project)">
               <v-img :src="project.imageAdress" aspect-ratio="1.9"></v-img>
               <v-card-title id="card">
-                {{ project.projectName }}
+                {{ project.name }}
               </v-card-title>
               <v-expand-transition>
                 <div v-if="hover" id="card--reveal">
