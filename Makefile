@@ -22,6 +22,7 @@ populate_database:	## Populate database with fake data
 	docker-compose exec backend flask populate-database
 
 rebuild:	## Rebuild docker images
+	docker-compose rm --force
 	docker-compose build --no-cache
 
 test:	## Run unittests
