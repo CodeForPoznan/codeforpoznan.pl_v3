@@ -36,17 +36,14 @@ class ParticipantsList(Resource):
         db.session.add(participant)
         db.session.commit()
 
-        return {"message": "Participant created successfully.",
-                "participant": participant_schema.dump(participant)}, HTTPStatus.CREATED
+        return participant_schema.dump(participant), HTTPStatus.CREATED
 
 
 class ParticipantDetails(Resource):
     @jwt_required
     def get(self, id):
         participant_schema = ParticipantSchema()
-        return {"message": "Participant details:",
-                "participant": participant_schema.dump(
-                    Participant.query.get_or_404(id))}, HTTPStatus.OK
+        return participant_schema.dump(Participant.query.get_or_404(id)), HTTPStatus.OK
 
     @jwt_required
     def delete(self, id):

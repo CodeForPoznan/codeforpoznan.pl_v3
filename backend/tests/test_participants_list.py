@@ -52,11 +52,11 @@ def test_create_participant_when_logged_in(
         participant = schema.dump(Participant.query.first())
 
     assert rv.status_code == HTTPStatus.CREATED
-    assert response["participant"]["email"] == new_participant["email"]
+    assert response["email"] == new_participant["email"]
     for value in new_participant.values():
         assert value in participant.values()
     for value in [*participant.keys()]:
-        assert value in response["participant"]
+        assert value in response
 
 
 def test_try_create_participant_without_payload(client, access_token):
