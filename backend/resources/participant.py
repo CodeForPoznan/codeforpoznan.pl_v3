@@ -55,4 +55,3 @@ class ParticipantDetails(Resource):
         db.session.commit()
 
         return {"message": "Participant deleted successfully."}, HTTPStatus.OK
-    
