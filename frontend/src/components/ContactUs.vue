@@ -1,12 +1,14 @@
 <template>
-  <v-container text-xs-center>
-    <v-layout row id="black-title">
+  <v-container class="white-container">
+    <v-row>
       <v-flex>
         <v-card flat color="transparent">
-          <v-card-text>SKONTAKTUJ SIĘ</v-card-text>
+          <v-card-text class="title">
+            <p class="blue-title">SKONTAKTUJ SIĘ</p>
+          </v-card-text>
         </v-card>
       </v-flex>
-    </v-layout>
+    </v-row>
     <form @submit.prevent="onSubmit">
       <v-text-field
         v-model="name"
@@ -41,7 +43,9 @@
         @input="$v.content.$touch()"
         @blur="$v.content.$touch()"
       ></v-textarea>
-      <v-btn type="submit" :disabled="$v.$invalid" color="info">Wyślij</v-btn>
+      <v-btn type="submit" :disabled="$v.$invalid" id="submit-button"
+        >Wyślij</v-btn
+      >
     </form>
     <v-layout> </v-layout>
   </v-container>
@@ -141,4 +145,9 @@ export default {
 
 <style lang="scss" scoped>
 @import './../main.scss';
+
+#submit-button {
+  background: $blue;
+  color: $white;
+}
 </style>
