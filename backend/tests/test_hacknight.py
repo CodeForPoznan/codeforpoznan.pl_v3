@@ -1,25 +1,17 @@
 from http import HTTPStatus
 
 
-def test_get_hacknights_when_logged_in(
-    client, tokens, add_hacknights
-):
+def test_get_hacknights_when_logged_in(auth_client, add_hacknights):
     """Test get list of hacknights for logged in user."""
-    rv = client.get(
-        '/hacknights/',
-        headers={'Authorization': 'Bearer {}'.format(tokens["access"])}
-    )
+    rv = auth_client.get('/hacknights/')
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.OK
     assert len(response['hacknights']) == 10
 
 
-def test_get_hacknights_with_empty_db(client, tokens):
+def test_get_hacknights_with_empty_db(auth_client):
     """Test get list of hacknights when no hacknight added to db."""
-    rv = client.get(
-        '/hacknights/',
-        headers={'Authorization': 'Bearer {}'.format(tokens["access"])}
-    )
+    rv = auth_client.get('/hacknights/')
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.OK
     assert not response['hacknights']

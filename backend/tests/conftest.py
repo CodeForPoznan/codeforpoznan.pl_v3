@@ -2,6 +2,7 @@ import os
 import datetime
 import tempfile
 
+from flask.testing import FlaskClient
 import pytest
 
 from backend.app import create_app
@@ -106,6 +107,19 @@ def tokens(client, new_user, registered_user):
         "access": response["access_token"],
         "refresh": response["refresh_token"]
     }
+
+
+@pytest.fixture
+def auth_client(app, tokens):
+    class CustomClient(FlaskClient):
+        def open(self, *args, **kwargs):
+            kwargs.setdefault('headers', []).append(
+                ("Authorization", 'Bearer {}'.format(tokens["access"]))
+            )
+            return super().open(*args, **kwargs)
+
+    app.test_client_class = CustomClient
+    return app.test_client()
 
 
 @pytest.fixture

@@ -2,11 +2,9 @@ from http import HTTPStatus
 import pytest
 
 
-def test_logout_user_with_valid_access_token(client, tokens):
+def test_logout_user_with_valid_access_token(auth_client):
     """Test logout with fresh access token."""
-    rv = client.delete('/auth/logout/',
-                       headers={'Authorization': 'Bearer {}'
-                                .format(tokens["access"])})
+    rv = auth_client.delete('/auth/logout/')
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.OK
     assert response['msg'] == 'Successfully logged out'

@@ -2,13 +2,10 @@ from http import HTTPStatus
 
 
 def test_get_hacknight_details_authorized(
-    client, tokens, add_participants_to_hacknight
+    auth_client, add_participants_to_hacknight
 ):
     """Test get hacknight details for logged in user."""
-    rv = client.get(
-        '/hacknights/1/',
-        headers={'Authorization': 'Bearer {}'.format(tokens["access"])}
-    )
+    rv = auth_client.get('/hacknights/1/')
     response = rv.get_json()
 
     assert rv.status_code == HTTPStatus.OK
@@ -16,13 +13,10 @@ def test_get_hacknight_details_authorized(
 
 
 def test_no_hacknights_in_hacknights_participants(
-    client, tokens, add_participants_to_hacknight
+    auth_client, add_participants_to_hacknight
 ):
     """Test get hacknight details for logged in user."""
-    rv = client.get(
-        '/hacknights/1/',
-        headers={'Authorization': 'Bearer {}'.format(tokens["access"])}
-    )
+    rv = auth_client.get('/hacknights/1/')
     response = rv.get_json()
 
     for participant in response['hacknights']['participants']:
