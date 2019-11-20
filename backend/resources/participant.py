@@ -72,5 +72,4 @@ class ParticipantDetails(Resource):
             setattr(participant, key, value)
         db.session.add(participant)
         db.session.commit()
-        return {"message": "Participant updated successfully.",
-                "participant": participant_schema.dump(participant)}, HTTPStatus.CREATED
+        return {"participant": participant_schema.dump(participant)}, HTTPStatus.OK
