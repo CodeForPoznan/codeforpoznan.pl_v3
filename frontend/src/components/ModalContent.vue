@@ -36,8 +36,8 @@
       </v-card-actions>
     </v-card-text>
     <v-card-text>
-      <v-row>
-        <p class="modal-sub-title font-weight-bold align-center">
+      <v-row class="ml-3 mr-3">
+        <p class="modal-sub-title">
           Partner projektu:
         </p>
         <v-btn rounded text :href="selectedProject.partnerPage" target="_blank">
@@ -47,7 +47,7 @@
       <v-row>
         <p class="content">{{ selectedProject.description }}</p>
       </v-row>
-      <v-row>
+      <v-row class="ml-3 mr-3">
         <p class="modal-sub-title font-weight-bold align-center">Stack:</p>
         <v-btn
           v-for="(item, index) in selectedProject.stack"
@@ -119,7 +119,8 @@ a {
   font-family: $font-content;
   font-size: 1.5rem;
   line-height: 1.43;
-  margin: 0rem 0rem 0rem 1.5rem;
+  content-align: center;
+  font-weight: bold;
 }
 
 #stack-list {
