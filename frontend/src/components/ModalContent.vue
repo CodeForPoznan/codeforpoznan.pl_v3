@@ -40,15 +40,17 @@
         <p class="modal-sub-title">
           Partner projektu:
         </p>
-        <v-btn rounded text :href="selectedProject.partnerPage" target="_blank">
-          <p class="modal-sub-title">{{ selectedProject.partner }}</p>
+        <v-btn text rounded :href="selectedProject.partnerPage" target="_blank">
+          <a class="modal-sub-title">{{ selectedProject.partner }}</a>
         </v-btn>
       </v-row>
       <v-row>
         <p class="content">{{ selectedProject.description }}</p>
       </v-row>
       <v-row class="ml-3 mr-3">
-        <p class="modal-sub-title font-weight-bold align-center">Stack:</p>
+        <p class="modal-sub-title">Wykorzystane technologie:</p>
+      </v-row>
+      <v-row class="mr-1 ml-1">
         <v-btn
           v-for="(item, index) in selectedProject.stack"
           :key="index"
