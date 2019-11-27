@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/CodeForPoznan/codeforpoznan.pl_v3.svg?branch=master)](https://travis-ci.com/CodeForPoznan/codeforpoznan.pl_v3)
+
 # codeforpoznan.pl_v3
 Next version of Code for Poznan's website.
 
