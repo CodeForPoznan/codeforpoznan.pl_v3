@@ -1,16 +1,16 @@
-### Subject of the issue
+#### Subject of the issue
 Describe your issue here.
 
-### Your environment
+#### Your environment
 * version/branch 
 * which browser and its version
 
-### Steps to reproduce
+#### Steps to reproduce
 Tell us how to reproduce this issue.
 
-### Actual behaviour
+#### Actual behaviour
 Tell us what happened
 
-### Expected behaviour
+#### Expected behaviour
 Tell us what should happen
 
