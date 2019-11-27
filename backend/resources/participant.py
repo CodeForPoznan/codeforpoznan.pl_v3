@@ -27,8 +27,7 @@ class ParticipantsList(Resource):
         participant_schema = ParticipantSchema()
         json_data = request.get_json(force=True)
         if not json_data:
-            return {'message': 'No input data provided'}, \
-                   HTTPStatus.BAD_REQUEST
+            return {'message': 'No input data provided'}, HTTPStatus.BAD_REQUEST
         try:
             data = participant_schema.load(json_data)
         except ValidationError as err:
@@ -72,4 +71,4 @@ class ParticipantDetails(Resource):
             setattr(participant, key, value)
         db.session.add(participant)
         db.session.commit()
-        return {"participant": participant_schema.dump(participant)}, HTTPStatus.OK
+        return participant_schema.dump(participant), HTTPStatus.OK
