@@ -1,8 +1,8 @@
-#### Story / Bug id: 
-
+#### Story / Bug id:
+123 [link to the issue]
 
 #### Description:
-N/A
+Describe changes made in your pull request here
 
 #### Migrations:
 N/A
