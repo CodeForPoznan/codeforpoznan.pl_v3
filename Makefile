@@ -31,7 +31,7 @@ test: ## Run unittests
 black: ## Run black
 	docker-compose exec backend black .
 
-black-check: ## Run black
+black-check: ## Check black
 	docker-compose exec backend black --check .
 
 code-cov: ## Run pytest with code coverage
