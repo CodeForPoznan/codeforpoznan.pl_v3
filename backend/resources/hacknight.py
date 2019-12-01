@@ -15,8 +15,7 @@ from backend.serializers.hacknight_serializer import HacknightSchema
 class HacknightList(Resource):
     @jwt_required
     def get(self):
-        hacknight_schema = HacknightSchema(
-            many=True, exclude=('participants',))
+        hacknight_schema = HacknightSchema(many=True, exclude=("participants",))
         return hacknight_schema.dump(Hacknight.query.all()), HTTPStatus.OK
 
     @jwt_required
@@ -32,11 +31,8 @@ class HacknightList(Resource):
 
         hacknight = Hacknight.query.filter_by(date=data["date"]).first()
         if hacknight:
-            return {'message': 'Hacknight already exists.'}, \
-                HTTPStatus.CONFLICT
-        hacknight = Hacknight(
-            date=data["date"]
-        )
+            return {"message": "Hacknight already exists."}, HTTPStatus.CONFLICT
+        hacknight = Hacknight(date=data["date"])
         db.session.add(hacknight)
         db.session.commit()
 
