@@ -1,5 +1,5 @@
 language: python
-python: 3.5
+python: 3.8
 install:
   - pip install -r backend/requirements.txt
 
@@ -11,3 +11,4 @@ script:
   - cd backend
   - export SECRET_KEY="codeforpoznan"
   - pytest
+  - black --check .
