@@ -21,26 +21,22 @@ class UserLogin(Resource):
         current_user = get_jwt_identity()
 
         if current_user:
-            return {
-                "msg": "User already logged in as {}".format(current_user)
-            }, HTTPStatus.UNAUTHORIZED
+            return HTTPStatus.UNAUTHORIZED
 
         if not request.is_json:
-            return {"msg": "No input data provided"}, HTTPStatus.BAD_REQUEST
+            return HTTPStatus.BAD_REQUEST
 
         schema = LoginSchema()
         try:
             result = schema.load(request.json)
         except ValidationError as error:
-            return {"msg": "Wrong input data",
-                    "errors": error.messages}, HTTPStatus.BAD_REQUEST
+            return HTTPStatus.BAD_REQUEST
 
         username = result['username']
         password = result['password']
 
         if not (username and password):
-            return {"msg": "Username and password required"},
-            HTTPStatus.BAD_REQUEST
+            return HTTPStatus.BAD_REQUEST
 
         user = User.query.filter_by(username=username).first()
 
@@ -66,7 +62,7 @@ class UserLogin(Resource):
             )
             return ret, HTTPStatus.CREATED
         else:
-            return {"msg": "Not authorized"}, HTTPStatus.UNAUTHORIZED
+            return HTTPStatus.UNAUTHORIZED
 
 
 class UserLogout(Resource):
@@ -76,7 +72,7 @@ class UserLogout(Resource):
         token = JWTToken.query.filter_by(jti=jti).one()
         token.revoked = True
         db.session.commit()
-        return {"msg": "Successfully logged out"}, HTTPStatus.OK
+        return HTTPStatus.OK
 
 
 class RefreshAccessToken(Resource):
@@ -86,7 +82,7 @@ class RefreshAccessToken(Resource):
         token = JWTToken.query.filter_by(jti=jti).one()
 
         if token.revoked:
-            return {'msg': 'token has been revoked'}, HTTPStatus.UNAUTHORIZED
+            return HTTPStatus.UNAUTHORIZED
 
         current_user = get_jwt_identity()
         identity_claim = app.config['JWT_IDENTITY_CLAIM']
@@ -108,7 +104,7 @@ class RevokeRefreshToken(Resource):
         token = JWTToken.query.filter_by(jti=jti).one()
         token.revoked = True
         db.session.commit()
-        return {"msg": "Refresh token successfully revoked"}, HTTPStatus.OK
+        return HTTPStatus.OK
 
 
 def add_token_to_database(encoded_token, identity_claim):
