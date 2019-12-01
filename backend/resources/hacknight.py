@@ -1,4 +1,3 @@
-from datetime import datetime
 from http import HTTPStatus
 
 from flask import request
@@ -18,8 +17,7 @@ class HacknightList(Resource):
     def get(self):
         hacknight_schema = HacknightSchema(
             many=True, exclude=('participants',))
-        return {'hacknights': hacknight_schema.dump(
-            Hacknight.query.all())}, HTTPStatus.OK
+        return hacknight_schema.dump(Hacknight.query.all()), HTTPStatus.OK
 
     @jwt_required
     def post(self):
@@ -38,15 +36,12 @@ class HacknightList(Resource):
             return {'message': 'Hacknight already exists.'}, \
                 HTTPStatus.CONFLICT
         hacknight = Hacknight(
-            date=datetime.strptime(data['date'], "%a, %d %b %Y %H:%M:%S %Z"),
+            date=data["date"]
         )
         db.session.add(hacknight)
         db.session.commit()
 
-        return {
-            "message": "Hacknight created successfully.",
-            "hacknight": hacknight_schema.dump(hacknight)
-        }, HTTPStatus.CREATED
+        return hacknight_schema.dump(hacknight), HTTPStatus.CREATED
 
 
 class HacknightDetails(Resource):

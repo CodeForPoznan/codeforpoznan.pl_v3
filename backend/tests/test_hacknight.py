@@ -11,7 +11,7 @@ def test_get_hacknights_when_logged_in(
     )
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.OK
-    assert len(response['hacknights']) == 10
+    assert len(response) == 10
 
 
 def test_get_hacknights_with_empty_db(client, access_token):
@@ -22,7 +22,7 @@ def test_get_hacknights_with_empty_db(client, access_token):
     )
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.OK
-    assert not response['hacknights']
+    assert not response
 
 
 def test_get_hacknights_unauthorized(client, add_hacknights):

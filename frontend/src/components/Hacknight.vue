@@ -2,9 +2,20 @@
   <v-container fluid text-xs-center>
     <v-row align="center" justify="center">
       <v-col class="d-flex" cols="12" sm="6">
+        <v-alert
+          type="error"
+          :value="getError ? true : false"
+          transition="slide-y-transition"
+          dismissible
+          >{{ getError }}</v-alert
+        >
+      </v-col>
+    </v-row>
+    <v-row align="center" justify="center">
+      <v-col class="d-flex" cols="12" sm="6">
         <v-select
           v-model="selectedHacknight"
-          :items="hacknights"
+          :items="getHacknights"
           item-text="date"
           item-value="id"
           label="Select Hacknight"
@@ -29,34 +40,28 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
   data() {
     return {
-      selectedHacknight: '',
-      hacknight: {},
-      hacknights: []
+      selectedHacknight: null
     };
   },
   created() {
-    this.$store.dispatch('hacknight/getHacknights').then(res => {
-      this.hacknights = res.data.hacknights;
-    });
+    this.$store.dispatch('hacknight/getHacknights');
   },
   methods: {
     onCreateHacknight() {
-      this.$store.dispatch('hacknight/createHacknight').then(res => {
-        this.hacknight = res.data.hacknight;
-        this.hacknights.push(this.hacknight);
-        this.selectedHacknight = this.hacknight.id;
-      });
+      this.$store
+        .dispatch('hacknight/createHacknight')
+        .then(() => (this.selectedHacknight = this.getHacknight));
     },
     onGetHacknight() {
-      this.$store
-        .dispatch('hacknight/getHacknight', this.selectedHacknight)
-        .then(res => {
-          this.hacknight = res.data;
-        });
+      this.$store.dispatch('hacknight/getHacknight', this.selectedHacknight);
     }
+  },
+  computed: {
+    ...mapGetters('hacknight', ['getHacknights', 'getHacknight', 'getError'])
   }
 };
 </script>

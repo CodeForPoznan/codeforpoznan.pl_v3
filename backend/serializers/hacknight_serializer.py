@@ -11,3 +11,4 @@ class HacknightSchema(Schema):
         exclude=('hacknights',),
         many=True
     )
+    date = fields.Date()
