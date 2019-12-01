@@ -24,14 +24,13 @@ class HacknightList(Resource):
         hacknight_schema = HacknightSchema()
         json_data = request.get_json(force=True)
         if not json_data:
-            return {'message': 'No input data provided'}, \
-                HTTPStatus.BAD_REQUEST
+            return {"message": "No input data provided"}, HTTPStatus.BAD_REQUEST
         try:
             data = hacknight_schema.load(json_data)
         except ValidationError as err:
             return (err.messages), HTTPStatus.BAD_REQUEST
 
-        hacknight = Hacknight.query.filter_by(date=data['date']).first()
+        hacknight = Hacknight.query.filter_by(date=data["date"]).first()
         if hacknight:
             return {'message': 'Hacknight already exists.'}, \
                 HTTPStatus.CONFLICT
@@ -49,6 +48,7 @@ class HacknightDetails(Resource):
     def get(self, id):
         hacknight_schema = HacknightSchema()
 
-        return {'hacknights': hacknight_schema.dump(Hacknight.query.get_or_404(
-            id))
-        }, HTTPStatus.OK
+        return (
+            {"hacknights": hacknight_schema.dump(Hacknight.query.get_or_404(id))},
+            HTTPStatus.OK,
+        )
