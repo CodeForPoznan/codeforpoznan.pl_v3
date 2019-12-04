@@ -58,7 +58,7 @@ class ParticipantDetails(Resource):
 
     @jwt_required
     def put(self, id):
-        participant_schema = ParticipantSchema()
+        participant_schema = ParticipantSchema(partial=True)
         participant = Participant.query.get_or_404(id)
         json_data = request.get_json(force=True)
         try:
