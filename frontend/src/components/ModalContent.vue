@@ -37,18 +37,18 @@
     </v-card-text>
     <v-card-text>
       <v-row class="ml-3 mr-3">
-        <p class="modal-sub-title">
+        <p class="modal-subtitle">
           Partner projektu:
         </p>
         <v-btn text rounded :href="selectedProject.partnerPage" target="_blank">
-          <a class="modal-sub-title">{{ selectedProject.partner }}</a>
+          <a class="modal-subtitle">{{ selectedProject.partner }}</a>
         </v-btn>
       </v-row>
       <v-row>
         <p class="content--black">{{ selectedProject.description }}</p>
       </v-row>
       <v-row class="ml-3 mr-3">
-        <p class="modal-sub-title">Wykorzystane technologie:</p>
+        <p class="modal-subtitle">Wykorzystane technologie:</p>
       </v-row>
       <v-row class="mr-1 ml-1">
         <v-btn
