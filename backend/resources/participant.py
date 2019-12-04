@@ -1,5 +1,3 @@
-from builtins import setattr
-
 from http import HTTPStatus
 
 from flask import request
