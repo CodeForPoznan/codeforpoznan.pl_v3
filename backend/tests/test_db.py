@@ -1,5 +1,4 @@
 import datetime
-import pytest
 
 from backend.models import User, Participant, Hacknight
 
@@ -9,17 +8,14 @@ def test_add_new_user_to_db(_db, new_user):
 
     db = _db
     assert len(db.session.query(User).all()) == 0
-    new_user = User(
-        username=new_user['username'],
-        password=new_user['password']
-    )
+    new_user = User(username=new_user["username"], password=new_user["password"])
     db.session.add(new_user)
     db.session.commit()
 
     user = db.session.query(User).filter_by(username="TestName").first()
 
     assert user.username == "TestName"
-    assert user.check_password('TestPassword')
+    assert user.check_password("TestPassword")
 
 
 def test_add_new_participant_to_db(_db, new_participant):
@@ -29,15 +25,16 @@ def test_add_new_participant_to_db(_db, new_participant):
     assert len(db.session.query(Participant).all()) == 0
 
     new_participant = Participant(**new_participant)
+
     db.session.add(new_participant)
     db.session.commit()
 
     participant = db.session.query(Participant).filter_by(first_name="Jon").first()
 
-    assert participant.first_name == 'Jon'
-    assert participant.last_name == 'Doe'
-    assert participant.email == 'test@test.com'
-    assert participant.phone == '123456789'
+    assert participant.first_name == "Jon"
+    assert participant.last_name == "Doe"
+    assert participant.email == "test@test.com"
+    assert participant.phone == "123456789"
 
 
 def test_add_new_hacknight_to_db(_db, new_hacknight):
@@ -45,7 +42,7 @@ def test_add_new_hacknight_to_db(_db, new_hacknight):
     db = _db
     assert len(db.session.query(Hacknight).all()) == 0
 
-    new_hacknight = Hacknight(date=new_hacknight['date'])
+    new_hacknight = Hacknight(date=new_hacknight["date"])
     db.session.add(new_hacknight)
     db.session.commit()
 
