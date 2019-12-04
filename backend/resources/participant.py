@@ -37,7 +37,7 @@ class ParticipantsList(Resource):
         db.session.commit()
 
         return (
-            {"message": "Participant created successfully.", "participant": data},
+            "",
             HTTPStatus.CREATED,
         )
 
