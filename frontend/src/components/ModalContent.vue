@@ -45,20 +45,19 @@
         </v-btn>
       </v-row>
       <v-row>
-        <p class="content">{{ selectedProject.description }}</p>
+        <p class="content--black">{{ selectedProject.description }}</p>
       </v-row>
       <v-row class="ml-3 mr-3">
         <p class="modal-sub-title">Wykorzystane technologie:</p>
       </v-row>
       <v-row class="mr-1 ml-1">
         <v-btn
+          class="stack-list ma-2"
           v-for="(item, index) in selectedProject.stack"
           :key="index"
           :href="item.documentation"
           target="_blank"
           rounded
-          class="ma-2"
-          id="stack-list"
         >
           {{ item.type }}: {{ item.name }} {{ item.version }}
         </v-btn>
@@ -98,7 +97,7 @@ a {
   margin: 1rem;
 }
 
-.content {
+.content--black {
   color: black;
   text-align: justify;
   margin: 1rem 1.5rem;
@@ -113,7 +112,7 @@ a {
   margin: 0.5rem 0rem 0rem 2rem;
 }
 
-.modal-sub-title {
+.modal-subtitle {
   color: black;
   display: flex;
   position: relative;
@@ -121,12 +120,11 @@ a {
   font-family: $font-content;
   font-size: 1.5rem;
   line-height: 1.43;
-  content-align: center;
   font-weight: bold;
 }
 
-#stack-list {
-  background-color: $blue;
+.stack-list {
+  background-color: $blue !important;
   color: $white;
 }
 

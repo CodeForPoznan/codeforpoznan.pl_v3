@@ -9,42 +9,43 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-layout row wrap>
-      <v-flex
-        id="items"
+    <v-row wrap>
+      <v-col
+        class="items"
         v-for="(project, index) in projects"
         :key="index"
-        xs12
-        md6
-        lg4
-        xl3
+        cols="12"
+        xs="12"
+        md="6"
+        lg="4"
+        xl="3"
       >
         <v-item-group>
           <v-hover v-slot="{ hover }">
             <v-card @click.stop="clickImage(project)">
-              <v-img :src="project.imageAdress" aspect-ratio="1.9"></v-img>
-              <v-card-title id="card">
+              <v-img :src="project.imageAdress" aspect-ratio="1.9" />
+              <v-card-title class="card">
                 {{ project.name }}
               </v-card-title>
               <v-expand-transition>
-                <div v-if="hover" id="card--reveal">
-                  <v-img id="card--hover" :src="hoveredImg"></v-img>
+                <div v-if="hover" class="card--reveal">
+                  <v-img class="card--hover" :src="hoveredImg" />
                 </div>
               </v-expand-transition>
             </v-card>
           </v-hover>
         </v-item-group>
-      </v-flex>
-    </v-layout>
+      </v-col>
+    </v-row>
     <v-dialog v-model="dialog" width="50rem">
-      <app-modal-content :selectedProject="selectedProject"></app-modal-content>
+      <app-modal-content :selectedProject="selectedProject" />
     </v-dialog>
   </v-container>
 </template>
 
 <script>
 import ModalContent from './ModalContent.vue';
-import projects_db from '../assets/projects';
+import projects from '../assets/projects';
 export default {
   components: {
     'app-modal-content': ModalContent
@@ -53,136 +54,7 @@ export default {
     return {
       dialog: false,
       hoveredImg: require('@/assets/images/magnifier.svg'),
-      projects: projects_db,
-      // projects: [
-      //     {
-      //         description: '',
-      //         github: '',
-      //         image: '',
-      //         license: '',
-      //         licensePage: '',
-      //         name: 'Fleet manager',
-      //         partner: 'Polska Akcja Humanitarna',
-      //         partnerPage: 'https://www.pah.org.pl/',
-      //         stack: [
-      //             {
-      //                 type: '',
-      //                 name: '',
-      //                 version: '',
-      //                 documentation: ''
-      //             },
-      //             {
-      //                 type: '',
-      //                 name: '',
-      //                 version: '',
-      //                 documentation: ''
-      //             }
-      //         ],
-      //         website: ''
-      //     },
-      //     {
-      //         description: '',
-      //         github: '',
-      //         image: '',
-      //         license: '',
-      //         licensePage: '',
-      //         name: 'Alinka',
-      //         partner: '',
-      //         partnerPage: '',
-      //         stack: [
-      //             {
-      //                 type: '',
-      //                 name: '',
-      //                 version: '',
-      //                 documentation: ''
-      //             },
-      //             {
-      //                 type: '',
-      //                 name: '',
-      //                 version: '',
-      //                 documentation: ''
-      //             }
-      //         ],
-      //         website: ''
-      //     },
-      //     {
-      //         description:
-      //                 'Portal Volontulo powstał dla ludzi i organizacji skupionych wokół idei pomocy innym poprzez udział we wolontariacie. Celem projektu jest pomoc we wzajemnym odnalezieniu się ludzi, którzy chcą realizować się jako wolontariusze/szki oraz organizacji i instytucji, które takich osób poszukują. Podział na strefę "Wolontariusza" oraz "Strefę organizacji i instytucji" umożliwa użytkownikom zwinną nawigację na stronie.',
-      //         github: 'https://github.com/CodeForPoznan/volontulo',
-      //         image: require('@/assets/images/volontulo.png'),
-      //         license: 'MIT',
-      //         licensePage: 'https://pl.wikipedia.org/wiki/Licencja_MIT',
-      //         name: 'Volontulo',
-      //         partner: 'Wielkopolska Rada Koordynacyjna',
-      //         partnerPage: 'https://centrum.wrk.org.pl/',
-      //         stack: [
-      //             {
-      //                 type: 'frontend',
-      //                 name: 'Angular',
-      //                 version: '2.0',
-      //                 documentation: 'https://angular.io/'
-      //             },
-      //             {
-      //                 type: 'backend',
-      //                 name: 'Django',
-      //                 version: '2.2',
-      //                 documentation:
-      //                         'https://docs.djangoproject.com/en/2.2/'
-      //             }
-      //         ],
-      //         website: 'http://volontuloapp.org/o'
-      //     },
-      //     {
-      //         description: '',
-      //         github: '',
-      //         image: require('@/assets/images/bank_empatii.png'),
-      //         license: '',
-      //         licensePage: '',
-      //         name: 'Bank empatii',
-      //         partner: '',
-      //         partnerPage: '',
-      //         stack: [
-      //             {
-      //                 type: '',
-      //                 name: '',
-      //                 version: '',
-      //                 documentation: ''
-      //             },
-      //             {
-      //                 type: '',
-      //                 name: '',
-      //                 version: '',
-      //                 documentation: ''
-      //             }
-      //         ],
-      //         website: ''
-      //     },
-      //     {
-      //         description: '',
-      //         github: '',
-      //         image: require('@/assets/images/wysadz_ulice.png'),
-      //         license: '',
-      //         licensePage: '',
-      //         name: 'Wysadź ulicę',
-      //         partner: '',
-      //         partnerPage: '',
-      //         stack: [
-      //             {
-      //                 type: '',
-      //                 name: '',
-      //                 version: '',
-      //                 documentation: ''
-      //             },
-      //             {
-      //                 type: '',
-      //                 name: '',
-      //                 version: '',
-      //                 documentation: ''
-      //             }
-      //         ],
-      //         website: ''
-      //     }
-      // ],
+      projects: projects,
       selectedProject: []
     };
   },
@@ -203,17 +75,17 @@ export default {
 <style lang="scss" scoped>
 @import './../main.scss';
 
-#items {
+.items {
   padding: 10px;
 }
 
-#card {
+.card {
   font-family: $font-header;
   font-size: 1.5rem;
   justify-content: center;
 }
 
-#card--reveal {
+.card--reveal {
   background: $blue;
   bottom: 0;
   color: $white;
@@ -225,7 +97,7 @@ export default {
   height: 100%;
 }
 
-#card--hover {
+.card--hover {
   max-width: 50%;
 }
 </style>
