@@ -11,12 +11,12 @@ a {
 
 .blue-container {
     background: $blue;
-    @include mobile;
+    @include displays;
 }
 
 .white-container {
     background: $white;
-    @include mobile;
+    @include displays;
 }
 
 // Container title class
