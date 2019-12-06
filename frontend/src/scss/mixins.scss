@@ -1,3 +1,5 @@
+@import "breakpoints";
+
 @mixin title-before {
     content: '';
     position: absolute;
@@ -6,5 +8,11 @@
     width: 250px;
     height: 5px;
     margin-left: -125px;
-    margin-bottom: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+@mixin mobile {
+    @media only screen and (min-width: $small-device) {
+        padding: 2rem 8rem;
+    }
 }

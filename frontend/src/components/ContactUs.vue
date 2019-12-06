@@ -4,7 +4,7 @@
       <v-flex>
         <v-card flat color="transparent">
           <v-card-text class="title">
-            <p class="blue-title">SKONTAKTUJ SIĘ</p>
+            <p class="blue-title">SKONTAKTUJ SIĘ Z NAMI</p>
           </v-card-text>
         </v-card>
       </v-flex>

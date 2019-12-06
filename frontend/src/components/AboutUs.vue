@@ -10,7 +10,7 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col xl="6" lg="6" md="6" sm="12" xs="12">
+      <v-col cols="12" xl="6" lg="6" md="6" sm="12" xs="12">
         <v-card flat dark tile color="transparent">
           <v-card-text>
             <p class="sub-title">Kim jesteśmy?</p>
