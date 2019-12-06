@@ -12,7 +12,10 @@
 }
 
 @mixin mobile {
-    @media only screen and (min-width: $small-device) {
+    @media only screen and (min-width: $phone) {
         padding: 2rem 8rem;
+    }
+    @media only screen and (min-width: $desktop) {
+        padding: 2rem 20rem;
     }
 }
