@@ -1,5 +1,12 @@
 @import "breakpoints";
 
+@mixin main-title {
+    font-family: $font-header;
+    font-size: 2.8rem;
+    line-height: 3rem;
+    text-align: center;
+}
+
 @mixin title-before {
     content: '';
     position: absolute;

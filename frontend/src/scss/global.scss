@@ -31,10 +31,7 @@ a {
 
 .white-title {
     color: $white;
-    font-family: $font-header;
-    font-size: 2.8rem;
-    line-height: 3rem;
-    text-align: center;
+    @include main-title;
 
     &::before {
         @include title-before;
@@ -44,10 +41,7 @@ a {
 
 .blue-title {
     color: $blue;
-    font-family: $font-header;
-    font-size: 2.8rem;
-    line-height: 3rem;
-    text-align: center;
+    @include main-title;
 
     &::before {
         @include title-before;
