@@ -5,14 +5,12 @@ from backend.models import Hacknight, Participant, User
 
 
 class BaseFactory(factory.alchemy.SQLAlchemyModelFactory):
-
     class Meta:
         abstract = True
         sqlalchemy_session = db.session
 
 
 class UserFactory(BaseFactory):
-
     class Meta:
         model = User
 
@@ -21,7 +19,6 @@ class UserFactory(BaseFactory):
 
 
 class ParticipantFactory(BaseFactory):
-
     class Meta:
         model = Participant
 
@@ -37,7 +34,6 @@ class ParticipantFactory(BaseFactory):
 
 
 class HacknightFactory(BaseFactory):
-
     class Meta:
         model = Hacknight
 

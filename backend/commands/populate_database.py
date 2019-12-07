@@ -30,8 +30,8 @@ def populate_database():
             participants=random.sample(all_participants, random.randint(5, 30))
         )
 
-    click.echo('Created users:')
+    click.echo("Created users:")
     for id, username in enumerate(usernames, start=1):
-        click.echo('{}. {}'.format(id, username))
+        click.echo("{}. {}".format(id, username))
 
     db.session.commit()
