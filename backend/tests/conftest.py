@@ -17,10 +17,10 @@ def app():
     # create a temp file to isolate the db for each test
     db_fd, db_path = tempfile.mkstemp()
     app = create_app()
-    app.config['TESTING'] = True
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['DATABASE'] = db_path
-    app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite://"
+    app.config["TESTING"] = True
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    app.config["DATABASE"] = db_path
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite://"
 
     # create the db and load test data
     with app.app_context():
@@ -45,10 +45,10 @@ def _db():
     """Create and configure a new db instance for pytest-flask-sqlalchemy."""
     db_fd, db_path = tempfile.mkstemp()
     app = create_app()
-    app.config['TESTING'] = True
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['DATABASE'] = db_path
-    app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite://"
+    app.config["TESTING"] = True
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    app.config["DATABASE"] = db_path
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite://"
 
     with app.app_context():
         db.init_app(app)
@@ -62,27 +62,24 @@ def _db():
 
 @pytest.fixture
 def new_user():
-    user = {
-        'username': 'TestName',
-        'password': 'TestPassword'
-    }
+    user = {"username": "TestName", "password": "TestPassword"}
     return user
 
 
 @pytest.fixture
 def new_participant():
     participant = {
-        'first_name': 'Jon',
-        'last_name': 'Doe',
-        'email': 'test@test.com',
-        'phone': '123456789'
+        "first_name": "Jon",
+        "last_name": "Doe",
+        "email": "test@test.com",
+        "phone": "123456789",
     }
     return participant
 
 
 @pytest.fixture
 def new_hacknight():
-    hacknight = {'date': datetime.date(2000, 10, 10)}
+    hacknight = {"date": datetime.date(2000, 10, 10)}
     return hacknight
 
 
@@ -98,23 +95,17 @@ def registered_user(new_user, app, _db):
 
 @pytest.fixture
 def tokens(client, new_user, registered_user):
-    rv = client.post(
-        '/auth/login/',
-        json=new_user
-    )
+    rv = client.post("/auth/login/", json=new_user)
     response = rv.get_json()
-    return {
-        "access": response["access_token"],
-        "refresh": response["refresh_token"]
-    }
+    return {"access": response["access_token"], "refresh": response["refresh_token"]}
 
 
 @pytest.fixture
 def auth_client(app, tokens):
     class CustomClient(FlaskClient):
         def open(self, *args, **kwargs):
-            kwargs.setdefault('headers', []).append(
-                ("Authorization", 'Bearer {}'.format(tokens["access"]))
+            kwargs.setdefault("headers", []).append(
+                ("Authorization", "Bearer {}".format(tokens["access"]))
             )
             return super().open(*args, **kwargs)
 
@@ -128,7 +119,7 @@ def new_msg():
         "name": "TestName",
         "email": "test@test.com",
         "phone": "777222333",
-        "content": "Lorem Ipsum cos tam cos tam"
+        "content": "Lorem Ipsum cos tam cos tam",
     }
     return msg
 
