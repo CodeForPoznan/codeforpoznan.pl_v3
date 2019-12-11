@@ -4,17 +4,20 @@ from flask_cors import CORS
 from backend.commands.populate_database import populate_database
 from backend.extensions import api, db, mail, migrate, jwt
 from backend.resources.auth import (
-    UserLogin, UserLogout, RefreshAccessToken, RevokeRefreshToken
+    UserLogin,
+    UserLogout,
+    RefreshAccessToken,
+    RevokeRefreshToken,
 )
 from backend.resources.contact import SendMessage
-from backend.resources.hacknight import HacknightList
+from backend.resources.hacknight import HacknightList, HacknightDetails
 from backend.resources.participant import ParticipantDetails, ParticipantsList
 
 
 def create_app():
     """Application factory function"""
     app = Flask(__name__)
-    app.config.from_object('backend.config.DevelopmentConfig')
+    app.config.from_object("backend.config.DevelopmentConfig")
     app.cli.add_command(populate_database)
 
     CORS(app)
@@ -28,11 +31,12 @@ def initialize_extensions(app):
     api.init_app(app)
     db.init_app(app)
     mail.init_app(app)
-    migrate.init_app(app, db, directory='migrations')
+    migrate.init_app(app, db, directory="migrations")
     jwt.init_app(app)
 
 
 api.add_resource(HacknightList, "/hacknights/")
+api.add_resource(HacknightDetails, "/hacknights/<int:id>/")
 api.add_resource(ParticipantDetails, "/participants/<int:id>/")
 api.add_resource(ParticipantsList, "/participants/")
 api.add_resource(RefreshAccessToken, "/auth/refresh/")

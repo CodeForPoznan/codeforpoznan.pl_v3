@@ -23,15 +23,15 @@ def populate_database():
     for _ in tqdm(range(50)):
         ParticipantFactory.create()
 
-    click.echo("Creating 50 hacknights")
+    click.echo("Creating 30 hacknights")
     all_participants = Participant.query.all()
     for _ in tqdm(range(30)):
         HacknightFactory.create(
             participants=random.sample(all_participants, random.randint(5, 30))
         )
 
-    click.echo('Created users:')
+    click.echo("Created users:")
     for id, username in enumerate(usernames, start=1):
-        click.echo('{}. {}'.format(id, username))
+        click.echo("{}. {}".format(id, username))
 
     db.session.commit()

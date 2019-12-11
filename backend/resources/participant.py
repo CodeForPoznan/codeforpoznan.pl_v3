@@ -15,27 +15,18 @@ from backend.serializers.participant_serializer import ParticipantSchema
 class ParticipantsList(Resource):
     @jwt_required
     def get(self):
-        participant_schema = ParticipantSchema(
-            many=True, exclude=('hacknights',))
-        return {"participants": participant_schema.dump(
-            Participant.query.all())}, HTTPStatus.OK
-
-
-class ParticipantDetails(Resource):
-    @jwt_required
-    def get(self, id):
-        participant_schema = ParticipantSchema()
-        return participant_schema.dump(
-            Participant.query.get_or_404(id)
-        ), HTTPStatus.OK
+        participant_schema = ParticipantSchema(many=True, exclude=("hacknights",))
+        return (
+            {"participants": participant_schema.dump(Participant.query.all())},
+            HTTPStatus.OK,
+        )
 
     @jwt_required
     def post(self):
         participant_schema = ParticipantSchema()
         json_data = request.get_json(force=True)
         if not json_data:
-            return {'message': 'No input data provided'}, \
-                HTTPStatus.BAD_REQUEST
+            return {"message": "No input data provided"}, HTTPStatus.BAD_REQUEST
         try:
             data = participant_schema.load(json_data)
         except ValidationError as err:
@@ -45,5 +36,22 @@ class ParticipantDetails(Resource):
         db.session.add(participant)
         db.session.commit()
 
-        return {"message": "Participant created successfully.",
-                "participant": data}, HTTPStatus.CREATED
+        return (
+            {"message": "Participant created successfully.", "participant": data},
+            HTTPStatus.CREATED,
+        )
+
+
+class ParticipantDetails(Resource):
+    @jwt_required
+    def get(self, id):
+        participant_schema = ParticipantSchema()
+        return participant_schema.dump(Participant.query.get_or_404(id)), HTTPStatus.OK
+
+    @jwt_required
+    def delete(self, id):
+        participant = Participant.query.get_or_404(id)
+        db.session.delete(participant)
+        db.session.commit()
+
+        return {"message": "Participant deleted successfully."}, HTTPStatus.OK
