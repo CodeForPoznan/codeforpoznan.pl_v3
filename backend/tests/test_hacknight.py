@@ -37,8 +37,8 @@ def test_add_participants_to_hacknight(
 ):
     """Test add new participant to hacknight."""
     payload = {"participants_ids": [1, 3]}
-    rv = client.patch(
-        "/hacknights/1/",
+    rv = client.post(
+        "/hacknights/1/participants/",
         headers={"Authorization": "Bearer {}".format(access_token)},
         data=json.dumps(payload),
     )
@@ -57,7 +57,7 @@ def test_add_participants_to_hacknight_unauthorized(
 ):
     """Test add participants to hacknight when user is not logged in."""
     payload = {"participants_ids": [1, 3]}
-    rv = client.patch("/hacknights/1/", data=json.dumps(payload))
+    rv = client.post("/hacknights/1/participants/", data=json.dumps(payload))
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.UNAUTHORIZED
     assert response["msg"] == "Missing Authorization Header"
@@ -68,8 +68,8 @@ def test_add_nonexisting_participants_to_hacknight(
 ):
     """Test add non-existing participants ids to hacknight."""
     payload = {"participants_ids": [1, 3]}
-    rv = client.patch(
-        "/hacknights/1/",
+    rv = client.post(
+        "/hacknights/1/participants/",
         headers={"Authorization": "Bearer {}".format(access_token)},
         data=json.dumps(payload),
     )
@@ -81,8 +81,8 @@ def test_add_participants_to_nonexisting_hacknight(
 ):
     """Test add participants to non-existing hacknight."""
     payload = {"participants_ids": [1, 3]}
-    rv = client.patch(
-        "/hacknights/1/",
+    rv = client.post(
+        "/hacknights/1/participants/",
         headers={"Authorization": "Bearer {}".format(access_token)},
         data=json.dumps(payload),
     )
@@ -98,8 +98,8 @@ def test_duplicate_participant_in_hacknight(
     hacknight.participants.append(participant)
 
     payload = {"participants_ids": [participant.id]}
-    rv = client.patch(
-        "/hacknights/{}/".format(hacknight.id),
+    rv = client.post(
+        "/hacknights/{}/participants/".format(hacknight.id),
         headers={"Authorization": "Bearer {}".format(access_token)},
         data=json.dumps(payload),
     )

@@ -10,7 +10,11 @@ from backend.resources.auth import (
     RevokeRefreshToken,
 )
 from backend.resources.contact import SendMessage
-from backend.resources.hacknight import HacknightDetails, HacknightList
+from backend.resources.hacknight import (
+    HacknightDetails,
+    HacknightList,
+    HacknightParticipants,
+)
 from backend.resources.participant import ParticipantDetails, ParticipantsList
 
 
@@ -37,6 +41,7 @@ def initialize_extensions(app):
 
 api.add_resource(HacknightList, "/hacknights/")
 api.add_resource(HacknightDetails, "/hacknights/<int:id>/")
+api.add_resource(HacknightParticipants, "/hacknights/<int:id>/participants/")
 api.add_resource(ParticipantDetails, "/participants/<int:id>/")
 api.add_resource(ParticipantsList, "/participants/")
 api.add_resource(RefreshAccessToken, "/auth/refresh/")

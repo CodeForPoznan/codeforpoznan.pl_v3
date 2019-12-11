@@ -55,8 +55,10 @@ class HacknightDetails(Resource):
             HTTPStatus.OK,
         )
 
+
+class HacknightParticipants(Resource):
     @jwt_required
-    def patch(self, id):
+    def post(self, id):
         hacknight = Hacknight.query.get_or_404(id)
         participants = [participant.id for participant in hacknight.participants]
 
