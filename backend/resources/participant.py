@@ -1,5 +1,3 @@
-from builtins import setattr
-
 from http import HTTPStatus
 
 from flask import request
@@ -60,13 +58,13 @@ class ParticipantDetails(Resource):
 
     @jwt_required
     def put(self, id):
-        participant_schema = ParticipantSchema()
+        participant_schema = ParticipantSchema(partial=True)
         participant = Participant.query.get_or_404(id)
         json_data = request.get_json(force=True)
         try:
             data = participant_schema.load(json_data)
         except ValidationError as err:
-            return (err.messages), HTTPStatus.BAD_REQUEST
+            return err.messages, HTTPStatus.BAD_REQUEST
 
         for key, value in data.items():
             setattr(participant, key, value)
