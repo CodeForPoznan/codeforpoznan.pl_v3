@@ -23,8 +23,8 @@ def test_get_delete_participant_when_logged_in(
         assert response["message"] == "Participant deleted successfully."
 
 
-@pytest.mark.parametrize("method", ["get", "delete"])
-def test_get_delete_non_existing_participant(
+@pytest.mark.parametrize("method", ["get", "delete", "put"])
+def test_get_delete_put_non_existing_participant(
     client, access_token, add_participants, method
 ):
     """Test get and delete non-existing participant."""
@@ -34,8 +34,8 @@ def test_get_delete_non_existing_participant(
     assert rv.status_code == HTTPStatus.NOT_FOUND
 
 
-@pytest.mark.parametrize("method", ["get", "delete"])
-def test_get_delete_participant_unauthorized(client, add_participants, method):
+@pytest.mark.parametrize("method", ["get", "delete", "put"])
+def test_get_delete_put_participant_unauthorized(client, add_participants, method):
     """Test get and delete participant with not logged in user."""
     rv = client.get("/participants/1/")
     response = rv.get_json()
