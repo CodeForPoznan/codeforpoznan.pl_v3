@@ -49,7 +49,7 @@ def test_create_participant_when_logged_in(app, client, access_token, new_partic
     assert response["email"] == new_participant["email"]
     for value in new_participant.values():
         assert value in participant.values()
-    for value in [*participant.keys()]:
+    for value in participant.keys():
         assert value in response
 
 
