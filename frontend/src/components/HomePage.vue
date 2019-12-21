@@ -1,6 +1,7 @@
 <template>
   <div>
     <v-app>
+      <app-header />
       <app-about-us />
       <our-projects />
       <app-join-us />
@@ -33,6 +34,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import Header from './Header.vue';
 import ContactUs from './ContactUs.vue';
 import AboutUs from './AboutUs.vue';
 import SocialMedia from './SocialMedia.vue';
@@ -41,6 +43,7 @@ import OurProjects from './OurProjects.vue';
 import JoinUs from './JoinUs.vue';
 export default {
   components: {
+    'app-header': Header,
     'app-contact-us': ContactUs,
     'app-about-us': AboutUs,
     'social-media': SocialMedia,

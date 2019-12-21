@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="blue-container">
+  <v-container fluid class="blue-container" id="join">
     <v-row>
       <v-col>
         <v-card flat dark tile color="transparent">
