@@ -28,4 +28,6 @@ class DevelopmentConfig(Config):
         ))
     SQLALCHEMY_ENGINE_OPTIONS = {'pool_recycle': 299}
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SECRET_KEY = os.environ.get('SECRET_KEY')
+    SECRET_KEY = os.environ.get("SECRET_KEY")
+
+    JWT_BLACKLIST_ENABLED = True

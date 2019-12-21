@@ -88,16 +88,6 @@ class UserLogout(Resource):
 class RefreshAccessToken(Resource):
     @jwt_refresh_token_required
     def post(self):
-        jti = get_raw_jwt()["jti"]
-
-        try:
-            token = JWTToken.query.filter_by(jti=jti).one()
-        except NoResultFound:
-            return {"msg": "Wrong token"}, HTTPStatus.NOT_FOUND
-
-        if token.revoked:
-            return {"msg": "token has been revoked"}, HTTPStatus.UNAUTHORIZED
-
         current_user = get_jwt_identity()
 
         access_token = create_access_token(
