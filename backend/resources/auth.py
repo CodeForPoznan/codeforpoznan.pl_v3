@@ -45,9 +45,6 @@ class UserLogin(Resource):
         username = result["username"]
         password = result["password"]
 
-        if not (username and password):
-            return {"msg": "Username and password required"}, HTTPStatus.BAD_REQUEST
-
         user = User.query.filter_by(username=username).first()
 
         if user and user.check_password(password):
