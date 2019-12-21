@@ -17,47 +17,47 @@ def protected_route(app):
 
 def test_logout_user_with_valid_access_token(client, access_token):
     """Test logout with fresh access token."""
-    rv = client.delete(
+    response = client.delete(
         "/auth/logout/", headers={"Authorization": "Bearer {}".format(access_token)}
     )
-    response = rv.get_json()
-    assert rv.status_code == HTTPStatus.OK
-    assert response["msg"] == "Successfully logged out"
+    payload = response.get_json()
+    assert response.status_code == HTTPStatus.OK
+    assert payload["msg"] == "Successfully logged out"
 
 
 def test_logout_user_without_token(client):
     """Test logout with no token provided."""
-    rv = client.delete("/auth/logout/")
-    response = rv.get_json()
-    assert rv.status_code == HTTPStatus.UNAUTHORIZED
-    assert response["msg"] == "Missing Authorization Header"
+    response = client.delete("/auth/logout/")
+    payload = response.get_json()
+    assert response.status_code == HTTPStatus.UNAUTHORIZED
+    assert payload["msg"] == "Missing Authorization Header"
 
 
 def test_logout_twice(app, client, access_token):
     """Test logout twice."""
     with app.app_context():
-        rv = client.delete(
+        response = client.delete(
             "/auth/logout/", headers={"Authorization": "Bearer {}".format(access_token)}
         )
-        assert rv.status_code == HTTPStatus.OK
-        rv = client.delete(
+        assert response.status_code == HTTPStatus.OK
+        response = client.delete(
             "/auth/logout/", headers={"Authorization": "Bearer {}".format(access_token)}
         )
         tokens = JWTToken.query.all()
-    response = rv.get_json()
+    payload = response.get_json()
     assert len(tokens) == 1
     assert tokens[0].revoked
-    assert rv.status_code == HTTPStatus.UNAUTHORIZED
-    assert response["msg"] == "token has been revoked"
+    assert response.status_code == HTTPStatus.UNAUTHORIZED
+    assert payload["msg"] == "token has been revoked"
 
 
 def test_get_protected_route_after_logout(app, client, protected_route, access_token):
     """Test access protected route after logging out."""
-    rv = client.delete(
+    response = client.delete(
         "/auth/logout/", headers={"Authorization": "Bearer {}".format(access_token)}
     )
-    assert rv.status_code == HTTPStatus.OK
-    rv = client.get("/", headers={"Authorization": "Bearer {}".format(access_token)})
-    response = rv.get_json()
-    assert rv.status_code == HTTPStatus.UNAUTHORIZED
-    assert response["msg"] == "token has been revoked"
+    assert response.status_code == HTTPStatus.OK
+    response = client.get("/", headers={"Authorization": "Bearer {}".format(access_token)})
+    payload = response.get_json()
+    assert response.status_code == HTTPStatus.UNAUTHORIZED
+    assert payload["msg"] == "token has been revoked"
