@@ -45,10 +45,9 @@ def test_logout_twice(app, client, access_token):
         )
         tokens = JWTToken.query.all()
     payload = response.get_json()
-    assert len(tokens) == 1
     assert tokens[0].revoked
     assert response.status_code == HTTPStatus.UNAUTHORIZED
-    assert payload["msg"] == "token has been revoked"
+    assert payload["msg"] == "Token has been revoked"
 
 
 def test_get_protected_route_after_logout(app, client, protected_route, access_token):
@@ -60,4 +59,4 @@ def test_get_protected_route_after_logout(app, client, protected_route, access_t
     response = client.get("/", headers={"Authorization": "Bearer {}".format(access_token)})
     payload = response.get_json()
     assert response.status_code == HTTPStatus.UNAUTHORIZED
-    assert payload["msg"] == "token has been revoked"
+    assert payload["msg"] == "Token has been revoked"
