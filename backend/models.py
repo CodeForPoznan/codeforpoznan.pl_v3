@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from sqlalchemy import Column
 from sqlalchemy.types import Boolean
 from sqlalchemy.types import Date
@@ -71,3 +73,14 @@ class JWTToken(db.Model):
     user_identity = Column(String(200), nullable=False)
     revoked = Column(Boolean, nullable=False)
     expires = Column(DateTime, nullable=False)
+
+    def expired(self):
+        return datetime.now() > self.expires
+
+    @classmethod
+    def remove_expired(cls):
+        tokens = cls.query.all()
+        for token in tokens:
+            if token.expired():
+                db.session.delete(token)
+        db.session.commit()
