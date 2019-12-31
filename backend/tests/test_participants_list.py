@@ -11,7 +11,7 @@ def test_get_participants_when_logged_in(client, access_token, add_participants)
     )
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.OK
-    assert len(response["participants"]) == 10
+    assert len(response) == 10
 
 
 def test_get_participants_with_empty_db(client, access_token):
@@ -21,7 +21,7 @@ def test_get_participants_with_empty_db(client, access_token):
     )
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.OK
-    assert not response["participants"]
+    assert not response
 
 
 def test_get_participants_unauthorized(client, add_participants):
