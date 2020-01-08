@@ -36,10 +36,7 @@ class ParticipantsList(Resource):
         db.session.add(participant)
         db.session.commit()
 
-        return (
-            {"message": "Participant created successfully.", "participant": data},
-            HTTPStatus.CREATED,
-        )
+        return participant_schema.dump(participant), HTTPStatus.CREATED
 
 
 class ParticipantDetails(Resource):
