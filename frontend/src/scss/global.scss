@@ -1,6 +1,7 @@
-@import 'typography.scss';
-@import 'mixins.scss';
 @import 'colors';
+@import "breakpoints";
+@import 'mixins.scss';
+@import 'typography.scss';
 
 a {
     text-decoration: none;
@@ -10,12 +11,12 @@ a {
 
 .blue-container {
     background: $blue;
-    padding: 2rem 6rem;
+    @include displays;
 }
 
 .white-container {
     background: $white;
-    padding: 2rem 6rem;
+    @include displays;
 }
 
 // Container title class
@@ -30,8 +31,7 @@ a {
 
 .white-title {
     color: $white;
-    font-family: $font-header;
-    font-size: 2.8rem;
+    @include main-title;
 
     &::before {
         @include title-before;
@@ -41,8 +41,7 @@ a {
 
 .blue-title {
     color: $blue;
-    font-family: $font-header;
-    font-size: 2.8rem;
+    @include main-title;
 
     &::before {
         @include title-before;
