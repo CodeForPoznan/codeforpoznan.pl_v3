@@ -4,7 +4,7 @@ import VueRouter from 'vue-router';
 import HomePage from './components/HomePage.vue';
 import Login from './components/Login.vue';
 import Dashboard from './components/Dashboard.vue';
-import store from './store/index';
+import store from './store';
 
 Vue.use(VueRouter);
 
