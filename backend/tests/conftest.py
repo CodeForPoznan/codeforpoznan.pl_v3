@@ -93,10 +93,11 @@ def registered_user(new_user, app, _db):
 
 
 @pytest.fixture
-def access_token(client, new_user, registered_user):
-    rv = client.post("/auth/login/", json=new_user)
-    access_token = rv.get_json()["access_token"]
-    return access_token
+def access_token(app, _db, client, new_user, registered_user):
+    with app.app_context():
+        rv = client.post("/auth/login/", json=new_user)
+        access_token = rv.get_json()["access_token"]
+        yield access_token
 
 
 @pytest.fixture
