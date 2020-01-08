@@ -55,3 +55,19 @@ class ParticipantDetails(Resource):
         db.session.commit()
 
         return {"message": "Participant deleted successfully."}, HTTPStatus.OK
+
+    @jwt_required
+    def put(self, id):
+        participant_schema = ParticipantSchema(partial=True)
+        participant = Participant.query.get_or_404(id)
+        json_data = request.get_json(force=True)
+        try:
+            data = participant_schema.load(json_data)
+        except ValidationError as err:
+            return err.messages, HTTPStatus.BAD_REQUEST
+
+        for key, value in data.items():
+            setattr(participant, key, value)
+        db.session.add(participant)
+        db.session.commit()
+        return participant_schema.dump(participant), HTTPStatus.OK
