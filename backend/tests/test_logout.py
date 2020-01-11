@@ -56,7 +56,9 @@ def test_get_protected_route_after_logout(app, client, protected_route, access_t
         "/auth/logout/", headers={"Authorization": "Bearer {}".format(access_token)}
     )
     assert response.status_code == HTTPStatus.OK
-    response = client.get("/", headers={"Authorization": "Bearer {}".format(access_token)})
+    response = client.get(
+        "/", headers={"Authorization": "Bearer {}".format(access_token)}
+    )
     payload = response.get_json()
     assert response.status_code == HTTPStatus.UNAUTHORIZED
     assert payload["msg"] == "Token has been revoked"
