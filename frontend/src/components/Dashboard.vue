@@ -1,9 +1,16 @@
 <template>
-  <div></div>
+  <div>
+    <app-dashboard-header />
+  </div>
 </template>
 
 <script>
-export default {};
+import DashboardHeader from './DashboardHeader.vue';
+export default {
+  components: {
+    'app-dashboard-header': DashboardHeader
+  }
+};
 </script>
 
 <style lang="scss" scoped></style>

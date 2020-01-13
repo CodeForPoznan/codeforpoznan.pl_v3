@@ -5,10 +5,10 @@
         <v-flex xs12 sm6>
           <v-alert
             type="error"
-            :value="error_msg ? true : false"
-            @click="error_msg = ''"
+            :value="getError ? true : false"
+            dismissible
             transition="slide-y-transition"
-            >{{ error_msg }}</v-alert
+            >{{ getError }}</v-alert
           >
           <v-alert
             type="success"
@@ -54,6 +54,7 @@
 
 <script>
 import { minLength, required } from 'vuelidate/lib/validators';
+import { mapGetters } from 'vuex';
 
 export default {
   data() {
@@ -61,7 +62,6 @@ export default {
       username: '',
       password: '',
       showPass: false,
-      error_msg: '',
       successAlert: false,
       showSpinner: false
     };
@@ -79,29 +79,15 @@ export default {
         password: this.password
       };
 
-      this.error_msg = '';
       if (!this.$v.$invalid) {
         this.showSpinner = true;
-        this.$store.dispatch('auth/login', loginData).then(
-          res => {
-            this.showSpinner = false;
-            this.clearForm();
-            if (res.status == 201) this.successAlert = true;
-          },
-          error => {
-            this.showSpinner = false;
-            this.clearForm();
-            const err = error.response.data.msg;
-
-            if (err == 'Not authorized') {
-              this.error_msg = 'Nieprawidłowa nazwa użytkownika, lub hasło';
-            } else if (err.includes('User already logged in')) {
-              this.error_msg = 'Jesteś już zalogowany';
-            } else if (error) {
-              this.error_msg = 'Logowanie nie powiodło się';
-            }
+        this.$store.dispatch('auth/login', loginData).then(status => {
+          this.showSpinner = false;
+          this.clearForm();
+          if (status == 201) {
+            this.successAlert = true;
           }
-        );
+        });
       }
     },
     clearForm() {
@@ -128,7 +114,8 @@ export default {
       if (!this.$v.password.$dirty) return errors;
       !this.$v.password.required && errors.push('Hasło jest wymagane');
       return errors;
-    }
+    },
+    ...mapGetters('auth', ['getError'])
   }
 };
 </script>
