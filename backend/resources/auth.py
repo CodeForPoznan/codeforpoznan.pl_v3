@@ -17,7 +17,6 @@ from flask_jwt_extended import (
 )
 from flask_restful import Resource
 from marshmallow import ValidationError
-from sqlalchemy.orm.exc import NoResultFound
 
 
 class UserLogin(Resource):
