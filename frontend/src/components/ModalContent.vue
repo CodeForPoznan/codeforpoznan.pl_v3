@@ -52,6 +52,7 @@
       </v-row>
       <v-row class="mr-1 ml-1">
         <v-btn
+          text
           class="stack-list ma-2"
           v-for="(item, index) in selectedProject.stack"
           :key="index"
@@ -117,7 +118,7 @@ a {
 }
 
 .stack-list {
-  background-color: $blue !important;
+  background-color: $blue;
   color: $white;
 }
 
