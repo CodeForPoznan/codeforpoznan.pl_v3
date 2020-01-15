@@ -97,7 +97,7 @@ class RefreshToken(Resource):
     @jwt_refresh_token_required
     def delete(self):
         jti = get_raw_jwt()["jti"]
-        token = JWTToken.query.filter_by(jti=jti).one()        
+        token = JWTToken.query.filter_by(jti=jti).one()
         token.revoked = True
         db.session.commit()
         return {"msg": "Refresh token successfully revoked"}, HTTPStatus.OK
