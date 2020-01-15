@@ -42,6 +42,20 @@ def test_put_participant_when_logged_in(
     assert response["email"]==payload["email"]
     assert participant["last_name"]==payload["last_name"]
 
+def test_put_participant_with_invalid_data(
+    client, access_token
+):
+    """Test try to edit participant with invalid email address."""
+    payload = {"last_name": "TestTest", "email": "test"}
+    rv = client.post(
+        "/participants/",
+        headers={"Authorization": "Bearer {}".format(access_token)},
+        json=payload,
+    )
+    response = rv.get_json()
+    assert rv.status_code == HTTPStatus.BAD_REQUEST
+    assert "Not a valid email address." in response["email"]
+
 @pytest.mark.parametrize("method", ["get", "delete", "put"])
 def test_get_delete_put_non_existing_participant(
     client, access_token, add_participants, method
