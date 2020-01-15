@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title id="title-header">
+    <v-card-title class="title-header">
       <v-row>
         <p class="modal-title">{{ selectedProject.name }}</p>
         <v-card-actions>
@@ -52,12 +52,12 @@
       </v-row>
       <v-row class="mr-1 ml-1">
         <v-btn
-          text
-          class="stack-list ma-2"
           v-for="(item, index) in selectedProject.stack"
           :key="index"
           :href="item.documentation"
+          class="stack-list"
           target="_blank"
+          text
           rounded
         >
           {{ item.type }}: {{ item.name }} {{ item.version }}
@@ -120,9 +120,10 @@ a {
 .stack-list {
   background-color: $blue;
   color: $white;
+  margin: 4px;
 }
 
-#title-header {
+.title-header {
   background: $blue;
   height: 7rem;
 }
