@@ -2,7 +2,7 @@
   <v-card>
     <v-card-title id="title-header">
       <v-row>
-        <p id="modal-title">{{ selectedProject.name }}</p>
+        <p class="modal-title">{{ selectedProject.name }}</p>
         <v-card-actions>
           <v-btn
             class="mr-2"
@@ -45,7 +45,7 @@
         </v-btn>
       </v-row>
       <v-row>
-        <p class="content--black">{{ selectedProject.description }}</p>
+        <p class="content-black">{{ selectedProject.description }}</p>
       </v-row>
       <v-row class="ml-3 mr-3">
         <p class="modal-subtitle">Wykorzystane technologie:</p>
@@ -90,20 +90,13 @@ a {
   margin: 0.5rem;
 }
 
-#close-button {
-  display: flex;
-  color: $white;
-  max-width: 3rem;
-  margin: 1rem;
-}
-
-.content--black {
+.content-black {
   color: black;
   text-align: justify;
   margin: 1rem 1.5rem;
 }
 
-#modal-title {
+.modal-title {
   display: flex;
   align-content: center;
   font-family: $font-header;
