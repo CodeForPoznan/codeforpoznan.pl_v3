@@ -37,7 +37,7 @@
         </v-item-group>
       </v-col>
     </v-row>
-    <v-dialog v-model="dialog" width="50rem">
+    <v-dialog v-model="dialog" max-width="50rem">
       <app-modal-content :selectedProject="selectedProject" />
     </v-dialog>
   </v-container>
@@ -75,14 +75,14 @@ export default {
 <style lang="scss" scoped>
 @import './../main.scss';
 
-.items {
-  padding: 10px;
-}
-
 .card {
   font-family: $font-header;
   font-size: 1.5rem;
   justify-content: center;
+}
+
+.card--hover {
+  max-width: 50%;
 }
 
 .card--reveal {
@@ -97,7 +97,7 @@ export default {
   height: 100%;
 }
 
-.card--hover {
-  max-width: 50%;
+.items {
+  padding: 10px;
 }
 </style>

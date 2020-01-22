@@ -19,51 +19,47 @@
         </v-card-actions>
       </v-row>
     </v-card-title>
-    <v-card-text>
-      <v-card-actions>
-        <v-btn text rounded :href="selectedProject.licensePage" target="_blank">
-          <v-icon>far fa-copyright</v-icon>
-          <p class="buttons">Licencja {{ selectedProject.licenseName }}</p>
-        </v-btn>
-        <v-btn text rounded :href="selectedProject.websiteLink" target="_blank">
-          <v-icon>language</v-icon>
-          <p class="buttons">Strona WWW</p>
-        </v-btn>
-        <v-btn text rounded :href="selectedProject.githubLink" target="_blank">
-          <v-icon>fab fa-github</v-icon>
-          <p class="buttons">Repozytorium</p>
-        </v-btn>
-      </v-card-actions>
-    </v-card-text>
-    <v-card-text>
-      <v-row class="ml-3 mr-3">
-        <p class="modal-subtitle">
-          Partner projektu:
-        </p>
-        <v-btn text rounded :href="selectedProject.partnerPage" target="_blank">
-          <a class="modal-subtitle">{{ selectedProject.partner }}</a>
-        </v-btn>
-      </v-row>
-      <v-row>
-        <p class="content-black">{{ selectedProject.description }}</p>
-      </v-row>
-      <v-row class="ml-3 mr-3">
-        <p class="modal-subtitle">Wykorzystane technologie:</p>
-      </v-row>
-      <v-row class="mr-1 ml-1">
-        <v-btn
-          v-for="(item, index) in selectedProject.stack"
-          :key="index"
-          :href="item.documentation"
-          class="stack-list"
-          target="_blank"
-          text
-          rounded
-        >
-          {{ item.type }}: {{ item.name }} {{ item.version }}
-        </v-btn>
-      </v-row>
-    </v-card-text>
+    <v-row class="ma-4">
+      <v-btn text rounded :href="selectedProject.licensePage" target="_blank">
+        <v-icon>far fa-copyright</v-icon>
+        <p class="buttons">Licencja {{ selectedProject.licenseName }}</p>
+      </v-btn>
+      <v-btn text rounded :href="selectedProject.websiteLink" target="_blank">
+        <v-icon>language</v-icon>
+        <p class="buttons">Strona WWW</p>
+      </v-btn>
+      <v-btn text rounded :href="selectedProject.githubLink" target="_blank">
+        <v-icon>fab fa-github</v-icon>
+        <p class="buttons">Repozytorium</p>
+      </v-btn>
+    </v-row>
+    <v-row class="ma-6">
+      <p class="modal-subtitle">
+        Partner projektu:
+      </p>
+      <v-btn text rounded :href="selectedProject.partnerPage" target="_blank">
+        <p class="modal-subtitle">{{ selectedProject.partner }}</p>
+      </v-btn>
+    </v-row>
+    <v-row>
+      <p class="content-black">{{ selectedProject.description }}</p>
+    </v-row>
+    <v-row class="ml-3 mr-3">
+      <p class="modal-subtitle">Wykorzystane technologie:</p>
+    </v-row>
+    <v-row class="mr-1 ml-1">
+      <v-btn
+        v-for="(item, index) in selectedProject.stack"
+        :key="index"
+        :href="item.documentation"
+        class="stack-list"
+        target="_blank"
+        text
+        rounded
+      >
+        {{ item.type }}: {{ item.name }} {{ item.version }}
+      </v-btn>
+    </v-row>
   </v-card>
 </template>
 
@@ -102,19 +98,21 @@ a {
   align-content: center;
   font-family: $font-header;
   font-size: 3rem;
+  padding: 2rem 0;
   color: $white;
-  margin: 0.5rem 0rem 0rem 2rem;
+  margin: 0.5rem 0 0 2rem;
 }
 
 .modal-subtitle {
+  align-content: center;
   color: black;
   display: flex;
-  position: relative;
-  align-content: center;
   font-family: $font-content;
   font-size: 1.5rem;
-  line-height: 1.43;
   font-weight: bold;
+  line-height: 1.43;
+  padding: 0;
+  position: relative;
 }
 
 .stack-list {
@@ -125,6 +123,5 @@ a {
 
 .title-header {
   background: $blue;
-  height: 7rem;
 }
 </style>
