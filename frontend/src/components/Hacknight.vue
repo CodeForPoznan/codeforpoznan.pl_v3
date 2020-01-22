@@ -1,7 +1,7 @@
 <template>
   <v-container fluid text-xs-center>
     <v-row align="center" justify="center">
-      <v-col class="d-flex" cols="12" sm="6">
+      <v-col cols="6">
         <v-alert
           type="error"
           :value="getError ? true : false"
@@ -12,7 +12,7 @@
       </v-col>
     </v-row>
     <v-row align="center" justify="center">
-      <v-col class="d-flex" cols="12" sm="6">
+      <v-col cols="6">
         <v-select
           v-model="selectedHacknight"
           :items="getHacknights"
@@ -23,10 +23,8 @@
         >
           <template v-slot:append-outer>
             <v-btn
-              color="blue-grey"
-              class="ma-2 white--text"
+              class="add-hacknight-btn"
               @click="onCreateHacknight"
-              style="top: -12px"
               offset-y
             >
               <v-icon left dark>mdi-plus</v-icon>
@@ -67,4 +65,12 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import './../main.scss';
+.add-hacknight-btn {
+  top: -12px;
+  margin: 8px;
+  color: #ffffff;
+  caret-color: #ffffff;
+  background-color: #607d8b !important;
+  border-color: #607d8b;
+}
 </style>
