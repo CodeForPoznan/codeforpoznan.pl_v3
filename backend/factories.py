@@ -24,9 +24,7 @@ class ParticipantFactory(BaseFactory):
 
     first_name = factory.Faker("first_name", locale="pl_PL")
     last_name = factory.Faker("last_name", locale="pl_PL")
-    email = factory.LazyAttribute(
-        lambda obj: f"{obj.last_name}@codeforpoznan.test"
-    )
+    email = factory.LazyAttribute(lambda obj: f"{obj.last_name}@codeforpoznan.test")
     github = factory.LazyAttribute(
         lambda obj: f"https://github.com/{obj.first_name}{obj.last_name}"
     )

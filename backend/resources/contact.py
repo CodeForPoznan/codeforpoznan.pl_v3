@@ -23,9 +23,8 @@ class SendMessage(Resource):
             reply_to=new_msg["email"],
             recipients=["cfp@codeforpoznan.test"],
         )
-        msg.body = "Nowa wiadomość od {}, nr tel: {} \nTreść:\n {}".format(
-            new_msg["name"], new_msg["phone"], new_msg["content"]
-        )
+        msg.body = f"Nowa wiadomość od {new_msg['name']}, \
+            nr tel: {new_msg['phone']} \nTreść:\n {new_msg['content']}"
         mail.send(msg)
 
         return {"message": "Contact message successfully sent"}, HTTPStatus.OK
