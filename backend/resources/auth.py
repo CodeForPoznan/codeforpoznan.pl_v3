@@ -26,7 +26,7 @@ class UserLogin(Resource):
 
         if current_user:
             return (
-                {"msg": "User already logged in as {}".format(current_user)},
+                {"msg": f"User already logged in as {current_user}"},
                 HTTPStatus.UNAUTHORIZED,
             )
 
