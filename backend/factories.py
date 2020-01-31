@@ -14,7 +14,7 @@ class UserFactory(BaseFactory):
     class Meta:
         model = User
 
-    username = factory.Faker("first_name", locale="pl_PL")
+    username = factory.Faker("email", locale="pl_PL")
     password = "pass123"
 
 
