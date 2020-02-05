@@ -23,9 +23,8 @@ def test_get_delete_participant_when_logged_in(
         assert response["message"] == "Participant deleted successfully."
 
 
-@pytest.mark.parametrize("method", ["put"])
 def test_put_participant_when_logged_in(
-    app, client, access_token, add_participants, method
+    app, client, access_token, add_participants
 ):
     """Test put participant details for logged in user and valid data."""
     with app.app_context():
