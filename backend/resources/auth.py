@@ -4,7 +4,7 @@ from http import HTTPStatus
 from backend.extensions import db
 from backend.models import User, JWTToken
 from backend.serializers.login_serializer import LoginSchema
-from flask import current_app as app, request
+from flask import request
 from flask_jwt_extended import (
     create_access_token,
     create_refresh_token,
@@ -46,8 +46,7 @@ class UserLogin(Resource):
         password = result["password"]
 
         if not (username and password):
-            return ({"msg": "Username and password required"},)
-            HTTPStatus.BAD_REQUEST
+            return ({"msg": "Username and password required"}, HTTPStatus.BAD_REQUEST)
 
         user = User.query.filter_by(username=username).first()
 
