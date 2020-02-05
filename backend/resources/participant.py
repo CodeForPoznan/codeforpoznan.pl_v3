@@ -32,11 +32,23 @@ class ParticipantsList(Resource):
         except ValidationError as err:
             return (err.messages), HTTPStatus.BAD_REQUEST
 
-        if Participant.query.filter(Participant.email == json_data['email']).first() is not None:
-            return {"message": "User with this email already exists."}, HTTPStatus.CONFLICT
+        if (
+            Participant.query.filter(Participant.email == json_data["email"]).first()
+            is not None
+        ):
+            return (
+                {"message": "User with this email already exists."},
+                HTTPStatus.CONFLICT,
+            )
 
-        if Participant.query.filter(Participant.github == json_data['github']).first() is not None:
-            return {"message": "User with this Github login already exists."}, HTTPStatus.CONFLICT
+        if (
+            Participant.query.filter(Participant.github == json_data["github"]).first()
+            is not None
+        ):
+            return (
+                {"message": "User with this Github login already exists."},
+                HTTPStatus.CONFLICT,
+            )
 
         participant = Participant(**data)
         db.session.add(participant)
