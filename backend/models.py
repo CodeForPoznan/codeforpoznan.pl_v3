@@ -44,7 +44,7 @@ class Participant(db.Model):
     first_name = Column(String(50), nullable=False)
     last_name = Column(String(50), nullable=False)
     email = Column(String(200), unique=True, nullable=False)
-    github = Column(String(200), unique=True, default="")
+    github = Column(String(200), unique=True, nullable=False)
     phone = Column(String(13))
 
 
