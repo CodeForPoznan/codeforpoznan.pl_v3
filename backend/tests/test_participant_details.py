@@ -12,7 +12,7 @@ def test_get_delete_participant_when_logged_in(
 ):
     """Test get and delete participant details for logged in user."""
     rv = getattr(client, method)(
-        "/participants/1/", headers={"Authorization": "Bearer {}".format(access_token)}
+        "/participants/1/", headers={"Authorization": f"Bearer {access_token}"}
     )
     response = rv.get_json()
     participant_schema = ParticipantSchema()
@@ -29,7 +29,7 @@ def test_get_delete_non_existing_participant(
 ):
     """Test get and delete non-existing participant."""
     rv = getattr(client, method)(
-        "/participants/11/", headers={"Authorization": "Bearer {}".format(access_token)}
+        "/participants/11/", headers={"Authorization": f"Bearer {access_token}"}
     )
     assert rv.status_code == HTTPStatus.NOT_FOUND
 

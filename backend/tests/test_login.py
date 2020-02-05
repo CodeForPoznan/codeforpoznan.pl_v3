@@ -38,7 +38,7 @@ def test_try_login_twice(client, new_user, access_token):
     rv = client.post(
         "/auth/login/",
         json=new_user,
-        headers={"Authorization": "Bearer {}".format(access_token)},
+        headers={"Authorization": f"Bearer {access_token}"},
     )
 
     response = rv.get_json()

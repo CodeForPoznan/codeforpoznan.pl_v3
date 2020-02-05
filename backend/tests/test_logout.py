@@ -5,7 +5,7 @@ import pytest
 def test_logout_user_with_valid_access_token(client, access_token):
     """Test logout with fresh access token."""
     rv = client.delete(
-        "/auth/logout/", headers={"Authorization": "Bearer {}".format(access_token)}
+        "/auth/logout/", headers={"Authorization": f"Bearer {access_token}"}
     )
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.OK

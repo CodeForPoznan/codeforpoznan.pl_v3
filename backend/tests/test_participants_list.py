@@ -7,7 +7,7 @@ from backend.serializers.participant_serializer import ParticipantSchema
 def test_get_participants_when_logged_in(client, access_token, add_participants):
     """Test get participants list for logged in user."""
     rv = client.get(
-        "/participants/", headers={"Authorization": "Bearer {}".format(access_token)}
+        "/participants/", headers={"Authorization": f"Bearer {access_token}"}
     )
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.OK
@@ -17,7 +17,7 @@ def test_get_participants_when_logged_in(client, access_token, add_participants)
 def test_get_participants_with_empty_db(client, access_token):
     """Test get participants list when no participant in db."""
     rv = client.get(
-        "/participants/", headers={"Authorization": "Bearer {}".format(access_token)}
+        "/participants/", headers={"Authorization": f"Bearer {access_token}"}
     )
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.OK
@@ -37,7 +37,7 @@ def test_create_participant_when_logged_in(app, client, access_token, new_partic
     with app.app_context():
         rv = client.post(
             "/participants/",
-            headers={"Authorization": "Bearer {}".format(access_token)},
+            headers={"Authorization": f"Bearer {access_token}"},
             json=new_participant,
         )
 
@@ -56,9 +56,7 @@ def test_create_participant_when_logged_in(app, client, access_token, new_partic
 def test_try_create_participant_without_payload(client, access_token):
     """Test try to create new participant without payload."""
     rv = client.post(
-        "/participants/",
-        headers={"Authorization": "Bearer {}".format(access_token)},
-        json={},
+        "/participants/", headers={"Authorization": f"Bearer {access_token}"}, json={},
     )
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.BAD_REQUEST
@@ -73,7 +71,7 @@ def test_try_create_participant_with_invalid_email(
 
     rv = client.post(
         "/participants/",
-        headers={"Authorization": "Bearer {}".format(access_token)},
+        headers={"Authorization": f"Bearer {access_token}"},
         json=new_participant,
     )
     response = rv.get_json()
@@ -89,7 +87,7 @@ def test_try_create_participant_without_first_name(
 
     rv = client.post(
         "/participants/",
-        headers={"Authorization": "Bearer {}".format(access_token)},
+        headers={"Authorization": f"Bearer {access_token}"},
         json=new_participant,
     )
     response = rv.get_json()

@@ -6,7 +6,7 @@ def test_get_hacknight_details_authorized(
 ):
     """Test get hacknight details for logged in user."""
     rv = client.get(
-        "/hacknights/1/", headers={"Authorization": "Bearer {}".format(access_token)}
+        "/hacknights/1/", headers={"Authorization": f"Bearer {access_token}"}
     )
     response = rv.get_json()
 
@@ -19,7 +19,7 @@ def test_no_hacknights_in_hacknights_participants(
 ):
     """Test get hacknight details for logged in user."""
     rv = client.get(
-        "/hacknights/1/", headers={"Authorization": "Bearer {}".format(access_token)}
+        "/hacknights/1/", headers={"Authorization": f"Bearer {access_token}"}
     )
     response = rv.get_json()
 

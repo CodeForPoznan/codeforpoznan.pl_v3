@@ -6,9 +6,7 @@ from backend.models import Hacknight, Participant
 
 def test_get_hacknights_when_logged_in(client, access_token, add_hacknights):
     """Test get list of hacknights for logged in user."""
-    rv = client.get(
-        "/hacknights/", headers={"Authorization": "Bearer {}".format(access_token)}
-    )
+    rv = client.get("/hacknights/", headers={"Authorization": f"Bearer {access_token}"})
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.OK
     assert len(response["hacknights"]) == 10
@@ -16,9 +14,7 @@ def test_get_hacknights_when_logged_in(client, access_token, add_hacknights):
 
 def test_get_hacknights_with_empty_db(client, access_token):
     """Test get list of hacknights when no hacknight added to db."""
-    rv = client.get(
-        "/hacknights/", headers={"Authorization": "Bearer {}".format(access_token)}
-    )
+    rv = client.get("/hacknights/", headers={"Authorization": f"Bearer {access_token}"})
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.OK
     assert not response["hacknights"]
@@ -39,7 +35,7 @@ def test_add_participants_to_hacknight(
     payload = {"participants_ids": [1, 3]}
     rv = client.post(
         "/hacknights/1/participants/",
-        headers={"Authorization": "Bearer {}".format(access_token)},
+        headers={"Authorization": f"Bearer {access_token}"},
         data=json.dumps(payload),
     )
     resp = rv.get_json()
@@ -70,7 +66,7 @@ def test_add_nonexisting_participants_to_hacknight(
     payload = {"participants_ids": [1, 3]}
     rv = client.post(
         "/hacknights/1/participants/",
-        headers={"Authorization": "Bearer {}".format(access_token)},
+        headers={"Authorization": f"Bearer {access_token}"},
         data=json.dumps(payload),
     )
     assert rv.status_code == HTTPStatus.NOT_FOUND
@@ -83,7 +79,7 @@ def test_add_participants_to_nonexisting_hacknight(
     payload = {"participants_ids": [1, 3]}
     rv = client.post(
         "/hacknights/1/participants/",
-        headers={"Authorization": "Bearer {}".format(access_token)},
+        headers={"Authorization": f"Bearer {access_token}"},
         data=json.dumps(payload),
     )
     assert rv.status_code == HTTPStatus.NOT_FOUND
@@ -99,8 +95,8 @@ def test_duplicate_participant_in_hacknight(
 
     payload = {"participants_ids": [participant.id]}
     rv = client.post(
-        "/hacknights/{}/participants/".format(hacknight.id),
-        headers={"Authorization": "Bearer {}".format(access_token)},
+        f"/hacknights/{hacknight.id}/participants/",
+        headers={"Authorization": f"Bearer {access_token}"},
         data=json.dumps(payload),
     )
     response = rv.get_json()
