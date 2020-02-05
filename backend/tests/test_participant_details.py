@@ -22,13 +22,14 @@ def test_get_delete_participant_when_logged_in(
     else:
         assert response["message"] == "Participant deleted successfully."
 
+
 @pytest.mark.parametrize("method", ["put"])
 def test_put_participant_when_logged_in(
     app, client, access_token, add_participants, method
 ):
     """Test put participant details for logged in user and valid data."""
     with app.app_context():
-        payload={"last_name": "TestTest", "email": "testtest@test.pl"}
+        payload = {"last_name": "TestTest", "email": "testtest@test.pl"}
         rv = client.put(
             "/participants/1/",
             headers={"Authorization": "Bearer {}".format(access_token)},
@@ -38,13 +39,12 @@ def test_put_participant_when_logged_in(
         schema = ParticipantSchema()
         participant = schema.dump(Participant.query.first())
     assert rv.status_code == HTTPStatus.OK
-    assert response["last_name"]==payload["last_name"]
-    assert response["email"]==payload["email"]
-    assert participant["last_name"]==payload["last_name"]
+    assert response["last_name"] == payload["last_name"]
+    assert response["email"] == payload["email"]
+    assert participant["last_name"] == payload["last_name"]
 
-def test_put_participant_with_invalid_data(
-    client, access_token
-):
+
+def test_put_participant_with_invalid_data(client, access_token):
     """Test try to edit participant with invalid email address."""
     payload = {"last_name": "TestTest", "email": "test"}
     rv = client.post(
@@ -55,6 +55,7 @@ def test_put_participant_with_invalid_data(
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.BAD_REQUEST
     assert "Not a valid email address." in response["email"]
+
 
 @pytest.mark.parametrize("method", ["get", "delete", "put"])
 def test_get_delete_put_non_existing_participant(
