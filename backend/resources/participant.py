@@ -41,6 +41,8 @@ class ParticipantsList(Resource):
                 HTTPStatus.CONFLICT,
             )
 
+        if "github" not in json_data:
+            json_data["github"] = ""
         if (
             Participant.query.filter(Participant.github == json_data["github"]).first()
             is not None
