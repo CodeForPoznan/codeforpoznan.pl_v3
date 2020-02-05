@@ -72,6 +72,7 @@ def new_participant():
         "last_name": "Doe",
         "email": "test@test.com",
         "phone": "123456789",
+        "github": "wihajster"
     }
     return participant
 
