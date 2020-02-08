@@ -20,83 +20,89 @@
       </v-row>
     </v-card-title>
     <v-card-actions>
-      <v-row>
-        <v-btn
-          class="buttons"
-          text
-          rounded
-          large
-          :href="selectedProject.licensePage"
-          target="_blank"
-        >
-          <v-icon>far fa-copyright</v-icon>
-          <p class="buttons--text">
-            Licencja {{ selectedProject.licenseName }}
-          </p>
-        </v-btn>
-        <v-btn
-          class="buttons"
-          text
-          rounded
-          large
-          :href="selectedProject.githubLink"
-          target="_blank"
-        >
-          <v-icon>fab fa-github</v-icon>
-          <p class="buttons--text">Repozytorium</p>
-        </v-btn>
-        <v-btn
-          class="buttons"
-          text
-          rounded
-          large
-          :href="selectedProject.websiteLink"
-          target="_blank"
-        >
-          <v-icon>language</v-icon>
-          <p class="buttons--text">Strona projektu</p>
-        </v-btn>
-        <v-btn
-          class="buttons"
-          text
-          rounded
-          large
-          :href="selectedProject.partnerPage"
-          target="_blank"
-        >
-          <v-icon>fas fa-handshake</v-icon>
-          <p class="buttons--text">Strona partnera</p>
-        </v-btn>
-      </v-row>
+      <div class="buttons-list">
+        <v-row>
+          <v-btn
+            class="buttons"
+            text
+            rounded
+            large
+            :href="selectedProject.licensePage"
+            target="_blank"
+          >
+            <v-icon>far fa-copyright</v-icon>
+            <p class="buttons--text">
+              Licencja {{ selectedProject.licenseName }}
+            </p>
+          </v-btn>
+          <v-btn
+            class="buttons"
+            text
+            rounded
+            large
+            :href="selectedProject.githubLink"
+            target="_blank"
+          >
+            <v-icon>fab fa-github</v-icon>
+            <p class="buttons--text">Repozytorium</p>
+          </v-btn>
+          <v-btn
+            class="buttons"
+            text
+            rounded
+            large
+            :href="selectedProject.websiteLink"
+            target="_blank"
+          >
+            <v-icon>language</v-icon>
+            <p class="buttons--text">Strona projektu</p>
+          </v-btn>
+          <v-btn
+            class="buttons"
+            text
+            rounded
+            large
+            :href="selectedProject.partnerPage"
+            target="_blank"
+          >
+            <v-icon>fas fa-handshake</v-icon>
+            <p class="buttons--text">Strona partnera</p>
+          </v-btn>
+        </v-row>
+      </div>
     </v-card-actions>
-    <v-card-text>
+    <div class="text-list">
       <v-row>
-        <div>
-          <p class="modal-subtitle">Partner projektu:</p>
-          <p class="modal-subtitle">{{ selectedProject.partner }}</p>
-        </div>
+        <p class="modal-subtitle">Partner projektu:</p>
+        <p class="modal-subtitle">{{ selectedProject.partner }}</p>
       </v-row>
+    </div>
+    <div class="text-list">
       <v-row>
         <p class="content-black">{{ selectedProject.description }}</p>
       </v-row>
+    </div>
+    <div class="text-list">
       <v-row>
         <p class="modal-subtitle">Wykorzystane technologie:</p>
       </v-row>
-    </v-card-text>
+    </div>
     <v-card-actions>
-      <v-row class="mr-1 ml-1">
-        <v-btn
-          v-for="(item, index) in selectedProject.stack"
-          :key="index"
-          :href="item.documentation"
-          class="stack-list"
-          target="_blank"
-          text
-          rounded
-        >
-          {{ item.type }}: {{ item.name }} {{ item.version }}
-        </v-btn>
-      </v-row>
+      <div class="buttons-list">
+        <v-row>
+          <v-btn
+            v-for="(item, index) in selectedProject.stack"
+            :key="index"
+            :href="item.documentation"
+            class="stack-list"
+            target="_blank"
+            text
+            rounded
+          >
+            {{ item.type }}: {{ item.name }} {{ item.version }}
+          </v-btn>
+        </v-row>
+      </div>
     </v-card-actions>
   </v-card>
 </template>
@@ -119,8 +125,16 @@ a {
   text-transform: none;
 }
 
+.buttons-list {
+  margin: 0.5rem 2rem;
+}
+
+.text-list {
+  margin: 0.25rem 3rem;
+}
+
 .buttons {
-  margin: 0rem 1rem 1rem 2rem;
+  margin: 0.5rem;
 }
 
 .buttons--text {
@@ -129,16 +143,9 @@ a {
   margin: 0.5rem;
 }
 
-.button-row {
-  display: flex;
-  padding: 8px 36px;
-  align-items: flex-start;
-}
-
 .content-black {
   color: black;
   text-align: justify;
-  margin: 1rem 1.5rem;
 }
 
 .modal-title {
@@ -152,22 +159,18 @@ a {
 }
 
 .modal-subtitle {
-  align-self: auto;
-  justify-content: space-around;
   color: black;
-  display: flex;
   font-family: $font-content;
   font-size: 1.5rem;
   font-weight: bold;
   line-height: 1.43;
-  position: relative;
-  padding-left: 2rem;
+  margin: 0.5rem 0rem;
 }
 
 .stack-list {
   background-color: $blue;
   color: $white;
-  margin: 4px;
+  margin: 0.5rem;
 }
 
 .text-row {
