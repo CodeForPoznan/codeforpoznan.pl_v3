@@ -11,7 +11,7 @@ def test_add_new_user_to_db(_db, new_user):
 
     db = _db
     assert len(db.session.query(User).all()) == 0
-    new_user = User(username=new_user["username"], password=new_user["password"])
+    new_user = User(**new_user)
     db.session.add(new_user)
     db.session.commit()
 
@@ -27,17 +27,14 @@ def test_add_new_participant_to_db(_db, new_participant):
     db = _db
     assert len(db.session.query(Participant).all()) == 0
 
-    new_participant = Participant(**new_participant)
-
-    db.session.add(new_participant)
+    participant = Participant(**new_participant)
+    db.session.add(participant)
     db.session.commit()
 
-    participant = db.session.query(Participant).filter_by(first_name="Jon").first()
+    participant_db = db.session.query(Participant).filter_by(first_name="Jon").first()
 
-    assert participant.first_name == "Jon"
-    assert participant.last_name == "Doe"
-    assert participant.email == "test@test.com"
-    assert participant.phone == "123456789"
+    for key, value in new_participant.items():
+        assert getattr(participant_db, key) == value
 
 
 def test_add_new_hacknight_to_db(_db, new_hacknight):
@@ -49,7 +46,7 @@ def test_add_new_hacknight_to_db(_db, new_hacknight):
     db.session.add(new_hacknight)
     db.session.commit()
 
-    hacknight = db.session.query(Hacknight).all()[0]
+    hacknight = db.session.query(Hacknight).first()
 
     assert hacknight.date == date(2000, 10, 10)
 
@@ -60,8 +57,8 @@ def test_remove_expired_token_method(_db):
     expired_token = create_access_token(
         identity=1, expires_delta=timedelta(microseconds=1)
     )
-    add_token_to_database(valid_token, "identity")
-    add_token_to_database(expired_token, "identity")
+    add_token_to_database(valid_token)
+    add_token_to_database(expired_token)
     tokens_db = _db.session.query(JWTToken).all()
     expired = [token.expired() for token in tokens_db]
     assert True in expired and False in expired

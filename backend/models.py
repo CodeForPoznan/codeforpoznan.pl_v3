@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from sqlalchemy import Column
+from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.types import Boolean
 from sqlalchemy.types import Date
 from sqlalchemy.types import DateTime
@@ -73,6 +74,14 @@ class JWTToken(db.Model):
     user_identity = Column(String(200), nullable=False)
     revoked = Column(Boolean, nullable=False)
     expires = Column(DateTime, nullable=False)
+
+    @classmethod
+    def is_jti_blacklisted(cls, jti):
+        try:
+            token = cls.query.filter_by(jti=jti).one()
+            return token.revoked
+        except NoResultFound:
+            return True
 
     def expired(self):
         return datetime.now() > self.expires

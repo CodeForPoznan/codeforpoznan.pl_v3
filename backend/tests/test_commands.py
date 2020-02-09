@@ -39,13 +39,10 @@ def test_remove_expired_tokens(script):
     app = script._loaded_app
 
     with app.app_context():
-        add_token_to_database(create_access_token(identity=1), "identity")
+        add_token_to_database(create_access_token(identity=1))
         for _ in range(5):
             add_token_to_database(
-                create_access_token(
-                    identity=1, expires_delta=timedelta(microseconds=1)
-                ),
-                "identity",
+                create_access_token(identity=1, expires_delta=timedelta(microseconds=1))
             )
         assert len(JWTToken.query.all()) == 6
 
