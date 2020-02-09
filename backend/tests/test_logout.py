@@ -12,7 +12,7 @@ def protected_route(app):
     @app.route("/", methods=["GET"])
     @jwt_required
     def protected():
-        return jsonify({"message": "That is proteced route"})
+        return jsonify({"message": "That is protected route"})
 
 
 def test_logout_user_with_valid_access_token(auth_client):
