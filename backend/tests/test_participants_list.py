@@ -4,21 +4,17 @@ from backend.models import Participant
 from backend.serializers.participant_serializer import ParticipantSchema
 
 
-def test_get_participants_when_logged_in(client, access_token, add_participants):
+def test_get_participants_when_logged_in(auth_client, add_participants):
     """Test get participants list for logged in user."""
-    rv = client.get(
-        "/participants/", headers={"Authorization": "Bearer {}".format(access_token)}
-    )
+    rv = auth_client.get("/participants/")
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.OK
     assert len(response["participants"]) == 10
 
 
-def test_get_participants_with_empty_db(client, access_token):
+def test_get_participants_with_empty_db(auth_client):
     """Test get participants list when no participant in db."""
-    rv = client.get(
-        "/participants/", headers={"Authorization": "Bearer {}".format(access_token)}
-    )
+    rv = auth_client.get("/participants/")
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.OK
     assert not response["participants"]
@@ -32,14 +28,10 @@ def test_get_participants_unauthorized(client, add_participants):
     assert response["msg"] == "Missing Authorization Header"
 
 
-def test_create_participant_when_logged_in(app, client, access_token, new_participant):
+def test_create_participant_when_logged_in(app, auth_client, new_participant):
     """Test create new participant with logged in user and valid data."""
     with app.app_context():
-        rv = client.post(
-            "/participants/",
-            headers={"Authorization": "Bearer {}".format(access_token)},
-            json=new_participant,
-        )
+        rv = auth_client.post("/participants/", json=new_participant)
 
         response = rv.get_json()
         schema = ParticipantSchema()
@@ -53,45 +45,29 @@ def test_create_participant_when_logged_in(app, client, access_token, new_partic
         assert value in response
 
 
-def test_try_create_participant_without_payload(client, access_token):
+def test_try_create_participant_without_payload(auth_client):
     """Test try to create new participant without payload."""
-    rv = client.post(
-        "/participants/",
-        headers={"Authorization": "Bearer {}".format(access_token)},
-        json={},
-    )
+    rv = auth_client.post("/participants/", json={})
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.BAD_REQUEST
     assert response["message"] == "No input data provided"
 
 
-def test_try_create_participant_with_invalid_email(
-    client, access_token, new_participant
-):
+def test_try_create_participant_with_invalid_email(auth_client, new_participant):
     """Test try to create new participant with invalid email address."""
     new_participant["email"] = "test"
 
-    rv = client.post(
-        "/participants/",
-        headers={"Authorization": "Bearer {}".format(access_token)},
-        json=new_participant,
-    )
+    rv = auth_client.post("/participants/", json=new_participant)
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.BAD_REQUEST
     assert "Not a valid email address." in response["email"]
 
 
-def test_try_create_participant_without_first_name(
-    client, access_token, new_participant
-):
+def test_try_create_participant_without_first_name(auth_client, new_participant):
     """Test try create new participant without name."""
     del new_participant["first_name"]
 
-    rv = client.post(
-        "/participants/",
-        headers={"Authorization": "Bearer {}".format(access_token)},
-        json=new_participant,
-    )
+    rv = auth_client.post("/participants/", json=new_participant)
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.BAD_REQUEST
 

@@ -15,17 +15,16 @@ def protected_route(app):
         return jsonify({"message": "That is proteced route"})
 
 
-def test_logout_user_with_valid_access_token(client, access_token):
+def test_logout_user_with_valid_access_token(auth_client):
     """Test logout with fresh access token."""
-    response = client.delete(
-        "/auth/logout/", headers={"Authorization": "Bearer {}".format(access_token)}
-    )
+    response = auth_client.delete("/auth/logout/")
     payload = response.get_json()
     assert response.status_code == HTTPStatus.OK
     assert payload["msg"] == "Successfully logged out"
 
 
-def test_logout_user_without_token(client):
+@pytest.mark.parametrize("url", ["/auth/logout/", "/auth/refresh-token/"])
+def test_logout_user_without_token(client, url):
     """Test logout with no token provided."""
     response = client.delete("/auth/logout/")
     payload = response.get_json()
@@ -33,16 +32,12 @@ def test_logout_user_without_token(client):
     assert payload["msg"] == "Missing Authorization Header"
 
 
-def test_logout_twice(app, client, access_token):
+def test_logout_twice(app, auth_client):
     """Test logout twice."""
     with app.app_context():
-        response = client.delete(
-            "/auth/logout/", headers={"Authorization": "Bearer {}".format(access_token)}
-        )
+        response = auth_client.delete("/auth/logout/")
         assert response.status_code == HTTPStatus.OK
-        response = client.delete(
-            "/auth/logout/", headers={"Authorization": "Bearer {}".format(access_token)}
-        )
+        response = auth_client.delete("/auth/logout/")
         tokens = JWTToken.query.all()
     payload = response.get_json()
     assert tokens[0].revoked
@@ -50,15 +45,23 @@ def test_logout_twice(app, client, access_token):
     assert payload["msg"] == "Token has been revoked"
 
 
-def test_get_protected_route_after_logout(app, client, protected_route, access_token):
+def test_get_protected_route_after_logout(protected_route, auth_client):
     """Test access protected route after logging out."""
-    response = client.delete(
-        "/auth/logout/", headers={"Authorization": "Bearer {}".format(access_token)}
-    )
+    response = auth_client.delete("/auth/logout/")
     assert response.status_code == HTTPStatus.OK
-    response = client.get(
-        "/", headers={"Authorization": "Bearer {}".format(access_token)}
-    )
+    response = auth_client.get("/")
     payload = response.get_json()
     assert response.status_code == HTTPStatus.UNAUTHORIZED
     assert payload["msg"] == "Token has been revoked"
+
+
+def test_revoke_refresh_token(client, tokens):
+    """Test revoke refresh token."""
+    response = client.delete(
+        "/auth/refresh-token/",
+        headers={"Authorization": "Bearer {}".format(tokens["refresh"])},
+    )
+
+    payload = response.get_json()
+    assert response.status_code == HTTPStatus.OK
+    assert payload["msg"] == "Refresh token successfully revoked"
