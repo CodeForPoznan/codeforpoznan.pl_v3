@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-app-bar class="navbar-custom" dark clipped-right>
+    <v-app-bar class="navbar-custom" dark clipped-right color="#2C3E50">
       <v-toolbar-title>
         <a href="https://codeforpoznan.pl/">
           <v-img
@@ -63,7 +63,6 @@ export default {
 @import './../main.scss';
 .navbar-custom {
   font-family: $font-header;
-  background-color: $blue-media-hr !important;
   color: #ffffff !important;
 }
 .tab-custom {
