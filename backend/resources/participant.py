@@ -32,10 +32,7 @@ class ParticipantsList(Resource):
         except ValidationError as err:
             return (err.messages), HTTPStatus.BAD_REQUEST
 
-        if (
-            Participant.query.filter(Participant.email == json_data["email"]).first()
-            is not None
-        ):
+        if Participant.query.filter(Participant.email == json_data["email"]).first():
             return (
                 {"message": "User with this email already exists."},
                 HTTPStatus.CONFLICT,

@@ -15,9 +15,9 @@ class ParticipantSchema(Schema):
 
         dump_only = ("id", "hacknights")
 
-    first_name = fields.Str(required=True, validate=[validate.Length(max=50)])
-    last_name = fields.Str(required=True, validate=[validate.Length(max=50)])
-    email = fields.Email(required=True, validate=[validate.Length(max=200)])
-    github = fields.Str(required=True, validate=[validate.Length(max=200)])
+    first_name = fields.Str(required=True, validate=[validate.Length(min=3, max=50)])
+    last_name = fields.Str(required=True, validate=[validate.Length(min=3, max=50)])
+    email = fields.Email(required=True, validate=[validate.Length(min=5, max=200)])
+    github = fields.Str(required=True, validate=[validate.Length(min=5, max=200)])
     hacknights = fields.Nested("HacknightSchema", exclude=("participants",), many=True)
     phone = fields.Str(validate=[validate.Length(max=13)])
