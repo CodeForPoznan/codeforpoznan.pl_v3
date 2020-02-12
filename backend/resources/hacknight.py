@@ -16,7 +16,12 @@ class HacknightList(Resource):
     @jwt_required
     def get(self):
         hacknight_schema = HacknightSchema(many=True, exclude=("participants",))
-        return hacknight_schema.dump(Hacknight.query.order_by(Hacknight.date.desc()).all()), HTTPStatus.OK
+        return (
+            hacknight_schema.dump(
+                Hacknight.query.order_by(Hacknight.date.desc()).all()
+            ),
+            HTTPStatus.OK,
+        )
 
     @jwt_required
     def post(self):
