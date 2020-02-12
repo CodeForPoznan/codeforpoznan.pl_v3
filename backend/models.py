@@ -88,8 +88,7 @@ class JWTToken(db.Model):
 
     @classmethod
     def remove_expired(cls):
-        tokens = cls.query.all()
-        for token in tokens:
+        for token in cls.query.all():
             if token.expired():
                 db.session.delete(token)
         db.session.commit()
