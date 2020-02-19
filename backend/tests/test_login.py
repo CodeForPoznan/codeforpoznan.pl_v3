@@ -16,8 +16,7 @@ def test_login_with_valid_user(client, new_user, registered_user):
 def test_refresh_access_token(client, tokens):
     """Test refresh access token with refresh token."""
     rv = client.post(
-        "/auth/refresh/",
-        headers={"Authorization": f"Bearer {tokens['refresh']}"},
+        "/auth/refresh/", headers={"Authorization": f"Bearer {tokens['refresh']}"},
     )
 
     response = rv.get_json()
