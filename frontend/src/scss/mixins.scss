@@ -20,9 +20,9 @@
 
 @mixin displays {
     @media only screen and (min-width: $phone) {
-        padding: 2rem 8rem;
+        padding: 2% 10%;
     }
     @media only screen and (min-width: $desktop) {
-        padding: 2rem 20rem;
+        padding: 2% 15%;
     }
 }
