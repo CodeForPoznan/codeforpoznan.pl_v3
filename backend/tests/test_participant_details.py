@@ -8,12 +8,10 @@ from backend.serializers.participant_serializer import ParticipantSchema
 
 @pytest.mark.parametrize("method", ["get", "delete"])
 def test_get_delete_participant_when_logged_in(
-    client, access_token, add_participants, method
+    client, auth_client, add_participants, method
 ):
     """Test get and delete participant details for logged in user."""
-    rv = getattr(client, method)(
-        "/participants/1/", headers={"Authorization": "Bearer {}".format(access_token)}
-    )
+    rv = getattr(auth_client, method)("/participants/1/")
     response = rv.get_json()
     participant_schema = ParticipantSchema()
     assert rv.status_code == HTTPStatus.OK
@@ -23,17 +21,11 @@ def test_get_delete_participant_when_logged_in(
         assert response["message"] == "Participant deleted successfully."
 
 
-def test_put_participant_when_logged_in(
-    app, client, access_token, add_participants
-):
+def test_put_participant_when_logged_in(app, auth_client, add_participants):
     """Test put participant details for logged in user and valid data."""
     with app.app_context():
         payload = {"last_name": "TestTest", "email": "testtest@test.pl"}
-        rv = client.put(
-            "/participants/1/",
-            headers={"Authorization": "Bearer {}".format(access_token)},
-            json=payload,
-        )
+        rv = auth_client.put("/participants/1/", json=payload,)
         response = rv.get_json()
         schema = ParticipantSchema()
         participant = schema.dump(Participant.query.first())
@@ -43,14 +35,10 @@ def test_put_participant_when_logged_in(
     assert participant["last_name"] == payload["last_name"]
 
 
-def test_put_participant_with_invalid_data(client, access_token):
+def test_put_participant_with_invalid_data(auth_client):
     """Test try to edit participant with invalid email address."""
     payload = {"last_name": "TestTest", "email": "test"}
-    rv = client.post(
-        "/participants/",
-        headers={"Authorization": "Bearer {}".format(access_token)},
-        json=payload,
-    )
+    rv = auth_client.post("/participants/", json=payload,)
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.BAD_REQUEST
     assert "Not a valid email address." in response["email"]
@@ -58,12 +46,10 @@ def test_put_participant_with_invalid_data(client, access_token):
 
 @pytest.mark.parametrize("method", ["get", "delete", "put"])
 def test_get_delete_put_non_existing_participant(
-    client, access_token, add_participants, method
+    client, auth_client, add_participants, method
 ):
     """Test get, put and delete non-existing participant."""
-    rv = getattr(client, method)(
-        "/participants/11/", headers={"Authorization": "Bearer {}".format(access_token)}
-    )
+    rv = getattr(auth_client, method)("/participants/11/")
     assert rv.status_code == HTTPStatus.NOT_FOUND
 
 
