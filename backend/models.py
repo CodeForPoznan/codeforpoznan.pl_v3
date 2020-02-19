@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from sqlalchemy import Column
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.types import Boolean
@@ -80,3 +82,13 @@ class JWTToken(db.Model):
             return token.revoked
         except NoResultFound:
             return True
+
+    def expired(self):
+        return datetime.now() > self.expires
+
+    @classmethod
+    def remove_expired(cls):
+        for token in cls.query.all():
+            if token.expired():
+                db.session.delete(token)
+        db.session.commit()
