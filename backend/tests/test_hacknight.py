@@ -77,7 +77,7 @@ def test_duplicate_participant_in_hacknight(
 
     payload = {"participants_ids": [participant.id]}
     rv = auth_client.post(
-        "/hacknights/{}/participants/".format(hacknight.id), data=json.dumps(payload),
+        f"/hacknights/{hacknight.id}/participants/", data=json.dumps(payload),
     )
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.BAD_REQUEST

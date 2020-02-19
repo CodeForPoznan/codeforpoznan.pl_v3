@@ -59,7 +59,7 @@ def test_revoke_refresh_token(client, tokens):
     """Test revoke refresh token."""
     response = client.delete(
         "/auth/refresh-token/",
-        headers={"Authorization": f"Bearer {tokens["refresh"]}"},
+        headers={"Authorization": f"Bearer {tokens['refresh']}"},
     )
 
     payload = response.get_json()
