@@ -53,7 +53,7 @@ export default {
   data() {
     return {
       dialog: false,
-      hoveredImg: require('@/assets/images/magnifier_glass.svg'),
+      hoveredImg: require('@/assets/images/magnifying_glass.svg'),
       projects: projects,
       selectedProject: []
     };
