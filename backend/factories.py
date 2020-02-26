@@ -37,7 +37,7 @@ class HacknightFactory(BaseFactory):
     class Meta:
         model = Hacknight
 
-    date = factory.Faker("date_time_between", start_date="-10y", end_date="now")
+    date = factory.Faker("date_time_between", start_date="-20y", end_date="now")
 
     @factory.post_generation
     def participants(self, create, extracted, **kwargs):

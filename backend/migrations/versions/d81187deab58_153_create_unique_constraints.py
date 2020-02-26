@@ -1,8 +1,8 @@
-"""[153] Constraints
+"""153_create_unique_constraints
 
-Revision ID: 88214e3da07c
+Revision ID: d81187deab58
 Revises: e77f6676bf8a
-Create Date: 2020-02-12 18:35:37.877673
+Create Date: 2020-02-26 18:54:51.187603
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = "88214e3da07c"
+revision = "d81187deab58"
 down_revision = "e77f6676bf8a"
 branch_labels = None
 depends_on = None
