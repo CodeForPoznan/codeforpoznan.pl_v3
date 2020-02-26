@@ -1,5 +1,4 @@
 import axios from 'axios';
-import moment from 'moment';
 
 export default {
   namespaced: true,
@@ -34,7 +33,7 @@ export default {
     createHacknight({ commit, dispatch }) {
       return axios
         .post('/hacknights/', {
-          date: moment().format('YYYY-MM-DD')
+          date: new Date().toISOString().slice(0, 10)
         })
         .then(res => {
           commit('setHacknight', res.data);

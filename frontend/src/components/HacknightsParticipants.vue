@@ -37,9 +37,8 @@
           <template v-slot:append-outer>
             <v-btn
               color="blue-grey"
-              class="ma-2 white--text"
+              class="ma-2 white--text add-hacknight-btn"
               @click="onAddParticipants"
-              style="top: -12px"
               offset-y
             >
               <v-icon dark>mdi-cloud-upload</v-icon>
@@ -90,11 +89,8 @@ export default {
   },
   methods: {
     onAddParticipants() {
-      const ids = [];
+      const ids = this.selectedParticipants.map(participant => participant.id);
 
-      for (const participant of this.selectedParticipants) {
-        ids.push(participant.id);
-      }
       this.$store
         .dispatch('hacknight/addParticipants', ids)
         .then(() => (this.selectedParticipants = []));
@@ -108,4 +104,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import './../main.scss';
+.add-hacknight-btn {
+  top: -12px;
+}
 </style>
