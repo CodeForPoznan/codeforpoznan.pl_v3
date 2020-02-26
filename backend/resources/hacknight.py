@@ -39,10 +39,7 @@ class HacknightList(Resource):
         db.session.add(hacknight)
         db.session.commit()
 
-        return (
-            {"msg": "Hacknight created successfully.", "hacknight": data},
-            HTTPStatus.CREATED,
-        )
+        return {"hacknight": data}, HTTPStatus.CREATED
 
 
 class HacknightDetails(Resource):
