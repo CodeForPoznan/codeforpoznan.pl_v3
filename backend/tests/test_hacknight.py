@@ -81,4 +81,4 @@ def test_duplicate_participant_in_hacknight(
     )
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.BAD_REQUEST
-    assert response["message"] == "No new participant has been provided"
+    assert response["msg"] == "No new participant has been provided"

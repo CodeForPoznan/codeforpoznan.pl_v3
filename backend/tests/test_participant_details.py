@@ -18,7 +18,7 @@ def test_get_delete_participant_when_logged_in(
     if method == "get":
         assert response == participant_schema.dump(Participant.query.get(1))
     else:
-        assert response["message"] == "Participant deleted successfully."
+        assert response["msg"] == "Participant deleted successfully."
 
 
 @pytest.mark.parametrize("method", ["get", "delete"])

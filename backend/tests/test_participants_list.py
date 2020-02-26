@@ -50,7 +50,7 @@ def test_try_create_participant_without_payload(auth_client):
     rv = auth_client.post("/participants/", json={})
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.BAD_REQUEST
-    assert response["message"] == "No input data provided"
+    assert response["msg"] == "No input data provided"
 
 
 def test_try_create_participant_with_invalid_email(auth_client, new_participant):

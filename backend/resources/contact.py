@@ -16,7 +16,7 @@ class SendMessage(Resource):
             message_schema = MessageSchema()
             new_msg = message_schema.load(request.json)
         except ValidationError as err:
-            return {"message": err.messages}, HTTPStatus.BAD_REQUEST
+            return {"msg": err.messages}, HTTPStatus.BAD_REQUEST
         name, phone, content = new_msg["name"], new_msg["phone"], new_msg["content"]
         msg = Message(
             subject=f"Email z cfp_v3 od {name}",
@@ -27,4 +27,4 @@ class SendMessage(Resource):
         msg.body = f"Nowa wiadomość od {name}, nr tel: {phone} \nTreść:\n {content}"
         mail.send(msg)
 
-        return {"message": "Contact message successfully sent"}, HTTPStatus.OK
+        return {"msg": "Contact message successfully sent"}, HTTPStatus.OK

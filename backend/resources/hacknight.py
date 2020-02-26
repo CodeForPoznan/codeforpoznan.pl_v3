@@ -26,7 +26,7 @@ class HacknightList(Resource):
         hacknight_schema = HacknightSchema()
         json_data = request.get_json(force=True)
         if not json_data:
-            return {"message": "No input data provided"}, HTTPStatus.BAD_REQUEST
+            return {"msg": "No input data provided"}, HTTPStatus.BAD_REQUEST
         try:
             data = hacknight_schema.load(json_data)
         except ValidationError as err:
@@ -34,13 +34,13 @@ class HacknightList(Resource):
 
         hacknight = Hacknight.query.filter_by(date=data["date"]).first()
         if hacknight:
-            return {"message": "Hacknight already exists."}, HTTPStatus.CONFLICT
+            return {"msg": "Hacknight already exists."}, HTTPStatus.CONFLICT
         hacknight = Hacknight(date=data["date"])
         db.session.add(hacknight)
         db.session.commit()
 
         return (
-            {"message": "Hacknight created successfully.", "hacknight": data},
+            {"msg": "Hacknight created successfully.", "hacknight": data},
             HTTPStatus.CREATED,
         )
 
@@ -75,7 +75,7 @@ class HacknightParticipants(Resource):
 
         if not new_participants:
             return (
-                {"message": "No new participant has been provided"},
+                {"msg": "No new participant has been provided"},
                 HTTPStatus.BAD_REQUEST,
             )
 

@@ -12,7 +12,7 @@ class MessageSchema(Schema):
         required=True,
         error_messages={
             "required": {
-                "message": "Valid email is required",
+                "msg": "Valid email is required",
                 "code": HTTPStatus.BAD_REQUEST,
             }
         },
@@ -23,7 +23,7 @@ class MessageSchema(Schema):
         validate=[validate.Length(min=10)],
         error_messages={
             "required": {
-                "message": "Content of message is required",
+                "msg": "Content of message is required",
                 "code": HTTPStatus.BAD_REQUEST,
             }
         },
