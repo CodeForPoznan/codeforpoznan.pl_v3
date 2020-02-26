@@ -5,10 +5,10 @@ from flask import request
 from flask_jwt_extended import jwt_required
 from flask_restful import Resource
 
-from marshmallow import ValidationError
+from marshmallow import fields, Schema, ValidationError
 
 from backend.extensions import db
-from backend.models import Hacknight
+from backend.models import Hacknight, Participant
 from backend.serializers.hacknight_serializer import HacknightSchema
 
 
@@ -17,7 +17,9 @@ class HacknightList(Resource):
     def get(self):
         hacknight_schema = HacknightSchema(many=True, exclude=("participants",))
         return (
-            {"hacknights": hacknight_schema.dump(Hacknight.query.all())},
+            hacknight_schema.dump(
+                Hacknight.query.order_by(Hacknight.date.desc()).all()
+            ),
             HTTPStatus.OK,
         )
 
@@ -39,10 +41,7 @@ class HacknightList(Resource):
         db.session.add(hacknight)
         db.session.commit()
 
-        return (
-            {"message": "Hacknight created successfully.", "hacknight": data},
-            HTTPStatus.CREATED,
-        )
+        return hacknight_schema.dump(hacknight), HTTPStatus.CREATED
 
 
 class HacknightDetails(Resource):
@@ -54,3 +53,35 @@ class HacknightDetails(Resource):
             {"hacknights": hacknight_schema.dump(Hacknight.query.get_or_404(id))},
             HTTPStatus.OK,
         )
+
+
+class HacknightParticipants(Resource):
+    @jwt_required
+    def post(self, id):
+        hacknight = Hacknight.query.get_or_404(id)
+        participants = [participant.id for participant in hacknight.participants]
+
+        json_data = request.get_json(force=True)
+        ids_schema = Schema.from_dict({"participants_ids": fields.List(fields.Int())})
+        try:
+            data = ids_schema().load(json_data)
+        except ValidationError as err:
+            return err.messages, HTTPStatus.UNPROCESSABLE_ENTITY
+
+        new_participants = [
+            id for id in data["participants_ids"] if id not in participants
+        ]
+
+        if not new_participants:
+            return (
+                {"message": "No new participant has been provided"},
+                HTTPStatus.BAD_REQUEST,
+            )
+
+        for new_participant in new_participants:
+            hacknight.participants.append(Participant.query.get_or_404(new_participant))
+        db.session.add(hacknight)
+        db.session.commit()
+
+        hacknight_schema = HacknightSchema()
+        return hacknight_schema.dump(hacknight), HTTPStatus.OK
