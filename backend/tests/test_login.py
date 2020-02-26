@@ -64,7 +64,6 @@ def test_login_with_invalid_input(client):
     response = rv.get_json()
 
     assert rv.status_code == HTTPStatus.BAD_REQUEST
-    assert "Wrong input data" in response["msg"]
     assert "Shorter than minimum length" in response["errors"]["username"][0]
 
 
@@ -77,7 +76,6 @@ def test_login_with_one_value_missing(client, missing, new_user):
     response = rv.get_json()
     errors = response["errors"][missing]
     assert rv.status_code == HTTPStatus.BAD_REQUEST
-    assert "Wrong input data" in response["msg"]
     assert "Missing data for required field." in errors[0]
 
 

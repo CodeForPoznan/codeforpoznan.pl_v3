@@ -37,10 +37,7 @@ class UserLogin(Resource):
         try:
             result = schema.load(request.json)
         except ValidationError as error:
-            return (
-                {"msg": "Wrong input data", "errors": error.messages},
-                HTTPStatus.BAD_REQUEST,
-            )
+            return {"errors": error.messages}, HTTPStatus.BAD_REQUEST
 
         username = result["username"]
         password = result["password"]
