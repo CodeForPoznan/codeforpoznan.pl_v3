@@ -31,3 +31,4 @@ class DevelopmentConfig(Config):
     SECRET_KEY = os.environ.get("SECRET_KEY")
 
     JWT_BLACKLIST_ENABLED = True
+    JWT_ERROR_MESSAGE_KEY = "msg"
