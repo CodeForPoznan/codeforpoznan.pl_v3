@@ -1,5 +1,4 @@
 import axios from 'axios';
-axios.defaults.baseURL = 'http://0.0.0.0:5000/';
 
 export default {
   namespaced: true,
@@ -18,7 +17,7 @@ export default {
     login({ commit }, loginData) {
       return new Promise((resolve, reject) => {
         axios
-          .post('auth/login', {
+          .post('auth/login/', {
             username: loginData.username,
             password: loginData.password
           })

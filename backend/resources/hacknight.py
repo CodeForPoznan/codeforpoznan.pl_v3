@@ -17,7 +17,9 @@ class HacknightList(Resource):
     def get(self):
         hacknight_schema = HacknightSchema(many=True, exclude=("participants",))
         return (
-            {"hacknights": hacknight_schema.dump(Hacknight.query.all())},
+            hacknight_schema.dump(
+                Hacknight.query.order_by(Hacknight.date.desc()).all()
+            ),
             HTTPStatus.OK,
         )
 
@@ -39,10 +41,7 @@ class HacknightList(Resource):
         db.session.add(hacknight)
         db.session.commit()
 
-        return (
-            {"message": "Hacknight created successfully.", "hacknight": data},
-            HTTPStatus.CREATED,
-        )
+        return hacknight_schema.dump(hacknight), HTTPStatus.CREATED
 
 
 class HacknightDetails(Resource):
