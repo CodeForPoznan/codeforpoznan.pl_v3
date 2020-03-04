@@ -2,13 +2,14 @@ from flask import Flask
 from flask_cors import CORS
 
 from backend.commands.populate_database import populate_database
+from backend.commands.remove_expired_tokens import remove_expired_tokens
 from backend.extensions import api, db, mail, migrate, jwt
 from backend.models import JWTToken
 from backend.resources.auth import (
     UserLogin,
     UserLogout,
     RefreshAccessToken,
-    RevokeRefreshToken,
+    RefreshToken,
 )
 from backend.resources.contact import SendMessage
 from backend.resources.hacknight import (
@@ -24,6 +25,7 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object("backend.config.DevelopmentConfig")
     app.cli.add_command(populate_database)
+    app.cli.add_command(remove_expired_tokens)
 
     CORS(app)
     initialize_extensions(app)
@@ -52,7 +54,7 @@ api.add_resource(HacknightParticipants, "/hacknights/<int:id>/participants/")
 api.add_resource(ParticipantDetails, "/participants/<int:id>/")
 api.add_resource(ParticipantsList, "/participants/")
 api.add_resource(RefreshAccessToken, "/auth/refresh/")
-api.add_resource(RevokeRefreshToken, "/auth/revoke-refresh-token/")
+api.add_resource(RefreshToken, "/auth/refresh-token/")
 api.add_resource(SendMessage, "/send-email/")
 api.add_resource(UserLogin, "/auth/login/")
 api.add_resource(UserLogout, "/auth/logout/")

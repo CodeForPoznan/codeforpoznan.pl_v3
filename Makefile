@@ -39,3 +39,6 @@ code-cov: ## Run pytest with code coverage
 
 cov-report: ## Generate coverage raport in HTML
 	docker-compose exec backend pytest --cov=backend --cov-report=html
+
+remove-tokens: ## Remove expired tokens from db
+	docker-compose exec backend flask remove-expired-tokens

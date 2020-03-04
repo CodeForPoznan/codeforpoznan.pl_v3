@@ -53,17 +53,22 @@ export default {
           localStorage.removeItem('token');
         })
         .finally(() => {
+          delete axios.defaults.headers.common['Authorization'];
           dispatch('revoke');
         });
     },
     revoke() {
+      const refresh_token = localStorage.getItem('refresh_token');
+
       return axios
-        .delete('auth/revoke-refresh-token/')
+        .delete('auth/refresh-token/', {
+          headers: { Authorization: 'Bearer ' + refresh_token }
+        })
         .then(() => {
-          localStorage.removeItem('token');
+          localStorage.removeItem('refresh_token');
         })
         .catch(() => {
-          localStorage.removeItem('token');
+          localStorage.removeItem('refresh_token');
         });
     },
     refresh() {
