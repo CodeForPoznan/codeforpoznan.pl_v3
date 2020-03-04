@@ -1,60 +1,73 @@
 <template>
   <v-container fluid class="white-container">
-    <v-layout row wrap>
-      <v-flex
-        id="items"
-        v-for="project in projects"
-        :key="project.name"
-        xs12
-        md6
-        lg4
-        xl3
+    <v-row>
+      <v-col>
+        <v-card flat color="transparent">
+          <v-card-text class="title">
+            <p class="blue-title">NASZE PROJEKTY</p>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+    <v-row wrap>
+      <v-col
+        class="items"
+        v-for="(project, index) in projects"
+        :key="index"
+        cols="12"
+        xs="12"
+        md="6"
+        lg="4"
+        xl="3"
       >
         <v-item-group>
-          <v-hover>
-            <v-card slot-scope="{ hover }">
-              <v-img :src="project.image" aspect-ratio="1.9"></v-img>
+          <v-hover v-slot="{ hover }">
+            <v-card @click.stop="clickImage(project)">
+              <v-img :src="project.imageAdress" aspect-ratio="1.9" />
+              <v-card-title class="card">
+                {{ project.name }}
+              </v-card-title>
               <v-expand-transition>
-                <div v-if="hover" id="card--reveal">
-                  <v-img id="hoverd-img" :src="hoveredImg"></v-img>
+                <div v-if="hover" class="card--reveal">
+                  <v-img class="card--hover" :src="hoveredImg" />
                 </div>
               </v-expand-transition>
             </v-card>
           </v-hover>
         </v-item-group>
-      </v-flex>
-    </v-layout>
+      </v-col>
+    </v-row>
+    <v-dialog v-model="dialog" max-width="50rem">
+      <app-modal-content :selectedProject="selectedProject" />
+    </v-dialog>
   </v-container>
 </template>
 
 <script>
+import ModalContent from './ModalContent.vue';
+import projects from '../assets/projects';
 export default {
+  components: {
+    'app-modal-content': ModalContent
+  },
   data() {
     return {
-      hoveredImg: require('@/assets/images/Antu_dialog-icon-preview.svg'),
-      projects: [
-        {
-          name: 'Volontulo',
-          image: require('@/assets/images/volontulo.png')
-        },
-        {
-          name: 'Wysadź ulicę',
-          image: require('@/assets/images/wysadz_ulice.png')
-        },
-        {
-          name: 'Bank Empatii',
-          image: require('@/assets/images/bank_empatii.png')
-        },
-        {
-          name: 'Alinka',
-          image: ''
-        },
-        {
-          name: 'Polska Akcja Humanitarna',
-          image: ''
-        }
-      ]
+      dialog: false,
+      hoveredImg: require('@/assets/images/magnifier.svg'),
+      projects: projects,
+      selectedProject: []
     };
+  },
+  methods: {
+    clickImage(project) {
+      this.dialog = true;
+      this.selectedProject = project;
+    }
+  },
+  mounted() {
+    this.$root.$on('close', () => {
+      this.dialog = false;
+    });
   }
 };
 </script>
@@ -62,11 +75,17 @@ export default {
 <style lang="scss" scoped>
 @import './../main.scss';
 
-#items {
-  padding: 10px;
+.card {
+  font-family: $font-header;
+  font-size: 1.5rem;
+  justify-content: center;
 }
 
-#card--reveal {
+.card--hover {
+  max-width: 50%;
+}
+
+.card--reveal {
   background: $blue;
   bottom: 0;
   color: $white;
@@ -78,7 +97,7 @@ export default {
   height: 100%;
 }
 
-#hoverd-img {
-  max-width: 50%;
+.items {
+  padding: 10px;
 }
 </style>
