@@ -4,7 +4,7 @@
       <v-toolbar-title>
         <a href="https://codeforpoznan.pl/">
           <v-img
-            :src="image"
+            :src="cfpLogo"
             contain
             max-height="20"
             aspect-ratio="1.7"
@@ -14,6 +14,10 @@
           ></v-img>
         </a>
       </v-toolbar-title>
+      <v-app-bar-nav-icon
+        @click="drawer = !drawer"
+        class="hidden-md-and-up"
+      ></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
       <v-tabs
         background-color="transparent"
@@ -29,15 +33,22 @@
       </v-tabs>
     </v-app-bar>
     <v-list class="navbar-custom hidden-md-and-up" dark>
-      <v-tabs background-color="transparent" vertical>
-        <template v-for="item in items">
-          <v-tab
-            @click="$vuetify.goTo(item.id)"
-            class="tab-custom"
-            :key="item.id"
-            >{{ item.name }}</v-tab
-          >
-        </template>
+      <v-tabs
+        width="100%"
+        v-if="drawer"
+        background-color="transparent"
+        vertical
+      >
+        <div class="mobile-tab-items">
+          <template v-for="item in items">
+            <v-tab
+              @click="$vuetify.goTo(item.id)"
+              class="tab-custom"
+              :key="item.id"
+              >{{ item.name }}</v-tab
+            >
+          </template>
+        </div>
       </v-tabs>
     </v-list>
   </div>
@@ -53,7 +64,8 @@ export default {
         { name: 'Dołącz do nas', id: '#join' },
         { name: 'Kontakt', id: '#contact' }
       ],
-      image: require('@/assets/images/logo-white.svg')
+      cfpLogo: require('@/assets/images/logo-white.svg'),
+      drawer: false
     };
   }
 };
@@ -64,8 +76,12 @@ export default {
 .navbar-custom {
   font-family: $font-header;
   color: #ffffff !important;
+  padding: 0;
 }
 .tab-custom {
   justify-content: left;
+}
+.mobile-tab-items {
+  width: 100vw;
 }
 </style>
