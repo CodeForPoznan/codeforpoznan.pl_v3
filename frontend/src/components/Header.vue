@@ -14,17 +14,12 @@
           ></v-img>
         </a>
       </v-toolbar-title>
+      <v-spacer></v-spacer>
       <v-app-bar-nav-icon
         @click="drawer = !drawer"
         class="hidden-md-and-up"
       ></v-app-bar-nav-icon>
-      <v-spacer></v-spacer>
-      <v-tabs
-        background-color="transparent"
-        right
-        class="hidden-sm-and-down"
-        mobile-break-point="768px"
-      >
+      <v-tabs background-color="transparent" right class="hidden-sm-and-down">
         <template v-for="item in items">
           <v-tab align-right @click="$vuetify.goTo(item.id)" :key="item.id">{{
             item.name
@@ -77,11 +72,11 @@ export default {
 @import './../main.scss';
 .navbar-custom {
   font-family: $font-header;
-  color: #ffffff !important;
   padding: 0;
 }
 .tab-custom {
   justify-content: left;
+  max-width: none;
 }
 .mobile-tab-items {
   width: 100vw;
