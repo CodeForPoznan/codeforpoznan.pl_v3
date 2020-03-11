@@ -33,23 +33,25 @@
       </v-tabs>
     </v-app-bar>
     <v-list class="navbar-custom hidden-md-and-up" dark>
-      <v-tabs
-        width="100%"
-        v-if="drawer"
-        background-color="transparent"
-        vertical
-      >
-        <div class="mobile-tab-items">
-          <template v-for="item in items">
-            <v-tab
-              @click="$vuetify.goTo(item.id)"
-              class="tab-custom"
-              :key="item.id"
-              >{{ item.name }}</v-tab
-            >
-          </template>
-        </div>
-      </v-tabs>
+      <v-expand-transition>
+        <v-tabs
+          width="100%"
+          v-if="drawer"
+          background-color="transparent"
+          vertical
+        >
+          <div class="mobile-tab-items">
+            <template v-for="item in items">
+              <v-tab
+                @click="$vuetify.goTo(item.id)"
+                class="tab-custom"
+                :key="item.id"
+                >{{ item.name }}</v-tab
+              >
+            </template>
+          </div>
+        </v-tabs>
+      </v-expand-transition>
     </v-list>
   </div>
 </template>
