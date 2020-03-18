@@ -113,7 +113,7 @@ def auth_client(app, tokens):
     class CustomClient(FlaskClient):
         def open(self, *args, **kwargs):
             kwargs.setdefault("headers", []).append(
-                ("Authorization", "Bearer {}".format(tokens["access"]))
+                ("Authorization", f"Bearer {tokens['access']}")
             )
             return super().open(*args, **kwargs)
 

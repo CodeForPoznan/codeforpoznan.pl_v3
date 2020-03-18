@@ -32,6 +32,6 @@ def populate_database():
 
     click.echo("Created users:")
     for id, username in enumerate(usernames, start=1):
-        click.echo("{}. {}".format(id, username))
+        click.echo(f"{id}. {username}")
 
     db.session.commit()
