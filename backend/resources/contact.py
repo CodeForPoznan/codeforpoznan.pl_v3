@@ -17,15 +17,14 @@ class SendMessage(Resource):
             new_msg = message_schema.load(request.json)
         except ValidationError as err:
             return {"message": err.messages}, HTTPStatus.BAD_REQUEST
+        name, phone, content = new_msg["name"], new_msg["phone"], new_msg["content"]
         msg = Message(
-            subject="Email z cfp_v3 od {}".format(new_msg["name"]),
+            subject=f"Email z cfp_v3 od {name}",
             sender=new_msg["email"],
             reply_to=new_msg["email"],
             recipients=["cfp@codeforpoznan.test"],
         )
-        msg.body = "Nowa wiadomość od {}, nr tel: {} \nTreść:\n {}".format(
-            new_msg["name"], new_msg["phone"], new_msg["content"]
-        )
+        msg.body = f"Nowa wiadomość od {name}, nr tel: {phone} \nTreść:\n {content}"
         mail.send(msg)
 
         return {"message": "Contact message successfully sent"}, HTTPStatus.OK

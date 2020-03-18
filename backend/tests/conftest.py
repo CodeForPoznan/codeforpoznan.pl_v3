@@ -2,6 +2,7 @@ import os
 import datetime
 import tempfile
 
+from flask.testing import FlaskClient
 import pytest
 
 from backend.app import create_app
@@ -93,11 +94,31 @@ def registered_user(new_user, app, _db):
 
 
 @pytest.fixture
-def access_token(app, _db, client, new_user, registered_user):
+def tokens(app, client, new_user, registered_user):
     with app.app_context():
         rv = client.post("/auth/login/", json=new_user)
-        access_token = rv.get_json()["access_token"]
-        yield access_token
+        response = rv.get_json()
+        from backend.models import JWTToken
+
+        print(len(JWTToken.query.all()))
+        yield {"access": response["access_token"], "refresh": response["refresh_token"]}
+
+
+@pytest.fixture
+def auth_client(app, tokens):
+    from backend.models import JWTToken
+
+    print(len(JWTToken.query.all()))
+
+    class CustomClient(FlaskClient):
+        def open(self, *args, **kwargs):
+            kwargs.setdefault("headers", []).append(
+                ("Authorization", f"Bearer {tokens['access']}")
+            )
+            return super().open(*args, **kwargs)
+
+    app.test_client_class = CustomClient
+    return app.test_client()
 
 
 @pytest.fixture

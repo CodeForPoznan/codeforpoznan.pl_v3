@@ -24,11 +24,9 @@ class ParticipantFactory(BaseFactory):
 
     first_name = factory.Faker("first_name", locale="pl_PL")
     last_name = factory.Faker("last_name", locale="pl_PL")
-    email = factory.LazyAttribute(
-        lambda obj: "{}@codeforpoznan.test".format(obj.last_name)
-    )
+    email = factory.LazyAttribute(lambda obj: f"{obj.last_name}@codeforpoznan.test")
     github = factory.LazyAttribute(
-        lambda obj: "https://github.com/{}{}".format(obj.first_name, obj.last_name)
+        lambda obj: f"https://github.com/{obj.first_name}{obj.last_name}"
     )
     phone = factory.Faker("random_int", min=100000000, max=999999999)
 
