@@ -73,7 +73,7 @@
     </v-card-actions>
     <div class="text-list">
       <v-row>
-        <p class="modal-subtitle">Partner projektu:</p>
+        <pre class="modal-subtitle">Partner projektu: </pre>
         <p class="modal-subtitle">{{ selectedProject.partner }}</p>
       </v-row>
     </div>
@@ -134,7 +134,7 @@ a {
 }
 
 .buttons {
-  margin: 0.5rem;
+  margin: 1rem 0.5rem 1rem 0;
 }
 
 .buttons--text {
@@ -155,7 +155,7 @@ a {
   font-size: 3rem;
   padding: 2rem 0;
   color: $white;
-  margin: 0.5rem 0 0 2rem;
+  margin: 0.5rem 0 0 1.2rem;
 }
 
 .modal-subtitle {
@@ -170,7 +170,7 @@ a {
 .stack-list {
   background-color: $blue;
   color: $white;
-  margin: 0.5rem;
+  margin: 0.5rem 0.5rem 0.5rem 0.5rem;
 }
 
 .text-row {
