@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="white-container">
+  <v-container fluid class="white-container" id="contact">
     <v-row>
       <v-flex>
         <v-card flat color="transparent">
