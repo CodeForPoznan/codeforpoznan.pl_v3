@@ -16,8 +16,7 @@ def test_login_with_valid_user(client, new_user, registered_user):
 def test_refresh_access_token(client, tokens):
     """Test refresh access token with refresh token."""
     rv = client.post(
-        "/auth/refresh/",
-        headers={"Authorization": "Bearer {}".format(tokens["refresh"])},
+        "/auth/refresh/", headers={"Authorization": f"Bearer {tokens['refresh']}"},
     )
 
     response = rv.get_json()
@@ -51,7 +50,7 @@ def test_try_login_twice(client, new_user, tokens):
     rv = client.post(
         "/auth/login/",
         json=new_user,
-        headers={"Authorization": "Bearer {}".format(tokens["access"])},
+        headers={"Authorization": f"Bearer {tokens['access']}"},
     )
 
     response = rv.get_json()
