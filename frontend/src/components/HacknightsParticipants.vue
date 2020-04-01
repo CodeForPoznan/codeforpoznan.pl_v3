@@ -18,7 +18,6 @@
           hide-selected
           label="Add participants"
           multiple
-          persistent-hint
           small-chips
           clearable
           deletable-chips
@@ -38,6 +37,7 @@
             <v-btn
               color="blue-grey"
               class="ma-2 white--text add-hacknight-btn"
+              :disabled="!selectedParticipants.length"
               @click="onAddParticipants"
               offset-y
             >
@@ -58,7 +58,6 @@
         <div class="flex-grow-1"></div>
       </v-toolbar>
       <v-divider v-if="getHacknight.participants"></v-divider>
-
       <v-list>
         <template v-for="(item, i) in getHacknight.participants">
           <v-list-item v-if="getHacknight.participants" :key="i">
@@ -69,7 +68,6 @@
           </v-list-item>
         </template>
       </v-list>
-      <v-divider></v-divider>
     </v-card>
   </v-container>
 </template>
