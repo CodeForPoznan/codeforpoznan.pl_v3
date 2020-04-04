@@ -28,7 +28,7 @@ class ParticipantFactory(BaseFactory):
         lambda obj: "{}{}@codeforpoznan.test".format(obj.first_name, obj.last_name)
     )
     github = factory.LazyAttribute(
-        lambda obj: "https://github.com/{}{}".format(obj.first_name, obj.last_name)
+        lambda obj: f"https://github.com/{obj.first_name}{obj.last_name}"
     )
     phone = factory.Faker("random_int", min=100000000, max=999999999)
 

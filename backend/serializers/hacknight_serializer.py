@@ -11,3 +11,4 @@ class HacknightSchema(Schema):
     participants = fields.Nested(
         "ParticipantSchema", exclude=("hacknights",), many=True
     )
+    date = fields.Date()
