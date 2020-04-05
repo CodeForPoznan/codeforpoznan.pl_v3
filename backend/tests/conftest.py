@@ -73,7 +73,7 @@ def new_participant():
         "last_name": "Doe",
         "email": "test@test.com",
         "phone": "123456789",
-        "slack": "slacklogin"
+        "slack": "slacklogin",
     }
     return participant
 
