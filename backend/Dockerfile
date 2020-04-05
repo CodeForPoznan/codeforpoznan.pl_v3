@@ -2,7 +2,7 @@ FROM python:3.8
 
 EXPOSE 5000
 
-RUN apt-get update -y && apt-get install -y libpq-dev && apt-get autoremove
+RUN apt-get update -y && apt-get install -y libpq-dev wait-for-it && apt-get autoremove
 
 # update pip
 RUN pip install --upgrade pip

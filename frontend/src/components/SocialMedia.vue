@@ -1,7 +1,7 @@
 <template>
   <div id="media">
     <h2>MEDIA</h2>
-    <ul>
+    <ul class="media-info">
       <li v-for="item in media" :key="item.link">
         <a :href="item.link" target="_blank" class="circle">
           <v-icon> {{ item.icon }} </v-icon>
@@ -48,7 +48,7 @@ export default {
 }
 h2 {
   font-size: 24px;
-  margin: 25px 0;
+  padding: 60px 0 20px 0;
 }
 .circle {
   border: 2px solid $white;
@@ -56,12 +56,11 @@ h2 {
   height: 50px;
   border-radius: 50%;
 }
-ul {
+ul.media-info {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0;
-  margin: 25px 0;
+  padding: 20px 0 60px 0;
 }
 li {
   list-style-type: none;
