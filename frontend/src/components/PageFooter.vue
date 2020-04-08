@@ -9,7 +9,7 @@
 footer {
   color: $white;
   background-color: $blue-nav-footer;
-  padding: 25px;
+  padding: 25px 0;
   display: flex;
   justify-content: center;
 }
