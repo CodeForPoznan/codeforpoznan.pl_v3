@@ -4,7 +4,7 @@
       <v-col cols="6">
         <v-alert
           type="error"
-          :value="getError ? true : false"
+          :value="getError"
           transition="slide-y-transition"
           dismissible
           >{{ getError }}</v-alert
