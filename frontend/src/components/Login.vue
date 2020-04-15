@@ -5,7 +5,7 @@
         <v-flex xs12 sm6>
           <v-alert
             type="error"
-            :value="getError ? true : false"
+            :value="!!getError"
             dismissible
             transition="slide-y-transition"
             >{{ getError }}</v-alert
@@ -24,7 +24,7 @@
             indeterminate
           >
           </v-progress-circular>
-          <form>
+          <form @keyup.enter="onSubmit">
             <v-text-field
               v-model="username"
               label="Nazwa użytkownika"
@@ -68,7 +68,7 @@ export default {
   },
 
   validations: {
-    username: { required, minLength: minLength(5) },
+    username: { required, minLength: minLength(3) },
     password: { required }
   },
 
@@ -94,7 +94,7 @@ export default {
       this.$v.$reset();
       this.username = '';
       this.password = '';
-    }
+    },
   },
 
   computed: {
@@ -115,7 +115,7 @@ export default {
       !this.$v.password.required && errors.push('Hasło jest wymagane');
       return errors;
     },
-    ...mapGetters('auth', ['getError'])
+    ...mapGetters('auth', ['getError', 'isLoggedIn'])
   }
 };
 </script>

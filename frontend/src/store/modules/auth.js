@@ -20,27 +20,26 @@ export default {
     }
   },
   actions: {
-    login({ commit }, loginData) {
+    async login({ commit }, loginData) {
       delete axios.defaults.headers.common['Authorization'];
 
-      return axios
+      try {
+        let res = await axios
         .post('auth/login/', {
           username: loginData.username,
           password: loginData.password
         })
-        .then(res => {
-          const token = res.data.access_token;
-          const refresh_token = res.data.refresh_token;
+        const token = res.data.access_token;
+        const refresh_token = res.data.refresh_token;
 
-          localStorage.setItem('token', token);
-          localStorage.setItem('refresh_token', refresh_token);
-          axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-          return res.status;
-        })
-        .catch(error => {
+        localStorage.setItem('token', token);
+        localStorage.setItem('refresh_token', refresh_token);
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+        return res.status;
+      } catch(error) {
           localStorage.removeItem('token');
           commit('raiseError', error);
-        });
+        };
     },
     logout({ dispatch }) {
       axios.interceptors.response.eject(interceptorRefresh);
