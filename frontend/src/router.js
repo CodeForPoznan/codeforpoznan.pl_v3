@@ -17,8 +17,7 @@ const routes = [
     beforeEnter: (to, from, next) => {
       if (!store.getters['auth/isLoggedIn']) {
         next('/login');
-      }
-      else {
+      } else {
         next();
       }
     }

@@ -94,7 +94,7 @@ export default {
       this.$v.$reset();
       this.username = '';
       this.password = '';
-    },
+    }
   },
 
   computed: {

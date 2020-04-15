@@ -24,11 +24,10 @@ export default {
       delete axios.defaults.headers.common['Authorization'];
 
       try {
-        let res = await axios
-        .post('auth/login/', {
+        let res = await axios.post('auth/login/', {
           username: loginData.username,
           password: loginData.password
-        })
+        });
         const token = res.data.access_token;
         const refresh_token = res.data.refresh_token;
 
@@ -36,10 +35,10 @@ export default {
         localStorage.setItem('refresh_token', refresh_token);
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
         return res.status;
-      } catch(error) {
-          localStorage.removeItem('token');
-          commit('raiseError', error);
-        };
+      } catch (error) {
+        localStorage.removeItem('token');
+        commit('raiseError', error);
+      }
     },
     logout({ dispatch }) {
       axios.interceptors.response.eject(interceptorRefresh);

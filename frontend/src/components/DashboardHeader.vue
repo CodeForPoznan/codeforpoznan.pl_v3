@@ -19,16 +19,12 @@
         @click="drawer = !drawer"
         class="hidden-md-and-up"
       ></v-app-bar-nav-icon>
-      <v-tabs
-        background-color="transparent"
-        right
-        class="hidden-sm-and-down"
-      >
+      <v-tabs background-color="transparent" right class="hidden-sm-and-down">
         <v-tab align-right @click="onLogout">Logout</v-tab>
       </v-tabs>
     </v-app-bar>
     <v-list class="navbar-custom hidden-md-and-up" dark>
-        <v-expand-transition>
+      <v-expand-transition>
         <v-tabs
           width="100%"
           v-if="drawer"
@@ -36,9 +32,9 @@
           vertical
         >
           <div class="mobile-tab-items">
-        <v-tab @click="onLogout" class="tab-custom">Logout</v-tab>
-        </div>
-      </v-tabs>
+            <v-tab @click="onLogout" class="tab-custom">Logout</v-tab>
+          </div>
+        </v-tabs>
       </v-expand-transition>
     </v-list>
   </div>
@@ -64,8 +60,8 @@ export default {
 <style lang="scss" scoped>
 @import './../main.scss';
 .navbar-custom {
-    font-family: $font-header;
-    padding: 0;
+  font-family: $font-header;
+  padding: 0;
 }
 .tab-custom {
   justify-content: left;
