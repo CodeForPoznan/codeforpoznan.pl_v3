@@ -12,8 +12,8 @@
                   .length
             )
           "
-          item-text="email"
-          item-value="email"
+          item-text="github"
+          item-value="github"
           :search-input.sync="search"
           hide-selected
           label="Add participants"
@@ -64,7 +64,7 @@
             <v-list-item-avatar>
               <v-icon>mdi-account-outline</v-icon>
             </v-list-item-avatar>
-            <v-list-item-title v-text="item.email"></v-list-item-title>
+            <v-list-item-title v-text="item.github"></v-list-item-title>
           </v-list-item>
         </template>
       </v-list>
