@@ -18,3 +18,9 @@ Type: `less Makefile` to see other commands
 
 ### Default User password
 'pass123'
+
+### Frontend instructions
+We use prettier so to avoid linting errors run in the terminal:
+`cd frontend` - to enter frontend directory 
+`yarn lint` - to check for errors
+`yarn lint:fix` - to repair them automatically
