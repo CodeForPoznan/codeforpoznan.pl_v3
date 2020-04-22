@@ -11,6 +11,7 @@ class ParticipantSchema(Schema):
             "github",
             "hacknights",
             "phone",
+            "slack",
         )
 
         dump_only = ("id", "hacknights")
@@ -21,3 +22,4 @@ class ParticipantSchema(Schema):
     github = fields.Str(validate=[validate.Length(max=200)])
     hacknights = fields.Nested("HacknightSchema", exclude=("participants",), many=True)
     phone = fields.Str(validate=[validate.Length(max=13)])
+    slack = fields.Str(validate=[validate.Length(max=21)])

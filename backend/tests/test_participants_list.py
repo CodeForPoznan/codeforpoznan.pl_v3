@@ -9,7 +9,7 @@ def test_get_participants_when_logged_in(auth_client, add_participants):
     rv = auth_client.get("/participants/")
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.OK
-    assert len(response["participants"]) == 10
+    assert len(response) == 10
 
 
 def test_get_participants_with_empty_db(auth_client):
@@ -17,7 +17,7 @@ def test_get_participants_with_empty_db(auth_client):
     rv = auth_client.get("/participants/")
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.OK
-    assert not response["participants"]
+    assert not response
 
 
 def test_get_participants_unauthorized(client, add_participants):

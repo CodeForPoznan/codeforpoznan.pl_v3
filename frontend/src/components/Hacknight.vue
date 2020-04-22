@@ -1,10 +1,10 @@
 <template>
   <v-container fluid text-xs-center>
     <v-row align="center" justify="center">
-      <v-col cols="6">
+      <v-col cols="12" sm="6">
         <v-alert
           type="error"
-          :value="getError ? true : false"
+          :value="getError"
           transition="slide-y-transition"
           dismissible
           >{{ getError }}</v-alert
@@ -12,7 +12,7 @@
       </v-col>
     </v-row>
     <v-row align="center" justify="center">
-      <v-col cols="6">
+      <v-col cols="12" sm="6">
         <v-select
           v-model="selectedHacknight"
           :items="getHacknights"

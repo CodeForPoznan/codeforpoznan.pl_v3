@@ -36,9 +36,9 @@
             <v-text-field
               v-model="password"
               label="Hasło"
-              :append-icon="showPass ? 'visibility_off' : 'visibility'"
-              :type="showPass ? 'text' : 'password'"
-              @click:append="showPass = !showPass"
+              :append-icon="showPassword ? 'visibility_off' : 'visibility'"
+              :type="showPassword ? 'text' : 'password'"
+              @click:append="showPassword = !showPassword"
               required
               :error-messages="passwordErrors"
               @input="$v.password.$touch()"
@@ -61,7 +61,7 @@ export default {
     return {
       username: '',
       password: '',
-      showPass: false,
+      showPassword: false,
       successAlert: false,
       showSpinner: false
     };
