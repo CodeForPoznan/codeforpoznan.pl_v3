@@ -69,7 +69,7 @@ class HacknightParticipants(Resource):
             return err.messages, HTTPStatus.UNPROCESSABLE_ENTITY
 
         new_participants = [
-            id for id in data["participants_ids"] if id not in participants
+            _id for _id in data["participants_ids"] if _id not in participants
         ]
 
         if not new_participants:

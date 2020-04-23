@@ -1,5 +1,4 @@
 import axios from 'axios';
-import moment from 'moment';
 
 export default {
   namespaced: true,
@@ -34,7 +33,7 @@ export default {
     createHacknight({ commit, dispatch }) {
       return axios
         .post('/hacknights/', {
-          date: moment().format('YYYY-MM-DD')
+          date: new Date().toISOString().slice(0, 10)
         })
         .then(res => {
           commit('setHacknight', res.data);
@@ -50,7 +49,7 @@ export default {
       axios
         .get(`/hacknights/${hacknight_id}/`)
         .then(res => {
-          commit('setHacknight', res.data);
+          commit('setHacknight', res.data.hacknights);
         })
         .catch(error => {
           commit('raiseError', error);
@@ -61,6 +60,18 @@ export default {
         .get('/hacknights/')
         .then(res => {
           commit('setHacknights', res.data);
+        })
+        .catch(error => {
+          commit('raiseError', error);
+        });
+    },
+    addParticipants({ commit, getters }, participants_ids) {
+      axios
+        .post(`/hacknights/${getters.getHacknight.id}/participants/`, {
+          participants_ids: participants_ids
+        })
+        .then(res => {
+          commit('setHacknight', res.data);
         })
         .catch(error => {
           commit('raiseError', error);

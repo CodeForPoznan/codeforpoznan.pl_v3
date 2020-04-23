@@ -48,6 +48,7 @@ class Participant(db.Model):
     email = Column(String(200), unique=True, nullable=False)
     github = Column(String(200), unique=True, nullable=False)
     phone = Column(String(13))
+    slack = Column(String(21))
 
 
 class Hacknight(db.Model):

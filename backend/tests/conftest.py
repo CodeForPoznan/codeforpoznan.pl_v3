@@ -74,6 +74,7 @@ def new_participant():
         "email": "test@test.com",
         "phone": "123456789",
         "github": "wihajster",
+        "slack": "slacklogin",
     }
     return participant
 
