@@ -14,7 +14,7 @@ class UserFactory(BaseFactory):
     class Meta:
         model = User
 
-    username = factory.Faker("first_name", locale="pl_PL")
+    username = factory.Faker("email", locale="pl_PL")
     password = "pass123"
 
 
@@ -24,7 +24,9 @@ class ParticipantFactory(BaseFactory):
 
     first_name = factory.Faker("first_name", locale="pl_PL")
     last_name = factory.Faker("last_name", locale="pl_PL")
-    email = factory.LazyAttribute(lambda obj: f"{obj.last_name}@codeforpoznan.test")
+    email = factory.LazyAttribute(
+        lambda obj: "{}{}@codeforpoznan.test".format(obj.first_name, obj.last_name)
+    )
     github = factory.LazyAttribute(
         lambda obj: f"https://github.com/{obj.first_name}{obj.last_name}"
     )
@@ -35,7 +37,7 @@ class HacknightFactory(BaseFactory):
     class Meta:
         model = Hacknight
 
-    date = factory.Faker("date_time_between", start_date="-2y", end_date="now")
+    date = factory.Faker("date_time_between", start_date="-20y", end_date="now")
 
     @factory.post_generation
     def participants(self, create, extracted, **kwargs):

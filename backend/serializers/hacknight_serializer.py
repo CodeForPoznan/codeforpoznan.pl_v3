@@ -6,6 +6,8 @@ class HacknightSchema(Schema):
         fields = ("id", "date", "participants")
         dump_only = ("id",)
 
+    date = fields.Date(required=True)
+
     participants = fields.Nested(
         "ParticipantSchema", exclude=("hacknights",), many=True
     )
