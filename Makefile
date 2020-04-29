@@ -34,6 +34,16 @@ black: ## Run black
 black-check: ## Check black
 	docker-compose exec backend black --check .
 
+prettier: ## Run prettier
+	docker-compose exec frontend yarn lint:fix
+
+prettier-check: ## Check prettier
+	docker-compose exec frontend yarn lint
+
+lint: black prettier
+
+lint-check: black-check prettier-check
+
 code-cov: ## Run pytest with code coverage
 	docker-compose exec backend pytest --cov=backend
 
