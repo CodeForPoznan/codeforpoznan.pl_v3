@@ -25,7 +25,7 @@ class UserFactory(BaseFactory):
             obj = (
                 session.query(model_class)
                 .filter_by(username=kwargs["username"])
-                .one_or_none()
+                .first()
             )
         if not obj:
             obj = super(UserFactory, cls)._create(model_class, *args, **kwargs)
@@ -59,7 +59,7 @@ class ParticipantFactory(BaseFactory):
                         model_class.github == kwargs["github"],
                     )
                 )
-                .one_or_none()
+                .first()
             )
         if not obj:
             obj = super(ParticipantFactory, cls)._create(model_class, *args, **kwargs)
