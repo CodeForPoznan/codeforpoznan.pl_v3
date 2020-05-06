@@ -80,3 +80,45 @@ def test_create_participant_unauthorized(client, new_participant):
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.UNAUTHORIZED
     assert response["msg"] == "Missing Authorization Header"
+
+
+def test_try_create_participant_with_existing_email(auth_client, new_participant, _db):
+    """Test try to create new participant with existing email address."""
+    db = _db
+    participant = Participant(**new_participant)
+    db.session.add(participant)
+    db.session.commit()
+
+    payload = {
+        "first_name": "JonX",
+        "last_name": "DoeX",
+        "email": "test@test.com",
+        "phone": "1234567890",
+        "github": "wihajsterX",
+    }
+    rv = auth_client.post("/participants/", json=payload)
+    response = rv.get_json()
+
+    assert rv.status_code == HTTPStatus.CONFLICT
+    assert "User with this email already exists." in response["message"]
+
+
+def test_try_create_participant_with_existing_github(auth_client, new_participant, _db):
+    """Test try to create new participant with existing github nickname."""
+    db = _db
+    participant = Participant(**new_participant)
+    db.session.add(participant)
+    db.session.commit()
+
+    payload = {
+        "first_name": "JonX",
+        "last_name": "DoeX",
+        "email": "test@test.com2",
+        "phone": "1234567890",
+        "github": "wihajster",
+    }
+    rv = auth_client.post("/participants/", json=payload)
+    response = rv.get_json()
+
+    assert rv.status_code == HTTPStatus.CONFLICT
+    assert "User with this Github login already exists." in response["message"]

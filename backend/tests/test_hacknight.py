@@ -82,3 +82,17 @@ def test_duplicate_participant_in_hacknight(
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.BAD_REQUEST
     assert response["message"] == "No new participant has been provided"
+
+
+def test_create_hacknight_with_same_date(auth_client, new_hacknight, _db):
+    """Test add hcknight with the same date."""
+    db = _db
+    new_hacknight = Hacknight(date=new_hacknight["date"])
+    db.session.add(new_hacknight)
+    db.session.commit()
+
+    payload = {"date": "2000-10-10"}
+    rv = auth_client.post(f"/hacknights/", data=json.dumps(payload),)
+    response = rv.get_json()
+    assert rv.status_code == HTTPStatus.CONFLICT
+    assert response["message"] == "Hacknight already exists."
