@@ -24,14 +24,14 @@ export default {
   },
   methods: {
     onSubmit() {
-      const newParticipantData = {
+      const newParticipantData = {[
         first_name: this.first_name,
         last_name: this.last_name,
         email: this.email,
         github: this.github,
         phone: this.phone,
-        slack: this.slack
-      };
+        slack: this.slack,
+      ]};
 
       this.$store.dispatch('participant/createParticipant', newParticipantData);
     }
