@@ -1,4 +1,5 @@
 import factory
+from sqlalchemy import or_
 
 from backend.extensions import db
 from backend.models import Hacknight, Participant, User
@@ -17,6 +18,20 @@ class UserFactory(BaseFactory):
     username = factory.Faker("email", locale="pl_PL")
     password = "pass123"
 
+    @classmethod
+    def _create(cls, model_class, *args, **kwargs):
+        session = cls._meta.sqlalchemy_session
+        with session.no_autoflush:
+            obj = (
+                session.query(model_class)
+                .filter_by(username=kwargs["username"])
+                .one_or_none()
+            )
+        if not obj:
+            obj = super(UserFactory, cls)._create(model_class, *args, **kwargs)
+
+        return obj
+
 
 class ParticipantFactory(BaseFactory):
     class Meta:
@@ -32,12 +47,42 @@ class ParticipantFactory(BaseFactory):
     )
     phone = factory.Faker("random_int", min=100000000, max=999999999)
 
+    @classmethod
+    def _create(cls, model_class, *args, **kwargs):
+        session = cls._meta.sqlalchemy_session
+        with session.no_autoflush:
+            obj = (
+                session.query(model_class)
+                .filter(
+                    or_(
+                        model_class.email == kwargs["email"],
+                        model_class.github == kwargs["github"],
+                    )
+                )
+                .one_or_none()
+            )
+        if not obj:
+            obj = super(ParticipantFactory, cls)._create(model_class, *args, **kwargs)
+
+        return obj
+
 
 class HacknightFactory(BaseFactory):
     class Meta:
         model = Hacknight
 
-    date = factory.Faker("date_time_between", start_date="-20y", end_date="now")
+    date = factory.Faker("date_between", start_date="-20y", end_date="now")
+
+    @classmethod
+    def _create(cls, model_class, *args, **kwargs):
+        session = cls._meta.sqlalchemy_session
+        with session.no_autoflush:
+            obj = session.query(model_class).filter_by(date=kwargs["date"]).first()
+
+        if not obj:
+            obj = super(HacknightFactory, cls)._create(model_class, *args, **kwargs)
+
+        return obj
 
     @factory.post_generation
     def participants(self, create, extracted, **kwargs):
