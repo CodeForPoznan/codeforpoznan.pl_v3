@@ -1,5 +1,5 @@
 #### Story / Bug id:
-123 [link to the issue]
+[123](paste_your_link_here)
 
 #### Description:
 Describe changes made in your pull request here

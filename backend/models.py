@@ -43,10 +43,10 @@ class Participant(db.Model):
 
     __tablename__ = "participant"
     id = Column(Integer, autoincrement=True, primary_key=True)
-    first_name = Column(String(50))
-    last_name = Column(String(50))
-    email = Column(String(200))
-    github = Column(String(200), default="")
+    first_name = Column(String(50), nullable=False)
+    last_name = Column(String(50), nullable=False)
+    email = Column(String(200), unique=True, nullable=False)
+    github = Column(String(200), unique=True, nullable=False)
     phone = Column(String(13))
     slack = Column(String(21))
 
@@ -56,7 +56,7 @@ class Hacknight(db.Model):
 
     __tablename__ = "hacknight"
     id = Column(Integer, autoincrement=True, primary_key=True)
-    date = Column(Date)
+    date = Column(Date, nullable=False, unique=True)
     participants = db.relationship(
         "Participant",
         secondary=participant_hacknight,
@@ -66,7 +66,7 @@ class Hacknight(db.Model):
 
 
 class JWTToken(db.Model):
-    """For purpose of JWT tokens blacklisting"""
+    """For purpose of JWT tokens blacklisting."""
 
     __tablename__ = "jwt_tokens"
     id = Column(Integer, autoincrement=True, primary_key=True)

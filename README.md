@@ -13,6 +13,8 @@ We use Docker for development purposes. To start working, your computer needs to
 | `make start` | starts project |
 | `make stop`  | stops project  |
 | `make logs`  | shows logs     |
+| `make test`  | runs tests     |
+| `make lint`  | runs linters   |
 
 Type: `less Makefile` to see other commands
 
