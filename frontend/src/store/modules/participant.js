@@ -25,7 +25,7 @@ export default {
   actions: {
     getParticipants({ commit }) {
       axios
-        .get('/participants/')
+        .get('/api/participants/')
         .then(res => {
           commit('setParticipants', res.data);
         })

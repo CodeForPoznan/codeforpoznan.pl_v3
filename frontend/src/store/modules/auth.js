@@ -17,7 +17,7 @@ export default {
     login({ commit }, loginData) {
       return new Promise((resolve, reject) => {
         axios
-          .post('auth/login/', {
+          .post('/api/auth/login/', {
             username: loginData.username,
             password: loginData.password
           })
