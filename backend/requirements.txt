@@ -12,3 +12,4 @@ tqdm==2.2.3
 flask-restful==0.3.7
 pytest-cov==2.8.1
 black==19.10b0
+serverless-wsgi==1.7.4

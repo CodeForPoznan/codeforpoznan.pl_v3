@@ -1,14 +1,28 @@
 language: python
 python: 3.8
+
+
+env:
+  global:
+    - SECRET_KEY=codeforpoznan
+    - secret: ""
+
+
 install:
+  - nvm install 10.13.0
+  - (cd frontend && yarn install)
   - pip install -r backend/requirements.txt
 
-  - nvm install 10.13.0
-  - cd frontend && yarn install && cd -
+
 script:
-  - cd frontend && yarn lint
-  - cd ..
-  - cd backend
-  - export SECRET_KEY="codeforpoznan"
-  - pytest
-  - black --check .
+  - (cd frontend && yarn lint)        # lint frontend
+  - (cd backend  && pytest)           # test backend
+  - (cd backend  && black --check .)  # lint backend
+
+
+deploy:
+  provider: script
+  script: bash deploy.sh
+  on:
+    branch: master
+    repo: CodeForPoznan/codeforpoznan.pl_v3
