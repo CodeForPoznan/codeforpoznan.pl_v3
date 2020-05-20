@@ -5,7 +5,7 @@ export default {
   state: {
     allParticipants: [],
     error: null,
-    newParticipant: null
+    Participant: null
   },
   getters: {
     getParticipants(state) {
@@ -23,7 +23,7 @@ export default {
       state.allParticipants = participants;
     },
     setParticipant(state, participant) {
-      state.newParticipant = participant;
+      state.Participant = participant;
     }
   },
   actions: {
@@ -40,12 +40,7 @@ export default {
     createParticipant({ commit, dispatch }, newParticipantData) {
       return axios
         .post('/participants/', {
-          first_name: newParticipantData.first_name,
-          last_name: newParticipantData.last_name,
-          email: newParticipantData.email,
-          github: newParticipantData.github,
-          phone: newParticipantData.phone,
-          slack: newParticipantData.slack
+          ...newParticipantData
         })
         .then(res => {
           commit('setParticipant', res.data);
