@@ -26,4 +26,3 @@ def migration(event, context):
         "stdout": stdout.getvalue(),
         "stderr": stderr.getvalue(),
     }
-
