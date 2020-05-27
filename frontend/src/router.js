@@ -15,8 +15,11 @@ const routes = [
     path: '/dashboard',
     component: Dashboard,
     beforeEnter: (to, from, next) => {
-      if (!store.getters['auth/isLoggedIn']) next('/login');
-      else next();
+      if (!store.getters['auth/isLoggedIn']) {
+        next('/login');
+      } else {
+        next();
+      }
     }
   }
 ];
