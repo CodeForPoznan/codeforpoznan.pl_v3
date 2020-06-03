@@ -19,6 +19,32 @@ if (token) {
   axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 }
 
+export const interceptorRefresh = axios.interceptors.response.use(
+  response => response,
+  error => {
+    if (
+      error.response.status === 401 &&
+      error.response.data.msg.includes('expired') &&
+      !error.config.url.includes('refresh')
+    ) {
+      store
+        .dispatch('auth/refresh')
+        .then(() => {
+          delete error.config.headers['Authorization'];
+          return axios.request(error.config);
+        })
+        .catch(() => {
+          axios.interceptors.response.eject(interceptorRefresh);
+          localStorage.removeItem('token');
+          localStorage.removeItem('refresh_token');
+          router.push('/login');
+        });
+    } else {
+      return Promise.reject(error);
+    }
+  }
+);
+
 new Vue({
   router,
   store,
