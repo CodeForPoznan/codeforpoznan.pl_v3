@@ -5,7 +5,8 @@
       <v-text-field v-model="form.last_name" label="Last name" />
       <v-text-field
         v-model="form.email"
-        :error-messages="emailErrors"
+        @onblur="validateEmail($event.target.value)"
+        :error-messages="validateEmail"
         label="E-mail"
       />
       <v-text-field v-model="form.phone" label="Phone No." />
@@ -40,18 +41,19 @@ export default {
       const newParticipantData = this.form;
 
       this.$store.dispatch('participant/createParticipant', newParticipantData);
-    }
-  },
-  computed: {
-    ...mapGetters('participant', ['getParticipants', 'error']),
-    emailErrors() {
+    },
+    validateEmail(value) {
       const errors = [];
 
-      if (this.form.email === 'getParticipants'.filter(participant.email))
+      this.email = value;
+      if (this.email === this.getParticipants.filter(participant.email))
         return errors;
       errors.push('ten użytkownik już istnieje');
       return errors;
     }
+  },
+  computed: {
+    ...mapGetters('participant', ['getParticipants', 'error'])
   }
 };
 </script>
