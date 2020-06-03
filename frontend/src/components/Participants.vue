@@ -5,8 +5,8 @@
       <v-text-field v-model="form.last_name" label="Last name" />
       <v-text-field
         v-model="form.email"
-        @onblur="validateEmail($event.target.value)"
-        :error-messages="validateEmail"
+        @blur="validateEmail($event)"
+        error-messages="kk"
         label="E-mail"
       />
       <v-text-field v-model="form.phone" label="Phone No." />
@@ -19,7 +19,6 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import participant from '../store/modules/participant';
 export default {
   data() {
     return {
@@ -30,7 +29,8 @@ export default {
         github: '',
         phone: '',
         slack: ''
-      }
+      },
+      registeredEmails: []
     };
   },
   created() {
@@ -42,18 +42,22 @@ export default {
 
       this.$store.dispatch('participant/createParticipant', newParticipantData);
     },
-    validateEmail(value) {
-      const errors = [];
+    validateEmail(event) {
+      this.email = event.target.value;
+      // console.log(event.target.value);
+      this.registeredEmails = this.$store.getters.getEmails;
+      // console.log(this.registeredEmails);
 
-      this.email = value;
-      if (this.email === this.getParticipants.filter(participant.email))
-        return errors;
-      errors.push('ten użytkownik już istnieje');
-      return errors;
+      if (this.email === this.registeredEmails) {
+        this.invalidEmail = true;
+      } else {
+        this.invalidEmail = false;
+        // console.log(this.invalidEmail);
+      }
     }
   },
   computed: {
-    ...mapGetters('participant', ['getParticipants', 'error'])
+    ...mapGetters(['getEmails'])
   }
 };
 </script>

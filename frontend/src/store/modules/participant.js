@@ -11,6 +11,9 @@ export default {
     getParticipants(state) {
       return state.allParticipants;
     },
+    getEmails(state) {
+      return state.allParticipants.filter(list => list.email);
+    },
     getError(state) {
       return state.error;
     }
