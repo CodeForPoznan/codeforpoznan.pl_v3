@@ -85,3 +85,27 @@ class HacknightParticipants(Resource):
 
         hacknight_schema = HacknightSchema()
         return hacknight_schema.dump(hacknight), HTTPStatus.OK
+
+    @jwt_required
+    def delete(self, id):
+        hacknight = Hacknight.query.get_or_404(id)
+        participants = {participant.id for participant in hacknight.participants}
+        json_data = request.get_json(force=True)
+        ids_schema = Schema.from_dict({"participants_ids": fields.List(fields.Int())})
+        try:
+            data = ids_schema().load(json_data)
+        except ValidationError as err:
+            return err.messages, HTTPStatus.UNPROCESSABLE_ENTITY
+
+        to_remove = participants.intersection(set(data["participants_ids"]))
+        if not to_remove:
+            return {"message": "No participant to delete"}, HTTPStatus.BAD_REQUEST
+        hacknight.participants = [
+            participant
+            for participant in hacknight.participants
+            if participant.id not in to_remove
+        ]
+        db.session.commit()
+
+        hacknight_schema = HacknightSchema()
+        return hacknight_schema.dump(hacknight), HTTPStatus.OK
