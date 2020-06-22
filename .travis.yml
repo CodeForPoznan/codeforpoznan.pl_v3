@@ -1,14 +1,30 @@
 language: python
 python: 3.8
-install:
-  - pip install -r backend/requirements.txt
 
+
+env:
+  global:
+    - SECRET_KEY=codeforpoznan
+    - secret: ""
+    - secure: "n8QmWH5cbP5xq0IE3cVxd1qxzaKtUA2ZbsWRcKF1ZF7oDVfMLUTTCZ19gGrihWNK/xW0Vt9p77TlWPtmMg5GWKoltUEcsilRLmRfawqTRLQd22BdtuuYNBH40rGvgaBQ7aPkXt9LRix/gYLH9iE27XL2eNryCOZD3qr3XkwdDRyLHI2mM0sAx1PFMdCipfH/Y6x7tXbFX4Lf6291znIpMmGgN1jgO2MT3tIvvMPhGs8SBSsiC6qWo68/IuIihe4MsmxNoSHHiFl2DicOgDMJ3x0HG1+/ZGSD4Zbq0w/LwqCb8OcuQ9EVFfQgC+ZN1GF1CNq3GI08JghlK/VTAXAW2/qak/HLsMcpKU415t8y29nBgzMtCFyqYt6DxVHbwPbw8v2tzrTaEJODd4oPBy008TNXzCDKiMiyrTb/GAi9QZ5MPZ/ec6OJgrSn8dTDCMTVvlgZo/o4zvBzOLLxMdzRwAW//6eXJL2EnD+1bqphQFyyvSn1pLdMq+T3Tj7NHZbmTnU4hZQzjdbwN14M2dh6itb5jok9Hf2qZT+pYT3us2MBebZx8rrRLp9p7NBkQ9Cl39vKJVCr/kysOg+roYeYf6kO/7NIpazgmiY4gn2tvc3Xyn0ri5tIp/j1YLSRJmXBiTj0cZ3DW//f8JpfzSq8sXylK4+gR0hGbJWJcJY3Eck="
+
+
+install:
   - nvm install 10.13.0
-  - cd frontend && yarn install && cd -
+  - (cd frontend && yarn install)
+  - pip install -r backend/requirements.txt
+  - pip install awscli
+
+
 script:
-  - cd frontend && yarn lint
-  - cd ..
-  - cd backend
-  - export SECRET_KEY="codeforpoznan"
-  - pytest
-  - black --check .
+  - (cd frontend && yarn lint)        # lint frontend
+  - (cd backend  && pytest)           # test backend
+  - (cd backend  && black --check .)  # lint backend
+
+
+deploy:
+  provider: script
+  script: bash deploy.sh
+  on:
+    branch: master
+    repo: CodeForPoznan/codeforpoznan.pl_v3
