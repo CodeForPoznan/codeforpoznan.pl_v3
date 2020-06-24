@@ -15,8 +15,8 @@
           <p class="content">
             Kodujesz? Jesteś grafikiem? UX-owcem? Robisz cokolwiek innego, co
             może się przydać w kodowaniu dla Poznania? Dołącz do nas! Spotykamy
-            się w każdą środę od godz. 17:00 w firmie STX Next przy ul.
-            Morawskiego 12 (koło Areny).
+            się w każdą środę od godz. 18:00 w firmie STX Next przy ul. Mostowej
+            38 niedaleko Nowej Gazowni (Pawilonu) w parku Stare Koryto Warty.
           </p>
         </v-card>
       </v-col>
