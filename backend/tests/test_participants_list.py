@@ -164,7 +164,7 @@ def test_try_create_participant_with_wrong_slack(auth_client):
         "email": "test@test.com2",
         "phone": "1234567890",
         "github": "wihajster",
-        "slack": "123sad__x!@#"
+        "slack": "123sad__x!@#",
     }
     rv = auth_client.post("/participants/", json=payload)
     response = rv.get_json()
