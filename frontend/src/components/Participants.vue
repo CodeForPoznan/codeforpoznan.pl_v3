@@ -18,7 +18,8 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapState } from 'vuex';
+import { minLength, maxLength, required } from 'vuelidate/lib/validators';
 export default {
   data() {
     return {
@@ -29,12 +30,20 @@ export default {
         github: '',
         phone: '',
         slack: ''
-      },
-      registeredEmails: []
+      }
     };
   },
   created() {
     this.$store.dispatch('participant/getParticipants');
+  },
+  validations: {
+    form: {
+      first_name: {
+        required,
+        minLength: minLength(3),
+        maxLength: maxLength(100)
+      }
+    }
   },
   methods: {
     onSubmit() {
@@ -43,21 +52,19 @@ export default {
       this.$store.dispatch('participant/createParticipant', newParticipantData);
     },
     validateEmail(event) {
-      this.email = event.target.value;
-      // console.log(event.target.value);
-      this.registeredEmails = this.$store.getters.getEmails;
-      // console.log(this.registeredEmails);
+      const formEmail = event.target.value;
+      const userExist = !!Object.values(this.allParticipants).find(
+        user => user.email === formEmail
+      );
 
-      if (this.email === this.registeredEmails) {
-        this.invalidEmail = true;
-      } else {
-        this.invalidEmail = false;
-        // console.log(this.invalidEmail);
-      }
+      return userExist;
+      // console.log('userExist', userExist);
     }
   },
   computed: {
-    ...mapGetters(['getEmails'])
+    ...mapState('participant', {
+      allParticipants: 'allParticipants'
+    })
   }
 };
 </script>
