@@ -5,13 +5,13 @@ from contextlib import redirect_stdout, redirect_stderr
 from flask_migrate import migrate
 from serverless_wsgi import handle_request
 
-from backend.app import create_app
+import app.create_app
 
 
 def api(event, context):
     event["headers"]["Host"] = os.environ["BASE_URL"]
     print("REQUEST: ", event)
-    return handle_request(create_app(), event, context)
+    return handle_request(app.create_app(), event, context)
 
 
 def migration(event, context):

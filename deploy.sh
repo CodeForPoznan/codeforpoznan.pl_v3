@@ -34,7 +34,7 @@ aws lambda update-function-code                              \
 aws lambda update-function-code                              \
   --function-name dev_codeforpoznan_pl_v3_migration          \
   --s3-bucket     codeforpoznan-lambdas                      \
-  --s3-key        dev_codeforpoznan_pl_v3.zip                \
+  --s3-key        dev_codeforpoznan_pl_v3_migration.zip      \
   --region        eu-west-1                                  \
 | jq 'del(.Environment, .VpcConfig, .Role, .FunctionArn)'    \
 
