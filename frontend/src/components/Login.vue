@@ -86,6 +86,22 @@ export default {
           this.clearForm();
           if (status == 201) {
             this.successAlert = true;
+            // this.redirect()
+            // function sleep(ms) {
+            //   return new Promise(resolve => setTimeout(resolve, ms));
+            // }
+            // function checkFlag(logged, router) {
+            //   if(logged == false) {
+            //     console.log("waiting ...")
+            //     setTimeout(checkFlag.bind(logged, router), 1000)
+            //   } else {
+            //     console.log("you are logged in")
+            //     router.push('/dashboard')
+            //   }
+            // }
+            // checkFlag(this.isLoggedIn, this.$router);
+
+            // this.$router.push('/dashboard');
           }
         });
       }
@@ -95,6 +111,7 @@ export default {
       this.username = '';
       this.password = '';
     }
+
   },
 
   computed: {
@@ -116,6 +133,15 @@ export default {
       return errors;
     },
     ...mapGetters('auth', ['getError', 'isLoggedIn'])
+  },
+  watch: {
+    isLoggedIn(newVal, oldVal) {
+      console.log(newVal)
+      console.log(oldVal)
+      if(newVal==true) {
+        this.$router.push('/dashboard');
+      }
+    }
   }
 };
 </script>
