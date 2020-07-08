@@ -114,7 +114,7 @@ def test_remove_participants_from_hacknight(auth_client, add_participants_to_hac
 def test_remove_all_participants_from_hacknight(
     auth_client, add_participants_to_hacknight
 ):
-    """Test remove all participant from hacknight."""
+    """Test remove all participants from hacknight."""
     hacknight_db = Hacknight.query.get(1)
     participants_id = [participant.id for participant in hacknight_db.participants]
     payload = {"participants_ids": participants_id}
