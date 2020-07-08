@@ -7,8 +7,8 @@ const projects = [
     licenseName: 'MIT',
     licensePage: 'https://pl.wikipedia.org/wiki/Licencja_MIT',
     name: 'Volontulo',
-    partner: 'Wielkopolska Rada Koordynacyjna',
-    partnerPage: 'https://centrum.wrk.org.pl/',
+    partner: 'Poszukujemy partnera - napisz do nas',
+    partnerPage: 'https://codeforpoznan.pl/',
     stack: [
       {
         type: 'Frontend',
@@ -20,7 +20,7 @@ const projects = [
         type: 'Backend',
         name: 'Django',
         version: '2.2',
-        documentation: 'https://docs.djangoproject.com/en/2.2/'
+        documentation: 'https://docs.djangoproject.com/pl/2.2/'
       }
     ],
     websiteLink: 'http://volontuloapp.org/o'
@@ -30,26 +30,26 @@ const projects = [
       'W wyniku współpracy z Polską Akcją Humanitarną stworzyliśmy aplikację pomagającą w logistycznych procesach akcji humanitarnych w różnych częściach globu. Aktualnie aplikacja służąca rejestracji i ewidencji przejazdów jest wykorzystywana podczas akcji humanitarnych na Ukrainie, w Sudanie Południowym, Jemenie oraz Somalii. Aplikacja pozwala także na eksport zebranych danych w celu ewidencji kosztów dla danej akcji humanitarnej. Dzięku temu możemy zoptymalizować proces i zmniejszyć nakład papierkowej pracy biurowej.',
     githubLink: 'https://github.com/CodeForPoznan/pah-fm',
     imageAdress: require('@/assets/images/PAH.png'),
-    license: '',
-    licensePage: '',
+    license: 'MIT',
+    licensePage: 'https://github.com/CodeForPoznan/pah-fm/pull/401/files',
     name: 'Fleet Manager',
     partner: 'PAH - Polska Akcja Humanitarna',
     partnerPage: 'https://www.pah.org.pl/',
     stack: [
       {
         type: 'Frontend',
-        name: 'JavaScript',
-        version: '',
-        documentation: ''
+        name: 'Vue.js',
+        version: '2.5',
+        documentation: 'https://vuejs.org/v2/guide/'
       },
       {
         type: 'Backend',
         name: 'Django',
-        version: '',
-        documentation: ''
+        version: '2.2',
+        documentation: 'https://docs.djangoproject.com/pl/2.2/'
       }
     ],
-    website: ''
+    website: 'https://github.com/CodeForPoznan/pah-fm#readme'
   },
   {
     description:
@@ -57,23 +57,31 @@ const projects = [
     githubLink: 'https://github.com/CodeForPoznan/alinka-electron',
     imageAdress: require('@/assets/images/alinka.png'),
     license: 'MIT',
-    licensePage: 'https://pl.wikipedia.org/wiki/Licencja_MIT',
+    licensePage:
+      'https://github.com/CodeForPoznan/alinka-electron/blob/master/LICENSE',
     name: 'Alinka',
     partner:
-      'Poradnia Pscyhologiczno-Pedagogiczna w Grodzisku Wielkopolskim oraz Poradnia Pscyhologiczno-Pedagogiczna we Wrześni ',
-    partnerPage: 'http://www.grodziskwlkp.naszaporadnia.com/aktualnosci, https://ppp-wrzesnia.pl/',
+      'Poradnia Psychologiczno-Pedagogiczna w Grodzisku Wielkopolskim oraz Poradnia Pscyhologiczno-Pedagogiczna we Wrześni ',
+    partnerPage:
+      'http://www.grodziskwlkp.naszaporadnia.com/aktualnosci, https://ppp-wrzesnia.pl/',
     stack: [
       {
         type: 'Frontend',
         name: 'React',
-        version: '',
-        documentation: ''
+        version: '16.8',
+        documentation: 'https://pl.reactjs.org/docs/getting-started.html'
       },
       {
         type: 'Backend',
-        name: 'electron,sequelize,sqlite3',
-        version: '',
-        documentation: ''
+        name: 'Electron',
+        version: '3.0',
+        documentation: 'https://www.electronjs.org/docs'
+      },
+      {
+        type: 'Database',
+        name: 'SQLite',
+        version: '3.0',
+        documentation: 'https://www.sqlite.org/docs.html'
       }
     ],
     website: 'https://alinka.io'
@@ -84,24 +92,11 @@ const projects = [
     githubLink: 'https://github.com/CodeForPoznan/empatia',
     imageAdress: require('@/assets/images/bank_empatii.png'),
     license: 'MIT',
-    licensePage: 'https://pl.wikipedia.org/wiki/Licencja_MIT',
+    licensePage: 'https://github.com/CodeForPoznan/empatia/blob/master/LICENSE',
     name: 'Bank Empatii',
-    partner: '',
-    partnerPage: '',
-    stack: [
-      {
-        type: 'Frontend',
-        name: 'JavaScript',
-        version: '',
-        documentation: ''
-      },
-      {
-        type: 'Backend',
-        name: 'Python',
-        version: '',
-        documentation: ''
-      }
-    ],
+    partner: 'Poszukujemy partnera - napisz do nas',
+    partnerPage: 'https://codeforpoznan.pl/',
+    stack: [],
     website: 'http://bankempatii.pl/'
   },
   {
@@ -110,22 +105,17 @@ const projects = [
     githubLink: 'https://github.com/CodeForPoznan/streetmix',
     imageAdress: require('@/assets/images/streetmix.png'),
     license: 'BSD 3-Clause',
-    licensePage: 'https://en.wikipedia.org/wiki/BSD_licenses',
+    licensePage:
+      'https://github.com/CodeForPoznan/streetmix/blob/master/LICENSE.md',
     name: 'StreetMix',
-    partner: '',
-    partnerPage: '',
+    partner: 'Poszukujemy partnera - napisz do nas',
+    partnerPage: 'https://codeforpoznan.pl/',
     stack: [
       {
         type: 'Frontend',
-        name: 'JavaScript',
-        version: '',
-        documentation: ''
-      },
-      {
-        type: 'Backend',
-        name: 'JavaScript',
-        version: '',
-        documentation: ''
+        name: 'React',
+        version: '16.2',
+        documentation: 'https://pl.reactjs.org/docs/getting-started.html'
       }
     ],
     website: 'https://streetmix.net'
@@ -138,22 +128,9 @@ const projects = [
     license: 'MIT',
     licensePage: 'https://pl.wikipedia.org/wiki/Licencja_MIT',
     name: 'Wysadź ulicę',
-    partner: '',
-    partnerPage: '',
-    stack: [
-      {
-        type: 'Frontend',
-        name: 'JavaScript',
-        version: '',
-        documentation: ''
-      },
-      {
-        type: 'Backend',
-        name: 'Python',
-        version: '',
-        documentation: ''
-      }
-    ],
+    partner: 'Poszukujemy partnera - napisz do nas',
+    partnerPage: 'https://codeforpoznan.pl/',
+    stack: [],
     website: 'http://wysadzulice.pl'
   },
   {
@@ -162,22 +139,35 @@ const projects = [
     githubLink: 'https://github.com/CodeForPoznan/codeforpoznan.pl_v3',
     imageAdress: require('@/assets/images/StronaSpolecznosci.png'),
     license: 'MIT',
-    licensePage: 'https://pl.wikipedia.org/wiki/Licencja_MIT',
+    licensePage:
+      'https://github.com/CodeForPoznan/codeforpoznan.pl_v3/blob/master/LICENSE',
     name: 'Strona społeczności',
-    partner: '',
-    partnerPage: '',
+    partner: 'Społeczność Code for Poznań',
+    partnerPage: 'https://codeforpoznan.pl/',
     stack: [
       {
         type: 'Frontend',
-        name: 'JavaScript',
-        version: '',
-        documentation: ''
+        name: 'Vue.js',
+        version: '2.6',
+        documentation: 'https://vuejs.org/v2/guide/'
+      },
+      {
+        type: 'Frontend',
+        name: 'Vuetify',
+        version: '2.0',
+        documentation: 'https://vuetifyjs.com/en/getting-started/quick-start/'
+      },
+      {
+        type: 'Frontend',
+        name: 'Vuex',
+        version: '3.0',
+        documentation: 'https://vuex.vuejs.org/guide/'
       },
       {
         type: 'Backend',
-        name: 'Python',
-        version: '',
-        documentation: ''
+        name: 'Flask',
+        version: '1.0',
+        documentation: 'https://flask.palletsprojects.com/en/1.0.x/'
       }
     ],
     website: 'https://dev.codeforpoznan.pl/'
