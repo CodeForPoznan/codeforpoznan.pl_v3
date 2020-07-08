@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import { interceptorRefresh } from '../../main.js';
+import router from '../../router.js';
 
 export default {
   namespaced: true,
@@ -17,6 +18,9 @@ export default {
   mutations: {
     raiseError(state, error_msg) {
       state.error = error_msg;
+    },
+    setToken(state, token) {
+      state.token = token;
     }
   },
   actions: {
@@ -34,6 +38,7 @@ export default {
         localStorage.setItem('token', token);
         localStorage.setItem('refresh_token', refresh_token);
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+        commit('setToken', token).then(router.push('/dashboard'));
         return res.status;
       } catch (error) {
         localStorage.removeItem('token');
