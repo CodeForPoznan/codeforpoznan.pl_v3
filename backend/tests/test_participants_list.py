@@ -133,7 +133,7 @@ def test_try_create_participant_with_wrong_phone(auth_client):
         "phone": "aaa1234567890",
         "github": "wihajster",
     }
-    rv = auth_client.post("/participants/", json=payload)
+    rv = auth_client.post("/api/participants/", json=payload)
     response = rv.get_json()
 
     assert rv.status_code == HTTPStatus.BAD_REQUEST
@@ -149,7 +149,7 @@ def test_try_create_participant_with_wrong_email(auth_client):
         "phone": "1234567890",
         "github": "wihajster",
     }
-    rv = auth_client.post("/participants/", json=payload)
+    rv = auth_client.post("/api/participants/", json=payload)
     response = rv.get_json()
 
     assert rv.status_code == HTTPStatus.BAD_REQUEST
@@ -166,7 +166,7 @@ def test_try_create_participant_with_wrong_slack(auth_client):
         "github": "wihajster",
         "slack": "123sad__x!@#",
     }
-    rv = auth_client.post("/participants/", json=payload)
+    rv = auth_client.post("/api/participants/", json=payload)
     response = rv.get_json()
 
     assert rv.status_code == HTTPStatus.BAD_REQUEST
