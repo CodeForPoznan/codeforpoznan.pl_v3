@@ -1,3 +1,4 @@
+import sys
 import os
 from io import StringIO
 from contextlib import redirect_stdout, redirect_stderr
@@ -5,7 +6,10 @@ from contextlib import redirect_stdout, redirect_stderr
 from flask_migrate import migrate
 from serverless_wsgi import handle_request
 
-import app.create_app
+# fix imports in lambda
+sys.path.insert(0, os.path.abspath("../"))
+
+from backend import app
 
 
 def api(event, context):
