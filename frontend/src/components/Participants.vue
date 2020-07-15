@@ -1,5 +1,13 @@
 <template>
   <v-container>
+    <v-flex xs12 sm6>
+      <v-alert
+        v-if="successAlert"
+        @click="successAlert = !successAlert"
+        transition="slide-y-transition"
+        >ok</v-alert
+      >
+    </v-flex>
     <v-form>
       <v-text-field
         type="text"
@@ -11,22 +19,34 @@
       />
       <v-text-field
         label="Github link"
-        v-model="form.githubLink"
-        @blur="$v.form.githubLink.$touch()"
+        v-model="form.github"
+        @blur="$v.form.github.$touch()"
         :error-messages="githubErrors"
         required
       />
       <v-text-field
-        v-model="form.firstName"
         label="First name"
-        @blur="$v.form.firstName.$touch()"
-        :error-messages="githubErrors"
+        v-model="form.first_name"
+        @blur="$v.form.first_name.$touch()"
+        :error-messages="firstNameErrors"
         required
       />
-      <v-text-field v-model="form.lastName" label="Last name" />
-      <v-text-field v-model="form.slack" label="Slack nick" />
+      <v-text-field
+        label="Last name"
+        v-model="form.last_name"
+        @blur="$v.form.last_name.$touch()"
+        :error-messages="lastNameErrors"
+        required
+      />
+      <v-text-field
+        label="Slack nick"
+        v-model="form.slack"
+        @blur="$v.form.slack.$touch()"
+        :error-messages="slackErrors"
+        required
+      />
       <v-text-field v-model="form.phone" label="Phone No." />
-      <v-btn type="submit" :disabled="$v.$invalid" @click="onSubmit"
+      <v-btn :disabled="$v.$invalid" @click="onSubmit"
         >Add new participant</v-btn
       >
     </v-form>
@@ -35,24 +55,26 @@
 
 <script>
 import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 import {
   required,
   minLength,
   maxLength,
-  email,
-  url
+  email
 } from 'vuelidate/lib/validators';
 export default {
   data() {
     return {
       form: {
         email: '',
-        githubLink: '',
-        firstName: '',
-        lastName: '',
+        github: '',
+        first_name: '',
+        last_name: '',
         slack: '',
         phone: ''
-      }
+      },
+      slackExists: false,
+      successAlert: false
     };
   },
   created() {
@@ -69,16 +91,25 @@ export default {
           );
         }
       },
-      githubLink: {
+      github: {
         required,
-        url,
         githubExists(value) {
           return !Object.values(this.allParticipants).find(
             user => user.github === value
           );
         }
       },
-      firstName: {
+      first_name: {
+        required,
+        minLength: minLength(3),
+        maxLength: maxLength(25)
+      },
+      last_name: {
+        required,
+        minLength: minLength(3),
+        maxLength: maxLength(25)
+      },
+      slack: {
         required,
         minLength: minLength(3),
         maxLength: maxLength(25)
@@ -89,10 +120,24 @@ export default {
     onSubmit() {
       const newParticipantData = this.form;
 
-      this.$store.dispatch('participant/createParticipant', newParticipantData);
+      if (!this.$v.form.$invalid)
+        this.$store
+          .dispatch('participant/createParticipant', newParticipantData)
+          .then(status => {
+            this.clearForm();
+            if (status == 201) {
+              this.successAlert = true;
+            }
+          });
+    },
+    clearForm() {
+      this.$v.form.$reset();
+      this.form.email = '';
+      this.form.github = '';
     }
   },
   computed: {
+    // ...mapGetters('participants', ['getParticipants', 'raiserError'])
     ...mapState('participant', {
       allParticipants: 'allParticipants'
     }),
@@ -108,22 +153,37 @@ export default {
     githubErrors() {
       const errors = [];
 
-      if (!this.$v.form.githubLink.$dirty) return errors;
-      !this.$v.form.githubLink.required &&
-        errors.push('This field is required');
-      !this.$v.form.githubLink.url &&
-        errors.push('This field requires URL link to a github account');
-      !this.$v.form.githubLink.githubExists &&
-        errors.push('User already exists');
+      if (!this.$v.form.github.$dirty) return errors;
+      !this.$v.form.github.required && errors.push('This field is required');
+      !this.$v.form.github.githubExists && errors.push('User already exists');
       return errors;
     },
     firstNameErrors() {
       const errors = [];
 
-      if (!this.$v.form.firstName.$dirty) return errors;
-      !this.$v.form.firstName.required && errors.push('This field is required');
-      !this.$v.form.firstName.minLength && errors.push('Name is too short');
-      !this.$v.form.firstName.maxLength && errors.push('Name is too long');
+      if (!this.$v.form.first_name.$dirty) return errors;
+      !this.$v.form.first_name.required &&
+        errors.push('This field is required');
+      !this.$v.form.first_name.minLength && errors.push('Name is too short');
+      !this.$v.form.first_name.maxLength && errors.push('Name is too long');
+      return errors;
+    },
+    lastNameErrors() {
+      const errors = [];
+
+      if (!this.$v.form.last_name.$dirty) return errors;
+      !this.$v.form.last_name.required && errors.push('This field is required');
+      !this.$v.form.last_name.minLength && errors.push('Name is too short');
+      !this.$v.form.last_name.maxLength && errors.push('Name is too long');
+      return errors;
+    },
+    slackErrors() {
+      const errors = [];
+
+      if (!this.$v.form.slack.$dirty) return errors;
+      !this.$v.form.slack.required && errors.push('This field is required');
+      !this.$v.form.slack.minLength && errors.push('Name is too short');
+      !this.$v.form.slack.maxLength && errors.push('Name is too long');
       return errors;
     }
   }

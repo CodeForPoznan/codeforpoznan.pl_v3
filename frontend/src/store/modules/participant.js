@@ -37,14 +37,18 @@ export default {
           commit('raiseError', error);
         });
     },
-    createParticipant({ commit, dispatch }, newParticipantData) {
+    createParticipant({ commit }, newParticipantData) {
       return axios
         .post('/participants/', {
           ...newParticipantData
         })
         .then(res => {
           commit('setParticipant', res.data);
-          dispatch('getParticipant');
+        })
+        .catch(error => {
+          const err_msg = error.response.data.message;
+
+          commit('raiseError', err_msg);
         });
     }
   }
