@@ -31,7 +31,8 @@ class ParticipantSchema(Schema):
         validate=[
             validate.Length(max=13),
             validate.Regexp("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$"),
-        ]
+        ],
+        allow_none=True,
     )
     slack = fields.Str(
         validate=[validate.Length(max=21), validate.Regexp("^[a-z0-9][a-z0-9._-]*$")]
