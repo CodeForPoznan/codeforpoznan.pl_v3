@@ -46,21 +46,8 @@ export default {
           return res.status;
         })
         .catch(error => {
-          const err_msg = error.response.data.message;
-
-          commit('raiseError', err_msg);
+          commit('raiseError', error);
         });
     }
-    // async createParticipant({ commit }, newParticipantData) {
-    //   try {
-    //     let res = await axios.post('/participants/', {
-    //       ...newParticipantData
-    //     });
-    //
-    //     return res.status;
-    //   } catch (error) {
-    //     commit('raiseError', error);
-    //   }
-    // }
   }
 };

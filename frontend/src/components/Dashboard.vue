@@ -1,9 +1,15 @@
 <template>
   <div>
     <app-dashboard-header />
-    <app-hacknight />
-    <app-hacknights-participants v-if="getHacknight" />
-    <app-participants />
+    <v-row xs12>
+      <v-col>
+        <app-hacknight />
+        <app-hacknights-participants v-if="getHacknight" />
+      </v-col>
+      <v-col>
+        <app-participants />
+      </v-col>
+    </v-row>
   </div>
 </template>
 
