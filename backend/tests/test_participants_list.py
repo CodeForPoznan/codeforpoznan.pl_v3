@@ -54,6 +54,15 @@ def test_create_participant_wiht_none_as_phone(auth_client, new_participant):
     assert response["phone"] is None
 
 
+def test_create_participant_wiht_none_as_slack(auth_client, new_participant):
+    new_participant["slack"] = None
+
+    rv = auth_client.post("/participants/", json=new_participant)
+    response = rv.get_json()
+    assert rv.status_code == HTTPStatus.CREATED
+    assert response["slack"] is None
+
+
 def test_try_create_participant_without_payload(auth_client):
     """Test try to create new participant without payload."""
     rv = auth_client.post("/participants/", json={})

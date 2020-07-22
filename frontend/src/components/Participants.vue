@@ -163,8 +163,8 @@ export default {
   methods: {
     onSubmit() {
       if (!this.$v.form.$invalid) {
-        if (this.form.phone === '') this.form.phone = '111111111';
-        if (this.form.slack === '') this.form.slack = 'brak';
+        if (this.form.phone === '') this.form.phone = null;
+        if (this.form.slack === '') this.form.slack = null;
         const newParticipantData = this.form;
 
         this.$store
