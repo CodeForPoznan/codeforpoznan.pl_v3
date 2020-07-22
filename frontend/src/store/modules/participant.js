@@ -37,13 +37,13 @@ export default {
           commit('raiseError', error);
         });
     },
-    createParticipant({ commit }, newParticipantData) {
+    createParticipant({ commit, dispatch }, newParticipantData) {
       return axios
-        .post('/participants/', {
-          ...newParticipantData
-        })
+        .post('/participants/', { ...newParticipantData })
         .then(res => {
           commit('setParticipant', res.data);
+          dispatch('getParticipants');
+          return res.status;
         })
         .catch(error => {
           const err_msg = error.response.data.message;
@@ -51,5 +51,16 @@ export default {
           commit('raiseError', err_msg);
         });
     }
+    // async createParticipant({ commit }, newParticipantData) {
+    //   try {
+    //     let res = await axios.post('/participants/', {
+    //       ...newParticipantData
+    //     });
+    //
+    //     return res.status;
+    //   } catch (error) {
+    //     commit('raiseError', error);
+    //   }
+    // }
   }
 };

@@ -1,14 +1,24 @@
 <template>
   <v-container>
-    <v-flex xs12 sm6>
+    <v-flex>
       <v-alert
-        v-if="successAlert"
+        type="error"
+        :value="!!getError"
+        dismissible
+        transition="slide-y-transition"
+        >{{ getError }}</v-alert
+      >
+      <v-alert
+        type="success"
+        :value="successAlert"
+        v-model="successAlert"
+        dismissible
         @click="successAlert = !successAlert"
         transition="slide-y-transition"
-        >ok</v-alert
+        >Participant has been successfully added</v-alert
       >
     </v-flex>
-    <v-form>
+    <v-form reset>
       <v-text-field
         type="text"
         label="E-mail"
@@ -71,7 +81,7 @@ export default {
         first_name: '',
         last_name: '',
         slack: '',
-        phone: ''
+        phone: null
       },
       slackExists: false,
       successAlert: false
@@ -79,6 +89,9 @@ export default {
   },
   created() {
     this.$store.dispatch('participant/getParticipants');
+    setInterval(() => {
+      this.successAlert = false;
+    }, 5000);
   },
   validations: {
     form: {
@@ -124,20 +137,20 @@ export default {
         this.$store
           .dispatch('participant/createParticipant', newParticipantData)
           .then(status => {
-            this.clearForm();
             if (status == 201) {
               this.successAlert = true;
+              this.$v.$reset;
             }
           });
-    },
-    clearForm() {
-      this.$v.form.$reset();
-      this.form.email = '';
-      this.form.github = '';
     }
+    // // emptyPhone() {
+    // //   if (this.form.phone === !string) {
+    // //     this.form.phone = null;
+    // //   }
+    // }
   },
   computed: {
-    // ...mapGetters('participants', ['getParticipants', 'raiserError'])
+    ...mapGetters('participant', ['getError']),
     ...mapState('participant', {
       allParticipants: 'allParticipants'
     }),
