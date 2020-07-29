@@ -113,12 +113,6 @@ export default {
   },
   created() {
     this.$store.dispatch('participant/getParticipants');
-    setInterval(() => {
-      this.successAlert = false;
-    }, 10000);
-    setInterval(() => {
-      this.warningAlert = false;
-    }, 30000);
   },
   validations: {
     form: {
@@ -174,6 +168,7 @@ export default {
               this.successAlert = true;
               this.$refs.form.reset();
               this.$v.form.$reset();
+              setTimeout(() => (this.successAlert = false), 5000);
             }
           });
       }
@@ -188,6 +183,7 @@ export default {
         this.warningAlert = true;
       this.warningMessage =
         'This slack nick already exists. Please suggest change of the nick to avoid confusion on Slack';
+      setTimeout(() => (this.warningAlert = false), 10000);
     },
     validateLastName($event) {
       this.$v.form.slack.$touch();
@@ -199,6 +195,7 @@ export default {
         this.warningAlert = true;
       this.warningMessage =
         'This last name already exists. Please verify if a person is actually a new paricipant';
+      setTimeout(() => (this.warningAlert = false), 10000);
     },
     validatePhone($event) {
       this.$v.form.phone.$touch();
@@ -210,6 +207,7 @@ export default {
         this.warningAlert = true;
       this.warningMessage =
         'This phone number already exists. Please verify if a person is actually a new paricipant';
+      setTimeout(() => (this.warningAlert = false), 10000);
     }
   },
   computed: {
