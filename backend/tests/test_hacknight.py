@@ -85,7 +85,7 @@ def test_duplicate_participant_in_hacknight(
 
 
 def test_create_hacknight_with_same_date(auth_client, new_hacknight, _db):
-    """Test add hcknight with the same date."""
+    """Test add hacknight with the same date."""
     db = _db
     new_hacknight = Hacknight(date=new_hacknight["date"])
     db.session.add(new_hacknight)
@@ -96,3 +96,41 @@ def test_create_hacknight_with_same_date(auth_client, new_hacknight, _db):
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.CONFLICT
     assert response["message"] == "Hacknight already exists."
+
+
+def test_remove_participants_from_hacknight(auth_client, add_participants_to_hacknight):
+    """Test remove single participant from hacknight."""
+    hacknight_db = Hacknight.query.get(1)
+    participant_id = hacknight_db.participants[0].id
+    payload = {"participants_ids": [participant_id]}
+    rv = auth_client.delete("/hacknights/1/participants/", data=json.dumps(payload))
+    response = rv.get_json()
+    participant_db = Participant.query.get(participant_id)
+    assert rv.status_code == HTTPStatus.OK
+    assert participant_db not in Hacknight.query.get(1).participants
+    assert participant_db.id not in response.get("participants")
+
+
+def test_remove_all_participants_from_hacknight(
+    auth_client, add_participants_to_hacknight
+):
+    """Test remove all participants from hacknight."""
+    hacknight_db = Hacknight.query.get(1)
+    participants_id = [participant.id for participant in hacknight_db.participants]
+    payload = {"participants_ids": participants_id}
+    rv = auth_client.delete("/hacknights/1/participants/", data=json.dumps(payload))
+    response = rv.get_json()
+    assert rv.status_code == HTTPStatus.OK
+    assert not Hacknight.query.get(1).participants
+    assert not response.get("participants")
+
+
+def test_remove_wrong_participant_from_hacknight(
+    auth_client, add_participants_to_hacknight
+):
+    """Test remove non-existing participant from hacknight."""
+    payload = {"participants_ids": [999]}
+    rv = auth_client.delete("/hacknights/1/participants/", data=json.dumps(payload))
+    response = rv.get_json()
+    assert rv.status_code == HTTPStatus.BAD_REQUEST
+    assert response["message"] == "No participant to delete"
