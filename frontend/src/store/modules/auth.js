@@ -38,7 +38,8 @@ export default {
         localStorage.setItem('token', token);
         localStorage.setItem('refresh_token', refresh_token);
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-        commit('setToken', token).then(router.push('/dashboard'));
+        commit('setToken', token);
+        router.push('/dashboard');
         return res.status;
       } catch (error) {
         localStorage.removeItem('token');
