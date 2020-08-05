@@ -111,9 +111,6 @@ export default {
       successAlert: false
     };
   },
-  created() {
-    this.$store.dispatch('participant/getParticipants');
-  },
   validations: {
     form: {
       email: {

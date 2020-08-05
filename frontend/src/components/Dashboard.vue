@@ -29,6 +29,9 @@ export default {
   },
   computed: {
     ...mapGetters('hacknight', ['getHacknight'])
+  },
+  created() {
+    this.$store.dispatch('participant/getParticipants');
   }
 };
 </script>
