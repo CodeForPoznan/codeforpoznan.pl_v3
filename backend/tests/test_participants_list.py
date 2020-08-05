@@ -45,6 +45,15 @@ def test_create_participant_when_logged_in(app, auth_client, new_participant):
         assert value in response
 
 
+def test_create_participant_wiht_none_as_phone(auth_client, new_participant):
+    new_participant["phone"] = None
+
+    rv = auth_client.post("/participants/", json=new_participant)
+    response = rv.get_json()
+    assert rv.status_code == HTTPStatus.CREATED
+    assert response["phone"] is None
+
+
 def test_try_create_participant_without_payload(auth_client):
     """Test try to create new participant without payload."""
     rv = auth_client.post("/participants/", json={})
@@ -122,3 +131,52 @@ def test_try_create_participant_with_existing_github(auth_client, new_participan
 
     assert rv.status_code == HTTPStatus.CONFLICT
     assert "User with this Github login already exists." in response["message"]
+
+
+def test_try_create_participant_with_wrong_phone(auth_client):
+    """Test try to create new participant with wrong phone."""
+    payload = {
+        "first_name": "JonX",
+        "last_name": "DoeX",
+        "email": "test@test.com2",
+        "phone": "aaa1234567890",
+        "github": "wihajster",
+    }
+    rv = auth_client.post("/participants/", json=payload)
+    response = rv.get_json()
+
+    assert rv.status_code == HTTPStatus.BAD_REQUEST
+    assert "String does not match expected pattern." in response["phone"]
+
+
+def test_try_create_participant_with_wrong_email(auth_client):
+    """Test try to create new participant with wrong email."""
+    payload = {
+        "first_name": "JonX",
+        "last_name": "DoeX",
+        "email": "test@test.com2@",
+        "phone": "1234567890",
+        "github": "wihajster",
+    }
+    rv = auth_client.post("/participants/", json=payload)
+    response = rv.get_json()
+
+    assert rv.status_code == HTTPStatus.BAD_REQUEST
+    assert "Not a valid email address." in response["email"]
+
+
+def test_try_create_participant_with_wrong_slack(auth_client):
+    """Test try to create new participant with wrong slack."""
+    payload = {
+        "first_name": "JonX",
+        "last_name": "DoeX",
+        "email": "test@test.com2",
+        "phone": "1234567890",
+        "github": "wihajster",
+        "slack": "123sad__x!@#",
+    }
+    rv = auth_client.post("/participants/", json=payload)
+    response = rv.get_json()
+
+    assert rv.status_code == HTTPStatus.BAD_REQUEST
+    assert "String does not match expected pattern." in response["slack"]

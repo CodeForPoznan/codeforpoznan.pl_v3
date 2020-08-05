@@ -18,8 +18,22 @@ class ParticipantSchema(Schema):
 
     first_name = fields.Str(required=True, validate=[validate.Length(min=3, max=50)])
     last_name = fields.Str(required=True, validate=[validate.Length(min=3, max=50)])
-    email = fields.Email(required=True, validate=[validate.Length(min=3, max=200)])
-    github = fields.Str(required=True, validate=[validate.Length(min=1, max=39)])
+    email = fields.Email(required=True, validate=[validate.Email()])
+    github = fields.Str(
+        required=True,
+        validate=[
+            validate.Length(max=38),
+            validate.Regexp("^[a-zA-Z0-9][a-zA-Z0-9._-]*$"),
+        ],
+    )
     hacknights = fields.Nested("HacknightSchema", exclude=("participants",), many=True)
-    phone = fields.Str(validate=[validate.Length(max=13)])
-    slack = fields.Str(validate=[validate.Length(max=21)])
+    phone = fields.Str(
+        validate=[
+            validate.Length(max=13),
+            validate.Regexp("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$"),
+        ],
+        allow_none=True,
+    )
+    slack = fields.Str(
+        validate=[validate.Length(max=21), validate.Regexp("^[a-z0-9][a-z0-9._-]*$")]
+    )
