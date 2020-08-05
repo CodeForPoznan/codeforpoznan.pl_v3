@@ -42,9 +42,9 @@
           :error-messages="emailErrors"
         />
         <v-text-field
-          label="Github link"
+          label="Github username"
           v-model="form.github"
-          @blur="$v.form.github.$touch()"
+          @blur="validateGithub($event)"
           :error-messages="githubErrors"
         />
         <v-text-field
@@ -169,6 +169,12 @@ export default {
             }
           });
       }
+    },
+    validateGithub(event) {
+      return (this.form.github = event.target.value.replace(
+        /https?:\/\/github.com\//,
+        ''
+      ));
     },
     validateSlack($event) {
       this.$v.form.slack.$touch();
