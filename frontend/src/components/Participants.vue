@@ -86,14 +86,15 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
 import { mapGetters } from 'vuex';
 import {
   required,
   minLength,
   maxLength,
   email,
-  numeric
+  numeric,
+  alpha,
+  alphaNum
 } from 'vuelidate/lib/validators';
 export default {
   data() {
@@ -117,30 +118,34 @@ export default {
         required,
         email,
         emailExists(value) {
-          return !Object.values(this.allParticipants).find(
+          return !Object.values(this.getParticipants).find(
             user => user.email === value
           );
         }
       },
       github: {
         required,
+        alphaNum,
         githubExists(value) {
-          return !Object.values(this.allParticipants).find(
+          return !Object.values(this.getParticipants).find(
             user => user.github === value
           );
         }
       },
       first_name: {
         required,
+        alpha,
         minLength: minLength(3),
         maxLength: maxLength(25)
       },
       last_name: {
         required,
+        alpha,
         minLength: minLength(3),
         maxLength: maxLength(25)
       },
       slack: {
+        alphaNum,
         minLength: minLength(3),
         maxLength: maxLength(25)
       },
@@ -171,6 +176,7 @@ export default {
       }
     },
     validateGithub(event) {
+      this.$v.form.github.$touch();
       return (this.form.github = event.target.value.replace(
         /https?:\/\/github.com\//,
         ''
@@ -179,7 +185,7 @@ export default {
     validateSlack($event) {
       this.$v.form.slack.$touch();
       if (
-        Object.values(this.allParticipants).find(
+        Object.values(this.getParticipants).find(
           user => user.slack === $event.target.value
         )
       )
@@ -189,9 +195,9 @@ export default {
       setTimeout(() => (this.warningAlert = false), 10000);
     },
     validateLastName($event) {
-      this.$v.form.slack.$touch();
+      this.$v.form.last_name.$touch();
       if (
-        Object.values(this.allParticipants).find(
+        Object.values(this.getParticipants).find(
           user => user.last_name === $event.target.value
         )
       )
@@ -203,7 +209,7 @@ export default {
     validatePhone($event) {
       this.$v.form.phone.$touch();
       if (
-        Object.values(this.allParticipants).find(
+        Object.values(this.getParticipants).find(
           user => user.phone === $event.target.value
         )
       )
@@ -214,9 +220,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('participant', ['getError']),
-    ...mapState('participant', {
-      allParticipants: 'allParticipants'
+    ...mapGetters('participant', {
+      getError: 'getError',
+      getParticipants: 'getParticipants'
     }),
     emailErrors() {
       const errors = [];
@@ -231,6 +237,8 @@ export default {
       const errors = [];
 
       if (!this.$v.form.github.$dirty) return errors;
+      !this.$v.form.github.alphaNum &&
+        errors.push('You used characters which are not permitted');
       !this.$v.form.github.required && errors.push('This field is required');
       !this.$v.form.github.githubExists && errors.push('User already exists');
       return errors;
@@ -239,6 +247,8 @@ export default {
       const errors = [];
 
       if (!this.$v.form.first_name.$dirty) return errors;
+      !this.$v.form.first_name.alpha &&
+        errors.push('You used characters which are not permitted');
       !this.$v.form.first_name.required &&
         errors.push('This field is required');
       !this.$v.form.first_name.minLength && errors.push('Name is too short');
@@ -249,6 +259,8 @@ export default {
       const errors = [];
 
       if (!this.$v.form.last_name.$dirty) return errors;
+      !this.$v.form.last_name.alpha &&
+        errors.push('You used characters which are not permitted');
       !this.$v.form.last_name.required && errors.push('This field is required');
       !this.$v.form.last_name.minLength &&
         errors.push('Last name is too short');
@@ -259,6 +271,8 @@ export default {
       const errors = [];
 
       if (!this.$v.form.slack.$dirty) return errors;
+      !this.$v.form.slack.alphaNum &&
+        errors.push('You used characters which are not permitted');
       !this.$v.form.slack.minLength && errors.push('Nick is too short');
       !this.$v.form.slack.maxLength && errors.push('Nick is too long');
       return errors;
