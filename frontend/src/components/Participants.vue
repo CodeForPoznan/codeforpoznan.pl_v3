@@ -283,10 +283,8 @@ export default {
       if (!this.$v.form.phone.$dirty) return errors;
       !this.$v.form.phone.numeric &&
         errors.push('You can only type digits here');
-      !this.$v.form.phone.minLength &&
-        errors.push('Type correct number ie. 111-222-333');
-      !this.$v.form.phone.maxLength &&
-        errors.push('Type correct number ie. 111-222-333');
+      !this.$v.form.phone.minLength && errors.push('The number is too short');
+      !this.$v.form.phone.maxLength && errors.push('The number is too long');
       return errors;
     }
   }
