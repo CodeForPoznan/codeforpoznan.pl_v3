@@ -82,9 +82,6 @@ export default {
       noData: true
     };
   },
-  created() {
-    this.$store.dispatch('participant/getParticipants');
-  },
   methods: {
     onAddParticipants() {
       const ids = this.selectedParticipants.map(participant => participant.id);
