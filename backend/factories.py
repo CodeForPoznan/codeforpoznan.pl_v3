@@ -22,13 +22,15 @@ class UserFactory(BaseFactory):
     def _create(cls, model_class, *args, **kwargs):
         session = cls._meta.sqlalchemy_session
         with session.no_autoflush:
-            obj = (
+            existing = (
                 session.query(model_class)
                 .filter_by(username=kwargs["username"])
                 .first()
             )
-        if not obj:
-            obj = super(UserFactory, cls)._create(model_class, *args, **kwargs)
+        if existing:
+            kwargs["username"] = cls.username.generate({})
+
+        obj = super(UserFactory, cls)._create(model_class, *args, **kwargs)
 
         return obj
 
@@ -51,7 +53,7 @@ class ParticipantFactory(BaseFactory):
     def _create(cls, model_class, *args, **kwargs):
         session = cls._meta.sqlalchemy_session
         with session.no_autoflush:
-            obj = (
+            existing = (
                 session.query(model_class)
                 .filter(
                     or_(
@@ -61,8 +63,11 @@ class ParticipantFactory(BaseFactory):
                 )
                 .first()
             )
-        if not obj:
-            obj = super(ParticipantFactory, cls)._create(model_class, *args, **kwargs)
+        if existing:
+            kwargs["email"] = cls.email.generate({})
+            kwargs["github"] = cls.github.generate({})
+
+        obj = super(ParticipantFactory, cls)._create(model_class, *args, **kwargs)
 
         return obj
 
@@ -77,10 +82,12 @@ class HacknightFactory(BaseFactory):
     def _create(cls, model_class, *args, **kwargs):
         session = cls._meta.sqlalchemy_session
         with session.no_autoflush:
-            obj = session.query(model_class).filter_by(date=kwargs["date"]).first()
+            existing = session.query(model_class).filter_by(date=kwargs["date"]).first()
 
-        if not obj:
-            obj = super(HacknightFactory, cls)._create(model_class, *args, **kwargs)
+        if existing:
+            kwargs["date"] = cls.date.generate({})
+
+        obj = super(HacknightFactory, cls)._create(model_class, *args, **kwargs)
 
         return obj
 
