@@ -4,7 +4,8 @@ export default {
   namespaced: true,
   state: {
     allParticipants: [],
-    error: null
+    error: null,
+    Participant: null
   },
   getters: {
     getParticipants(state) {
@@ -20,6 +21,9 @@ export default {
     },
     setParticipants(state, participants) {
       state.allParticipants = participants;
+    },
+    setParticipant(state, participant) {
+      state.Participant = participant;
     }
   },
   actions: {
@@ -28,6 +32,18 @@ export default {
         .get('/participants/')
         .then(res => {
           commit('setParticipants', res.data);
+        })
+        .catch(error => {
+          commit('raiseError', error);
+        });
+    },
+    createParticipant({ commit, dispatch }, newParticipantData) {
+      return axios
+        .post('/participants/', { ...newParticipantData })
+        .then(res => {
+          commit('setParticipant', res.data);
+          dispatch('getParticipants');
+          return res.status;
         })
         .catch(error => {
           commit('raiseError', error);
