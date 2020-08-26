@@ -1,6 +1,6 @@
 import datetime
 
-from backend.models import User, Participant, Hacknight
+from backend.models import Hacknight, Participant, Team, User
 
 
 def test_create_new_user(new_user):
@@ -26,3 +26,11 @@ def test_create_new_hacknight(new_hacknight):
     new_hacknight = Hacknight(date=new_hacknight["date"])
 
     assert new_hacknight.date == datetime.date(2000, 10, 10)
+
+
+def test_create_new_team(new_team):
+    """Test team model."""
+    team = Team(**new_team)
+
+    for key, value in new_team.items():
+        assert getattr(team, key) == value

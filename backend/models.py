@@ -2,11 +2,7 @@ from datetime import datetime
 
 from sqlalchemy import Column
 from sqlalchemy.orm.exc import NoResultFound
-from sqlalchemy.types import Boolean
-from sqlalchemy.types import Date
-from sqlalchemy.types import DateTime
-from sqlalchemy.types import String
-from sqlalchemy.types import Integer
+from sqlalchemy.types import Boolean, Date, DateTime, Integer, String, Text
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from backend.extensions import db
@@ -62,6 +58,29 @@ class Hacknight(db.Model):
         secondary=participant_hacknight,
         lazy="subquery",
         backref=db.backref("hacknights", lazy=True),
+    )
+
+
+participant_team = db.Table(
+    "participant_team",
+    db.Column("participant_id", db.Integer, db.ForeignKey("participant.id")),
+    db.Column("team_id", db.Integer, db.ForeignKey("team.id")),
+)
+
+
+class Team(db.Model):
+    """Team model."""
+
+    __tablename__ = "team"
+    id = Column(Integer, primary_key=True)
+    project_name = Column(String(50), nullable=False, unique=True)
+    description = Column(Text)
+    project_url = Column(String(200), unique=True)
+    members = db.relationship(
+        "Participant",
+        secondary=participant_team,
+        lazy="subquery",
+        backref=db.backref("teams", lazy=True),
     )
 
 

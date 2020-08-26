@@ -86,6 +86,15 @@ def new_hacknight():
 
 
 @pytest.fixture
+def new_team():
+    return {
+        "project_name": "cfp_v3",
+        "description": "Lorem Ipsum",
+        "project_url": "https://www.cfp_v3.test",
+    }
+
+
+@pytest.fixture
 def registered_user(new_user, app, _db):
     new_user = User(**new_user)
     with app.app_context():
