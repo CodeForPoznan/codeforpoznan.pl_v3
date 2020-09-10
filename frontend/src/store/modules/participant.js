@@ -29,7 +29,7 @@ export default {
   actions: {
     getParticipants({ commit }) {
       axios
-        .get('/participants/')
+        .get('/api/participants/')
         .then(res => {
           commit('setParticipants', res.data);
         })
@@ -39,7 +39,7 @@ export default {
     },
     createParticipant({ commit, dispatch }, newParticipantData) {
       return axios
-        .post('/participants/', { ...newParticipantData })
+        .post('/api/participants/', { ...newParticipantData })
         .then(res => {
           commit('setParticipant', res.data);
           dispatch('getParticipants');
