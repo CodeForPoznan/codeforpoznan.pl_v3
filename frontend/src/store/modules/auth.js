@@ -28,7 +28,7 @@ export default {
       delete axios.defaults.headers.common['Authorization'];
 
       try {
-        let res = await axios.post('auth/login/', {
+        let res = await axios.post('/api/auth/login/', {
           username: loginData.username,
           password: loginData.password
         });
@@ -49,7 +49,7 @@ export default {
     logout({ dispatch }) {
       axios.interceptors.response.eject(interceptorRefresh);
       return axios
-        .delete('auth/logout/')
+        .delete('/api/auth/logout/')
         .then(() => {
           localStorage.removeItem('token');
         })
@@ -65,7 +65,7 @@ export default {
       const refresh_token = localStorage.getItem('refresh_token');
 
       return axios
-        .delete('auth/refresh-token/', {
+        .delete('/api/auth/refresh-token/', {
           headers: { Authorization: 'Bearer ' + refresh_token }
         })
         .then(() => {
@@ -79,7 +79,7 @@ export default {
       const refresh_token = localStorage.getItem('refresh_token');
 
       return axios
-        .post('auth/refresh/', null, {
+        .post('/api/auth/refresh/', null, {
           headers: {
             Authorization: 'Bearer ' + refresh_token
           }
