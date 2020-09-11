@@ -11,7 +11,7 @@ import App from './App.vue';
 Vue.use(Vuelidate);
 
 Vue.config.productionTip = false;
-axios.defaults.baseURL = "/";
+axios.defaults.baseURL = '/';
 
 const token = localStorage.getItem('token');
 
