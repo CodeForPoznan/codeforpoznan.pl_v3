@@ -6,7 +6,7 @@ from backend.serializers.participant_serializer import ParticipantSchema
 
 def test_get_participants_when_logged_in(auth_client, add_participants):
     """Test get participants list for logged in user."""
-    rv = auth_client.get("/participants/")
+    rv = auth_client.get("/api/participants/")
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.OK
     assert len(response) == 10
@@ -14,7 +14,7 @@ def test_get_participants_when_logged_in(auth_client, add_participants):
 
 def test_get_participants_with_empty_db(auth_client):
     """Test get participants list when no participant in db."""
-    rv = auth_client.get("/participants/")
+    rv = auth_client.get("/api/participants/")
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.OK
     assert not response
@@ -22,7 +22,7 @@ def test_get_participants_with_empty_db(auth_client):
 
 def test_get_participants_unauthorized(client, add_participants):
     """Test get participants list when user is not logged in."""
-    rv = client.get("/participants/")
+    rv = client.get("/api/participants/")
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.UNAUTHORIZED
     assert response["msg"] == "Missing Authorization Header"
@@ -31,7 +31,7 @@ def test_get_participants_unauthorized(client, add_participants):
 def test_create_participant_when_logged_in(app, auth_client, new_participant):
     """Test create new participant with logged in user and valid data."""
     with app.app_context():
-        rv = auth_client.post("/participants/", json=new_participant)
+        rv = auth_client.post("/api/participants/", json=new_participant)
 
         response = rv.get_json()
         schema = ParticipantSchema()
@@ -48,7 +48,7 @@ def test_create_participant_when_logged_in(app, auth_client, new_participant):
 def test_create_participant_wiht_none_as_phone(auth_client, new_participant):
     new_participant["phone"] = None
 
-    rv = auth_client.post("/participants/", json=new_participant)
+    rv = auth_client.post("/api/participants/", json=new_participant)
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.CREATED
     assert response["phone"] is None
@@ -57,7 +57,7 @@ def test_create_participant_wiht_none_as_phone(auth_client, new_participant):
 def test_create_participant_wiht_none_as_slack(auth_client, new_participant):
     new_participant["slack"] = None
 
-    rv = auth_client.post("/participants/", json=new_participant)
+    rv = auth_client.post("/api/participants/", json=new_participant)
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.CREATED
     assert response["slack"] is None
@@ -65,7 +65,7 @@ def test_create_participant_wiht_none_as_slack(auth_client, new_participant):
 
 def test_try_create_participant_without_payload(auth_client):
     """Test try to create new participant without payload."""
-    rv = auth_client.post("/participants/", json={})
+    rv = auth_client.post("/api/participants/", json={})
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.BAD_REQUEST
     assert response["message"] == "No input data provided"
@@ -75,7 +75,7 @@ def test_try_create_participant_with_invalid_email(auth_client, new_participant)
     """Test try to create new participant with invalid email address."""
     new_participant["email"] = "test"
 
-    rv = auth_client.post("/participants/", json=new_participant)
+    rv = auth_client.post("/api/participants/", json=new_participant)
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.BAD_REQUEST
     assert "Not a valid email address." in response["email"]
@@ -85,7 +85,7 @@ def test_try_create_participant_without_first_name(auth_client, new_participant)
     """Test try create new participant without name."""
     del new_participant["first_name"]
 
-    rv = auth_client.post("/participants/", json=new_participant)
+    rv = auth_client.post("/api/participants/", json=new_participant)
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.BAD_REQUEST
 
@@ -94,7 +94,7 @@ def test_try_create_participant_without_first_name(auth_client, new_participant)
 
 def test_create_participant_unauthorized(client, new_participant):
     """Test create new participant when user is not logged in."""
-    rv = client.post("/participants/", json=new_participant)
+    rv = client.post("/api/participants/", json=new_participant)
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.UNAUTHORIZED
     assert response["msg"] == "Missing Authorization Header"
@@ -114,7 +114,7 @@ def test_try_create_participant_with_existing_email(auth_client, new_participant
         "phone": "1234567890",
         "github": "wihajsterX",
     }
-    rv = auth_client.post("/participants/", json=payload)
+    rv = auth_client.post("/api/participants/", json=payload)
     response = rv.get_json()
 
     assert rv.status_code == HTTPStatus.CONFLICT
@@ -135,7 +135,7 @@ def test_try_create_participant_with_existing_github(auth_client, new_participan
         "phone": "1234567890",
         "github": "wihajster",
     }
-    rv = auth_client.post("/participants/", json=payload)
+    rv = auth_client.post("/api/participants/", json=payload)
     response = rv.get_json()
 
     assert rv.status_code == HTTPStatus.CONFLICT
@@ -151,7 +151,7 @@ def test_try_create_participant_with_wrong_phone(auth_client):
         "phone": "aaa1234567890",
         "github": "wihajster",
     }
-    rv = auth_client.post("/participants/", json=payload)
+    rv = auth_client.post("/api/participants/", json=payload)
     response = rv.get_json()
 
     assert rv.status_code == HTTPStatus.BAD_REQUEST
@@ -167,7 +167,7 @@ def test_try_create_participant_with_wrong_email(auth_client):
         "phone": "1234567890",
         "github": "wihajster",
     }
-    rv = auth_client.post("/participants/", json=payload)
+    rv = auth_client.post("/api/participants/", json=payload)
     response = rv.get_json()
 
     assert rv.status_code == HTTPStatus.BAD_REQUEST
@@ -184,7 +184,7 @@ def test_try_create_participant_with_wrong_slack(auth_client):
         "github": "wihajster",
         "slack": "123sad__x!@#",
     }
-    rv = auth_client.post("/participants/", json=payload)
+    rv = auth_client.post("/api/participants/", json=payload)
     response = rv.get_json()
 
     assert rv.status_code == HTTPStatus.BAD_REQUEST

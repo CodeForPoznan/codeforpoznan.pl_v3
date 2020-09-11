@@ -32,7 +32,7 @@ export default {
     sentMessage({ commit }, contactForm) {
       return new Promise((resolve, reject) => {
         axios
-          .post('send-email/', {
+          .post('/api/send-email/', {
             name: contactForm.name,
             email: contactForm.email,
             phone: contactForm.phone,

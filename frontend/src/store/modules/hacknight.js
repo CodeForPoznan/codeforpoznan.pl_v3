@@ -32,7 +32,7 @@ export default {
   actions: {
     createHacknight({ commit, dispatch }) {
       return axios
-        .post('/hacknights/', {
+        .post('/api/hacknights/', {
           date: new Date().toISOString().slice(0, 10)
         })
         .then(res => {
@@ -47,7 +47,7 @@ export default {
     },
     getHacknight({ commit }, hacknight_id) {
       axios
-        .get(`/hacknights/${hacknight_id}/`)
+        .get(`/api/hacknights/${hacknight_id}/`)
         .then(res => {
           commit('setHacknight', res.data.hacknights);
         })
@@ -57,7 +57,7 @@ export default {
     },
     getHacknights({ commit }) {
       axios
-        .get('/hacknights/')
+        .get('/api/hacknights/')
         .then(res => {
           commit('setHacknights', res.data);
         })
@@ -67,7 +67,7 @@ export default {
     },
     addParticipants({ commit, getters }, participants_ids) {
       axios
-        .post(`/hacknights/${getters.getHacknight.id}/participants/`, {
+        .post(`/api/hacknights/${getters.getHacknight.id}/participants/`, {
           participants_ids: participants_ids
         })
         .then(res => {
