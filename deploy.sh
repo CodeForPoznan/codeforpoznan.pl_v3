@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
 
-# build and push frontend
+echo "build and push frontend"
 (cd frontend && yarn run build && cp -r dist ../public)
-aws s3 sync --delete public s3://codeforpoznan-public/codeforpoznan.pl_v3
+aws s3 sync --delete public s3://codeforpoznan-public/dev_codeforpoznan_pl_v3
 aws cloudfront create-invalidation --paths "/*" --distribution-id E6PZCV3N5WWJ8
 
 echo "bundle application"
 pip install -r backend/requirements.txt --target packages
 (cd packages && zip -qgr9 ../lambda.zip .)
-zip -qgr9 ../lambda.zip backend/
+ln -s backend/migrations migrations
+zip --symlinks -qgr9 lambda.zip backend/ migrations/
 
 echo "upload lambdas"
 aws s3 cp lambda.zip s3://codeforpoznan-lambdas/dev_codeforpoznan_pl_v3_serverless_api.zip
