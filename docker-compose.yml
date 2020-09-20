@@ -26,6 +26,8 @@ services:
       DB_USER: cfp_v3
       DB_PASSWORD: cfp_v3
       SECRET_KEY: codeforpoznan
+      FLASK_ENV: development
+      FLASK_APP: app.py
 
   db:
     container_name: cfp_v3_db
