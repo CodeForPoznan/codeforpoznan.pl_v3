@@ -107,7 +107,7 @@ def registered_user(new_user, app, _db):
 @pytest.fixture
 def tokens(app, client, new_user, registered_user):
     with app.app_context():
-        rv = client.post("/auth/login/", json=new_user)
+        rv = client.post("/api/auth/login/", json=new_user)
         response = rv.get_json()
         from backend.models import JWTToken
 

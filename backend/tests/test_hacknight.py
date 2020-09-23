@@ -6,7 +6,7 @@ from backend.models import Hacknight, Participant
 
 def test_get_hacknights_when_logged_in(auth_client, add_hacknights):
     """Test get list of hacknights for logged in user."""
-    rv = auth_client.get("/hacknights/")
+    rv = auth_client.get("/api/hacknights/")
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.OK
     assert len(response) == 10
@@ -14,7 +14,7 @@ def test_get_hacknights_when_logged_in(auth_client, add_hacknights):
 
 def test_get_hacknights_with_empty_db(auth_client):
     """Test get list of hacknights when no hacknight added to db."""
-    rv = auth_client.get("/hacknights/")
+    rv = auth_client.get("/api/hacknights/")
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.OK
     assert not response
@@ -22,7 +22,7 @@ def test_get_hacknights_with_empty_db(auth_client):
 
 def test_get_hacknights_unauthorized(client, add_hacknights):
     """Test get list of hacknights when user is not logged in."""
-    rv = client.get("/hacknights/")
+    rv = client.get("/api/hacknights/")
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.UNAUTHORIZED
     assert response["msg"] == "Missing Authorization Header"
@@ -31,7 +31,7 @@ def test_get_hacknights_unauthorized(client, add_hacknights):
 def test_add_participants_to_hacknight(auth_client, add_hacknights, add_participants):
     """Test add new participant to hacknight."""
     payload = {"participants_ids": [1, 3]}
-    rv = auth_client.post("/hacknights/1/participants/", data=json.dumps(payload),)
+    rv = auth_client.post("/api/hacknights/1/participants/", data=json.dumps(payload),)
     resp = rv.get_json()
     assert rv.status_code == HTTPStatus.OK
 
@@ -47,7 +47,7 @@ def test_add_participants_to_hacknight_unauthorized(
 ):
     """Test add participants to hacknight when user is not logged in."""
     payload = {"participants_ids": [1, 3]}
-    rv = client.post("/hacknights/1/participants/", data=json.dumps(payload))
+    rv = client.post("/api/hacknights/1/participants/", data=json.dumps(payload))
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.UNAUTHORIZED
     assert response["msg"] == "Missing Authorization Header"
@@ -56,14 +56,14 @@ def test_add_participants_to_hacknight_unauthorized(
 def test_add_nonexisting_participants_to_hacknight(auth_client, add_hacknights):
     """Test add non-existing participants ids to hacknight."""
     payload = {"participants_ids": [1, 3]}
-    rv = auth_client.post("/hacknights/1/participants/", data=json.dumps(payload),)
+    rv = auth_client.post("/api/hacknights/1/participants/", data=json.dumps(payload),)
     assert rv.status_code == HTTPStatus.NOT_FOUND
 
 
 def test_add_participants_to_nonexisting_hacknight(auth_client, add_participants):
     """Test add participants to non-existing hacknight."""
     payload = {"participants_ids": [1, 3]}
-    rv = auth_client.post("/hacknights/1/participants/", data=json.dumps(payload),)
+    rv = auth_client.post("/api/hacknights/1/participants/", data=json.dumps(payload),)
     assert rv.status_code == HTTPStatus.NOT_FOUND
 
 
@@ -77,7 +77,7 @@ def test_duplicate_participant_in_hacknight(
 
     payload = {"participants_ids": [participant.id]}
     rv = auth_client.post(
-        f"/hacknights/{hacknight.id}/participants/", data=json.dumps(payload),
+        f"/api/hacknights/{hacknight.id}/participants/", data=json.dumps(payload),
     )
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.BAD_REQUEST
@@ -92,7 +92,7 @@ def test_create_hacknight_with_same_date(auth_client, new_hacknight, _db):
     db.session.commit()
 
     payload = {"date": "2000-10-10"}
-    rv = auth_client.post(f"/hacknights/", data=json.dumps(payload),)
+    rv = auth_client.post("/api/hacknights/", data=json.dumps(payload),)
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.CONFLICT
     assert response["message"] == "Hacknight already exists."
@@ -103,7 +103,7 @@ def test_remove_participants_from_hacknight(auth_client, add_participants_to_hac
     hacknight_db = Hacknight.query.get(1)
     participant_id = hacknight_db.participants[0].id
     payload = {"participants_ids": [participant_id]}
-    rv = auth_client.delete("/hacknights/1/participants/", data=json.dumps(payload))
+    rv = auth_client.delete("/api/hacknights/1/participants/", data=json.dumps(payload))
     response = rv.get_json()
     participant_db = Participant.query.get(participant_id)
     assert rv.status_code == HTTPStatus.OK
@@ -118,7 +118,7 @@ def test_remove_all_participants_from_hacknight(
     hacknight_db = Hacknight.query.get(1)
     participants_id = [participant.id for participant in hacknight_db.participants]
     payload = {"participants_ids": participants_id}
-    rv = auth_client.delete("/hacknights/1/participants/", data=json.dumps(payload))
+    rv = auth_client.delete("/api/hacknights/1/participants/", data=json.dumps(payload))
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.OK
     assert not Hacknight.query.get(1).participants
@@ -130,7 +130,7 @@ def test_remove_wrong_participant_from_hacknight(
 ):
     """Test remove non-existing participant from hacknight."""
     payload = {"participants_ids": [999]}
-    rv = auth_client.delete("/hacknights/1/participants/", data=json.dumps(payload))
+    rv = auth_client.delete("/api/hacknights/1/participants/", data=json.dumps(payload))
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.BAD_REQUEST
     assert response["message"] == "No participant to delete"
