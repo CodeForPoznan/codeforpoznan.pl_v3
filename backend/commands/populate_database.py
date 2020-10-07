@@ -5,7 +5,7 @@ from flask.cli import with_appcontext
 from tqdm import tqdm
 
 from backend.extensions import db
-from backend.factories import HacknightFactory, ParticipantFactory, UserFactory
+from backend.factories import HacknightFactory, ParticipantFactory, TeamFactory, UserFactory
 from backend.models import Participant
 
 
@@ -30,6 +30,13 @@ def populate_database():
     for _ in tqdm(range(30)):
         HacknightFactory.create(
             participants=random.sample(all_participants, random.randint(5, 30))
+        )
+        db.session.commit()
+
+    click.echo("Creating 5 teams")
+    for _ in tqdm(range(5)):
+        TeamFactory.create(
+            members=random.sample(all_participants, random.randint(1, 40))
         )
         db.session.commit()
 
