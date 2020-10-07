@@ -17,9 +17,7 @@ class TeamList(Resource):
     def get(self):
         team_schema = TeamSchema(many=True, exclude=("members",))
         return (
-            team_schema.dump(
-                Team.query.all()
-            ),
+            team_schema.dump(Team.query.all()),
             HTTPStatus.OK,
         )
 
@@ -35,14 +33,21 @@ class TeamList(Resource):
             return (err.messages), HTTPStatus.BAD_REQUEST
 
         if Team.query.filter_by(project_name=data["project_name"]).first():
-            return {"message": "Team with that project_name already exists."}, HTTPStatus.CONFLICT
+            return (
+                {"message": "Team with that project_name already exists."},
+                HTTPStatus.CONFLICT,
+            )
         if Team.query.filter_by(project_url=data["project_url"]).first():
-            return {"message": "Team with that project_url already exists."}, HTTPStatus.CONFLICT
+            return (
+                {"message": "Team with that project_url already exists."},
+                HTTPStatus.CONFLICT,
+            )
         team = Team(**data)
         db.session.add(team)
         db.session.commit()
 
         return team_schema.dump(team), HTTPStatus.CREATED
+
 
 class TeamDetails(Resource):
     @jwt_required
@@ -66,12 +71,13 @@ class TeamDetails(Resource):
             data = team_schema.load(json_data)
         except ValidationError as err:
             return err.messages, HTTPStatus.BAD_REQUEST
-        
+
         for key, value in data.items():
             setattr(team, key, value)
         db.session.add(team)
         db.session.commit()
         return team_schema.dump(team), HTTPStatus.OK
+
 
 class TeamMembers(Resource):
     @jwt_required
@@ -116,7 +122,7 @@ class TeamMembers(Resource):
         to_remove = members.intersection(set(data["members_ids"]))
         if not to_remove:
             return {"message": "No member to delete"}, HTTPStatus.BAD_REQUEST
-        
+
         team.members = [member for member in team.members if member.id not in to_remove]
         db.session.commit()
         team_schema = TeamSchema()

@@ -5,6 +5,7 @@ import json
 from backend.models import Team
 from backend.serializers.team_serializer import TeamSchema
 
+
 def test_get_teams_when_logged_in(auth_client, add_teams):
     """Test get list of teams for logged in user."""
     rv = auth_client.get("/api/teams/")
@@ -30,7 +31,9 @@ def test_get_teams_unauthorized(client, add_teams):
     assert response["msg"] == "Missing Authorization Header"
 
 
-def test_create_team_with_valid_data(auth_client, new_team,):
+def test_create_team_with_valid_data(
+    auth_client, new_team,
+):
     """Test add team with valid data in payload."""
     team_schema = TeamSchema()
     rv = auth_client.post("/api/teams/", data=json.dumps(new_team),)

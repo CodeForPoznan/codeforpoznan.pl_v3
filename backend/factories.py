@@ -114,7 +114,11 @@ class TeamFactory(BaseFactory):
     def _create(cls, model_class, *args, **kwargs):
         session = cls._meta.sqlalchemy_session
         with session.no_autoflush:
-            existing = session.query(model_class).filter_by(project_name=kwargs["project_name"]).first()
+            existing = (
+                session.query(model_class)
+                .filter_by(project_name=kwargs["project_name"])
+                .first()
+            )
 
         if existing:
             project_name = cls.project_name.generate({})
@@ -124,7 +128,7 @@ class TeamFactory(BaseFactory):
         obj = super(TeamFactory, cls)._create(model_class, *args, **kwargs)
 
         return obj
-    
+
     @factory.post_generation
     def members(self, create, extracted, **kwargs):
         if not create:

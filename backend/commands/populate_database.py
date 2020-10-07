@@ -5,7 +5,12 @@ from flask.cli import with_appcontext
 from tqdm import tqdm
 
 from backend.extensions import db
-from backend.factories import HacknightFactory, ParticipantFactory, TeamFactory, UserFactory
+from backend.factories import (
+    HacknightFactory,
+    ParticipantFactory,
+    TeamFactory,
+    UserFactory,
+)
 from backend.models import Participant
 
 
