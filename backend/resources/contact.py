@@ -1,3 +1,5 @@
+import os
+
 from http import HTTPStatus
 
 from flask import request
@@ -18,11 +20,13 @@ class SendMessage(Resource):
         except ValidationError as err:
             return {"message": err.messages}, HTTPStatus.BAD_REQUEST
         name, phone, content = new_msg["name"], new_msg["phone"], new_msg["content"]
+        base_url = os.environ.get("BASE_URL", "codeforpoznan.pl")
+
         msg = Message(
-            subject=f"Email z cfp_v3 od {name}",
+            subject=f"Email z {base_url} od {name}",
             sender=new_msg["email"],
             reply_to=new_msg["email"],
-            recipients=["cfp@codeforpoznan.test"],
+            recipients=[f"hello@{base_url}"],
         )
         msg.body = f"Nowa wiadomość od {name}, nr tel: {phone} \nTreść:\n {content}"
         mail.send(msg)

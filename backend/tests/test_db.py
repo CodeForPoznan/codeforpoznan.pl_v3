@@ -2,7 +2,7 @@ from datetime import date, timedelta
 
 from flask_jwt_extended import create_access_token
 
-from backend.models import Hacknight, JWTToken, Participant, User
+from backend.models import Hacknight, JWTToken, Participant, Team, User
 from backend.resources.auth import add_token_to_database
 
 
@@ -49,6 +49,21 @@ def test_add_new_hacknight_to_db(_db, new_hacknight):
     hacknight = db.session.query(Hacknight).first()
 
     assert hacknight.date == date(2000, 10, 10)
+
+
+def test_add_new_team_to_db(_db, new_team):
+    """Test adding team to DB with valid data."""
+    db = _db
+    assert len(db.session.query(Team).all()) == 0
+
+    team = Team(**new_team)
+    db.session.add(team)
+    db.session.commit()
+
+    team_db = db.session.query(Team).first()
+
+    for key, value in new_team.items():
+        assert getattr(team_db, key) == value
 
 
 def test_remove_expired_token_method(_db):
