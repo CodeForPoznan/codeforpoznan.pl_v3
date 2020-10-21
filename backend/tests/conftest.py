@@ -7,7 +7,7 @@ import pytest
 
 from backend.app import create_app
 from backend.extensions import db
-from backend.factories import HacknightFactory, ParticipantFactory
+from backend.factories import HacknightFactory, ParticipantFactory, TeamFactory
 from backend.models import User
 
 
@@ -160,4 +160,17 @@ def add_hacknights(app, _db):
 @pytest.fixture
 def add_participants_to_hacknight(app, _db):
     HacknightFactory(participants=ParticipantFactory.create_batch(10))
+    _db.session.commit()
+
+
+@pytest.fixture
+def add_teams(app, _db):
+    for _ in range(10):
+        TeamFactory.create()
+        _db.session.commit()
+
+
+@pytest.fixture
+def add_members_to_team(app, _db):
+    TeamFactory(members=ParticipantFactory.create_batch(10))
     _db.session.commit()
