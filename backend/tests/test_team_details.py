@@ -7,15 +7,20 @@ from backend.models import Participant, Team
 from backend.serializers.team_serializer import TeamSchema
 
 
-@pytest.mark.parametrize("method", ["get", "delete"])
-def test_get_team_when_logged_in(auth_client, add_teams, method):
+def test_get_team_when_logged_in(auth_client, add_teams):
     """Test get team details when logged in."""
     team_db = Team.query.first()
     rv = auth_client.get(f"/api/teams/{team_db.id}/")
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.OK
-    if method == "get":
-        assert response == TeamSchema().dump(team_db)
+    assert response == TeamSchema().dump(team_db)
+
+
+def test_delete_team_when_logged_in(app, auth_client, add_teams):
+    """Test delete team details when logged in."""
+    rv = auth_client.delete(f"/api/teams/1/")
+    assert rv.status_code == HTTPStatus.OK
+    assert not Team.query.get(1)
 
 
 def test_edit_team_data_when_logged_in(app, auth_client, add_teams):
@@ -114,8 +119,8 @@ def test_remove_member_from_team(auth_client, add_members_to_team):
 def test_remove_all_members_from_team(auth_client, add_members_to_team):
     """Test remove all members from team."""
     team_db = Team.query.get(1)
-    members_id = [member.id for member in team_db.members]
-    payload = {"members_ids": members_id}
+    member_ids = [member.id for member in team_db.members]
+    payload = {"members_ids": member_ids}
     rv = auth_client.delete("/api/teams/1/members/", data=json.dumps(payload))
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.OK
