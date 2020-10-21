@@ -31,7 +31,7 @@ export default {
         {
           icon: 'fab fa-slack',
           link:
-            'https://join.slack.com/t/codeforpoznan/shared_invite/enQtNjQ5MTU1MDI0NDA0LWJmMmM2NjI0MGNiZjJjMGM0NzMzOTEzOGY5YWZkZWNiMzZlZTM2ZGJlYzRkYTlmZTFlMTMzZjJkZTc5YjhhYjg'
+            'https://join.slack.com/t/codeforpoznan/shared_invite/zt-8a7u52j8-yqB01C2YgYF4Lvd1pFM_jw'
         }
       ]
     };
