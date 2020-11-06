@@ -9,6 +9,8 @@ services:
       - 8080:8080
     volumes:
       - ./frontend:/cfp_v3/frontend
+    environment:
+      - VUE_APP_AXIOS_BASE_URL=http://0.0.0.0:5000/
 
 
   backend:
