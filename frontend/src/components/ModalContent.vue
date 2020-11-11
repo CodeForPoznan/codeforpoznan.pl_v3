@@ -1,23 +1,15 @@
 <template>
   <v-card>
     <v-card-title class="title-header">
-      <v-row>
-        <p class="modal-title">{{ selectedProject.name }}</p>
-        <v-card-actions>
-          <v-btn
-            class="mr-2"
-            absolute
-            fab
-            rounded
-            icon
-            large
-            right
-            @click="onClick()"
-          >
-            <v-icon size="3.5rem" color="white">close</v-icon>
-          </v-btn>
-        </v-card-actions>
-      </v-row>
+      <div>
+        <a class="modal-title">{{ selectedProject.name }}</a>
+      </div>
+      <v-spacer></v-spacer>
+      <div>
+        <v-btn class="hidden-xs-only" rounded icon large @click="onClick()">
+          <v-icon size="3.5rem" color="white">close</v-icon>
+        </v-btn>
+      </div>
     </v-card-title>
     <v-card-actions>
       <div class="buttons-list">
@@ -104,6 +96,18 @@
         </v-row>
       </div>
     </v-card-actions>
+    <v-btn
+      fixed
+      bottom
+      right
+      rounded
+      class="hidden-sm-and-up"
+      fab
+      color="#0CAEE7"
+      @click="onClick()"
+    >
+      <v-icon size="3.5rem" color="white">close</v-icon>
+    </v-btn>
   </v-card>
 </template>
 
@@ -123,6 +127,16 @@ export default {
 
 a {
   text-transform: none;
+}
+
+.close-button {
+  height: 4em;
+  margin: 1em;
+}
+
+.title-row {
+  display: flex;
+  flex-wrap: wrap-reverse;
 }
 
 .buttons-list {
@@ -150,12 +164,14 @@ a {
 
 .modal-title {
   display: flex;
-  align-content: center;
   font-family: $font-header;
-  font-size: 3rem;
-  padding: 2rem 0;
+  font-size: 2rem;
   color: $white;
-  margin: 0.5rem 0 0 1.2rem;
+  margin: 0;
+  padding: 0.4em;
+  @media only screen and (max-width: $phone) {
+    font-size: 100%;
+  }
 }
 
 .modal-subtitle {
@@ -179,5 +195,12 @@ a {
 
 .title-header {
   background: $blue;
+  height: 5em;
+  display: flex;
+  align-items: center;
+}
+
+.kurwa {
+  color: $blue;
 }
 </style>
