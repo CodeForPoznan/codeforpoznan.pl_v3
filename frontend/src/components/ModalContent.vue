@@ -1,9 +1,9 @@
 <template>
   <v-card>
     <v-card-title class="title-header">
-      <div>
-        <a class="modal-title">{{ selectedProject.name }}</a>
-      </div>
+      <span class="modal-title">{{ selectedProject.name }}</span>
+      <!--        <p class="modal-title">{{ selectedProject.name }}</p>-->
+      <!--      </div>-->
       <v-spacer></v-spacer>
       <div>
         <v-btn class="hidden-xs-only" rounded icon large @click="onClick()">
@@ -168,7 +168,7 @@ a {
   font-size: 2rem;
   color: $white;
   margin: 0;
-  padding: 0.4em;
+  word-break: break-word;
   @media only screen and (max-width: $phone) {
     font-size: 100%;
   }
@@ -195,7 +195,6 @@ a {
 
 .title-header {
   background: $blue;
-  height: 5em;
   display: flex;
   align-items: center;
 }
