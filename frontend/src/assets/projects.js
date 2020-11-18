@@ -1,14 +1,19 @@
 const projects = [
+  //Volontulo
   {
     description:
       'Portal Volontulo powstał dla ludzi i organizacji skupionych wokół idei pomocy innym poprzez udział we wolontariacie. Celem projektu jest pomoc we wzajemnym odnalezieniu się ludzi, którzy chcą realizować się jako wolontariusze/szki oraz organizacji i instytucji, które takich osób poszukują. Podział na strefę "Wolontariusza" oraz "Strefę organizacji i instytucji" umożliwa użytkownikom zwinną nawigację na stronie.',
     githubLink: 'https://github.com/CodeForPoznan/volontulo',
     imageAdress: require('@/assets/images/volontulo.png'),
     licenseName: 'MIT',
-    licensePage: 'https://pl.wikipedia.org/wiki/Licencja_MIT',
+    licensePage: '',
+    partner: [
+      {
+        name: '',
+        link: ''
+      }
+    ],
     name: 'Volontulo',
-    partner: 'Poszukujemy partnera - napisz do nas',
-    partnerPage: 'https://codeforpoznan.pl/',
     stack: [
       {
         type: 'Frontend',
@@ -25,6 +30,7 @@ const projects = [
     ],
     websiteLink: 'http://volontuloapp.org/o'
   },
+  //PAH-FM
   {
     description:
       'W wyniku współpracy z Polską Akcją Humanitarną stworzyliśmy aplikację pomagającą w logistycznych procesach akcji humanitarnych w różnych częściach globu. Aktualnie aplikacja służąca rejestracji i ewidencji przejazdów jest wykorzystywana podczas akcji humanitarnych na Ukrainie, w Sudanie Południowym, Jemenie oraz Somalii. Aplikacja pozwala także na eksport zebranych danych w celu ewidencji kosztów dla danej akcji humanitarnej. Dzięku temu możemy zoptymalizować proces i zmniejszyć nakład papierkowej pracy biurowej.',
@@ -33,8 +39,12 @@ const projects = [
     license: 'MIT',
     licensePage: 'https://github.com/CodeForPoznan/pah-fm/pull/401/files',
     name: 'Fleet Manager',
-    partner: 'PAH - Polska Akcja Humanitarna',
-    partnerPage: 'https://www.pah.org.pl/',
+    partner: [
+      {
+        name: 'Polska Akcja Humanitarna',
+        link: 'https://www.pah.org.pl/'
+      }
+    ],
     stack: [
       {
         type: 'Frontend',
@@ -49,8 +59,9 @@ const projects = [
         documentation: 'https://docs.djangoproject.com/pl/2.2/'
       }
     ],
-    website: 'https://github.com/CodeForPoznan/pah-fm#readme'
+    websiteLink: 'https://github.com/CodeForPoznan/pah-fm#readme'
   },
+  //Alinka
   {
     description:
       'Aplikacja Alinka powstała w celu optymalizacji codziennej pracy w poradniach psychologiczno-pedagogicznych. Jako byli pracownicy takiej poradni doskonale rozumiemy jakiego nakładu pracy wymaga wydanie orzeczenia czy sporządzenie protokołu z posiedzenia komisji. Aplikacja Alinka jest odpowiedzią na trudności, z jakimi spotykają się w codziennej pracy pracownicy administracji poradni. Nazwa aplikacji: „Alinka” to imię prawdziwej osoby, która musi wykonywać tę nudną, ale bardzo ważną pracę. Mamy nadzieję, że któregoś dnia ta aplikacja pomoże w jej pracy :).',
@@ -60,10 +71,16 @@ const projects = [
     licensePage:
       'https://github.com/CodeForPoznan/alinka-electron/blob/master/LICENSE',
     name: 'Alinka',
-    partner:
-      'Poradnia Psychologiczno-Pedagogiczna w Grodzisku Wielkopolskim oraz Poradnia Pscyhologiczno-Pedagogiczna we Wrześni ',
-    partnerPage:
-      'http://www.grodziskwlkp.naszaporadnia.com/aktualnosci, https://ppp-wrzesnia.pl/',
+    partner: [
+      {
+        name: 'Poradnia Psychologiczno-Pedagogiczna w Grodzisku Wielkopolskim',
+        link: 'http://www.grodziskwlkp.naszaporadnia.com/aktualnosci'
+      },
+      {
+        name: 'Poradnia Pscyhologiczno-Pedagogiczna we Wrześni',
+        link: 'https://ppp-wrzesnia.pl/'
+      }
+    ],
     stack: [
       {
         type: 'Frontend',
@@ -84,8 +101,9 @@ const projects = [
         documentation: 'https://www.sqlite.org/docs.html'
       }
     ],
-    website: 'https://alinka.io'
+    websiteLink: 'https://alinka.io'
   },
+  //Bank Empatii
   {
     description:
       'Bank Empatii to projekt strony Patrycji Krawczyk, która zmaga się z białaczką limfoblastyczną i chce znaleźć dawcę komórek macierzystach o podobnym do Patrycji kodzie genetycznym. Trzy główne panele "Historia Patrycji", "Jak wygląda badanie? oraz "Gdzie się zgłosić?" kierują użytkowników strony do uzyskania informacji na temat jak zostać dawcą szpiku oraz czym jest Rejestr Dawców. Na stronie znajduje się mapa Polski z umiejscowieniem punktów poboru krwi.',
@@ -94,10 +112,14 @@ const projects = [
     license: 'MIT',
     licensePage: 'https://github.com/CodeForPoznan/empatia/blob/master/LICENSE',
     name: 'Bank Empatii',
-    partner: 'Poszukujemy partnera - napisz do nas',
-    partnerPage: 'https://codeforpoznan.pl/',
+    partner: [
+      {
+        name: '',
+        link: ''
+      }
+    ],
     stack: [],
-    website: 'http://bankempatii.pl/'
+    websiteLink: 'http://bankempatii.pl/'
   },
   {
     description:
@@ -118,8 +140,9 @@ const projects = [
         documentation: 'https://pl.reactjs.org/docs/getting-started.html'
       }
     ],
-    website: 'https://streetmix.net'
+    websiteLink: 'https://streetmix.net'
   },
+  //Wysadź ulicę
   {
     description:
       'Wysadźulice.pl jest przykładem aplikacji umożliwiającej zaplanowanie czy zaprojektowanie przestrzeni, która nas otacza. Każdy użytkownik apliakcji ma dzięki niej realny wpływ na wygląd i funkcjonalność ulicy, przy której mieszka czy parku do którego chodzi. Wystraczy zrobić zdjęcie lub wgrać obraz z Google Street View, następnie dodać elementy w postaci: kwiatów, krzewów, drzew czy ławki. Tak przygotowana wizualizacja może posłużyć na konsultacjach z władzami miast czy gmin.',
@@ -128,11 +151,16 @@ const projects = [
     license: 'MIT',
     licensePage: 'https://pl.wikipedia.org/wiki/Licencja_MIT',
     name: 'Wysadź ulicę',
-    partner: 'Poszukujemy partnera - napisz do nas',
-    partnerPage: 'https://codeforpoznan.pl/',
+    partner: [
+      {
+        name: '',
+        link: ''
+      }
+    ],
     stack: [],
-    website: 'http://wysadzulice.pl'
+    websiteLink: 'http://wysadzulice.pl'
   },
+  //CodeForPoznan v3
   {
     description:
       'Jest to trzecia wersja strony internetowej naszej organizacji. To pokazuje, że jako stowarzyszenie ciągle się rozwijamy i potrzebujemy nowych narzędzi i funkcjonalności do codziennej pracy. Aktualna forma strony jest wynikiem ponad 3 lat działalności jako Code for Poznań.',
@@ -142,8 +170,12 @@ const projects = [
     licensePage:
       'https://github.com/CodeForPoznan/codeforpoznan.pl_v3/blob/master/LICENSE',
     name: 'Strona społeczności',
-    partner: 'Społeczność Code for Poznań',
-    partnerPage: 'https://codeforpoznan.pl/',
+    partner: [
+      {
+        name: '',
+        link: ''
+      }
+    ],
     stack: [
       {
         type: 'Frontend',
@@ -170,7 +202,7 @@ const projects = [
         documentation: 'https://flask.palletsprojects.com/en/1.0.x/'
       }
     ],
-    website: 'https://dev.codeforpoznan.pl/'
+    websiteLink: 'https://dev.codeforpoznan.pl/'
   }
 ];
 

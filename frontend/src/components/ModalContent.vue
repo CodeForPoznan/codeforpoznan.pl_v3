@@ -1,9 +1,7 @@
 <template>
   <v-card>
-    <v-card-title class="title-header">
-      <span class="modal-title">{{ selectedProject.name }}</span>
-      <!--        <p class="modal-title">{{ selectedProject.name }}</p>-->
-      <!--      </div>-->
+    <v-card-title class="header-container">
+      <h1>{{ selectedProject.name }}</h1>
       <v-spacer></v-spacer>
       <div>
         <v-btn class="hidden-xs-only" rounded icon large @click="onClick()">
@@ -11,91 +9,105 @@
         </v-btn>
       </div>
     </v-card-title>
-    <v-card-actions>
-      <div class="buttons-list">
-        <v-row>
-          <v-btn
-            class="buttons"
-            text
-            rounded
-            large
-            :href="selectedProject.licensePage"
-            target="_blank"
+    <v-card-actions class="icon-list">
+      <div v-show="selectedProject.licensePage !== ''">
+        <v-btn text rounded :href="selectedProject.licensePage" target="_blank">
+          <v-icon>far fa-copyright</v-icon>
+          <span class="buttons-text"
+            >Licencja {{ selectedProject.licenseName }}</span
           >
-            <v-icon>far fa-copyright</v-icon>
-            <p class="buttons--text">
-              Licencja {{ selectedProject.licenseName }}
-            </p>
-          </v-btn>
-          <v-btn
-            class="buttons"
-            text
-            rounded
-            large
-            :href="selectedProject.githubLink"
-            target="_blank"
-          >
-            <v-icon>fab fa-github</v-icon>
-            <p class="buttons--text">Repozytorium</p>
-          </v-btn>
-          <v-btn
-            class="buttons"
-            text
-            rounded
-            large
-            :href="selectedProject.websiteLink"
-            target="_blank"
-          >
-            <v-icon>language</v-icon>
-            <p class="buttons--text">Strona projektu</p>
-          </v-btn>
-          <v-btn
-            class="buttons"
-            text
-            rounded
-            large
-            :href="selectedProject.partnerPage"
-            target="_blank"
-          >
-            <v-icon>fas fa-handshake</v-icon>
-            <p class="buttons--text">Strona partnera</p>
-          </v-btn>
-        </v-row>
+        </v-btn>
+      </div>
+      <div v-show="selectedProject.githubLink !== ''">
+        <v-btn text rounded :href="selectedProject.githubLink" target="_blank">
+          <v-icon>fab fa-github</v-icon>
+          <span class="buttons-text">Repozytorium</span>
+        </v-btn>
+      </div>
+      <div v-show="selectedProject.websiteLink !== ''">
+        <v-btn text rounded :href="selectedProject.websiteLink" target="_blank">
+          <v-icon>language</v-icon>
+          <span class="buttons-text">Strona projektu</span>
+        </v-btn>
       </div>
     </v-card-actions>
-    <div class="text-list">
-      <v-row>
-        <pre class="modal-subtitle">Partner projektu: </pre>
-        <p class="modal-subtitle">{{ selectedProject.partner }}</p>
-      </v-row>
-    </div>
-    <div class="text-list">
-      <v-row>
-        <p class="content-black">{{ selectedProject.description }}</p>
-      </v-row>
-    </div>
-    <div class="text-list">
-      <v-row>
-        <p class="modal-subtitle">Wykorzystane technologie:</p>
-      </v-row>
-    </div>
-    <v-card-actions>
-      <div class="buttons-list">
-        <v-row>
+    <v-card-text>
+      <p>{{ selectedProject.description }}</p>
+    </v-card-text>
+    <div v-if="countPartners === 1 && selectedProject.partner.name === ''">
+      <v-card-title>
+        <div v-if="countPartners === 1">
+          Partner projektu
+        </div>
+        <div v-else>Partnerzy projektu</div>
+      </v-card-title>
+      <v-card-actions class="icon-list" ma-0 pa-0>
+        <div>
           <v-btn
-            v-for="(item, index) in selectedProject.stack"
+            class="ma-0 buttons-text"
+            v-for="(item, index) in selectedProject.partner"
             :key="index"
-            :href="item.documentation"
-            class="stack-list"
+            :href="item.link"
             target="_blank"
             text
             rounded
           >
-            {{ item.type }}: {{ item.name }} {{ item.version }}
+            <v-icon>fas fa-link</v-icon>
+            <span class="buttons-text">{{ item.name }}</span>
           </v-btn>
-        </v-row>
+        </div>
+      </v-card-actions>
+    </div>
+    <v-card-title>Wykorzystane technologie</v-card-title>
+    <v-card-actions>
+      <div>
+        <v-btn
+          v-for="(item, index) in selectedProject.stack"
+          :key="index"
+          :href="item.documentation"
+          class="stack-list"
+          target="_blank"
+          text
+          rounded
+        >
+          {{ item.type }}: {{ item.name }} {{ item.version }}
+        </v-btn>
       </div>
     </v-card-actions>
+
+    <!--    <div class="text-list">-->
+    <!--      <v-row>-->
+    <!--        <pre class="modal-subtitle">Partner projektu: </pre>-->
+    <!--        <p class="modal-subtitle">{{ selectedProject.partner }}</p>-->
+    <!--      </v-row>-->
+    <!--    </div>-->
+    <!--    <div class="text-list">-->
+    <!--      <v-row>-->
+    <!--        <p class="content-black">{{ selectedProject.description }}</p>-->
+    <!--      </v-row>-->
+    <!--    </div>-->
+    <!--    <div class="text-list">-->
+    <!--      <v-row>-->
+    <!--        <p class="modal-subtitle">Wykorzystane technologie:</p>-->
+    <!--      </v-row>-->
+    <!--    </div>-->
+    <!--    <v-card-actions>-->
+    <!--      <div class="buttons-list">-->
+    <!--        <v-row>-->
+    <!--          <v-btn-->
+    <!--            v-for="(item, index) in selectedProject.stack"-->
+    <!--            :key="index"-->
+    <!--            :href="item.documentation"-->
+    <!--            class="stack-list"-->
+    <!--            target="_blank"-->
+    <!--            text-->
+    <!--            rounded-->
+    <!--          >-->
+    <!--            {{ item.type }}: {{ item.name }} {{ item.version }}-->
+    <!--          </v-btn>-->
+    <!--        </v-row>-->
+    <!--      </div>-->
+    <!--    </v-card-actions>-->
     <v-btn
       fixed
       bottom
@@ -113,10 +125,24 @@
 
 <script>
 export default {
+  data() {
+    return {
+      partners: '',
+      multiplePartners: null
+    };
+  },
   props: ['selectedProject'],
   methods: {
     onClick() {
       this.$root.$emit('close');
+    }
+  },
+  computed: {
+    countPartners() {
+      return this.selectedProject.partner.length;
+    },
+    countPartnerNames() {
+      return this.selectedProject.partner.name.length;
     }
   }
 };
@@ -129,10 +155,34 @@ a {
   text-transform: none;
 }
 
-.close-button {
-  height: 4em;
-  margin: 1em;
+.header-container {
+  background: $blue;
+  min-height: 5rem;
 }
+
+h1 {
+  font-family: $font-header;
+  font-size: 2rem;
+  color: $white;
+  word-break: break-word;
+  @media only screen and (max-width: $phone) {
+    font-size: 1.5rem;
+  }
+}
+
+.buttons-text {
+  margin: 0.4rem;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: normal;
+}
+
+.icon-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+//
 
 .title-row {
   display: flex;
@@ -147,31 +197,9 @@ a {
   margin: 0.25rem 3rem;
 }
 
-.buttons {
-  margin: 1rem 0.5rem 1rem 0;
-}
-
-.buttons--text {
-  display: flex;
-  align-content: center;
-  margin: 0.5rem;
-}
-
 .content-black {
   color: black;
   text-align: justify;
-}
-
-.modal-title {
-  display: flex;
-  font-family: $font-header;
-  font-size: 2rem;
-  color: $white;
-  margin: 0;
-  word-break: break-word;
-  @media only screen and (max-width: $phone) {
-    font-size: 100%;
-  }
 }
 
 .modal-subtitle {
@@ -191,12 +219,6 @@ a {
 
 .text-row {
   padding: 1px;
-}
-
-.title-header {
-  background: $blue;
-  display: flex;
-  align-items: center;
 }
 
 .kurwa {
