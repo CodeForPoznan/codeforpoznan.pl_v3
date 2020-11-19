@@ -1,44 +1,14 @@
 const projects = [
-  //Volontulo
-  {
-    description:
-      'Portal Volontulo powstał dla ludzi i organizacji skupionych wokół idei pomocy innym poprzez udział we wolontariacie. Celem projektu jest pomoc we wzajemnym odnalezieniu się ludzi, którzy chcą realizować się jako wolontariusze/szki oraz organizacji i instytucji, które takich osób poszukują. Podział na strefę "Wolontariusza" oraz "Strefę organizacji i instytucji" umożliwa użytkownikom zwinną nawigację na stronie.',
-    githubLink: 'https://github.com/CodeForPoznan/volontulo',
-    imageAdress: require('@/assets/images/volontulo.png'),
-    licenseName: 'MIT',
-    licensePage: '',
-    partner: [
-      {
-        name: '',
-        link: ''
-      }
-    ],
-    name: 'Volontulo',
-    stack: [
-      {
-        type: 'Frontend',
-        name: 'Angular',
-        version: '2.0',
-        documentation: 'https://angular.io/'
-      },
-      {
-        type: 'Backend',
-        name: 'Django',
-        version: '2.2',
-        documentation: 'https://docs.djangoproject.com/pl/2.2/'
-      }
-    ],
-    websiteLink: 'http://volontuloapp.org/o'
-  },
   //PAH-FM
   {
+    name: 'Fleet Manager',
     description:
       'W wyniku współpracy z Polską Akcją Humanitarną stworzyliśmy aplikację pomagającą w logistycznych procesach akcji humanitarnych w różnych częściach globu. Aktualnie aplikacja służąca rejestracji i ewidencji przejazdów jest wykorzystywana podczas akcji humanitarnych na Ukrainie, w Sudanie Południowym, Jemenie oraz Somalii. Aplikacja pozwala także na eksport zebranych danych w celu ewidencji kosztów dla danej akcji humanitarnej. Dzięku temu możemy zoptymalizować proces i zmniejszyć nakład papierkowej pracy biurowej.',
-    githubLink: 'https://github.com/CodeForPoznan/pah-fm',
     imageAdress: require('@/assets/images/PAH.png'),
+    websiteLink: 'https://github.com/CodeForPoznan/pah-fm#readme',
+    githubLink: 'https://github.com/CodeForPoznan/pah-fm',
     license: 'MIT',
     licensePage: 'https://github.com/CodeForPoznan/pah-fm/pull/401/files',
-    name: 'Fleet Manager',
     partner: [
       {
         name: 'Polska Akcja Humanitarna',
@@ -58,8 +28,7 @@ const projects = [
         version: '2.2',
         documentation: 'https://docs.djangoproject.com/pl/2.2/'
       }
-    ],
-    websiteLink: 'https://github.com/CodeForPoznan/pah-fm#readme'
+    ]
   },
   //Alinka
   {
@@ -77,7 +46,7 @@ const projects = [
         link: 'http://www.grodziskwlkp.naszaporadnia.com/aktualnosci'
       },
       {
-        name: 'Poradnia Pscyhologiczno-Pedagogiczna we Wrześni',
+        name: 'Poradnia Psychologiczno-Pedagogiczna we Wrześni',
         link: 'https://ppp-wrzesnia.pl/'
       }
     ],
@@ -103,35 +72,57 @@ const projects = [
     ],
     websiteLink: 'https://alinka.io'
   },
-  //Bank Empatii
+  //Bank empatii
   {
+    name: 'Bank Empatii',
     description:
       'Bank Empatii to projekt strony Patrycji Krawczyk, która zmaga się z białaczką limfoblastyczną i chce znaleźć dawcę komórek macierzystach o podobnym do Patrycji kodzie genetycznym. Trzy główne panele "Historia Patrycji", "Jak wygląda badanie? oraz "Gdzie się zgłosić?" kierują użytkowników strony do uzyskania informacji na temat jak zostać dawcą szpiku oraz czym jest Rejestr Dawców. Na stronie znajduje się mapa Polski z umiejscowieniem punktów poboru krwi.',
-    githubLink: 'https://github.com/CodeForPoznan/empatia',
     imageAdress: require('@/assets/images/bank_empatii.png'),
+    websiteLink: 'http://bankempatii.pl/',
+    githubLink: 'https://github.com/CodeForPoznan/empatia',
     license: 'MIT',
     licensePage: 'https://github.com/CodeForPoznan/empatia/blob/master/LICENSE',
-    name: 'Bank Empatii',
-    partner: [
-      {
-        name: '',
-        link: ''
-      }
-    ],
-    stack: [],
-    websiteLink: 'http://bankempatii.pl/'
+    partner: [],
+    stack: []
   },
+  //volontulo
   {
+    name: 'Volontulo',
+    description:
+      'Portal Volontulo powstał dla ludzi i organizacji skupionych wokół idei pomocy innym poprzez udział we wolontariacie. Celem projektu jest pomoc we wzajemnym odnalezieniu się ludzi, którzy chcą realizować się jako wolontariusze/szki oraz organizacji i instytucji, które takich osób poszukują. Podział na strefę "Wolontariusza" oraz "Strefę organizacji i instytucji" umożliwa użytkownikom zwinną nawigację na stronie.',
+    imageAdress: require('@/assets/images/volontulo.png'),
+    websiteLink: 'http://volontuloapp.org/o',
+    githubLink: 'https://github.com/CodeForPoznan/volontulo',
+    licenseName: 'MIT',
+    licensePage: '',
+    partner: [],
+    stack: [
+      {
+        type: 'Frontend',
+        name: 'Angular',
+        version: '2.0',
+        documentation: 'https://angular.io/'
+      },
+      {
+        type: 'Backend',
+        name: 'Django',
+        version: '2.2',
+        documentation: 'https://docs.djangoproject.com/pl/2.2/'
+      }
+    ]
+  },
+  //StreetMix
+  {
+    name: 'StreetMix',
     description:
       'Oryginalny Streetmix jest dziełem Code for America, które w 2013 roku podczas hacknightu postanowiło stworzyć narzędzie, które pomoże miejskim planistom w przedstawianiu koncepcji ich planu na rewitalizacje miejskiej przestrzeni. Najczęstszym rozwiązaniem po jakie sięgają planiści jest wykonanie makiet z papieru, które zwizualizują krajobraz. Tworząc internetową wersję tego działania, planiści mogą dotrzeć do szerszego grona odbiorców niż podczas samych spotkań, a także pozwolić członkom społeczności na dzielenie się i remiksowanie swoich dzieł. Jest to jeden z pierwszych naszych projektów, które mieliśmy przyjemność przetłumaczyć tak, aby można było wykorzystać te rozwiązanie na polskim gruncie.',
-    githubLink: 'https://github.com/CodeForPoznan/streetmix',
     imageAdress: require('@/assets/images/streetmix.png'),
+    websiteLink: 'https://streetmix.net',
+    githubLink: 'https://github.com/CodeForPoznan/streetmix',
     license: 'BSD 3-Clause',
     licensePage:
       'https://github.com/CodeForPoznan/streetmix/blob/master/LICENSE.md',
-    name: 'StreetMix',
-    partner: 'Poszukujemy partnera - napisz do nas',
-    partnerPage: 'https://codeforpoznan.pl/',
+    partner: [],
     stack: [
       {
         type: 'Frontend',
@@ -139,26 +130,20 @@ const projects = [
         version: '16.2',
         documentation: 'https://pl.reactjs.org/docs/getting-started.html'
       }
-    ],
-    websiteLink: 'https://streetmix.net'
+    ]
   },
   //Wysadź ulicę
   {
+    name: 'Wysadź ulicę',
     description:
       'Wysadźulice.pl jest przykładem aplikacji umożliwiającej zaplanowanie czy zaprojektowanie przestrzeni, która nas otacza. Każdy użytkownik apliakcji ma dzięki niej realny wpływ na wygląd i funkcjonalność ulicy, przy której mieszka czy parku do którego chodzi. Wystraczy zrobić zdjęcie lub wgrać obraz z Google Street View, następnie dodać elementy w postaci: kwiatów, krzewów, drzew czy ławki. Tak przygotowana wizualizacja może posłużyć na konsultacjach z władzami miast czy gmin.',
-    githubLink: 'https://github.com/CodeForPoznan/wysadzulice.pl',
     imageAdress: require('@/assets/images/wysadz_ulice.png'),
+    websiteLink: 'http://wysadzulice.pl',
+    githubLink: 'https://github.com/CodeForPoznan/wysadzulice.pl',
     license: 'MIT',
     licensePage: 'https://pl.wikipedia.org/wiki/Licencja_MIT',
-    name: 'Wysadź ulicę',
-    partner: [
-      {
-        name: '',
-        link: ''
-      }
-    ],
-    stack: [],
-    websiteLink: 'http://wysadzulice.pl'
+    partner: [],
+    stack: []
   },
   //CodeForPoznan v3
   {
@@ -170,12 +155,7 @@ const projects = [
     licensePage:
       'https://github.com/CodeForPoznan/codeforpoznan.pl_v3/blob/master/LICENSE',
     name: 'Strona społeczności',
-    partner: [
-      {
-        name: '',
-        link: ''
-      }
-    ],
+    partner: [],
     stack: [
       {
         type: 'Frontend',
