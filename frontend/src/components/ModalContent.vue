@@ -1,6 +1,6 @@
 <template>
   <v-card class="card-container">
-    <v-card-title class="header-container unified-padding">
+    <v-card-title class="title-container unified-padding">
       <h1>{{ selectedProject.name }}</h1>
       <v-spacer></v-spacer>
       <div>
@@ -9,7 +9,7 @@
         </v-btn>
       </div>
     </v-card-title>
-    <v-card-actions class="icon-list unified-padding">
+    <v-card-actions class="buttons-list unified-padding">
       <div v-show="selectedProject.licensePage !== ''">
         <v-btn text rounded :href="selectedProject.licensePage" target="_blank">
           <v-icon>far fa-copyright</v-icon>
@@ -41,7 +41,7 @@
         </h2>
         <h2 v-else>Partnerzy projektu</h2>
       </v-card-title>
-      <v-card-actions class="icon-list unified-padding">
+      <v-card-actions class="buttons-list unified-padding">
         <v-btn
           class="ma-0 buttons-text"
           v-for="(item, index) in selectedProject.partner"
@@ -60,12 +60,12 @@
       <v-card-title class="unified-padding">
         <h2>Wykorzystane technologie</h2>
       </v-card-title>
-      <v-card-actions class="icon-list unified-padding">
+      <v-card-actions class="buttons-list unified-padding">
         <v-btn
           v-for="(item, index) in selectedProject.stack"
           :key="index"
           :href="item.documentation"
-          class="stack-list"
+          class="buttons-stack"
           target="_blank"
           text
           rounded
@@ -79,7 +79,7 @@
       bottom
       right
       rounded
-      class="close-button hidden-sm-and-up"
+      class="buttons-close hidden-sm-and-up"
       fab
       @click="onClick()"
     >
@@ -120,15 +120,6 @@ a {
   text-transform: none;
 }
 
-.unified-padding {
-  padding: 0.5rem 1.5rem !important;
-}
-
-.header-container {
-  background: $blue;
-  min-height: 5rem;
-}
-
 h1 {
   font-family: $font-header;
   font-size: 2.5rem;
@@ -146,22 +137,31 @@ h2 {
   font-weight: bold;
 }
 
-.buttons-text {
-  margin: 0.4rem;
+.buttons-close {
+  background-color: $blue !important;
 }
 
-.icon-list {
+.buttons-list {
   display: flex;
   flex-wrap: wrap;
 }
 
-.close-button {
-  background-color: $blue !important;
-}
-
-.stack-list {
+.buttons-stack {
   background-color: $blue;
   color: $white;
-  margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+  margin: 0.5rem;
+}
+
+.buttons-text {
+  margin: 0.4rem;
+}
+
+.title-container {
+  background: $blue;
+  min-height: 5rem;
+}
+
+.unified-padding {
+  padding: 0.5rem 1.5rem !important;
 }
 </style>
