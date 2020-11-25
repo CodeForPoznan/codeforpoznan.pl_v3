@@ -1,8 +1,8 @@
 <template>
-  <v-card class="card-container">
-    <v-card-title class="title-container unified-padding">
+  <v-card>
+    <v-card-title class="container-title unified-padding">
       <h1>{{ selectedProject.name }}</h1>
-      <v-spacer></v-spacer>
+      <!--      <v-spacer></v-spacer>-->
       <div>
         <v-btn class="hidden-xs-only" rounded icon large @click="onClick()">
           <v-icon size="3.5rem" color="white">close</v-icon>
@@ -32,32 +32,35 @@
       </div>
     </v-card-actions>
     <v-card-text class="unified-padding">
-      <p>{{ selectedProject.description }}</p>
+      <p class="text-center">{{ selectedProject.description }}</p>
     </v-card-text>
     <div v-show="countPartners >> 0">
-      <v-card-title class="unified-padding">
+      <v-card-title class="container-subtitle unified-padding">
         <h2 v-if="countPartners === 1">
           Partner projektu
         </h2>
         <h2 v-else>Partnerzy projektu</h2>
       </v-card-title>
       <v-card-actions class="buttons-list unified-padding">
-        <v-btn
-          class="ma-0 buttons-text"
-          v-for="(item, index) in selectedProject.partner"
-          :key="index"
-          :href="item.link"
-          target="_blank"
-          text
-          rounded
+        <v-row
+          class="partner-list"
+          v-for="partners in selectedProject.partner"
+          :key="partners.name"
         >
-          <v-icon>fas fa-hands-helping</v-icon>
-          <span class="buttons-text">{{ item.name }}</span>
-        </v-btn>
+          <v-col class="partner-item" cols="12" sm="4">
+            {{ partners.name }}
+          </v-col>
+          <v-col class="partner-item" cols="12" sm="3">
+            <v-btn class="buttons-chips" text :href="partners.link" rounded>
+              <span class="buttons-text">Poznaj</span>
+              <v-icon>fas fa-hands-helping</v-icon>
+            </v-btn>
+          </v-col>
+        </v-row>
       </v-card-actions>
     </div>
     <div v-show="countTech >> 0">
-      <v-card-title class="unified-padding">
+      <v-card-title class="container-subtitle unified-padding">
         <h2>Wykorzystane technologie</h2>
       </v-card-title>
       <v-card-actions class="buttons-list unified-padding">
@@ -65,7 +68,7 @@
           v-for="(item, index) in selectedProject.stack"
           :key="index"
           :href="item.documentation"
-          class="buttons-stack"
+          class="buttons-chips"
           target="_blank"
           text
           rounded
@@ -125,8 +128,11 @@ h1 {
   font-size: 2.5rem;
   color: $white;
   word-break: break-word;
+  margin-right: auto;
   @media only screen and (max-width: $phone) {
     font-size: 2rem;
+    text-align: center;
+    margin-right: 0;
   }
 }
 
@@ -135,6 +141,10 @@ h2 {
   font-size: 1.5rem;
   color: black;
   font-weight: bold;
+  word-break: break-word;
+  @media only screen and (max-width: $phone) {
+    text-align: center;
+  }
 }
 
 .buttons-close {
@@ -144,21 +154,49 @@ h2 {
 .buttons-list {
   display: flex;
   flex-wrap: wrap;
+  @media only screen and (max-width: $phone) {
+    justify-content: center;
+  }
 }
 
-.buttons-stack {
+.buttons-chips {
   background-color: $blue;
   color: $white;
-  margin: 0.5rem;
+  margin: 0.2rem;
 }
 
 .buttons-text {
-  margin: 0.4rem;
+  margin: 0.5rem;
 }
 
-.title-container {
+.container-title {
   background: $blue;
   min-height: 5rem;
+  @media only screen and (max-width: $phone) {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.container-subtitle {
+  @media only screen and (max-width: $phone) {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.partner-list {
+  display: flex;
+  align-items: center;
+}
+
+.partner-item {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  @media only screen and (max-width: $phone) {
+    padding: 2% 20%;
+  }
 }
 
 .unified-padding {
