@@ -2,7 +2,6 @@
   <v-card>
     <v-card-title class="container-title unified-padding">
       <h1>{{ selectedProject.name }}</h1>
-      <!--      <v-spacer></v-spacer>-->
       <div>
         <v-btn class="hidden-xs-only" rounded icon large @click="onClick()">
           <v-icon size="3.5rem" color="white">close</v-icon>
