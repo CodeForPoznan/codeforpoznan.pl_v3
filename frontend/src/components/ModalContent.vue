@@ -194,7 +194,7 @@ h2 {
   justify-content: center;
   text-align: center;
   @media only screen and (max-width: $phone) {
-    padding: 2% 20%;
+    padding: 2% 10%;
   }
 }
 
