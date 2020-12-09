@@ -46,11 +46,17 @@
           v-for="partners in selectedProject.partner"
           :key="partners.name"
         >
-          <v-col class="modal__partner" cols="12" sm="4">
+          <v-col class="modal__partner" cols="12" sm="5">
             {{ partners.name }}
           </v-col>
-          <v-col class="modal__partner" cols="12" sm="3">
-            <v-btn class="modal__button" text :href="partners.link" rounded>
+          <v-col class="modal__partner" cols="12" sm="4">
+            <v-btn
+              class="modal__button"
+              :href="partners.link"
+              target="_blank"
+              rounded
+              text
+            >
               <span class="modal__button-text">Poznaj</span>
               <v-icon>fas fa-hands-helping</v-icon>
             </v-btn>
@@ -124,26 +130,20 @@ a {
 
 h1,
 h2 {
+  font-size: 1.5rem;
+  color: black;
   font-family: $font-header;
   word-break: break-word;
+  @media only screen and (max-width: $phone) {
+    text-align: center;
+  }
 }
 
 h1 {
   font-size: 2.5rem;
   color: $white;
-  margin-right: auto;
   @media only screen and (max-width: $phone) {
     font-size: 2rem;
-    text-align: center;
-    margin-right: 0;
-  }
-}
-
-h2 {
-  font-size: 1.5rem;
-  color: black;
-  @media only screen and (max-width: $phone) {
-    text-align: center;
   }
 }
 
@@ -185,11 +185,9 @@ h2 {
 }
 
 .modal__partner {
-  display: flex;
-  justify-content: center;
-  text-align: center;
   @media only screen and (max-width: $phone) {
     padding: 2% 10%;
+    text-align: center;
   }
 }
 
