@@ -134,17 +134,12 @@ h2 {
   color: black;
   font-family: $font-header;
   word-break: break-word;
-  @media only screen and (max-width: $phone) {
-    text-align: center;
-  }
 }
 
 h1 {
   font-size: 2.5rem;
   color: $white;
-  @media only screen and (max-width: $phone) {
-    font-size: 2rem;
-  }
+  margin-right: auto;
 }
 
 .modal__buttons,
@@ -160,9 +155,6 @@ h1 {
 .modal__buttons {
   display: flex;
   flex-wrap: wrap;
-  @media only screen and (max-width: $phone) {
-    justify-content: center;
-  }
 }
 
 .modal__button {
@@ -184,15 +176,23 @@ h1 {
   align-items: center;
 }
 
-.modal__partner {
-  @media only screen and (max-width: $phone) {
+@media only screen and (max-width: $phone) {
+  h1,
+  h2 {
+    text-align: center;
+  }
+  h1 {
+    font-size: 2rem;
+    margin: 0;
+  }
+  .modal__buttons {
+    justify-content: center;
+  }
+  .modal__partner {
     padding: 2% 10%;
     text-align: center;
   }
-}
-
-.modal__title {
-  @media only screen and (max-width: $phone) {
+  .modal__title {
     display: flex;
     justify-content: center;
   }
