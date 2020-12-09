@@ -1,6 +1,6 @@
 <template>
-  <v-card>
-    <v-card-title class="container-title unified-padding">
+  <v-card class="modal">
+    <v-card-title class="modal__title">
       <h1>{{ selectedProject.name }}</h1>
       <div>
         <v-btn class="hidden-xs-only" rounded icon large @click="onClick()">
@@ -8,11 +8,11 @@
         </v-btn>
       </div>
     </v-card-title>
-    <v-card-actions class="buttons-list unified-padding">
+    <v-card-actions class="modal__buttons">
       <div v-show="selectedProject.licensePage !== ''">
         <v-btn text rounded :href="selectedProject.licensePage" target="_blank">
           <v-icon>far fa-copyright</v-icon>
-          <span class="buttons-text"
+          <span class="modal__button-text"
             >Licencja {{ selectedProject.licenseName }}</span
           >
         </v-btn>
@@ -20,38 +20,38 @@
       <div v-show="selectedProject.githubLink !== ''">
         <v-btn text rounded :href="selectedProject.githubLink" target="_blank">
           <v-icon>fab fa-github</v-icon>
-          <span class="buttons-text">Repozytorium</span>
+          <span class="modal__button-text">Repozytorium</span>
         </v-btn>
       </div>
       <div v-show="selectedProject.websiteLink !== ''">
         <v-btn text rounded :href="selectedProject.websiteLink" target="_blank">
           <v-icon>language</v-icon>
-          <span class="buttons-text">Strona projektu</span>
+          <span class="modal__button-text">Strona projektu</span>
         </v-btn>
       </div>
     </v-card-actions>
-    <v-card-text class="unified-padding">
+    <v-card-text class="modal__description">
       <p class="text-center">{{ selectedProject.description }}</p>
     </v-card-text>
     <div v-show="countPartners >> 0">
-      <v-card-title class="container-subtitle unified-padding">
+      <v-card-title class="modal__title">
         <h2 v-if="countPartners === 1">
           Partner projektu
         </h2>
         <h2 v-else>Partnerzy projektu</h2>
       </v-card-title>
-      <v-card-actions class="buttons-list unified-padding">
+      <v-card-actions class="modal__buttons">
         <v-row
-          class="partner-list"
+          class="modal__partners"
           v-for="partners in selectedProject.partner"
           :key="partners.name"
         >
-          <v-col class="partner-item" cols="12" sm="4">
+          <v-col class="modal__partner" cols="12" sm="4">
             {{ partners.name }}
           </v-col>
-          <v-col class="partner-item" cols="12" sm="3">
-            <v-btn class="buttons-chips" text :href="partners.link" rounded>
-              <span class="buttons-text">Poznaj</span>
+          <v-col class="modal__partner" cols="12" sm="3">
+            <v-btn class="modal__button" text :href="partners.link" rounded>
+              <span class="modal__button-text">Poznaj</span>
               <v-icon>fas fa-hands-helping</v-icon>
             </v-btn>
           </v-col>
@@ -59,15 +59,15 @@
       </v-card-actions>
     </div>
     <div v-show="countTech >> 0">
-      <v-card-title class="container-subtitle unified-padding">
+      <v-card-title class="modal__title">
         <h2>Wykorzystane technologie</h2>
       </v-card-title>
-      <v-card-actions class="buttons-list unified-padding">
+      <v-card-actions class="modal__buttons">
         <v-btn
           v-for="(item, index) in selectedProject.stack"
           :key="index"
           :href="item.documentation"
-          class="buttons-chips"
+          class="modal__button"
           target="_blank"
           text
           rounded
@@ -81,7 +81,7 @@
       bottom
       right
       rounded
-      class="buttons-close hidden-sm-and-up"
+      class="modal__button-close hidden-sm-and-up"
       fab
       @click="onClick()"
     >
@@ -122,11 +122,15 @@ a {
   text-transform: none;
 }
 
-h1 {
+h1,
+h2 {
   font-family: $font-header;
+  word-break: break-word;
+}
+
+h1 {
   font-size: 2.5rem;
   color: $white;
-  word-break: break-word;
   margin-right: auto;
   @media only screen and (max-width: $phone) {
     font-size: 2rem;
@@ -136,21 +140,24 @@ h1 {
 }
 
 h2 {
-  font-family: $font-content;
   font-size: 1.5rem;
   color: black;
-  font-weight: bold;
-  word-break: break-word;
   @media only screen and (max-width: $phone) {
     text-align: center;
   }
 }
 
-.buttons-close {
-  background-color: $blue !important;
+.modal__buttons,
+.modal__description,
+.modal__title {
+  padding: 0.5rem 1.5rem;
 }
 
-.buttons-list {
+.modal > .modal__title {
+  background: $blue;
+}
+
+.modal__buttons {
   display: flex;
   flex-wrap: wrap;
   @media only screen and (max-width: $phone) {
@@ -158,38 +165,26 @@ h2 {
   }
 }
 
-.buttons-chips {
+.modal__button {
   background-color: $blue;
   color: $white;
   margin: 0.2rem;
 }
 
-.buttons-text {
+.modal__button-close {
+  background-color: $blue !important;
+}
+
+.modal__button-text {
   margin: 0.5rem;
 }
 
-.container-title {
-  background: $blue;
-  min-height: 5rem;
-  @media only screen and (max-width: $phone) {
-    display: flex;
-    justify-content: center;
-  }
-}
-
-.container-subtitle {
-  @media only screen and (max-width: $phone) {
-    display: flex;
-    justify-content: center;
-  }
-}
-
-.partner-list {
+.modal__partners {
   display: flex;
   align-items: center;
 }
 
-.partner-item {
+.modal__partner {
   display: flex;
   justify-content: center;
   text-align: center;
@@ -198,7 +193,10 @@ h2 {
   }
 }
 
-.unified-padding {
-  padding: 0.5rem 1.5rem !important;
+.modal__title {
+  @media only screen and (max-width: $phone) {
+    display: flex;
+    justify-content: center;
+  }
 }
 </style>
