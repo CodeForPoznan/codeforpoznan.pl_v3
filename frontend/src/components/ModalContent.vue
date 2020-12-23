@@ -3,6 +3,7 @@
     <v-card-title class="modal__title">
       <h1>{{ selectedProject.name }}</h1>
       <div>
+        <button></button>
         <v-btn class="hidden-xs-only" rounded icon large @click="onClick()">
           <v-icon size="3.5rem" color="white">close</v-icon>
         </v-btn>
@@ -33,7 +34,7 @@
     <v-card-text class="modal__description">
       <p class="text-center">{{ selectedProject.description }}</p>
     </v-card-text>
-    <div v-show="countPartners >> 0">
+    <div v-show="countPartners > 0">
       <v-card-title class="modal__title">
         <h2 v-if="countPartners === 1">
           Partner projektu
@@ -64,7 +65,7 @@
         </v-row>
       </v-card-actions>
     </div>
-    <div v-show="countTech >> 0">
+    <div v-show="countTech > 0">
       <v-card-title class="modal__title">
         <h2>Wykorzystane technologie</h2>
       </v-card-title>
