@@ -5,18 +5,22 @@
       <div>
         <button></button>
         <v-btn class="hidden-xs-only" rounded icon large @click="onClick()">
-          <v-icon size="3.5rem" color="white">close</v-icon>
+          <v-icon size="3.5rem" color="white">$vuetify.icons.close</v-icon>
         </v-btn>
       </div>
     </v-card-title>
     <v-card-actions class="modal__buttons">
       <div v-show="selectedProject.licensePage !== ''">
-        <v-btn text rounded :href="selectedProject.licensePage" target="_blank">
-          <v-icon>far fa-copyright</v-icon>
+        <button class="btn-transparent">
+          <i class="far fa-copyright btn-icon"></i>
+          <span>Licencja</span>
+        </button>
+        <!-- <v-btn text rounded :href="selectedProject.licensePage" target="_blank">
+          <v-icon>$vuetify.icons.license</v-icon>
           <span class="modal__button-text"
             >Licencja {{ selectedProject.licenseName }}</span
           >
-        </v-btn>
+        </v-btn> -->
       </div>
       <div v-show="selectedProject.githubLink !== ''">
         <v-btn text rounded :href="selectedProject.githubLink" target="_blank">
@@ -51,16 +55,12 @@
             {{ partners.name }}
           </v-col>
           <v-col class="modal__partner" cols="12" sm="4">
-            <v-btn
-              class="modal__button"
-              :href="partners.link"
-              target="_blank"
-              rounded
-              text
-            >
-              <span class="modal__button-text">Poznaj</span>
-              <v-icon>fas fa-hands-helping</v-icon>
-            </v-btn>
+            <a class="btn-primary" :href="partners.link" target="_blank"
+              >Poznaj
+              <v-icon class="btn-icon">$vuetify.icons.partner</v-icon>
+              <!-- <i class="fas fa-hands-helping"></i> -->
+              <!-- <i class="$vuetify.icons.partner"></i> -->
+            </a>
           </v-col>
         </v-row>
       </v-card-actions>
@@ -69,19 +69,17 @@
       <v-card-title class="modal__title">
         <h2>Wykorzystane technologie</h2>
       </v-card-title>
-      <v-card-actions class="modal__buttons">
-        <v-btn
+      <div class="modal__buttons">
+        <a
+          class="btn-primary"
           v-for="(item, index) in selectedProject.stack"
           :key="index"
           :href="item.documentation"
-          class="modal__button"
           target="_blank"
-          text
-          rounded
         >
-          {{ item.type }}: {{ item.name }} {{ item.version }}
-        </v-btn>
-      </v-card-actions>
+          {{ item.name }}
+        </a>
+      </div>
     </div>
     <v-btn
       fixed
@@ -98,6 +96,9 @@
 </template>
 
 <script>
+import icons from '../assets/icons.js';
+import projects from '../assets/projects.js';
+
 export default {
   data() {
     return {
@@ -125,9 +126,11 @@ export default {
 <style lang="scss" scoped>
 @import './../main.scss';
 
-a {
-  text-transform: none;
-}
+// i {
+//   display: flex;
+//   justify-content: center;
+//   vertical-align: middle;
+// }
 
 h1,
 h2 {
