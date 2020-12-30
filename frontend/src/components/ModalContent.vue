@@ -96,9 +96,6 @@
 </template>
 
 <script>
-import icons from '../assets/icons.js';
-import projects from '../assets/projects.js';
-
 export default {
   data() {
     return {
