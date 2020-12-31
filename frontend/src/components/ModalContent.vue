@@ -147,13 +147,13 @@ h2 {
 
 .modal__list {
   flex-wrap: wrap;
-  width: 70%;
+  width: 35rem;
   margin: auto;
 }
 
 .modal__list-name {
   text-align: center;
-  width: 45%;
+  width: 15rem;
 }
 
 .modal__list-anchor {
@@ -182,8 +182,8 @@ h2 {
     background-color: $blue;
     border: $blue solid 3px;
   }
-  .modal__list-name {
-    width: 70%;
+  .modal__list {
+    width: 15rem;
   }
   .modal__title {
     display: flex;
