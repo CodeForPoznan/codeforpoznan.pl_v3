@@ -103,14 +103,14 @@ h3 {
 
 .btn-primary {
     background: $blue;
-    color: white;
-    border: white solid 1px;
+    color: $white;
+    border: $white solid 1px;
     @include btn;
 }
 
 .btn-primary:hover,
 .btn-primary:active{
-    background: white;
+    background: $white;
     color: $blue;
     border: $blue solid 1px;
 
