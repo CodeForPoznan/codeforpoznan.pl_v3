@@ -2,7 +2,7 @@ import factory
 from sqlalchemy import or_
 
 from backend.extensions import db
-from backend.models import Hacknight, Participant, User
+from backend.models import Hacknight, Participant, Team, User
 
 
 class BaseFactory(factory.alchemy.SQLAlchemyModelFactory):
@@ -98,3 +98,41 @@ class HacknightFactory(BaseFactory):
         if extracted:
             for participant in extracted:
                 self.participants.append(participant)
+
+
+class TeamFactory(BaseFactory):
+    class Meta:
+        model = Team
+
+    project_name = factory.Faker("word", locale="pl_PL")
+    description = factory.Faker("paragraph", locale="pl_PL")
+    project_url = factory.LazyAttribute(
+        lambda obj: f"https://{obj.project_name}.codeforpoznan.test"
+    )
+
+    @classmethod
+    def _create(cls, model_class, *args, **kwargs):
+        session = cls._meta.sqlalchemy_session
+        with session.no_autoflush:
+            existing = (
+                session.query(model_class)
+                .filter_by(project_name=kwargs["project_name"])
+                .first()
+            )
+
+        if existing:
+            project_name = cls.project_name.generate({})
+            kwargs["project_name"] = project_name
+            kwargs["project_url"] = f"https://{project_name}.codeforpoznan.test"
+
+        obj = super(TeamFactory, cls)._create(model_class, *args, **kwargs)
+
+        return obj
+
+    @factory.post_generation
+    def members(self, create, extracted, **kwargs):
+        if not create:
+            return
+        if extracted:
+            for member in extracted:
+                self.members.append(member)

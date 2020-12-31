@@ -7,7 +7,7 @@ from flask_jwt_extended import create_access_token
 
 from backend.commands.remove_expired_tokens import remove_expired_tokens
 from backend.commands.populate_database import populate_database
-from backend.models import Hacknight, JWTToken, Participant, User
+from backend.models import Hacknight, JWTToken, Participant, Team, User
 from backend.resources.auth import add_token_to_database
 
 
@@ -25,10 +25,12 @@ def test_populate_database(script):
     assert "Creating 30 hacknights" in result.output
     assert "Creating 50 participants" in result.output
     assert "Creating 5 users" in result.output
+    assert "Creating 5 teams" in result.output
     assert "Created users:" in result.output
     with app.app_context():
         assert len(Hacknight.query.all()) == 30
         assert len(Participant.query.all()) == 50
+        assert len(Team.query.all()) == 5
         assert len(User.query.all()) == 5
 
 
