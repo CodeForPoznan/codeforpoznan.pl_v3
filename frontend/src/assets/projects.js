@@ -7,8 +7,7 @@ const projects = [
     licenseName: 'MIT',
     licensePage: 'https://pl.wikipedia.org/wiki/Licencja_MIT',
     name: 'Volontulo',
-    partner: 'Poszukujemy partnera - napisz do nas',
-    partnerPage: 'https://codeforpoznan.pl/',
+    partner: [],
     stack: [
       {
         type: 'Frontend',
@@ -33,8 +32,12 @@ const projects = [
     license: 'MIT',
     licensePage: 'https://github.com/CodeForPoznan/pah-fm/pull/401/files',
     name: 'Fleet Manager',
-    partner: 'PAH - Polska Akcja Humanitarna',
-    partnerPage: 'https://www.pah.org.pl/',
+    partner: [
+      {
+        name: 'Polska Akcja Humanitarna',
+        link: 'https://www.pah.org.pl/'
+      }
+    ],
     stack: [
       {
         type: 'Frontend',
@@ -60,10 +63,16 @@ const projects = [
     licensePage:
       'https://github.com/CodeForPoznan/alinka-electron/blob/master/LICENSE',
     name: 'Alinka',
-    partner:
-      'Poradnia Psychologiczno-Pedagogiczna w Grodzisku Wielkopolskim oraz Poradnia Pscyhologiczno-Pedagogiczna we Wrześni ',
-    partnerPage:
-      'http://www.grodziskwlkp.naszaporadnia.com/aktualnosci, https://ppp-wrzesnia.pl/',
+    partner: [
+      {
+        name: 'Poradnia Psychologiczno-Pedagogiczna w Grodzisku Wielkopolskim',
+        link: 'http://www.grodziskwlkp.naszaporadnia.com/aktualnosci'
+      },
+      {
+        name: 'Poradnia Pscyhologiczno-Pedagogiczna we Wrześni',
+        link: 'https://ppp-wrzesnia.pl/'
+      }
+    ],
     stack: [
       {
         type: 'Frontend',
@@ -94,8 +103,7 @@ const projects = [
     license: 'MIT',
     licensePage: 'https://github.com/CodeForPoznan/empatia/blob/master/LICENSE',
     name: 'Bank Empatii',
-    partner: 'Poszukujemy partnera - napisz do nas',
-    partnerPage: 'https://codeforpoznan.pl/',
+    partner: [],
     stack: [],
     website: 'http://bankempatii.pl/'
   },
@@ -108,8 +116,7 @@ const projects = [
     licensePage:
       'https://github.com/CodeForPoznan/streetmix/blob/master/LICENSE.md',
     name: 'StreetMix',
-    partner: 'Poszukujemy partnera - napisz do nas',
-    partnerPage: 'https://codeforpoznan.pl/',
+    partner: [],
     stack: [
       {
         type: 'Frontend',
@@ -128,8 +135,7 @@ const projects = [
     license: 'MIT',
     licensePage: 'https://pl.wikipedia.org/wiki/Licencja_MIT',
     name: 'Wysadź ulicę',
-    partner: 'Poszukujemy partnera - napisz do nas',
-    partnerPage: 'https://codeforpoznan.pl/',
+    partner: [],
     stack: [],
     website: 'http://wysadzulice.pl'
   },
@@ -142,8 +148,7 @@ const projects = [
     licensePage:
       'https://github.com/CodeForPoznan/codeforpoznan.pl_v3/blob/master/LICENSE',
     name: 'Strona społeczności',
-    partner: 'Społeczność Code for Poznań',
-    partnerPage: 'https://codeforpoznan.pl/',
+    partner: [],
     stack: [
       {
         type: 'Frontend',
