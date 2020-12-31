@@ -50,6 +50,14 @@ a {
     }
 }
 
+h2,
+h3 {
+  font-size: 1.5rem;
+  color: black;
+  font-family: $font-header;
+  word-break: break-word;
+}
+
 // General content classes
 
 .sub-title {

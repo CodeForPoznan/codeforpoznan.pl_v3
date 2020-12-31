@@ -102,23 +102,15 @@ export default {
 <style lang="scss" scoped>
 @import './../main.scss';
 
-h2,
-h3 {
-  font-size: 1.5rem;
-  color: black;
-  font-family: $font-header;
-  word-break: break-word;
-}
-
 h2 {
   font-size: 2.5rem;
   color: $white;
-  text-align: center !important;
+  text-align: center;
   max-width: 75%;
 }
 
 .modal {
-  background: white;
+  background: $white;
 }
 
 .modal__button-close {
@@ -139,7 +131,7 @@ h2 {
 .modal__button-close:active,
 .modal__button-close:hover {
   color: $blue;
-  background-color: white;
+  background-color: $white;
   cursor: pointer;
 }
 
