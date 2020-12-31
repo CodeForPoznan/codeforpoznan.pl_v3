@@ -74,20 +74,22 @@ a {
 // buttons
 
 @mixin btn {
-    padding: 0.5rem 0.8rem;
+    padding: 0.5rem 0.7rem;
     margin: 0.2rem;
     border-radius: 45px;
     font-weight: bold;
-    font-size: 1.2rem;
     display: inline-flex;
 }
 
 .btn-transparent {
     @include btn;
+    font-size: 1rem;
+    color: black;
     align-items: center;
 }
 
-.btn-transparent:hover {
+.btn-transparent:hover,
+.btn-transparent:active {
     background-color: rgba(0,0,0, 0.1);
 }
 
@@ -106,8 +108,12 @@ a {
 
 }
 
-.btn-icon {
+.btn-icon,
+.btn-icon:hover,
+.btn-icon:active {
+    display: flex;
+    align-items: center;
     color: inherit;
-    margin: 0rem 0.3rem;
-    font-size: 1.5rem;
+    margin: 0rem 0.2rem;
+    font-size: 1.3rem;
 }
