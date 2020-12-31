@@ -22,7 +22,7 @@ const projects = [
         documentation: 'https://docs.djangoproject.com/pl/2.2/'
       }
     ],
-    websiteLink: 'http://volontuloapp.org/o'
+    website: 'http://volontuloapp.org/o'
   },
   {
     description:

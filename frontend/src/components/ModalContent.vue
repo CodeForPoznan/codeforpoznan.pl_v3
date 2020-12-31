@@ -26,9 +26,9 @@
         <span>Repozytorium</span>
       </a>
       <a
-        v-show="selectedProject.websiteLink !== ''"
+        v-show="selectedProject.website !== ''"
         class="btn-transparent"
-        :href="selectedProject.websiteLink"
+        :href="selectedProject.website"
         target="blank"
       >
         <i class="fas fa-globe btn-icon"></i>
