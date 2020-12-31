@@ -1,5 +1,5 @@
 <template>
-  <div class="modal">
+  <section class="modal">
     <div class="modal__title">
       <h2>{{ selectedProject.name }}</h2>
       <div class="modal__button-close" @click="onClick">
@@ -77,7 +77,7 @@
         </a>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
