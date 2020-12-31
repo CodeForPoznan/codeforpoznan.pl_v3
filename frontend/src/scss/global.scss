@@ -53,7 +53,7 @@ a {
 h2,
 h3 {
   font-size: 1.5rem;
-  color: black;
+  color: $black;
   font-family: $font-header;
   word-break: break-word;
 }
@@ -122,6 +122,11 @@ h3 {
     display: flex;
     align-items: center;
     color: inherit;
-    margin: 0rem 0.2rem;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
+}
+
+.btn-text,
+.btn-text:hover,
+.btn-text:active {
+    padding: 0rem 0.2rem;
 }

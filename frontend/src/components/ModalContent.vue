@@ -13,8 +13,8 @@
         :href="selectedProject.licensePage"
         target="blank"
       >
-        <i class="far fa-copyright btn-icon"></i>
-        <span>Licencja</span>
+        <i class="btn-icon far fa-copyright"></i>
+        <span class="btn-text">Licencja</span>
       </a>
       <a
         v-show="selectedProject.githubLink !== ''"
@@ -22,8 +22,8 @@
         :href="selectedProject.githubLink"
         target="blank"
       >
-        <i class="fab fa-github btn-icon"></i>
-        <span>Repozytorium</span>
+        <i class="btn-icon fab fa-github"></i>
+        <span class="btn-text">Repozytorium</span>
       </a>
       <a
         v-show="selectedProject.website !== ''"
@@ -31,12 +31,12 @@
         :href="selectedProject.website"
         target="blank"
       >
-        <i class="fas fa-globe btn-icon"></i>
-        <span>Strona projektu</span>
+        <i class="btn-icon fas fa-globe"></i>
+        <span class="btn-text">Strona projektu</span>
       </a>
     </div>
     <div class="modal__description">
-      <p class="text-center">{{ selectedProject.description }}</p>
+      <p>{{ selectedProject.description }}</p>
     </div>
     <div v-show="countPartners > 0">
       <div class="modal__title">
@@ -52,11 +52,11 @@
       >
         <span class="modal__list-name">{{ partner.name }}</span>
         <a
-          class="modal__list-anchor btn-primary"
+          class="btn-primary modal__list-anchor"
           :href="partner.link"
           target="blank"
         >
-          <span>Poznaj</span>
+          <span class="btn-text">Poznaj</span>
           <i class="btn-icon fas fa-hands-helping"></i>
         </a>
       </div>
@@ -73,7 +73,8 @@
           :href="item.documentation"
           target="_blank"
         >
-          {{ item.name }}
+          <i class="btn-icon" :class="item.icon"></i>
+          <span class="btn-text">{{ item.name }}</span>
         </a>
       </div>
     </div>
@@ -143,17 +144,18 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
 }
 
 .modal__list {
   flex-wrap: wrap;
-  width: 35rem;
+  width: 70%;
   margin: auto;
 }
 
 .modal__list-name {
   text-align: center;
-  width: 15rem;
+  width: 45%;
 }
 
 .modal__list-anchor {
@@ -183,7 +185,10 @@ h2 {
     border: $blue solid 3px;
   }
   .modal__list {
-    width: 15rem;
+    width: 90%;
+  }
+  .modal__list-name {
+    width: 70%;
   }
   .modal__title {
     display: flex;
