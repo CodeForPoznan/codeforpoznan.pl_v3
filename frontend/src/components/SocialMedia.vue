@@ -49,6 +49,7 @@ export default {
 h2 {
   font-size: 24px;
   padding: 60px 0 20px 0;
+  color: $white;
 }
 .circle {
   border: 2px solid $white;
