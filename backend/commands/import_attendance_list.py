@@ -15,8 +15,8 @@ def import_attendance_list():
     users_dict = {}
 
     # open file from exported csv
-    with open('./temp/list.csv') as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=',')
+    with open("./temp/list.csv") as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=",")
         for row in csv_reader:
             rows.append(row)
 
@@ -50,7 +50,7 @@ def import_attendance_list():
 
     # create hacknights
     for date in dates:
-        splitted_date = date.split('.')
+        splitted_date = date.split(".")
         formatted_date = f"{splitted_date[2]}-{splitted_date[1]}-{splitted_date[0]}"
         hacknight = Hacknight(date=formatted_date)
         db.session.add(hacknight)
