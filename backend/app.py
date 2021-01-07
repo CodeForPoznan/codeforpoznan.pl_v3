@@ -2,6 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 
 from backend.commands.populate_database import populate_database
+from backend.commands.import_attendance_list import import_attendance_list
 from backend.commands.remove_expired_tokens import remove_expired_tokens
 from backend.extensions import api, db, mail, migrate, jwt
 from backend.models import JWTToken
@@ -27,6 +28,7 @@ def create_app():
     app.config.from_object("backend.config.DevelopmentConfig")
     app.cli.add_command(populate_database)
     app.cli.add_command(remove_expired_tokens)
+    app.cli.add_command(import_attendance_list)
 
     CORS(app)
     initialize_extensions(app)
