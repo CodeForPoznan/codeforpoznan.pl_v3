@@ -38,3 +38,5 @@ services:
       POSTGRES_DB: cfp_v3
       POSTGRES_USER: cfp_v3
       POSTGRES_PASSWORD: cfp_v3
+    ports:
+    - "5432:5432"
