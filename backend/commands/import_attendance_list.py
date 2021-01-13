@@ -2,7 +2,7 @@ import csv
 import click
 
 from flask.cli import with_appcontext
-from backend.models import Hacknight
+from backend.models import Hacknight, Participant
 from backend.extensions import db
 
 
@@ -11,7 +11,7 @@ from backend.extensions import db
 def import_attendance_list():
     """Import attendance list."""
     rows = []
-    list_of_users = []
+    list_of_participants = []
     users_dict = {}
 
     # open file from exported csv
@@ -29,14 +29,8 @@ def import_attendance_list():
     # prepare users' data
     for item in rows:
         _id, github, name, phone, email, *values = item
-        try:
-            first_name = name.split()[0]
-        except:
-            pass
-        try:
-            last_name = name.split()[1]
-        except:
-            pass
+        first_name = name.split()[0]
+        last_name = name.split()[1]
 
         users_dict["id"] = _id
         users_dict["github"] = github
@@ -45,7 +39,7 @@ def import_attendance_list():
         users_dict["email"] = email
         users_dict["phone"] = phone
 
-        list_of_users.append(users_dict)
+        list_of_participants.append(users_dict)
         users_dict = {}
 
     # create hacknights
@@ -56,3 +50,31 @@ def import_attendance_list():
         db.session.add(hacknight)
     db.session.commit()
     click.echo(f"Imported {len(dates)} hacknights")
+
+    # create participants
+    for idx, participant in enumerate(list_of_participants):
+        if participant["email"] == "":
+            participant["email"] = f"unkown_email_{idx}"
+        if participant["github"] == "":
+            participant["github"] = f"unkown_github_{idx}"
+        new_participant = Participant(
+            id=participant["id"],
+            github=participant["github"],
+            first_name=participant["first_name"],
+            last_name=participant["last_name"],
+            email=participant["email"],
+            phone=participant["phone"],
+        )
+        db.session.add(new_participant)
+    db.session.commit()
+    click.echo(f"Imported {len(list_of_participants)} participants")
+
+    # assign attendance list
+    for idx, row in enumerate(rows, 1):
+        for index, element in enumerate(row[5:], 1):
+            participant = Participant.query.get(idx)
+            if element == "1":
+                hacknight = Hacknight.query.get(index)
+                hacknight.participants.append(participant)
+                db.session.commit()
+                click.echo(f"Added {participant.github} to hacknight {hacknight.date}")
