@@ -19,19 +19,46 @@
       >
       <v-alert
         type="success"
-        :value="successAlert"
-        v-model="successAlert"
+        :value="!!successAlert"
         dismissible
-        @click="successAlert = !successAlert"
+        @click="successAlert = ''"
         transition="slide-y-transition"
-        >Participant has been successfully added</v-alert
+        >{{ successAlert }}</v-alert
       >
     </v-flex>
+
     <v-card>
-      <v-toolbar flat>
-        <v-icon class="pa-3">fas fa-user-plus</v-icon>
-        <v-toolbar-title>Create new participant</v-toolbar-title>
-      </v-toolbar>
+      <v-tabs
+        background-color="#0CAEE7"
+        centered
+        grow
+        dark
+        icons-and-text
+        v-model="selectedTab"
+      >
+        <v-tabs-slider></v-tabs-slider>
+
+        <v-tab @click.stop="editParticipant && $v.form.$anyDirty ? (dialog = true) : (editParticipant ? (editParticipant = false) : null)">
+          Create new participant
+          <v-icon>fas fa-user-plus</v-icon>
+        </v-tab>
+
+        <v-tab @click="$v.form.$anyDirty ? (dialog = true) : (editParticipant = true)">
+          Edit existing participant
+          <v-icon>fas fa-user-edit</v-icon>
+        </v-tab>
+      </v-tabs>
+      <v-card-text v-if="editParticipant">
+        <v-select
+          :items="getParticipants"
+          item-text="github"
+          item-value="id"
+          label="Select Participant"
+          v-model="selectedParticipant"
+          @input="onPopulateForm"
+        >
+        </v-select>
+      </v-card-text>
       <v-divider></v-divider>
       <v-form @keyup.enter="onSubmit" class="pa-6" ref="form">
         <v-text-field
@@ -74,6 +101,14 @@
         />
         <v-card-actions class="pt-3 align-center justify-center">
           <v-btn
+            v-if="editParticipant"
+            :disabled="$v.$invalid || !selectedParticipant"
+            @click="onEditParticipant"
+            class="add-participant-btn align-center justify-center"
+            >Edit participant</v-btn
+          >
+          <v-btn
+            v-else
             :disabled="$v.$invalid"
             @click="onSubmit"
             class="add-participant-btn align-center justify-center"
@@ -82,6 +117,44 @@
         </v-card-actions>
       </v-form>
     </v-card>
+    <v-dialog v-model="dialog" max-width="500">
+      <v-card>
+        <v-card-title class="headline">
+          Discard edit changes?
+        </v-card-title>
+
+        <v-card-text>
+          If You click discard all unsaved changes will be lost.
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn
+            color="#607d8b"
+            text
+            @click="
+              resetForm();
+              editParticipant = !editParticipant;
+              dialog = false;
+            "
+          >
+            Discard changes
+          </v-btn>
+
+          <v-btn
+            color="#607d8b"
+            text
+            @click="
+              selectedTab = 1;
+              dialog = false;
+            "
+          >
+            Back to edit
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -109,7 +182,11 @@ export default {
       },
       warningAlert: false,
       warningMessage: '',
-      successAlert: false
+      successAlert: '',
+      selectedParticipant: null,
+      editParticipant: false,
+      dialog: false,
+      selectedTab: 0
     };
   },
   validations: {
@@ -118,18 +195,22 @@ export default {
         required,
         email,
         emailExists(value) {
-          return !Object.values(this.getParticipants).find(
-            user => user.email === value
-          );
+          return this.editParticipant
+            ? true
+            : !Object.values(this.getParticipants).find(
+                user => user.email === value
+              );
         }
       },
       github: {
         required,
         alphaNum,
         githubExists(value) {
-          return !Object.values(this.getParticipants).find(
-            user => user.github === value
-          );
+          return this.editParticipant
+            ? true
+            : !Object.values(this.getParticipants).find(
+                user => user.github === value
+              );
         }
       },
       first_name: {
@@ -157,6 +238,31 @@ export default {
     }
   },
   methods: {
+    onPopulateForm() {
+      if (this.selectedParticipant) {
+        this.editParticipant = true;
+        this.$store
+          .dispatch('participant/getParticipant', this.selectedParticipant)
+          .then(() => {
+            const selectedParticipant = this.getParticipant;
+
+            Object.keys(this.form).map((key, index) => {
+              this.form[key] = selectedParticipant[key];
+            });
+          });
+      }
+    },
+    onEditParticipant() {
+      this.$store
+        .dispatch('participant/editParticipant', { ...this.form })
+        .then(status => {
+          if (status === 200) {
+            this.selectedParticipant = this.getParticipant;
+            this.successAlert = 'Participant has been successfully edited';
+            setTimeout(() => (this.successAlert = ''), 5000);
+          }
+        });
+    },
     onSubmit() {
       if (!this.$v.form.$invalid) {
         if (this.form.phone === '') this.form.phone = null;
@@ -167,13 +273,17 @@ export default {
           .dispatch('participant/createParticipant', newParticipantData)
           .then(status => {
             if (status === 201) {
-              this.successAlert = true;
-              this.$refs.form.reset();
-              this.$v.form.$reset();
-              setTimeout(() => (this.successAlert = false), 5000);
+              this.successAlert = 'Participant has been successfully added';
+              this.resetForm();
+              setTimeout(() => (this.successAlert = ''), 5000);
             }
           });
       }
+    },
+    resetForm() {
+      console.log(this.form)
+      this.$refs.form.reset();
+      this.$v.form.$reset();
     },
     validateGithub(event) {
       this.$v.form.github.$touch();
@@ -222,7 +332,8 @@ export default {
   computed: {
     ...mapGetters('participant', {
       getError: 'getError',
-      getParticipants: 'getParticipants'
+      getParticipants: 'getParticipants',
+      getParticipant: 'getParticipant'
     }),
     emailErrors() {
       const errors = [];

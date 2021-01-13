@@ -13,6 +13,9 @@ export default {
     },
     getError(state) {
       return state.error;
+    },
+    getParticipant(state) {
+      return state.Participant;
     }
   },
   mutations: {
@@ -48,6 +51,30 @@ export default {
         .catch(error => {
           commit('raiseError', error);
         });
+    },
+    async getParticipant({ commit }, participantId) {
+      try {
+        const res = await axios.get(`/api/participants/${participantId}/`);
+
+        commit('setParticipant', res.data);
+      } catch (error) {
+        commit('raiseError', error);
+      }
+    },
+    async editParticipant({ commit, dispatch, getters }, participantNewData) {
+      try {
+        console.warn({ ...participantNewData });
+        const res = await axios.put(
+          `/api/participants/${getters.getParticipant.id}/`,
+          { ...participantNewData }
+        );
+
+        commit('setParticipant', res.data);
+        dispatch('getParticipants');
+        return res.status;
+      } catch (error) {
+        commit('raiseError', error);
+      }
     }
   }
 };

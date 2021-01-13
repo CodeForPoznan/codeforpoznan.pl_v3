@@ -12,7 +12,6 @@ services:
     environment:
       - VUE_APP_AXIOS_BASE_URL=http://0.0.0.0:5000/
 
-
   backend:
     container_name: cfp_v3_backend
     build: backend
