@@ -10,7 +10,11 @@ RUN pip install --upgrade pip
 ADD . /cfp_v3/backend
 WORKDIR /cfp_v3/backend
 
-RUN pip install -r requirements.txt
+COPY Pipfile Pipfile.lock ./
+RUN pip install --upgrade pip && \
+    pip install pipenv && \
+    pipenv install
+
 RUN chmod +x docker-entrypoint.sh
 
 ENTRYPOINT bash docker-entrypoint.sh
