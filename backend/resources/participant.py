@@ -73,6 +73,18 @@ class ParticipantDetails(Resource):
             return err.messages, HTTPStatus.BAD_REQUEST
 
         for key, value in data.items():
+            if key == "email" and participant.email != value:
+                if Participant.query.filter_by(email=value).first():
+                    return (
+                        {"message": "User with this email already exists."},
+                        HTTPStatus.CONFLICT,
+                    )
+            if key == "github" and participant.github != value:
+                if Participant.query.filter_by(github=value).first():
+                    return (
+                        {"message": "User with this Github login already exists."},
+                        HTTPStatus.CONFLICT,
+                    )
             setattr(participant, key, value)
         db.session.add(participant)
         db.session.commit()
