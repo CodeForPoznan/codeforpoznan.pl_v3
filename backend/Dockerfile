@@ -4,7 +4,7 @@ EXPOSE 5000
 
 RUN apt-get update -y && apt-get install -y libpq-dev wait-for-it && apt-get autoremove
 
-# update pip --no-cache-dir
+# update pip
 RUN pip install --upgrade pip
 
 ADD . /cfp_v3/backend
