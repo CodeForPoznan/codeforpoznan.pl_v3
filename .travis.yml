@@ -1,7 +1,6 @@
 language: python
 python: 3.8
 
-
 env:
   global:
     - SECRET_KEY=codeforpoznan
@@ -14,14 +13,12 @@ install:
   - pip install awscli
   - nvm install 10.13.0
   - (cd frontend && yarn install)
-  - (cd backend  && pip install -r requirements.txt)
-
+  - (cd backend  && pip install pipenv && pipenv install --dev)
 
 script:
   - (cd frontend && yarn lint)        # lint frontend
   - (cd backend  && pytest)           # test backend
   - (cd backend  && black --check .)  # lint backend
-
 
 deploy:
   skip_cleanup: true
