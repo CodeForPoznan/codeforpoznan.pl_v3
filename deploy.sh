@@ -6,7 +6,7 @@ aws s3 sync --delete public s3://codeforpoznan-public/dev_codeforpoznan_pl_v3
 aws cloudfront create-invalidation --paths "/*" --distribution-id E6PZCV3N5WWJ8
 
 echo "bundle application"
-pip install -r backend/requirements.txt --target packages
+pipenv run pip install -r <(pipenv lock -r) --target packages
 (cd packages && zip -qgr9 ../lambda.zip .)
 ln -s backend/migrations migrations
 zip --symlinks -qgr9 lambda.zip backend/ migrations/
