@@ -60,3 +60,23 @@ def test_get_delete_put_participant_unauthorized(client, add_participants, metho
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.UNAUTHORIZED
     assert response["msg"] == "Missing Authorization Header"
+
+
+@pytest.mark.parametrize("field", ["email", "github"])
+def test_try_edit_participant_with_existing_email_github(
+    auth_client, add_participants, field
+):
+    """Test try to edit participant with other participant email address or github username."""
+    all_participants = Participant.query.all()
+    first_participant = all_participants[0]
+    second_participant = all_participants[1]
+
+    payload = {field: getattr(first_participant, field)}
+    rv = auth_client.put(f"/api/participants/{second_participant.id}/", json=payload)
+    response = rv.get_json()
+
+    assert rv.status_code == HTTPStatus.CONFLICT
+    if field == "email":
+        assert "User with this email already exists." in response["message"]
+    else:
+        assert "User with this Github login already exists." in response["message"]
