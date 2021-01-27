@@ -39,14 +39,12 @@ class ParticipantFactory(BaseFactory):
     class Meta:
         model = Participant
 
-    first_name = factory.Faker("first_name", locale="pl_PL")
-    last_name = factory.Faker("last_name", locale="pl_PL")
+    first_name = factory.Faker("first_name")
+    last_name = factory.Faker("last_name")
     email = factory.LazyAttribute(
         lambda obj: "{}{}@codeforpoznan.test".format(obj.first_name, obj.last_name)
     )
-    github = factory.LazyAttribute(
-        lambda obj: f"{obj.first_name}{obj.last_name}"
-    )
+    github = factory.LazyAttribute(lambda obj: f"{obj.first_name}{obj.last_name}")
     phone = factory.Faker("random_int", min=100000000, max=999999999)
 
     @classmethod
