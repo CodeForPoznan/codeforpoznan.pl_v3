@@ -20,7 +20,7 @@ def import_attendance_list(filepath_to_csv):
             rows.append(row)
 
     # get dates of historical hacknights
-    dates = rows[0][4:]
+    dates = rows[0][5:]
     click.echo(f"Created list of dates: {dates}")
 
     # skip header
