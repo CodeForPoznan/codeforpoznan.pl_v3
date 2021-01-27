@@ -8,13 +8,13 @@ from backend.extensions import db
 
 @click.command()
 @with_appcontext
-def import_attendance_list(filepath_to_csv):
+def import_attendance_list():
     """Import attendance list."""
     rows = []
     list_of_participants = []
 
     # open file from exported csv
-    with open(filepath_to_csv) as csv_file:
+    with open("./temp/list.csv") as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=",")
         for row in csv_reader:
             rows.append(row)
