@@ -34,7 +34,7 @@ def import_attendance_list():
         try:
             last_name = name.split()[1]
         except:
-            last_name = "Unkown"
+            last_name = "Unknown"
 
         users_dict["id"] = _id
         users_dict["github"] = github
