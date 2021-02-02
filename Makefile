@@ -52,3 +52,6 @@ cov-report: ## Generate coverage raport in HTML
 
 remove-tokens: ## Remove expired tokens from db
 	docker-compose exec backend flask remove-expired-tokens
+
+import-attendance-list: ## Import attendance list
+	docker-compose exec backend flask import-attendance-list
