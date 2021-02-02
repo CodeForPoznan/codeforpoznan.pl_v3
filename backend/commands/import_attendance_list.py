@@ -34,7 +34,7 @@ def import_attendance_list():
         try:
             last_name = name.split()[1]
         except:
-            last_name = "Unkown"
+            last_name = "Unknown"
 
         users_dict["id"] = _id
         users_dict["github"] = github
@@ -46,9 +46,8 @@ def import_attendance_list():
 
     # create hacknights
     for date in dates:
-        splitted_date = date.split(".")
-        formatted_date = f"{splitted_date[2]}-{splitted_date[1]}-{splitted_date[0]}"
-        hacknight = Hacknight(date=formatted_date)
+        year, month, day = date.split(".")
+        hacknight = Hacknight(date=f"{year}-{month}-{day}")
         db.session.add(hacknight)
     db.session.commit()
     click.echo(f"Imported {len(dates)} hacknights")
@@ -56,9 +55,9 @@ def import_attendance_list():
     # create participants
     for idx, participant in enumerate(list_of_participants):
         if participant["email"] == "":
-            participant["email"] = f"unkown_email_{idx}"
+            participant["email"] = f"unknown_email_{idx}"
         if participant["github"] == "":
-            participant["github"] = f"unkown_github_{idx}"
+            participant["github"] = f"unknown_github_{idx}"
         new_participant = Participant(**participant)
         db.session.add(new_participant)
     db.session.commit()
@@ -68,7 +67,7 @@ def import_attendance_list():
     for participant_idx, row in enumerate(rows, 1):
         for hacknight_index, element in enumerate(row[5:], 1):
             participant = Participant.query.get(participant_idx)
-            if element == "1":
+            if "1" in element:
                 hacknight = Hacknight.query.get(hacknight_index)
                 hacknight.participants.append(participant)
                 db.session.commit()
