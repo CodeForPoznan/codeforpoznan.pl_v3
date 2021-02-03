@@ -12,10 +12,6 @@ Vue.use(Vuelidate);
 
 Vue.config.productionTip = false;
 axios.defaults.baseURL = process.env.VUE_APP_AXIOS_BASE_URL || '/';
-<<<<<<< HEAD
-
-=======
->>>>>>> be5419c... 57 Edit participant form.
 const token = localStorage.getItem('token');
 
 if (token) {
