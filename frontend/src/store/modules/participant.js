@@ -63,7 +63,6 @@ export default {
     },
     async editParticipant({ commit, dispatch, getters }, participantNewData) {
       try {
-        console.warn({ ...participantNewData });
         const res = await axios.put(
           `/api/participants/${getters.getParticipant.id}/`,
           { ...participantNewData }

@@ -38,12 +38,24 @@
       >
         <v-tabs-slider></v-tabs-slider>
 
-        <v-tab @click.stop="editParticipant && $v.form.$anyDirty ? (dialog = true) : (editParticipant ? (editParticipant = false) : null)">
+        <v-tab
+          @click.stop="
+            editParticipant && $v.form.$anyDirty
+              ? (dialog = true)
+              : editParticipant
+              ? (editParticipant = false)
+              : null
+          "
+        >
           Create new participant
           <v-icon>fas fa-user-plus</v-icon>
         </v-tab>
 
-        <v-tab @click="$v.form.$anyDirty ? (dialog = true) : (editParticipant = true)">
+        <v-tab
+          @click="
+            $v.form.$anyDirty ? (dialog = true) : (editParticipant = true)
+          "
+        >
           Edit existing participant
           <v-icon>fas fa-user-edit</v-icon>
         </v-tab>
@@ -246,7 +258,7 @@ export default {
           .then(() => {
             const selectedParticipant = this.getParticipant;
 
-            Object.keys(this.form).map((key, index) => {
+            Object.keys(this.form).map(key => {
               this.form[key] = selectedParticipant[key];
             });
           });
@@ -259,6 +271,7 @@ export default {
           if (status === 200) {
             this.selectedParticipant = this.getParticipant;
             this.successAlert = 'Participant has been successfully edited';
+            this.resetForm();
             setTimeout(() => (this.successAlert = ''), 5000);
           }
         });
@@ -281,7 +294,6 @@ export default {
       }
     },
     resetForm() {
-      console.log(this.form)
       this.$refs.form.reset();
       this.$v.form.$reset();
     },
