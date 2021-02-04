@@ -30,13 +30,18 @@ def import_attendance_list():
         users_dict = {}
         _id, github, name, phone, email, *_ = item
 
-        first_name = name.split()[0]
         try:
+            first_name = name.split()[0]
             last_name = name.split()[1]
         except:
+            first_name = "Unknown"
             last_name = "Unknown"
 
-        users_dict["id"] = _id
+        # skip when _id == ''
+        try:
+            users_dict["id"] = int(_id)
+        except:
+            continue
         users_dict["github"] = github
         users_dict["first_name"] = first_name
         users_dict["last_name"] = last_name
@@ -44,10 +49,11 @@ def import_attendance_list():
         users_dict["phone"] = phone
         list_of_participants.append(users_dict)
 
+
     # create hacknights
-    for date in dates:
-        year, month, day = date.split(".")
-        hacknight = Hacknight(date=f"{year}-{month}-{day}")
+    for idx, date in enumerate(dates, 1):
+        day, month, year = date.split(".")
+        hacknight = Hacknight(id=idx, date=f"{year}-{month}-{day}")
         db.session.add(hacknight)
     db.session.commit()
     click.echo(f"Imported {len(dates)} hacknights")
@@ -65,10 +71,13 @@ def import_attendance_list():
 
     # assign attendance list
     for participant_idx, row in enumerate(rows, 1):
+        participant = Participant.query.get(participant_idx)
         for hacknight_index, element in enumerate(row[5:], 1):
-            participant = Participant.query.get(participant_idx)
-            if "1" in element:
+            if "1" in element and participant:
                 hacknight = Hacknight.query.get(hacknight_index)
                 hacknight.participants.append(participant)
-                db.session.commit()
-                click.echo(f"Added {participant.github} to hacknight {hacknight.date}")
+                email = participant.email if participant else '???'
+                click.echo(f"Added {email} to hacknight {hacknight.date}")
+        db.session.flush()
+
+    db.session.commit()
