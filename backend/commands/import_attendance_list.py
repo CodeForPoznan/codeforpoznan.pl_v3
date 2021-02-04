@@ -49,10 +49,10 @@ def import_attendance_list():
         users_dict["phone"] = phone
         list_of_participants.append(users_dict)
 
-
     # create hacknights
     for idx, date in enumerate(dates, 1):
         day, month, year = date.split(".")
+        day, month = day.zfill(2), month.zfill(2)
         hacknight = Hacknight(id=idx, date=f"{year}-{month}-{day}")
         db.session.add(hacknight)
     db.session.commit()
@@ -76,7 +76,7 @@ def import_attendance_list():
             if "1" in element and participant:
                 hacknight = Hacknight.query.get(hacknight_index)
                 hacknight.participants.append(participant)
-                email = participant.email if participant else '???'
+                email = participant.email if participant else "???"
                 click.echo(f"Added {email} to hacknight {hacknight.date}")
         db.session.flush()
 
