@@ -2,19 +2,20 @@ FROM python:3.8
 
 EXPOSE 5000
 
-RUN apt-get update -y && apt-get install -y libpq-dev wait-for-it && apt-get autoremove
+RUN apt-get update -y \
+    && apt-get install -y \
+        libpq-dev \
+        wait-for-it \
+    && apt-get autoremove
 
-# update pip
-RUN pip install --upgrade pip
-
-ADD . /cfp_v3/backend
 WORKDIR /cfp_v3/backend
 
 COPY Pipfile Pipfile.lock ./
-RUN pip install --upgrade pip && \
-    pip install pipenv && \
-    pipenv install
 
-RUN chmod +x docker-entrypoint.sh
+RUN pip install --upgrade pip \
+    && pip install pipenv==v2020.11.15 \
+    && pipenv install --system
 
-ENTRYPOINT bash docker-entrypoint.sh
+ADD . /cfp_v3/backend
+
+ENTRYPOINT ["bash", "docker-entrypoint.sh"]
