@@ -14,7 +14,7 @@ COPY Pipfile Pipfile.lock ./
 
 RUN pip install --upgrade pip \
     && pip install pipenv==v2020.11.15 \
-    && pipenv install --system
+    && pipenv install --system --deploy
 
 ADD . /cfp_v3/backend
 
