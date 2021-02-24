@@ -21,7 +21,8 @@ const routes = [
         next();
       }
     }
-  }
+  },
+  { path: '/:notFound(.*)', redirect: '/' }
 ];
 
 export default new VueRouter({ mode: 'history', routes });
