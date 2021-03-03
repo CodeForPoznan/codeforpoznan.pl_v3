@@ -40,10 +40,10 @@
 
         <v-tab
           @click.stop="
-            editParticipant && $v.form.$anyDirty
+            editParticipant && formIsNotEmpty()
               ? (dialog = true)
               : editParticipant
-              ? (editParticipant = false)
+              ? ((editParticipant = false), $v.form.$reset())
               : null
           "
         >
@@ -53,7 +53,9 @@
 
         <v-tab
           @click="
-            $v.form.$anyDirty ? (dialog = true) : (editParticipant = true)
+            formIsNotEmpty()
+              ? (dialog = true)
+              : ((editParticipant = true), $v.form.$reset())
           "
         >
           Edit existing participant
@@ -296,6 +298,12 @@ export default {
     resetForm() {
       this.$refs.form.reset();
       this.$v.form.$reset();
+      this.selectedParticipant = null;
+    },
+    formIsNotEmpty() {
+      return !Object.values(this.$v.form.$model).every(
+        x => x === null || x === '' || x === undefined
+      );
     },
     validateGithub(event) {
       this.$v.form.github.$touch();
@@ -309,7 +317,8 @@ export default {
       if (
         Object.values(this.getParticipants).find(
           user => user.slack === $event.target.value
-        )
+        ) &&
+        !this.editParticipant
       )
         this.warningAlert = true;
       this.warningMessage =
@@ -321,7 +330,8 @@ export default {
       if (
         Object.values(this.getParticipants).find(
           user => user.last_name === $event.target.value
-        )
+        ) &&
+        !this.editParticipant
       )
         this.warningAlert = true;
       this.warningMessage =
@@ -333,7 +343,8 @@ export default {
       if (
         Object.values(this.getParticipants).find(
           user => user.phone === $event.target.value
-        )
+        ) &&
+        !this.editParticipant
       )
         this.warningAlert = true;
       this.warningMessage =
