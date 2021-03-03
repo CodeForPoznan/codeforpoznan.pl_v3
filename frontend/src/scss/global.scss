@@ -5,6 +5,7 @@
 
 a {
     text-decoration: none;
+    text-transform: none;
 }
 
 // Container classes
@@ -49,6 +50,14 @@ a {
     }
 }
 
+h2,
+h3 {
+  font-size: 1.5rem;
+  color: $black;
+  font-family: $font-header;
+  word-break: break-word;
+}
+
 // General content classes
 
 .sub-title {
@@ -68,4 +77,56 @@ a {
     font-size: 1.2rem;
     line-height: 1.43;
     text-align: center;
+}
+
+// buttons
+
+@mixin btn {
+    padding: 0.5rem 0.7rem;
+    margin: 0.2rem;
+    border-radius: 45px;
+    font-weight: bold;
+    display: inline-flex;
+}
+
+.btn-transparent {
+    @include btn;
+    font-size: 1rem;
+    color: black;
+    align-items: center;
+}
+
+.btn-transparent:hover,
+.btn-transparent:active {
+    background-color: rgba(0,0,0, 0.1);
+}
+
+.btn-primary {
+    background: $blue;
+    color: $white;
+    border: $white solid 1px;
+    @include btn;
+}
+
+.btn-primary:hover,
+.btn-primary:active{
+    background: $white;
+    color: $blue;
+    border: $blue solid 1px;
+
+}
+
+.btn-icon,
+.btn-icon:hover,
+.btn-icon:active {
+    display: flex;
+    align-items: center;
+    color: inherit;
+    font-size: 1.2rem;
+}
+
+.btn-text,
+.btn-text:hover,
+.btn-text:active {
+    padding: 0rem 0.2rem;
 }
