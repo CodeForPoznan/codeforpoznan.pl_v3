@@ -8,9 +8,6 @@
 
 <script>
 export default {
-  name: 'app',
-  created() {
-    document.title = 'Code for Poznań';
-  }
+  name: 'app'
 };
 </script>
