@@ -23,11 +23,12 @@ services:
     links:
       - db:db
     environment:
-      DB_HOST: db
-      DB_NAME: cfp_v3
-      DB_USER: cfp_v3
-      DB_PASSWORD: cfp_v3
-      SECRET_KEY: codeforpoznan
+      DB_HOST: ${DB_HOST:-db}
+      DB_PORT: ${DB_PORT:-5432}
+      DB_NAME: ${DB_NAME:-cfp_v3}
+      DB_USER: ${DB_USER:-cfp_v3}
+      DB_PASSWORD: ${DB_PASSWORD:-cfp_v3}
+      SECRET_KEY: ${SECRET_KEY:-codeforpoznan}
       FLASK_ENV: development
       FLASK_APP: app.py
 
