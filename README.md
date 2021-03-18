@@ -4,13 +4,9 @@
 
 Next version of Code for Poznan's website.
 
-</br>
-
 ## Development environment
 
 We use Docker for development purposes. To start working, your computer needs to support it.
-
-</br>
 
 ### Commands
 
@@ -24,20 +20,16 @@ We use Docker for development purposes. To start working, your computer needs to
 
 Type `make help` to see other commands.
 
-</br>
-
 ### Default User password
 
 `pass123`
 
-</br>
-
 ### How to debug the app with remote database connection
 
-```text
-    Please note that this step is optional. 
-    You most likely do not need to follow it.
-```
+---
+> Please note that this step is optional.
+> You most likely do not need to follow it.
+---
 
 Here's some information on how to set up the environment
 so that you will be connected to dev DB or produciton
@@ -49,7 +41,8 @@ one using your local docker-compose setup.
 
 This is needed to avoid making changes to the
 `.envrc.example` file which could be commited by
-accident, because it's not ignored. `.envrc` is ignored,
+accident, because it's not ignored.  
+On the other hand, `.envrc` is ignored,
 so it's safe to modify it without ever worrying about
 commiting it by accident.
 
@@ -65,8 +58,10 @@ cp .envrc.example .envrc
 
 Replace the secret values (passwords and secrets).
 You can get by asking one of the admins of our
-Infrastructure (@arturtamborski & @magul) and stating
-your need for it.
+Infrastructure  
+([@arturtamborski](https://github.com/arturtamborski)
+& [@magul](https://github.com/magul))
+and stating your need for it.
 
 ```bash
 # edit with `vim`, `code`, or whatever you like :)
@@ -79,8 +74,8 @@ code .envrc
 
 We've just modified the `.envrc` file with secrets,
 but they are not used by default, we first have to load
-them using `source` command in terminal. There are two
-ways of doing that.
+them using `source` command in terminal.  
+There are two ways of doing that.
 
 You can do that manually:
 
@@ -118,8 +113,7 @@ ssh codeforpoznan-bastion
 
 This is required in order to load the newly modified
 and sourced environment variables so that the values
-can be used by docker and by backend app.
-
+can be used by docker and by backend app.  
 Again, environment variables are not automatically
 passed over on their change, so we need to give it
 a little push for this to work.
@@ -135,12 +129,12 @@ make start
 How to confirm that it works:
 
 ```bash
-# open up shell in backend container
+# this will open up shell in backend container
 $ make bash
 
 # in the container, view all environment variables
 root@a68d3611d0e7:/cfp_v3/backend# env | grep DB
-DB_PASSWORD=supersecretvalueasdasdadas
+DB_PASSWORD=super-secret-value-will-be-shown-here
 DB_PORT=55432
 
 # I've cut the output here, more vars should follow
@@ -149,7 +143,6 @@ DB_PORT=55432
 
 Notice that the environment variables are showing the
 secret strings that you've typed in the `.envrc` file.
-
 This tells us that everything worked well - docker
 used our environment variables which were loaded by
 us from the `.envrc` file.
@@ -158,7 +151,7 @@ Other way of checking if everything's fine is to
 open up flask shell and interact with the DB directly:
 
 ```bash
-# open up shell in backend container
+# this will open up shell in backend container
 $ make bash
 
 # open up flask shell, interactive python session
@@ -184,8 +177,7 @@ are required to use this connection again.
 Please note that this isn't a real 1:1 reproduction of
 the live-like environment beacuse we're skipping the AWS
 lambda execution and the AWS Gateway proxy, but it
-shouldn't make any difference when developing the app.
-
+shouldn't make any difference when developing the app.  
 Another thing to note is to not rely on this method for
 regular debugging. It's very useful in some situations
 when you have no idea what's going on or when there's
