@@ -4,3 +4,4 @@ export DB_PORT=5432
 export DB_NAME=cfp_v3
 export DB_USER=cfp_v3
 export DB_PASSWORD=cfp_v3
+

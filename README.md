@@ -56,7 +56,7 @@ cp .envrc.example .envrc
 
 #### 2. Edit the `.envrc` file using your favourite text editor
 
-Replace the secret values (passwords and secrets).
+Replace the secret values (database name, login, password secret key).
 You can get by asking one of the admins of our
 Infrastructure  
 ([@arturtamborski](https://github.com/arturtamborski)
