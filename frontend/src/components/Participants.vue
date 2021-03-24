@@ -40,10 +40,10 @@
 
         <v-tab
           @click.stop="
-            editParticipant && formIsNotEmpty()
+            editParticipant && formIsNotEmpty() && participantChanged()
               ? (dialog = true)
               : editParticipant
-              ? ((editParticipant = false), $v.form.$reset())
+              ? ((editParticipant = false), resetForm())
               : null
           "
         >
@@ -64,7 +64,11 @@
       </v-tabs>
       <v-card-text v-if="editParticipant">
         <v-select
-          :items="getParticipants"
+          :items="
+            [...getParticipants].sort((a, b) =>
+              a.github.localeCompare(b.github)
+            )
+          "
           item-text="github"
           item-value="id"
           label="Select Participant"
@@ -119,7 +123,7 @@
             :disabled="$v.$invalid || !selectedParticipant"
             @click="onEditParticipant"
             class="add-participant-btn align-center justify-center"
-            >Edit participant</v-btn
+            >Save changes</v-btn
           >
           <v-btn
             v-else
@@ -183,6 +187,7 @@ import {
   alpha,
   alphaNum
 } from 'vuelidate/lib/validators';
+import _ from 'lodash';
 export default {
   data() {
     return {
@@ -304,6 +309,13 @@ export default {
       return !Object.values(this.$v.form.$model).every(
         x => x === null || x === '' || x === undefined
       );
+    },
+    participantChanged() {
+      if (!this.selectedParticipant) {
+        return false;
+      } else {
+        return !_.isMatch(this.getParticipant, this.$v.form.$model);
+      }
     },
     validateGithub(event) {
       this.$v.form.github.$touch();
