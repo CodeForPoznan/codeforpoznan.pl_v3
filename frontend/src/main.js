@@ -12,7 +12,6 @@ Vue.use(Vuelidate);
 
 Vue.config.productionTip = false;
 axios.defaults.baseURL = process.env.VUE_APP_AXIOS_BASE_URL || '/';
-
 const token = localStorage.getItem('token');
 
 if (token) {
