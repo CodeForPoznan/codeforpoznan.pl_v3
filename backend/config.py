@@ -54,20 +54,25 @@ class Config:
             MAIL_USERNAME = data["user"]
             MAIL_PASSWORD = data["pass"]
             MAIL_WEB_SERVER = data["web"]
-            logging.info("Using temporary mailing account for email support."
-                         "Watch logs for links with received messages")
+            logging.info(
+                "Using temporary mailing account for email support."
+                "Watch logs for links with received messages"
+            )
 
     # fail-safe switch in case anything failed above
     if not MAIL_SERVER:
         MAIL_SUPPRESS_SEND = True
-        logging.warning("Failed to initialize temporary mailing account! "
-                        "Disabling email support. Emails will not be sent")
+        logging.warning(
+            "Failed to initialize temporary mailing account! "
+            "Disabling email support. Emails will not be sent"
+        )
 
 
 class ProductionConfig(Config):
     """
     Used for https://codeforpoznan.pl/ (AWS Lambda)
     """
+
     pass
 
 
@@ -75,6 +80,7 @@ class StagingConfig(Config):
     """
     Used for https://dev.codeforpoznan.pl/ (AWS Lambda)
     """
+
     pass
 
 
@@ -82,4 +88,5 @@ class DevelopmentConfig(Config):
     """
     Used for https://localhost:8088/ (Docker)
     """
+
     pass
