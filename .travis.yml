@@ -3,7 +3,25 @@ python: 3.8
 
 env:
   global:
+    # app
+    - FLASK_APP=app.py
+    - FLASK_ENV=development
     - SECRET_KEY=codeforpoznan
+    - BASE_URL=localhost
+
+    # db
+    - DB_HOST=db
+    - DB_PORT=5432
+    - DB_NAME=cfp_v3
+    - DB_USER=cfp_v3
+    - DB_PASSWORD=cfp_v3
+
+    # mail
+    - MAIL_SERVER=localhost
+    - MAIL_PORT=5432
+    - MAIL_USERNAME=
+    - MAIL_PASSWORD=
+
     # AWS_ACCESS_KEY_ID
     - secure: "lP1qLhUyJgoJlDqva3dYq3jQh8j1jSXJx19Lq4oNwMLxk4d567LAA/AZHBj8lRqrwW/tjiONb5o1V15+9ogfoK7Y8ika7F3YZkUQ5k/OOliQzDqditSWjYCv3Rx6fc1D5UGQLF1MYYjGctDxiRHmPWb2WfIoqUdrcN4GAbXBKA/EGn8Y680JZm6XZkXFc2PjqoILPwJ+ZIWqAIELibnpHPnRDHD28a3uXjWa1Syehctj2f44wxRNo1hJIQp2mlO9BFS2LrCrhUD2OgeC8gy/j5itzNcDrRwnwZmeZ92YdSsNGGark3K3zPyl5em5v7zlJB/6f/6Jf1IIU0hpc1QAUwZjPd7rRBeYR2U8vUBdYrBlhKFwAJjQjGj4Xm0dgIjcFiANtfppxMt7cFg/c9AUkI+jLGdqfGxkVYKtvYAYWC6QEDikKFwz8eN94zfmkMRkXcniSZPkXAuwLEl9ozz+QAzzNs8BzxzMV4pFB+N/of88B91FyWCchxzSftbrgc8wFmMFZGwzfStgbDU4RX3sGeY7af7rF6uCYS6eHEVwllvJefyNkjUIR8x7wmCXaPjHnKgRzuYrcLtTNUxuc0LMfLCxqVCkGXxflQNIY7Zd59SWukJyloZbUZhxYuoX7YTwVHynNrx+pxvPBP/0QaSnuT8RBZOxmDf1HqT1ShvQgsg="
     # AWS_SECRET_ACCESS_KEY
