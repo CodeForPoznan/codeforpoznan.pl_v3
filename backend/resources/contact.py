@@ -1,4 +1,4 @@
-import logging
+import time
 from textwrap import dedent
 
 from http import HTTPStatus
@@ -13,31 +13,43 @@ from backend.extensions import mail
 from backend.helpers import wrap_io
 
 
+class MessageError(Exception):
+    pass
+
+
 class SendMessage(Resource):
 
     internal_message_subject = """
-    """
-
-    internal_message_body = """
-    """
-
-    external_message_subject = """
         Email z {base_url} od {name}
     """
 
-    external_message_body = """
-        Nowa wiadomość od {name}
+    internal_message_body = """
+        Nowa wiadomość od {name} <{email}>
         numer telefonu: {phone}
         Treść:
         {content}
     """
 
+    external_message_subject = """
+        [CfP] Witaj!
+    """
+
+    # TODO: fill this with something more reasonable
+    external_message_body = """
+        Cześć,
+        
+        tu załoga Code For Poznań! Cieszymy się, że z nami jesteś!
+    """
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+        self.log = current_app.logger
         self.base_url = current_app.config["BASE_URL"]
-        self.mail_recipient = current_app.config["MAIL_RECIPIENT"]
         self.mail_web_server = current_app.config["MAIL_WEB_SERVER"]
+
+        self.hello_addr = f"hello@{self.base_url}"
+        self.notify_addr = f"notifications@{self.base_url}"
 
     def post(self):
         try:
@@ -47,58 +59,50 @@ class SendMessage(Resource):
             return {"message": err.messages}, HTTPStatus.BAD_REQUEST
 
         sender_email = data["email"]
-        context = {
-            **data,
-            'base_url': self.base_url,
-            'mail_recipient': self.mail_recipient,
-        }
+        context = {"base_url": self.base_url, **data}
 
         try:
-            # outgoing mail from someone (via form) to us, send internal message
+            # mail from someone (via form) to us, send internal message
             self.send_message(
+                context=context,
                 subject=self.internal_message_subject,
                 body=self.internal_message_body,
-                context=context,
-                sender=sender_email,
-                reply_to=sender_email,
-                recipients=[self.mail_recipient],
+                sender=self.notify_addr,
+                reply_to=self.notify_addr,
+                recipients=[self.hello_addr],
             )
 
-            # outgoing mail from us to someone, send pretty external message
+            # mail from us to someone, send pretty external message
             self.send_message(
+                context=context,
                 subject=self.external_message_subject,
                 body=self.external_message_body,
-                context=context,
-                sender=self.mail_recipient,
-                reply_to=self.mail_recipient,
+                sender=self.notify_addr,
+                reply_to=self.hello_addr,
                 recipients=[sender_email],
             )
-        except:
-            return {"message": "Contact message successfully sent"}, HTTPStatus.OK
 
-        return {"message": "Failed to send contact message"}, HTTPStatus.SERVICE_UNAVAILABLE
+        except MessageError:
+            return (
+                {"message": "Failed to send contact message"},
+                HTTPStatus.SERVICE_UNAVAILABLE,
+            )
 
-    def send_message(self, *, subject: str, body: str, context: dict, **kwargs):
-        subject = dedent(subject).strip().format(**context)
-        body = dedent(body).strip().format(**context)
+        return {"message": "Contact message successfully sent"}, HTTPStatus.OK
+
+    def send_message(self, *, context: dict, subject: str, body: str, **kwargs):
+        subject = dedent(subject).format(**context).strip()
+        body = dedent(body).format(**context).strip()
 
         with wrap_io() as (out, err):
+            time.sleep(0.2)  # conservative throttle of 200ms for API
             mail.send_message(subject=subject, body=body, **kwargs)
 
-        # known mail testing domain, find message link in output
-        if self.mail_web_server:
-            if "MSGID=" in err():
-                msgid = err().split("MSGID=")[1].split("]")[0]
-                link = f"https://ethereal.email/message/{msgid}"
-                logging.info(f"Mail sent successfully: {link}")
-            else:
-                logging.error("Failed to send mail, SMTP stderr:\n", err())
-                # TODO: raise 503
-                # TODO: fix logging
-                return HTTPStatus.SERVICE_UNAVAILABLE
+        if "MSGID=" not in err():
+            self.log.error("Failed to send mail: stderr:\n", err())
+            raise MessageError(err())
 
-        # real smtp server
-        else:
-            # TODO: parse SES SMTP server responses like we already do above
-            logging.info(f"Mail sent: stdout:\n", out(), "\n stderr:\n", err())
-            return HTTPStatus.OK
+        # bit rough, but works just fine
+        msgid = err().split("MSGID=")[1].split("]")[0]
+        link = self.mail_web_server + msgid
+        self.log.info(f"Mail sent successfully! {link}")
