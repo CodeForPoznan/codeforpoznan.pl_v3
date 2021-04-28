@@ -135,10 +135,10 @@ def auth_client(app, tokens):
 @pytest.fixture
 def new_msg():
     msg = {
-        "name": "TestName",
-        "email": "test@test.com",
+        "name": "Happy Volunteer",
+        "email": "hvolunteer@example.com",
         "phone": "777222333",
-        "content": "Lorem Ipsum cos tam cos tam",
+        "content": "I'm super excited to work with you guys!",
     }
     return msg
 
