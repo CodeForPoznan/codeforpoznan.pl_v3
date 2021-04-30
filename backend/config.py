@@ -39,7 +39,7 @@ class Config:
     MAIL_PORT = os.environ["MAIL_PORT"]
     MAIL_USERNAME = os.environ["MAIL_USERNAME"]
     MAIL_PASSWORD = os.environ["MAIL_PASSWORD"]
-    MAIL_SUPPRESS_SEND = bool(os.environ["MAIL_SUPPRESS_SEND"])
+    MAIL_SUPPRESS_SEND = os.environ["MAIL_SUPPRESS_SEND"].lower() == "true"
 
     if MAIL_SUPPRESS_SEND:
         print("Disabling email support. Emails will NOT be sent")
