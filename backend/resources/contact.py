@@ -19,6 +19,8 @@ class MessageError(Exception):
 
 class SendMessage(Resource):
 
+    # available variables: name, email, phone, content, base_url
+
     internal_message_subject = """
         Email z {base_url} od {name}
     """
@@ -34,7 +36,6 @@ class SendMessage(Resource):
         [CfP] Witaj!
     """
 
-    # TODO: fill this with something more reasonable
     external_message_body = """
         Cześć,
         
@@ -47,6 +48,7 @@ class SendMessage(Resource):
         self.log = current_app.logger
         self.base_url = current_app.config["BASE_URL"]
         self.mail_web_server = current_app.config["MAIL_WEB_SERVER"]
+        self.mail_suppress_send = current_app.config["MAIL_SUPPRESS_SEND"]
 
         self.hello_addr = f"hello@{self.base_url}"
         self.notify_addr = f"notifications@{self.base_url}"
@@ -95,14 +97,20 @@ class SendMessage(Resource):
         body = dedent(body).format(**context).strip()
 
         with wrap_io() as (out, err):
-            time.sleep(0.2)  # conservative throttle of 200ms for API
+            time.sleep(0.2)  # conservative throttle of 200ms/req for API
             mail.send_message(subject=subject, body=body, **kwargs)
 
-        if "MSGID=" not in err():
-            self.log.error("Failed to send mail: stderr:\n", err())
-            raise MessageError(err())
+        # skip error checking if we don't interact with server at all
+        if self.mail_suppress_send:
+            return
 
-        # bit rough, but works just fine
-        msgid = err().split("MSGID=")[1].split("]")[0]
+        stderr = err()
+
+        if "MSGID=" not in stderr:
+            self.log.error("Failed to send mail: stderr:\n", stderr)
+            raise MessageError(stderr)
+
+        # bit rough, but works okay-ish
+        msgid = stderr.split("MSGID=")[1].split("]")[0]
         link = self.mail_web_server + msgid
         self.log.info(f"Mail sent successfully! {link}")

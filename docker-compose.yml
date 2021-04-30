@@ -35,6 +35,7 @@ services:
       MAIL_PORT: ${MAIL_PORT:-}
       MAIL_USERNAME: ${MAIL_USERNAME:-}
       MAIL_PASSWORD: ${MAIL_PASSWORD:-}
+      MAIL_SUPPRESS_SEND: ${MAIL_SUPPRESS_SEND:-FALSE}
 
   db:
     container_name: cfp_v3_db

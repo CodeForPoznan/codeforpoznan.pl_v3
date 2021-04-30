@@ -1,4 +1,3 @@
-import logging
 import os
 
 from backend.helpers import ask_for_temporary_mail
@@ -31,37 +30,41 @@ class Config:
     JWT_BLACKLIST_ENABLED = True
 
     """mail config"""
-    MAIL_SUPPRESS_SEND = False  # always off, never block mail sending
     MAIL_DEBUG = True  # always on, needed for error checking
     MAIL_USE_TLS = True  # always on, for security (TM)
     MAIL_USE_SSL = False  # always off, for security (TM)
     MAIL_WEB_SERVER = ""  # defaults to empty str, might be set later
 
-    MAIL_SERVER = os.environ.get("MAIL_SERVER")
-    MAIL_PORT = os.environ.get("MAIL_PORT")
-    MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
-    MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
+    MAIL_SERVER = os.environ["MAIL_SERVER"]
+    MAIL_PORT = os.environ["MAIL_PORT"]
+    MAIL_USERNAME = os.environ["MAIL_USERNAME"]
+    MAIL_PASSWORD = os.environ["MAIL_PASSWORD"]
+    MAIL_SUPPRESS_SEND = bool(os.environ["MAIL_SUPPRESS_SEND"])
 
-    # empty MAIL_* vars are a hint that we should use the temporary account
-    if not MAIL_SERVER:
-        logging.info(
-            "Using temporary mailing account for email support."
-            " Watch logs for links with received messages"
-        )
-        data = ask_for_temporary_mail()
-        MAIL_SERVER = data.get("server")
-        MAIL_PORT = data.get("port")
-        MAIL_USERNAME = data.get("username")
-        MAIL_PASSWORD = data.get("password")
-        MAIL_WEB_SERVER = data.get("web_server")
+    if MAIL_SUPPRESS_SEND:
+        print("Disabling email support. Emails will NOT be sent")
+    else:
+        print("Enabling email support. Emails will be sent")
 
-    # fail-safe switch in case anything failed above
-    if not MAIL_SERVER:
-        MAIL_SUPPRESS_SEND = True
-        logging.warning(
-            "Failed to initialize temporary mailing account! "
-            "Disabling email support. Emails will not be sent"
-        )
+        if not MAIL_SERVER:
+            print(
+                "Using temporary mailing account for email support."
+                " Watch logs for links with received messages"
+            )
+            data = ask_for_temporary_mail()
+            MAIL_SERVER = data.get("server")
+            MAIL_PORT = data.get("port")
+            MAIL_USERNAME = data.get("username")
+            MAIL_PASSWORD = data.get("password")
+            MAIL_WEB_SERVER = data.get("web_server")
+
+            # fail-safe switch in case anything failed above
+            if not MAIL_SERVER:
+                MAIL_SUPPRESS_SEND = True
+                print(
+                    "Failed to initialize temporary mailing account! "
+                    "Disabling email support. Emails will not be sent"
+                )
 
 
 class ProductionConfig(Config):
