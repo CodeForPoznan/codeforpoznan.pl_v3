@@ -63,7 +63,7 @@ class Config:
                 MAIL_SUPPRESS_SEND = True
                 print(
                     "Failed to initialize temporary mailing account! "
-                    "Disabling email support. Emails will not be sent"
+                    "Disabling email support. Emails will NOT be sent"
                 )
 
 
