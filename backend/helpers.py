@@ -1,5 +1,4 @@
 import traceback
-from functools import wraps
 from io import StringIO
 from contextlib import redirect_stdout, redirect_stderr, contextmanager
 
@@ -24,22 +23,6 @@ def wrap_io(catch=Exception) -> (callable, callable):
         err.write(traceback.format_exc())
 
 
-def memoize(fn: callable):
-    cache = {}
-
-    def wrapper():
-        key = fn.__name__
-
-        if key in cache:
-            return cache[key]
-
-        cache[key] = fn()
-        return cache[key]
-
-    return wrapper
-
-
-@memoize
 def ask_for_temporary_mail():
     json = {"requestor": "nodemailer", "version": "6.5.0"}
     resp = requests.post("https://api.nodemailer.com/user", json=json)
