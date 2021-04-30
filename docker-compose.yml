@@ -22,14 +22,20 @@ services:
     links:
       - db:db
     environment:
+      FLASK_APP: app.py
+      FLASK_ENV: ${FLASK_ENV:-development}
+      SECRET_KEY: ${SECRET_KEY:-codeforpoznan}
+      BASE_URL: ${BASE_URL:-localhost}
       DB_HOST: ${DB_HOST:-db}
       DB_PORT: ${DB_PORT:-5432}
       DB_NAME: ${DB_NAME:-cfp_v3}
       DB_USER: ${DB_USER:-cfp_v3}
       DB_PASSWORD: ${DB_PASSWORD:-cfp_v3}
-      SECRET_KEY: ${SECRET_KEY:-codeforpoznan}
-      FLASK_ENV: development
-      FLASK_APP: app.py
+      MAIL_SERVER: ${MAIL_SERVER:-}
+      MAIL_PORT: ${MAIL_PORT:-}
+      MAIL_USERNAME: ${MAIL_USERNAME:-}
+      MAIL_PASSWORD: ${MAIL_PASSWORD:-}
+      MAIL_SUPPRESS_SEND: ${MAIL_SUPPRESS_SEND:-TRUE}
 
   db:
     container_name: cfp_v3_db
