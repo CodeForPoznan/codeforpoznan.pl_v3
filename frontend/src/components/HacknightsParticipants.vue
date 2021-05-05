@@ -6,11 +6,14 @@
           v-model="selectedParticipants"
           outlined
           :items="
-            getParticipants.filter(
-              participant =>
-                !getHacknight.participants.filter(y => y.id === participant.id)
-                  .length
-            )
+            getParticipants
+              .filter(
+                participant =>
+                  !getHacknight.participants.filter(
+                    y => y.id === participant.id
+                  ).length
+              )
+              .sort((a, b) => a.github.localeCompare(b.github))
           "
           item-text="github"
           item-value="github"
@@ -59,7 +62,7 @@
       </v-toolbar>
       <v-divider v-if="getHacknight.participants"></v-divider>
       <v-list>
-        <template v-for="(item, i) in getHacknight.participants">
+        <template v-for="(item, i) in orderedParticipants()">
           <v-list-item v-if="getHacknight.participants" :key="i">
             <v-list-item-avatar>
               <v-icon>mdi-account-outline</v-icon>
@@ -74,6 +77,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import _ from 'lodash';
 export default {
   data() {
     return {
@@ -89,6 +93,11 @@ export default {
       this.$store
         .dispatch('hacknight/addParticipants', ids)
         .then(() => (this.selectedParticipants = []));
+    },
+    orderedParticipants() {
+      return _.sortBy(this.getHacknight.participants, participant =>
+        participant.github.toLowerCase()
+      );
     }
   },
   computed: {
