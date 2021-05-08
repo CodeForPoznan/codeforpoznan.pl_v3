@@ -16,7 +16,7 @@
     "vuelidate": "^0.7.4",
     "vuetify": "^2.0.0",
     "vuex": "^3.0.1",
-    "lodash": "^4.17.12"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.8.0",
