@@ -6,15 +6,15 @@ case "${1:-}" in
   staging)
     echo "deploying to staging"
     export RESOURCE="${STAGING_RESOURCE}"
-    export AWS_ACCESS_KEY_ID="${STAGING_ACCESS_KEY_ID}"
-    export AWS_SECRET_ACCESS_KEY="${STAGING_SECRET_ACCESS_KEY}"
+    export AWS_ACCESS_KEY_ID="${STAGING_AWS_ACCESS_KEY_ID}"
+    export AWS_SECRET_ACCESS_KEY="${STAGING_AWS_SECRET_ACCESS_KEY}"
   ;;
 
   production)
     echo "deploying to production"
     export RESOURCE="${PRODUCTION_RESOURCE}"
-    export AWS_ACCESS_KEY_ID="${PRODUCTION_ACCESS_KEY_ID}"
-    export AWS_SECRET_ACCESS_KEY="${PRODUCTION_SECRET_ACCESS_KEY}"
+    export AWS_ACCESS_KEY_ID="${PRODUCTION_AWS_ACCESS_KEY_ID}"
+    export AWS_SECRET_ACCESS_KEY="${PRODUCTION_AWS_SECRET_ACCESS_KEY}"
   ;;
 
   *)
