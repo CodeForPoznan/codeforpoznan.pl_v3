@@ -1,3 +1,5 @@
+os: linux
+dist: xenial
 language: python
 python: 3.8
 
@@ -21,9 +23,18 @@ script:
   - (cd backend  && black --check .)  # lint backend
 
 deploy:
-  skip_cleanup: true
-  provider: script
-  script: bash deploy.sh
-  on:
-    branch: master
-    repo: CodeForPoznan/codeforpoznan.pl_v3
+  # staging (https://dev.codeforpoznan.pl)
+  - provider: script
+    skip_cleanup: true
+    script: bash deploy.sh dev_codeforpoznan_pl_v3
+    on:
+      branch: master
+      repo: CodeForPoznan/codeforpoznan.pl_v3
+
+  # staging (https://codeforpoznan.pl)
+  - provider: script
+    skip_cleanup: true
+    script: bash deploy.sh codeforpoznan_pl_v3
+    on:
+      tags: true
+      repo: CodeForPoznan/codeforpoznan.pl_v3
