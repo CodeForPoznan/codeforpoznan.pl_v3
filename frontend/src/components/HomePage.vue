@@ -1,7 +1,7 @@
 <template>
   <div>
     <app-header />
-    <v-content>
+    <v-main>
       <app-about-us />
       <our-projects />
       <app-join-us />
@@ -27,7 +27,7 @@
       </div>
       <app-contact-us />
       <social-media />
-    </v-content>
+    </v-main>
     <page-footer />
   </div>
 </template>
