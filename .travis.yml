@@ -31,7 +31,7 @@ deploy:
       branch: master
       repo: CodeForPoznan/codeforpoznan.pl_v3
 
-  # staging (https://codeforpoznan.pl)
+  # production (https://codeforpoznan.pl)
   - provider: script
     skip_cleanup: true
     script: bash deploy.sh codeforpoznan_pl_v3
