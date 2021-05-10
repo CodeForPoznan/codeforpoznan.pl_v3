@@ -4,6 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+requests = "==2.25.1"
 psycopg2-binary = "==2.8.5"
 marshmallow = "==3.3.0"
 factory-boy = "==2.11.1"
