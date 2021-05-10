@@ -71,7 +71,7 @@ def new_participant():
     participant = {
         "first_name": "Jon",
         "last_name": "Doe",
-        "email": "test@test.com",
+        "email": "test@test.test",
         "phone": "123456789",
         "github": "wihajster",
         "slack": "slacklogin",
