@@ -15,6 +15,13 @@ class User(db.Model):
     id = Column(Integer, autoincrement=True, primary_key=True)
     username = Column(String(200), unique=True)
     password = Column(String(100))
+    first_name = Column(String(50))
+    last_name = Column(String(50))
+    email = Column(String(200))
+    github = Column(String(200))
+    phone = Column(String(13))
+    slack = Column(String(21))
+    is_admin = Column(Boolean)
 
     def __init__(self, username, password):
         self.username = username
