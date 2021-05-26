@@ -22,7 +22,7 @@ def populate_database():
     click.echo("Creating 5 users")
     usernames = []
     for _ in tqdm(range(5)):
-        usernames.append(UserFactory.create().username)
+        usernames.append(UserFactory.create().github)
         db.session.commit()
 
     click.echo("Creating 50 participants")
@@ -46,5 +46,5 @@ def populate_database():
         db.session.commit()
 
     click.echo("Created users:")
-    for id, username in enumerate(usernames, start=1):
-        click.echo(f"{id}. {username}")
+    for id, github in enumerate(usernames, start=1):
+        click.echo(f"{id}. {github}")

@@ -15,9 +15,9 @@ def test_add_new_user_to_db(_db, new_user):
     db.session.add(new_user)
     db.session.commit()
 
-    user = db.session.query(User).filter_by(username="TestName").first()
+    user = db.session.query(User).filter_by(github="TestName").first()
 
-    assert user.username == "TestName"
+    assert user.github == "TestName"
     assert user.check_password("TestPassword")
 
 

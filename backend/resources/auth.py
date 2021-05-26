@@ -42,21 +42,21 @@ class UserLogin(Resource):
                 HTTPStatus.BAD_REQUEST,
             )
 
-        username = result["username"]
+        github = result["github"]
         password = result["password"]
 
-        if not (username and password):
-            return ({"msg": "Username and password required"}, HTTPStatus.BAD_REQUEST)
+        if not (github and password):
+            return ({"msg": "github and password required"}, HTTPStatus.BAD_REQUEST)
 
-        user = User.query.filter_by(username=username).first()
+        user = User.query.filter_by(github=github).first()
 
         if user and user.check_password(password):
             access_token = create_access_token(
-                identity=username, expires_delta=timedelta(minutes=60)
+                identity=github, expires_delta=timedelta(minutes=60)
             )
 
             refresh_token = create_refresh_token(
-                identity=username, expires_delta=timedelta(weeks=1)
+                identity=github, expires_delta=timedelta(weeks=1)
             )
 
             ret = {"access_token": access_token, "refresh_token": refresh_token}

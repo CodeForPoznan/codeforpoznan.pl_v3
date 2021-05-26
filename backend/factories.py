@@ -15,7 +15,7 @@ class UserFactory(BaseFactory):
     class Meta:
         model = User
 
-    username = factory.Faker("email", locale="pl_PL")
+    github = factory.Faker("email", locale="pl_PL")
     password = "pass123"
 
     @classmethod
@@ -23,12 +23,10 @@ class UserFactory(BaseFactory):
         session = cls._meta.sqlalchemy_session
         with session.no_autoflush:
             existing = (
-                session.query(model_class)
-                .filter_by(username=kwargs["username"])
-                .first()
+                session.query(model_class).filter_by(github=kwargs["github"]).first()
             )
         if existing:
-            kwargs["username"] = cls.username.generate({})
+            kwargs["github"] = cls.github.generate({})
 
         obj = super(UserFactory, cls)._create(model_class, *args, **kwargs)
 
