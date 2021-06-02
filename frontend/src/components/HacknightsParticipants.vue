@@ -5,16 +5,7 @@
         <v-combobox
           v-model="selectedParticipants"
           outlined
-          :items="
-            getParticipants
-              .filter(
-                participant =>
-                  !getHacknight.participants.filter(
-                    y => y.id === participant.id
-                  ).length
-              )
-              .sort((a, b) => a.github.localeCompare(b.github))
-          "
+          :items="filerOutParticipants()"
           item-text="github"
           item-value="github"
           :search-input.sync="search"
@@ -94,6 +85,26 @@ export default {
         .dispatch('hacknight/addParticipants', ids)
         .then(() => (this.selectedParticipants = []));
     },
+    // filerOutParticipants() {
+    //     return this.getParticipants
+    //       .filter(
+    //         participant =>
+    //           !this.getHacknight.participants.filter(
+    //             y => y.id === participant.id
+    //           ).length
+    //       )
+    //       .sort((a, b) => a.github.localeCompare(b.github))
+    //   },
+      filerOutParticipants() {
+        return this.getParticipants
+          .filter(
+            participant =>
+              !this.getHacknight.participants.some(
+                hacknightParticipant => hacknightParticipant.id === participant.id
+              )
+          )
+          .sort((a, b) => a.github.localeCompare(b.github))
+      },
     orderedParticipants() {
       return _.sortBy(this.getHacknight.participants, participant =>
         participant.github.toLowerCase()
