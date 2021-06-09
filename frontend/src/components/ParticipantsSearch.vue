@@ -15,8 +15,7 @@ import { mapGetters } from 'vuex';
 export default {
   props: {
     value: {
-      type: Object | null,
-      required: true
+      type: Object
     }
   },
   computed: {
@@ -24,9 +23,9 @@ export default {
       getParticipants: 'getParticipants'
     }),
     sortedParticipants() {
-      return this.getParticipants.sort((a, b) =>
-        a.github.localeCompare(b.github)
-      );
+      const participants = this.getParticipants;
+
+      return participants.sort((a, b) => a.github.localeCompare(b.github));
     },
     selectedParticipant: {
       get() {
