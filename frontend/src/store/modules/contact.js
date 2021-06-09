@@ -17,12 +17,14 @@ export default {
   mutations: {
     setWasSent(state) {
       state.msgWasSent = true;
+      setTimeout(() => (state.msgWasSent = false), 5000);
     },
     setWasntSent(state) {
       state.msgWasSent = false;
     },
     raiseMsgError(state) {
       state.msgError = true;
+      setTimeout(() => (state.msgError = false), 5000);
     },
     clearError(state) {
       state.msgError = false;
