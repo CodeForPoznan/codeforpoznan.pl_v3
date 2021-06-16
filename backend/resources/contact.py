@@ -39,9 +39,10 @@ class SendMessage(Resource):
     external_message_body = """
         Cześć,
         
-        tu załoga Code For Poznań! Chcielibyśmy dać znać, że otrzymaliśmy Twoją wiadomość i postaramy się jak najszybciej na nią odpowiedzieć.
+        Chcielibyśmy dać znać, że otrzymaliśmy Twoją wiadomość i postaramy się jak najszybciej na nią odpowiedzieć.
         
-        Do usłyszenia wkrótce!
+        Pozdrawiamy,
+        załoga Code for Poznań
     """
 
     def __init__(self, *args, **kwargs):
