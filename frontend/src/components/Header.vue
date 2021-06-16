@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-app-bar class="navbar-custom" dark color="#2C3E50">
+    <v-app-bar class="navbar-custom" app dark color="#2C3E50">
       <v-toolbar-title>
         <a href="https://codeforpoznan.pl/">
           <v-img
@@ -19,13 +19,24 @@
         @click="drawer = !drawer"
         class="hidden-md-and-up"
       ></v-app-bar-nav-icon>
-      <v-tabs background-color="transparent" right class="hidden-sm-and-down">
-        <template v-for="item in items">
-          <v-tab align-right @click="$vuetify.goTo(item.id)" :key="item.id">{{
-            item.name
-          }}</v-tab>
-        </template>
-      </v-tabs>
+      <Scrollactive :offset="64" @itemchanged="onActiveTabChanged">
+        <v-tabs
+          background-color="transparent"
+          height="64"
+          right
+          class="hidden-sm-and-down"
+          v-model="activeTabIndex"
+        >
+          <v-tab
+            v-for="item in items"
+            :key="item.id"
+            align-right
+            :data-section-selector="item.id"
+            class="scrollactive-item"
+            >{{ item.name }}
+          </v-tab>
+        </v-tabs>
+      </Scrollactive>
     </v-app-bar>
     <v-list class="navbar-custom hidden-md-and-up" dark>
       <v-expand-transition>
@@ -52,6 +63,8 @@
 </template>
 
 <script>
+import Scrollactive from 'vue-scrollactive/src/scrollactive.vue';
+
 export default {
   data() {
     return {
@@ -62,8 +75,23 @@ export default {
         { name: 'Kontakt', id: '#contact' }
       ],
       cfpLogo: require('@/assets/images/logo-white.svg'),
-      drawer: false
+      drawer: false,
+      activeTabIndex: null
     };
+  },
+  components: {
+    Scrollactive
+  },
+  methods: {
+    onActiveTabChanged(_, currentItem) {
+      if (currentItem) {
+        const activeItemIndex = this.items.findIndex(
+          item => item.id === currentItem.dataset.sectionSelector
+        );
+
+        this.activeTabIndex = activeItemIndex;
+      }
+    }
   }
 };
 </script>
