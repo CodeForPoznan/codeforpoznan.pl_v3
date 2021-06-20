@@ -65,6 +65,7 @@
               <v-icon>mdi-account-outline</v-icon>
             </v-list-item-avatar>
             <v-list-item-title v-text="item.github"></v-list-item-title>
+            <v-btn v-on:click="onDeleteParticipant(item)">Delete</v-btn>
           </v-list-item>
         </template>
       </v-list>
@@ -89,6 +90,11 @@ export default {
       this.$store
         .dispatch('hacknight/addParticipants', ids)
         .then(() => (this.selectedParticipants = []));
+    },
+    onDeleteParticipant(participant) {
+      const ids = [participant.id];
+
+      this.$store.dispatch('hacknight/deleteParticipants', ids);
     }
   },
   computed: {
