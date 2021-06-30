@@ -3,7 +3,7 @@
     clearable
     label="Search participants"
     :items="sortedParticipants"
-    item-text="github"
+    :item-text="displayText"
     :filter="filterParticipants"
     v-model="selectedParticipant"
   ></v-combobox>
@@ -25,14 +25,17 @@ export default {
     sortedParticipants() {
       const participants = this.getParticipants;
 
-      return participants.sort((a, b) => a.github.localeCompare(b.github));
+      return participants.sort((a, b) => a.first_name.localeCompare(b.github));
     },
     selectedParticipant: {
       get() {
         return this.value;
       },
       set(selectedParticipant) {
-        this.$emit('input', selectedParticipant);
+        const newSelectedParticipant =
+          typeof selectedParticipant === 'object' ? selectedParticipant : null;
+
+        this.$emit('input', newSelectedParticipant);
       }
     }
   },
@@ -46,6 +49,11 @@ export default {
             .toLowerCase()
             .includes(queryText.toLowerCase())
       );
+    },
+    displayText(participant) {
+      const { first_name, last_name, slack, github } = participant;
+
+      return `${first_name} ${last_name} (${slack}/${github})`;
     }
   }
 };
