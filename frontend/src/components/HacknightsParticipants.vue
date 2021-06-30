@@ -85,26 +85,16 @@ export default {
         .dispatch('hacknight/addParticipants', ids)
         .then(() => (this.selectedParticipants = []));
     },
-    // filerOutParticipants() {
-    //     return this.getParticipants
-    //       .filter(
-    //         participant =>
-    //           !this.getHacknight.participants.filter(
-    //             y => y.id === participant.id
-    //           ).length
-    //       )
-    //       .sort((a, b) => a.github.localeCompare(b.github))
-    //   },
-      filerOutParticipants() {
-        return this.getParticipants
-          .filter(
-            participant =>
-              !this.getHacknight.participants.some(
-                hacknightParticipant => hacknightParticipant.id === participant.id
-              )
-          )
-          .sort((a, b) => a.github.localeCompare(b.github))
-      },
+    filerOutParticipants() {
+      return this.getParticipants
+        .filter(
+          participant =>
+            !this.getHacknight.participants.some(
+              hacknightParticipant => hacknightParticipant.id === participant.id
+            )
+        )
+        .sort((a, b) => a.github.localeCompare(b.github));
+    },
     orderedParticipants() {
       return _.sortBy(this.getHacknight.participants, participant =>
         participant.github.toLowerCase()
