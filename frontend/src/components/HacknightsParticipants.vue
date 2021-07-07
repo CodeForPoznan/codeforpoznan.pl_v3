@@ -5,13 +5,7 @@
         <v-combobox
           v-model="selectedParticipants"
           outlined
-          :items="
-            getParticipants.filter(
-              participant =>
-                !getHacknight.participants.filter(y => y.id === participant.id)
-                  .length
-            )
-          "
+          :items="filerOutParticipants()"
           item-text="github"
           item-value="github"
           :search-input.sync="search"
@@ -59,7 +53,7 @@
       </v-toolbar>
       <v-divider v-if="getHacknight.participants"></v-divider>
       <v-list>
-        <template v-for="(item, i) in getHacknight.participants">
+        <template v-for="(item, i) in orderedParticipants()">
           <v-list-item v-if="getHacknight.participants" :key="i">
             <v-list-item-avatar>
               <v-icon>mdi-account-outline</v-icon>
@@ -74,6 +68,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import _ from 'lodash';
 export default {
   data() {
     return {
@@ -89,6 +84,21 @@ export default {
       this.$store
         .dispatch('hacknight/addParticipants', ids)
         .then(() => (this.selectedParticipants = []));
+    },
+    filerOutParticipants() {
+      return this.getParticipants
+        .filter(
+          participant =>
+            !this.getHacknight.participants.some(
+              hacknightParticipant => hacknightParticipant.id === participant.id
+            )
+        )
+        .sort((a, b) => a.github.localeCompare(b.github));
+    },
+    orderedParticipants() {
+      return _.sortBy(this.getHacknight.participants, participant =>
+        participant.github.toLowerCase()
+      );
     }
   },
   computed: {
