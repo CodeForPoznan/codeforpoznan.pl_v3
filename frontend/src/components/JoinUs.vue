@@ -24,7 +24,7 @@
           </p>
           <br />
           <p class="content">
-            Dołącz do nas! Napisz albo zapisz się na wydarzenie onboardingowe
+            Dołącz do nas! Napisz albo zapisz się na wydarzenie onboardingowe.
           </p>
         </v-card>
       </v-col>
