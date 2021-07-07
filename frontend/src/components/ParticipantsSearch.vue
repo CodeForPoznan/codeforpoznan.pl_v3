@@ -6,7 +6,19 @@
     :item-text="displayText"
     :filter="filterParticipants"
     v-model="selectedParticipant"
-  ></v-combobox>
+    :search-input.sync="search"
+  >
+    <template v-slot:no-data>
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title>
+            No results matching "<strong>{{ search }}</strong
+            >".
+          </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+    </template>
+  </v-combobox>
 </template>
 
 <script>
