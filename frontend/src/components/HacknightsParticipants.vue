@@ -12,8 +12,8 @@
                   .length
             )
           "
-          item-text="github"
-          item-value="github"
+          item-text="github_username"
+          item-value="github_username"
           :search-input.sync="search"
           hide-selected
           label="Add participants"
@@ -64,7 +64,7 @@
             <v-list-item-avatar>
               <v-icon>mdi-account-outline</v-icon>
             </v-list-item-avatar>
-            <v-list-item-title v-text="item.github"></v-list-item-title>
+            <v-list-item-title v-text="item.github_username"></v-list-item-title>
           </v-list-item>
         </template>
       </v-list>

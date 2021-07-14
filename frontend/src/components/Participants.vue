@@ -66,10 +66,10 @@
         <v-select
           :items="
             [...getParticipants].sort((a, b) =>
-              a.github.localeCompare(b.github)
+              a.github_username.localeCompare(b.github_username)
             )
           "
-          item-text="github"
+          item-text="github_username"
           item-value="id"
           label="Select Participant"
           v-model="selectedParticipant"
@@ -88,7 +88,7 @@
         />
         <v-text-field
           label="Github username"
-          v-model="form.github"
+          v-model="form.github_username"
           @blur="validateGithub($event)"
           :error-messages="githubErrors"
         />
@@ -196,7 +196,7 @@ export default {
     return {
       form: {
         email: '',
-        github: '',
+        github_username: '',
         first_name: '',
         last_name: '',
         slack: '',
@@ -224,14 +224,14 @@ export default {
               );
         }
       },
-      github: {
+      github_username: {
         required,
         gitHubUsernameValidator,
         githubExists(value) {
           return this.editParticipant
             ? true
             : !Object.values(this.getParticipants).find(
-                user => user.github === value
+                user => user.github_username === value
               );
         }
       },
@@ -320,7 +320,7 @@ export default {
     },
     validateGithub(event) {
       this.$v.form.github.$touch();
-      return (this.form.github = event.target.value.replace(
+      return (this.form.github_username = event.target.value.replace(
         /https?:\/\/github.com\//,
         ''
       ));
@@ -383,11 +383,11 @@ export default {
     githubErrors() {
       const errors = [];
 
-      if (!this.$v.form.github.$dirty) return errors;
-      !this.$v.form.github.gitHubUsernameValidator &&
+      if (!this.$v.form.github_username.$dirty) return errors;
+      !this.$v.form.github_username.gitHubUsernameValidator &&
         errors.push('Invalid username');
-      !this.$v.form.github.required && errors.push('This field is required');
-      !this.$v.form.github.githubExists && errors.push('User already exists');
+      !this.$v.form.github_username.required && errors.push('This field is required');
+      !this.$v.form.github_username.githubExists && errors.push('User already exists');
       return errors;
     },
     firstNameErrors() {
