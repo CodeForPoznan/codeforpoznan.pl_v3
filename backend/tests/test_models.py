@@ -6,9 +6,11 @@ from backend.models import Hacknight, Participant, Team, User
 def test_create_new_user(new_user):
     """Test user model."""
 
-    new_user = User(github=new_user["github"], password=new_user["password"])
+    new_user = User(
+        github_username=new_user["github_username"], password=new_user["password"]
+    )
 
-    assert new_user.github == "TestName"
+    assert new_user.github_username == "TestName"
     assert new_user.check_password("TestPassword")
 
 

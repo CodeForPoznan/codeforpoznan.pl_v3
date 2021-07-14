@@ -62,7 +62,7 @@ def _db():
 
 @pytest.fixture
 def new_user():
-    user = {"github": "TestName", "password": "TestPassword"}
+    user = {"github_username": "TestName", "password": "TestPassword"}
     return user
 
 
@@ -73,7 +73,7 @@ def new_participant():
         "last_name": "Doe",
         "email": "test@test.test",
         "phone": "123456789",
-        "github": "wihajster",
+        "github_username": "wihajster",
         "slack": "slacklogin",
     }
     return participant

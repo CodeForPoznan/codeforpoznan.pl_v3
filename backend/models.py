@@ -13,7 +13,7 @@ class User(db.Model):
 
     __tablename__ = "user"
     id = Column(Integer, autoincrement=True, primary_key=True)
-    github = Column(String(200), unique=True)
+    github_username = Column(String(200), unique=True)
     password = Column(String(100))
     first_name = Column(String(50))
     last_name = Column(String(50))
@@ -22,8 +22,8 @@ class User(db.Model):
     slack = Column(String(21))
     is_admin = Column(Boolean)
 
-    def __init__(self, github, password):
-        self.github = github
+    def __init__(self, github_username, password):
+        self.github_username = github_username
         self.set_password(password)
 
     def set_password(self, password):
@@ -48,7 +48,7 @@ class Participant(db.Model):
     first_name = Column(String(50), nullable=False)
     last_name = Column(String(50), nullable=False)
     email = Column(String(200), unique=True, nullable=False)
-    github = Column(String(200), unique=True, nullable=False)
+    github_username = Column(String(200), unique=True, nullable=False)
     phone = Column(String(13))
     slack = Column(String(21))
 

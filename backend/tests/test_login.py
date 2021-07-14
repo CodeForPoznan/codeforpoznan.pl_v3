@@ -28,7 +28,10 @@ def test_login_with_invalid_password(client, new_user, registered_user):
     """Test logging with invalid password."""
     rv = client.post(
         "/api/auth/login/",
-        json={"github": new_user["github"], "password": "WrongPassword"},
+        json={
+            "github_username": new_user["github_username"],
+            "password": "WrongPassword",
+        },
     )
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.UNAUTHORIZED
@@ -38,7 +41,8 @@ def test_login_with_invalid_password(client, new_user, registered_user):
 def test_login_with_invalid_name_password(client):
     """Test logging with invalid name and password."""
     rv = client.post(
-        "/api/auth/login/", json={"github": "WrongName", "password": "WrongPassword"}
+        "/api/auth/login/",
+        json={"github_username": "WrongName", "password": "WrongPassword"},
     )
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.UNAUTHORIZED
@@ -60,15 +64,17 @@ def test_try_login_twice(client, new_user, tokens):
 
 def test_login_with_invalid_input(client):
     """Test try login with too short github."""
-    rv = client.post("/api/auth/login/", json={"github": "ab", "password": "pass"})
+    rv = client.post(
+        "/api/auth/login/", json={"github_username": "ab", "password": "pass"}
+    )
     response = rv.get_json()
 
     assert rv.status_code == HTTPStatus.BAD_REQUEST
     assert "Wrong input data" in response["msg"]
-    assert "Shorter than minimum length" in response["errors"]["github"][0]
+    assert "Shorter than minimum length" in response["errors"]["github_username"][0]
 
 
-@pytest.mark.parametrize("missing", ["github", "password"])
+@pytest.mark.parametrize("missing", ["github_username", "password"])
 def test_login_with_one_value_missing(client, missing, new_user):
     """Test try to login without password or github in payload."""
     new_user.pop(missing)
