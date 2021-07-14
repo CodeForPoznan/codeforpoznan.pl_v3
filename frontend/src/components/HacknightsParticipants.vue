@@ -58,7 +58,9 @@
             <v-list-item-avatar>
               <v-icon>mdi-account-outline</v-icon>
             </v-list-item-avatar>
-            <v-list-item-title v-text="item.github_username"></v-list-item-title>
+            <v-list-item-title
+              v-text="item.github_username"
+            ></v-list-item-title>
           </v-list-item>
         </template>
       </v-list>

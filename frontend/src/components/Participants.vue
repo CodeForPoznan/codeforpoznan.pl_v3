@@ -382,8 +382,10 @@ export default {
       if (!this.$v.form.github_username.$dirty) return errors;
       !this.$v.form.github_username.gitHubUsernameValidator &&
         errors.push('Invalid username');
-      !this.$v.form.github_username.required && errors.push('This field is required');
-      !this.$v.form.github_username.githubExists && errors.push('User already exists');
+      !this.$v.form.github_username.required &&
+        errors.push('This field is required');
+      !this.$v.form.github_username.githubExists &&
+        errors.push('User already exists');
       return errors;
     },
     firstNameErrors() {
