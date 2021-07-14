@@ -63,19 +63,7 @@
         </v-tab>
       </v-tabs>
       <v-card-text v-if="editParticipant">
-        <v-select
-          :items="
-            [...getParticipants].sort((a, b) =>
-              a.github_username.localeCompare(b.github_username)
-            )
-          "
-          item-text="github_username"
-          item-value="id"
-          label="Select Participant"
-          v-model="selectedParticipant"
-          @input="onPopulateForm"
-        >
-        </v-select>
+        <ParticipantsSearch v-model="selectedParticipant" />
       </v-card-text>
       <v-divider></v-divider>
       <v-form @keyup.enter="onSubmit" class="pa-6" ref="form">
@@ -177,6 +165,7 @@
 </template>
 
 <script>
+import ParticipantsSearch from './ParticipantsSearch.vue';
 import { mapGetters } from 'vuex';
 import {
   required,
@@ -210,6 +199,9 @@ export default {
       dialog: false,
       selectedTab: 0
     };
+  },
+  components: {
+    ParticipantsSearch
   },
   validations: {
     form: {
@@ -262,7 +254,7 @@ export default {
       if (this.selectedParticipant) {
         this.editParticipant = true;
         this.$store
-          .dispatch('participant/getParticipant', this.selectedParticipant)
+          .dispatch('participant/getParticipant', this.selectedParticipant.id)
           .then(() => {
             const selectedParticipant = this.getParticipant;
 
@@ -277,7 +269,6 @@ export default {
         .dispatch('participant/editParticipant', { ...this.form })
         .then(status => {
           if (status === 200) {
-            this.selectedParticipant = this.getParticipant;
             this.successAlert = 'Participant has been successfully edited';
             this.resetForm();
             setTimeout(() => (this.successAlert = ''), 5000);
@@ -320,7 +311,7 @@ export default {
     },
     validateGithub(event) {
       this.$v.form.github.$touch();
-      return (this.form.github_username = event.target.value.replace(
+      return (this.form.github = event.target.value.replace(
         /https?:\/\/github.com\//,
         ''
       ));
@@ -363,6 +354,11 @@ export default {
       this.warningMessage =
         'This phone number already exists. Please verify if a person is actually a new paricipant';
       setTimeout(() => (this.warningAlert = false), 10000);
+    }
+  },
+  watch: {
+    selectedParticipant(newValue) {
+      newValue ? this.onPopulateForm() : this.resetForm();
     }
   },
   computed: {
