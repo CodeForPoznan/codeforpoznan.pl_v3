@@ -17,6 +17,12 @@ class UserFactory(BaseFactory):
 
     github_username = factory.Faker("email", locale="pl_PL")
     password = "pass123"
+    first_name = factory.Faker("first_name")
+    last_name = factory.Faker("last_name")
+    email = factory.Faker("email")
+    phone = factory.Faker("msisdn")
+    slack = factory.Faker("word")
+    is_admin = False
 
     @classmethod
     def _create(cls, model_class, *args, **kwargs):

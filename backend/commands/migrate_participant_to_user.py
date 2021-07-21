@@ -27,10 +27,10 @@ def migrate_participant_to_user():
 
     # create users
     for participant in list_of_participants:
-        new_user = User(**participant)
-        db.session.add(new_user)
-    db.session.commit()
-
-    click.echo(f"Migrated {len(list_of_participants)} users")
-
+        if User.query.filter_by(email=participant["email"]).first():
+            click.echo(f"Skipping {participant['email']} as it already exists.")
+        else:
+            new_user = User(**participant)
+            click.echo(f"Migrated participant: {participant['email']} as user")
+            db.session.add(new_user)
     db.session.commit()
