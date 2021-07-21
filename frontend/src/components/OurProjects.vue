@@ -45,7 +45,7 @@
 
 <script>
 import ModalContent from './ModalContent.vue';
-import projects from '../assets/projects';
+import sortedProjects from '../assets/projects';
 export default {
   components: {
     'app-modal-content': ModalContent
@@ -54,7 +54,7 @@ export default {
     return {
       dialog: false,
       hoveredImg: require('@/assets/images/magnifying_glass.svg'),
-      projects: projects,
+      projects: sortedProjects,
       selectedProject: []
     };
   },
