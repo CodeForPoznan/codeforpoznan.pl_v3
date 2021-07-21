@@ -13,12 +13,12 @@
       <v-col>
         <v-card flat dark tile color="transparent">
           <p class="content">
-            Kodujesz? Testujesz? Zajmujesz się grafiką albo UXem? A może
+            Kodujesz? Testujesz? Zajmujesz się grafiką albo UX-em? A może
             sprawnie zarządzasz projektami IT?
           </p>
           <br />
           <p class="content">
-            W czasie pandemii spotykamy się online, co tydzień w środę o 18:00.
+            W czasie pandemii spotykamy się zdalnie, co tydzień w środę o 18:00.
             Jednak mamy nadzieję, że niedługo wrócimy do stacjonarnych spotkań w
             dobrym towarzystwie.
           </p>
