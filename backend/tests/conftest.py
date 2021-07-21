@@ -62,7 +62,16 @@ def _db():
 
 @pytest.fixture
 def new_user():
-    user = {"github_username": "TestName", "password": "TestPassword"}
+    user = {
+        "github_username": "TestName",
+        "password": "TestPassword",
+        "first_name": "Sheldon",
+        "last_name": "Nowitzki",
+        "email": "sheldon@nowitzki.test",
+        "phone": "1234123",
+        "slack": "mightysheldor",
+        "is_admin": False,
+    }
     return user
 
 
