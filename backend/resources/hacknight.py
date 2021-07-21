@@ -91,13 +91,13 @@ class HacknightParticipants(Resource):
         hacknight = Hacknight.query.get_or_404(id)
         participants = {participant.id for participant in hacknight.participants}
         json_data = request.get_json(force=True)
-        ids_schema = Schema.from_dict({"participants_ids": fields.List(fields.Int())})
+        ids_schema = Schema.from_dict({"participant_id": fields.List(fields.Int())})
         try:
             data = ids_schema().load(json_data)
         except ValidationError as err:
             return err.messages, HTTPStatus.UNPROCESSABLE_ENTITY
 
-        to_remove = participants.intersection(set(data["participants_ids"]))
+        to_remove = participants.intersection(set(data["participant_id"]))
         if not to_remove:
             return {"message": "No participant to delete"}, HTTPStatus.BAD_REQUEST
         hacknight.participants = [

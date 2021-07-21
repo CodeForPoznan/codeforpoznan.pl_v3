@@ -77,11 +77,11 @@ export default {
           commit('raiseError', error);
         });
     },
-    deleteParticipants({ commit, getters }, participants_ids) {
+    deleteParticipant({ commit, getters }, participant_id) {
       axios
         .delete(`/api/hacknights/${getters.getHacknight.id}/participants/`, {
           data: {
-            participants_ids: participants_ids
+            participant_id: participant_id
           }
         })
         .then(res => {
