@@ -30,10 +30,10 @@ export default {
     }
   },
   actions: {
-    createHacknight({ commit, dispatch }) {
+    createHacknight({ commit, dispatch }, date) {
       return axios
         .post('/api/hacknights/', {
-          date: new Date().toISOString().slice(0, 10)
+          date: date
         })
         .then(res => {
           commit('setHacknight', res.data);
