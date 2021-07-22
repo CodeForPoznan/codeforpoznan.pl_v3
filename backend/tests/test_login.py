@@ -5,7 +5,12 @@ import pytest
 
 def test_login_with_valid_user(client, new_user, registered_user):
     """Test logging with valid data."""
-    rv = client.post("/api/auth/login/", json=new_user)
+    new_user_dict = {
+        k: v
+        for k, v in new_user.items()
+        if k == ("github_username") or k == ("password")
+    }
+    rv = client.post("/api/auth/login/", json=new_user_dict)
 
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.CREATED

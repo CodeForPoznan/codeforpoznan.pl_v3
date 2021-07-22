@@ -116,7 +116,12 @@ def registered_user(new_user, app, _db):
 @pytest.fixture
 def tokens(app, client, new_user, registered_user):
     with app.app_context():
-        rv = client.post("/api/auth/login/", json=new_user)
+        new_user_dict = {
+            k: v
+            for k, v in new_user.items()
+            if k == ("github_username") or k == ("password")
+        }
+        rv = client.post("/api/auth/login/", json=new_user_dict)
         response = rv.get_json()
         from backend.models import JWTToken
 
