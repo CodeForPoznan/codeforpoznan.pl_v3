@@ -16,7 +16,7 @@
             Kodujesz? Jesteś grafikiem? UX-owcem? Robisz cokolwiek innego, co
             może się przydać w kodowaniu dla Poznania? Dołącz do nas! Spotykamy
             się w każdą środę od godz. 18:00 w firmie STX Next przy ul. Mostowej
-            38 niedaleko Nowej Gazowni (Pawilonu) w parku Stare Koryto Warty. TEST
+            38 niedaleko Nowej Gazowni (Pawilonu) w parku Stare Koryto Warty. TEST 2
           </p>
         </v-card>
       </v-col>
