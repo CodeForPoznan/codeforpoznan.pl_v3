@@ -1,5 +1,5 @@
 <template>
-  <div id="media">
+  <address id="media">
     <h2>MEDIA</h2>
     <ul class="media-info">
       <li v-for="item in media" :key="item.link">
@@ -8,7 +8,7 @@
         </a>
       </li>
     </ul>
-  </div>
+  </address>
 </template>
 
 <script>

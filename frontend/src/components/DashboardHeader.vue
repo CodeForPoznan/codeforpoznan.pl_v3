@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <nav>
     <v-app-bar class="navbar-custom" dark clipped-right color="#2C3E50">
       <v-toolbar-title>
         <a href="https://codeforpoznan.pl/">
@@ -37,7 +37,7 @@
         </v-tabs>
       </v-expand-transition>
     </v-list>
-  </div>
+  </nav>
 </template>
 
 <script>
