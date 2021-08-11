@@ -95,7 +95,6 @@ export default {
   top: 0.75rem;
   height: 2rem;
   padding: 0.25rem 0.75rem;
-  // background-color: greenyellow;
   border-radius: 25px;
   box-shadow: 1px 3px #2c3e50;
   font-family: $font-content;
@@ -114,10 +113,6 @@ export default {
 
 .card--badge_status--zawieszony {
   background-color: $lightyellow;
-}
-
-.card--badge_status--text {
-  text-transform: capitalize;
 }
 
 .card--hover {
