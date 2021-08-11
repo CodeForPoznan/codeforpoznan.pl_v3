@@ -23,7 +23,14 @@
         <v-item-group>
           <v-hover v-slot="{ hover }">
             <v-card @click.stop="clickImage(project)">
-              <v-img :src="project.imageAdress" aspect-ratio="1.9" />
+              <v-img :src="project.imageAdress" aspect-ratio="1.9">
+                <div
+                  class="card--badge"
+                  :class="'card--badge_status--' + project.badge"
+                >
+                  {{ project.badge }}
+                </div>
+              </v-img>
               <v-card-title class="card">
                 {{ project.name }}
               </v-card-title>
@@ -79,6 +86,38 @@ export default {
   font-family: $font-header;
   font-size: 1.5rem;
   justify-content: center;
+}
+
+.card--badge {
+  position: relative;
+  display: inline;
+  left: 0.75rem;
+  top: 0.75rem;
+  height: 2rem;
+  padding: 0.25rem 0.75rem;
+  // background-color: greenyellow;
+  border-radius: 25px;
+  box-shadow: 1px 3px #2c3e50;
+  font-family: $font-content;
+  font-size: 1.2rem;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+.card--badge_status--aktywny {
+  background-color: $green;
+}
+
+.card--badge_status--wspierany {
+  background-color: $yellow;
+}
+
+.card--badge_status--zawieszony {
+  background-color: $lightyellow;
+}
+
+.card--badge_status--text {
+  text-transform: capitalize;
 }
 
 .card--hover {
