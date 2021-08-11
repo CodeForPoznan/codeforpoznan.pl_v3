@@ -33,13 +33,16 @@ class SendMessage(Resource):
     """
 
     external_message_subject = """
-        [CfP] Witaj!
+        [Code fof Poznań] Witaj na pokładzie!
     """
 
     external_message_body = """
         Cześć,
         
-        tu załoga Code For Poznań! Cieszymy się, że z nami jesteś!
+        Chcielibyśmy dać znać, że otrzymaliśmy Twoją wiadomość i postaramy się jak najszybciej na nią odpowiedzieć.
+        
+        Pozdrawiamy,
+        załoga Code for Poznań
     """
 
     def __init__(self, *args, **kwargs):
