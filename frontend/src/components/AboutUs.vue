@@ -15,9 +15,12 @@
           <v-card-text>
             <p class="sub-title">Kim jesteśmy?</p>
             <p class="content">
-              Grupą osób, która uważa, że warto ulepszać świat za pomocą
-              technologii i chce dostarczać narzędzia, dzięki którym każdy
-              będzie mógł to robić.
+              Jesteśmy grupą wolontariuszy. Staramy się pomóc, tworząc
+              oprogramowanie dla organizacji społecznych. W Code for Poznań
+              działają osoby, które zajmują się pisaniem kodu, zarządzaniem
+              projektami, projektowaniem (UX) i testowaniem rozwiązań
+              technologicznych. Jesteśmy zróżnicowani i otwarci. Łączy nas jeden
+              cel - pomoc organizacjom społecznym.
             </p>
           </v-card-text>
         </v-card>
@@ -27,9 +30,12 @@
           <v-card-text>
             <p class="sub-title">Co robimy?</p>
             <p class="content">
-              Projektujemy. Programujemy. Testujemy. Poprawiamy. Tworzymy
-              aplikacje społeczne, które aktywują użytkowników do działania na
-              rzecz swojej społeczności czy jakiegoś interesu społecznego.
+              Gdy nawiązujemy współpracę z organizacją, staramy się poznać jej
+              problemy i przełożyć je na praktyczne rozwiązania technologiczne.
+              Szukamy wyzwań, żeby tworzyć oryginalne aplikacje, platformy i
+              systemy informatyczne. Nasze projekty ułatwiają organizacjom
+              społecznym tworzenie dobra dla innych i angażują użytkowników do
+              działania na rzecz ważnych spraw.
             </p>
           </v-card-text>
         </v-card>
