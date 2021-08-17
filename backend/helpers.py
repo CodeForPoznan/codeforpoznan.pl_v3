@@ -1,6 +1,7 @@
 import traceback
 from io import StringIO
 from contextlib import redirect_stdout, redirect_stderr, contextmanager
+from typing import Optional
 
 import requests
 
@@ -23,18 +24,19 @@ def wrap_io(catch=Exception) -> (callable, callable):
         err.write(traceback.format_exc())
 
 
-def ask_for_temporary_mail():
+def ask_for_temporary_mail() -> Optional[dict]:
+    """
+    Return dict with connection info for ethereal.mail or None if failed.
+    """
     json = {"requestor": "nodemailer", "version": "6.5.0"}
     resp = requests.post("https://api.nodemailer.com/user", json=json)
 
-    if resp.status_code != 200:
-        return {}
-
-    data = resp.json()
-    return {
-        "server": data["smtp"]["host"],
-        "port": data["smtp"]["port"],
-        "username": data["user"],
-        "password": data["pass"],
-        "web_server": data["web"] + "/message/",
-    }
+    if resp.status_code == 200:
+        data = resp.json()
+        return {
+            "MAIL_SERVER": data["smtp"]["host"],
+            "MAIL_PORT": data["smtp"]["port"],
+            "MAIL_USERNAME": data["user"],
+            "MAIL_PASSWORD": data["pass"],
+            "MAIL_WEB_URL": data["web"] + "/message/",
+        }
