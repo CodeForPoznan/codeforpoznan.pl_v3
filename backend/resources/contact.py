@@ -1,3 +1,4 @@
+import re
 import time
 from textwrap import dedent
 
@@ -22,13 +23,14 @@ class SendMessage(Resource):
     # available variables: name, email, phone, content, base_url
 
     internal_message_subject = """
-        Email z {base_url} od {name}
+        [CfP] Email z {base_url} od {name}
     """
 
     internal_message_body = """
         Nowa wiadomość od {name} <{email}>
         numer telefonu: {phone}
         Treść:
+        
         {content}
     """
 
@@ -47,11 +49,11 @@ class SendMessage(Resource):
 
         self.log = current_app.logger
         self.base_url = current_app.config["BASE_URL"]
-        self.mail_web_server = current_app.config["MAIL_WEB_SERVER"]
+        self.mail_web_url = current_app.config["MAIL_WEB_URL"]
         self.mail_suppress_send = current_app.config["MAIL_SUPPRESS_SEND"]
 
-        self.hello_addr = f"hello@{self.base_url}"
-        self.notify_addr = f"notifications@{self.base_url}"
+        self.hello_addr = f"CodeForPoznan <hello@{self.base_url}>"
+        self.notify_addr = f"CodeForPoznan <notifications@{self.base_url}>"
 
     def post(self):
         try:
@@ -60,7 +62,8 @@ class SendMessage(Resource):
         except ValidationError as err:
             return {"message": err.messages}, HTTPStatus.BAD_REQUEST
 
-        sender_email = data["email"]
+        sender_name, sender_email = data["name"], data["email"]
+        sender_email = f"{sender_name} <{sender_email}>"
         context = {"base_url": self.base_url, **data}
 
         try:
@@ -70,7 +73,7 @@ class SendMessage(Resource):
                 subject=self.internal_message_subject,
                 body=self.internal_message_body,
                 sender=self.notify_addr,
-                reply_to=self.notify_addr,
+                reply_to=self.hello_addr,
                 recipients=[self.hello_addr],
             )
 
@@ -96,7 +99,7 @@ class SendMessage(Resource):
         subject = dedent(subject).format(**context).strip()
         body = dedent(body).format(**context).strip()
 
-        with wrap_io() as (out, err):
+        with wrap_io() as (_, err):
             time.sleep(0.2)  # conservative throttle of 200ms/req for API
             mail.send_message(subject=subject, body=body, **kwargs)
 
@@ -106,11 +109,15 @@ class SendMessage(Resource):
 
         stderr = err()
 
-        if "MSGID=" not in stderr:
+        # example successful responses from ethereal and ses, respectively:
+        # data: (250, b'Accepted [STATUS=new MSGID=YRbuVPOb3gQndRMOYRubW3BtxAZI8iBfAAAAAbdiFY1fwZ4LCwdvaNWoIDs]')
+        # data: (250, b'Ok 0102017b4c5776db-6639a4be-4c46-469b-b528-edf2b28e686a-000000')
+
+        if resp := re.search(r"data: \(250, b'(.*)'", stderr):
+            msg = resp.groups()[0]
+            msg = re.search(r"[\w-]{10,}", msg).group(0)
+            link = self.mail_web_url + msg
+            self.log.info(f"Mail sent successfully! {link}")
+        else:
             self.log.error("Failed to send mail: stderr:\n", stderr)
             raise MessageError(stderr)
-
-        # bit rough, but works okay-ish
-        msgid = stderr.split("MSGID=")[1].split("]")[0]
-        link = self.mail_web_server + msgid
-        self.log.info(f"Mail sent successfully! {link}")
