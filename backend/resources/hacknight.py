@@ -15,7 +15,7 @@ from backend.serializers.hacknight_serializer import HacknightSchema
 class HacknightList(Resource):
     @jwt_required
     def get(self):
-        hacknight_schema = HacknightSchema(many=True, exclude=("participants",))
+        hacknight_schema = HacknightSchema(many=True)
         return (
             hacknight_schema.dump(
                 Hacknight.query.order_by(Hacknight.date.desc()).all()
