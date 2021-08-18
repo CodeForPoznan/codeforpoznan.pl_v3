@@ -24,12 +24,56 @@ find the general description of features we pursue at the moment:
 * [Design - tasks that could use UX experise]()
 
 ## How to get started
-1. Join codeforpoznan_v3 channel on [our slack](https://join.slack.com/t/codeforpoznan/shared_invite/zt-8a7u52j8-yqB01C2YgYF4Lvd1pFM_jw) - this is the place where we discuss all the issues and help each other by sharing tips and knowledge. You can also ping @Otis in the private channel if you need any help.
-2. Fork the repository onto your github account, choose the location on your computer where you want to keep it  and ```git clone PASTE URL``` in the terminal, using the URL link from your copy of the repo - this way any commit you push will affect only your fork (so you can break anything you like).
-3. Install docker according to the instruction you'll fine [here](https://docs.docker.com/engine/install/) to run and develop the app locally on your computer. Once you do it, got to the location of the repo on your computer and run command ```make start``` in the terminal (add ```sudo``` before the command in case of permission troubles) you'll be able to access the frontend on ```localhost:8080``` and push requests to backend on ```localhost:5000```.
-4. Choose a task from one if the lists below and leave a comment that you're gonna work on it.
-5. We like to keep ```master``` branch clean so create a new branch ```git checkout -b BRANCH NAME``` - name the branch descriptively e.g. ```update_something``` so that you know what's there. Then, switch branch ```git checkout update_something``` and start developing!
-6. Once you're finished ```git add .``` your changes, ```git commit -m "description of changes"``` describing shortly what's happening there and ```git push origin update_something``` so it gets pushed to your github. Then,  go to [our repo](https://github.com/CodeForPoznan/codeforpoznan.pl_v3/pulls), make "new pull request" and find your branch on "compare" list. Describe briefly the changes and "create pull request" to leave it for others to review your code. 
+
+#### 1. [Fork the repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo) onto your github account. 
+```bash
+# Open the terminal, choose the location on your computer where you want to keep it and paste in the command: 
+git clone git@github.com:CodeForPoznan/codeforpoznan.pl_v3.git
+```
+This way any commit you push will affect only your fork (so you can break anything you like).
+
+#### 2. [Install docker](https://docs.docker.com/engine/install/) to run the app locally on your computer. 
+```bash
+# Once you install it, go to the location of the repo on your computer and run command: 
+sudo make start 
+```
+Now you'll be able to access Frontend in you browser tab under the URL: ```localhost:8080``` and push requests to backend on ```localhost:5000```
+(if you don't want to use ```sudo``` follow the instructions [here](https://docs.docker.com/engine/install/linux-postinstall/)).
+
+#### 3. Choose a task from one if the lists below 
+Please leave a comment that you're gonna work on it.
+
+#### 4. Create a new branch for your commits 
+We like to keep master branch clean so:
+```bash
+# create a new branch and name it descriptively e.g. "update_something":
+git checkout -b BRANCH NAME
+```
+```bash
+# Then, switch to your new branch that branch with command: 
+git checkout update_something
+```
+Now you can start developing and commiting your changes!
+
+#### 5. Push your changes to main repo
+Once you're finished first to commit your changes run three comannds. 
+```bash
+# First add yout changes to the commit: 
+git add .
+```
+```bash
+# Then wrap the commit and describe what's happening there:
+git commit -m "description of changes"
+``` 
+```bash
+# Finally push the commit to your forked repo:
+git push origin update_something
+``` 
+Then, go to our repo [here](https://github.com/CodeForPoznan/codeforpoznan.pl_v3/pulls), make "new pull request" and find your branch on "compare" list. Provide a short description of the changes you made and "create pull request" so that others could review your code. 
+
+---
+> Join codeforpoznan_v3 channel on [our slack](https://join.slack.com/t/codeforpoznan/shared_invite/zt-8a7u52j8-yqB01C2YgYF4Lvd1pFM_jw) - this is the place where we discuss all the issues and help each other by sharing tips and knowledge. You can also ping [OtisRed](https://github.com/OtisRed) on github ot @Otis in the slack DM if you need any help.
+---
 
 ### Wanna start with somthing simple?
 * [Good first issue - simple tasks that don't hurry](https://github.com/CodeForPoznan/codeforpoznan.pl_v3/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22+-label%3A%22Refinement+needed%22+sort%3Acreated-asc+-label%3A%22UX+needed%22+-label%3A%22content+needed%22+no%3Aassignee)
