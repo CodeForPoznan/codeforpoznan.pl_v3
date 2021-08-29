@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <div>
     <app-dashboard-header />
     <v-row xs12>
       <v-col>
@@ -10,7 +10,7 @@
         <app-participants />
       </v-col>
     </v-row>
-  </header>
+  </div>
 </template>
 
 <script>
