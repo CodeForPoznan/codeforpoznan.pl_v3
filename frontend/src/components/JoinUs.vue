@@ -12,12 +12,14 @@
     <v-row d-flex justify-center>
       <v-col>
         <v-card flat dark tile color="transparent">
+        <section>
           <p class="content">
             Kodujesz? Jesteś grafikiem? UX-owcem? Robisz cokolwiek innego, co
             może się przydać w kodowaniu dla Poznania? Dołącz do nas! Spotykamy
             się w każdą środę od godz. 18:00 w firmie STX Next przy ul. Mostowej
             38 niedaleko Nowej Gazowni (Pawilonu) w parku Stare Koryto Warty.
           </p>
+          </section>
         </v-card>
       </v-col>
     </v-row>

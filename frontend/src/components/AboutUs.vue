@@ -15,24 +15,28 @@
       <v-col cols="12" xl="6" lg="6" md="6" sm="12" xs="12">
         <v-card flat dark tile color="transparent">
           <v-card-text>
+          <section>
             <p class="sub-title">Kim jesteśmy?</p>
             <p class="content">
               Grupą osób, która uważa, że warto ulepszać świat za pomocą
               technologii i chce dostarczać narzędzia, dzięki którym każdy
               będzie mógł to robić.
             </p>
+          </section>
           </v-card-text>
         </v-card>
       </v-col>
       <v-col xl="6" lg="6" md="6" sm="12" xs="12">
         <v-card flat dark tile color="transparent">
           <v-card-text>
+          <section>
             <p class="sub-title">Co robimy?</p>
             <p class="content">
               Projektujemy. Programujemy. Testujemy. Poprawiamy. Tworzymy
               aplikacje społeczne, które aktywują użytkowników do działania na
               rzecz swojej społeczności czy jakiegoś interesu społecznego.
             </p>
+            </section>
           </v-card-text>
         </v-card>
       </v-col>
