@@ -23,7 +23,7 @@ class ParticipantSchema(Schema):
         required=True,
         validate=[
             validate.Length(max=38),
-            validate.Regexp("^[a-zA-Z0-9][a-zA-Z0-9._-]*$"),
+            validate.Regexp("^[0-9A-Za-z][0-9A-Za-z-]*[0-9A-Za-z]$"),
         ],
     )
     hacknights = fields.Nested("HacknightSchema", exclude=("participants",), many=True)
@@ -37,7 +37,7 @@ class ParticipantSchema(Schema):
     slack = fields.Str(
         validate=[
             validate.Length(max=21),
-            validate.Regexp("^[a-zA-Z0-9][a-zA-Z0-9._-]*$"),
+            validate.Regexp("^[0-9A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ,.';\-_/()[\]{}]*$"),
         ],
         allow_none=True,
     )

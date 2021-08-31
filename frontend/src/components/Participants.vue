@@ -63,19 +63,7 @@
         </v-tab>
       </v-tabs>
       <v-card-text v-if="editParticipant">
-        <v-select
-          :items="
-            [...getParticipants].sort((a, b) =>
-              a.github.localeCompare(b.github)
-            )
-          "
-          item-text="github"
-          item-value="id"
-          label="Select Participant"
-          v-model="selectedParticipant"
-          @input="onPopulateForm"
-        >
-        </v-select>
+        <ParticipantsSearch v-model="selectedParticipant" />
       </v-card-text>
       <v-divider></v-divider>
       <v-form @keyup.enter="onSubmit" class="pa-6" ref="form">
@@ -177,17 +165,21 @@
 </template>
 
 <script>
+import ParticipantsSearch from './ParticipantsSearch.vue';
 import { mapGetters } from 'vuex';
 import {
   required,
   minLength,
   maxLength,
   email,
-  numeric,
-  alpha,
-  alphaNum
+  numeric
 } from 'vuelidate/lib/validators';
 import _ from 'lodash';
+import {
+  slackNickValidator,
+  gitHubUsernameValidator
+} from '../helpers/validation';
+
 export default {
   data() {
     return {
@@ -208,6 +200,9 @@ export default {
       selectedTab: 0
     };
   },
+  components: {
+    ParticipantsSearch
+  },
   validations: {
     form: {
       email: {
@@ -223,7 +218,7 @@ export default {
       },
       github: {
         required,
-        alphaNum,
+        gitHubUsernameValidator,
         githubExists(value) {
           return this.editParticipant
             ? true
@@ -234,18 +229,16 @@ export default {
       },
       first_name: {
         required,
-        alpha,
         minLength: minLength(3),
         maxLength: maxLength(25)
       },
       last_name: {
         required,
-        alpha,
         minLength: minLength(3),
         maxLength: maxLength(25)
       },
       slack: {
-        alphaNum,
+        slackNickValidator,
         minLength: minLength(3),
         maxLength: maxLength(25)
       },
@@ -261,7 +254,7 @@ export default {
       if (this.selectedParticipant) {
         this.editParticipant = true;
         this.$store
-          .dispatch('participant/getParticipant', this.selectedParticipant)
+          .dispatch('participant/getParticipant', this.selectedParticipant.id)
           .then(() => {
             const selectedParticipant = this.getParticipant;
 
@@ -276,7 +269,6 @@ export default {
         .dispatch('participant/editParticipant', { ...this.form })
         .then(status => {
           if (status === 200) {
-            this.selectedParticipant = this.getParticipant;
             this.successAlert = 'Participant has been successfully edited';
             this.resetForm();
             setTimeout(() => (this.successAlert = ''), 5000);
@@ -364,6 +356,11 @@ export default {
       setTimeout(() => (this.warningAlert = false), 10000);
     }
   },
+  watch: {
+    selectedParticipant(newValue) {
+      newValue ? this.onPopulateForm() : this.resetForm();
+    }
+  },
   computed: {
     ...mapGetters('participant', {
       getError: 'getError',
@@ -383,8 +380,8 @@ export default {
       const errors = [];
 
       if (!this.$v.form.github.$dirty) return errors;
-      !this.$v.form.github.alphaNum &&
-        errors.push('You used characters which are not permitted');
+      !this.$v.form.github.gitHubUsernameValidator &&
+        errors.push('Invalid username');
       !this.$v.form.github.required && errors.push('This field is required');
       !this.$v.form.github.githubExists && errors.push('User already exists');
       return errors;
@@ -393,8 +390,6 @@ export default {
       const errors = [];
 
       if (!this.$v.form.first_name.$dirty) return errors;
-      !this.$v.form.first_name.alpha &&
-        errors.push('You used characters which are not permitted');
       !this.$v.form.first_name.required &&
         errors.push('This field is required');
       !this.$v.form.first_name.minLength && errors.push('Name is too short');
@@ -405,8 +400,6 @@ export default {
       const errors = [];
 
       if (!this.$v.form.last_name.$dirty) return errors;
-      !this.$v.form.last_name.alpha &&
-        errors.push('You used characters which are not permitted');
       !this.$v.form.last_name.required && errors.push('This field is required');
       !this.$v.form.last_name.minLength &&
         errors.push('Last name is too short');
@@ -417,8 +410,7 @@ export default {
       const errors = [];
 
       if (!this.$v.form.slack.$dirty) return errors;
-      !this.$v.form.slack.alphaNum &&
-        errors.push('You used characters which are not permitted');
+      !this.$v.form.slack.slackNickValidator && errors.push('Invalid nick');
       !this.$v.form.slack.minLength && errors.push('Nick is too short');
       !this.$v.form.slack.maxLength && errors.push('Nick is too long');
       return errors;

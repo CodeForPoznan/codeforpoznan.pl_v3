@@ -1,5 +1,6 @@
 const projects = [
   {
+    badge: 'Zawieszony',
     description:
       'Portal Volontulo powstał dla ludzi i organizacji skupionych wokół idei pomocy innym poprzez udział we wolontariacie. Celem projektu jest pomoc we wzajemnym odnalezieniu się ludzi, którzy chcą realizować się jako wolontariusze/szki oraz organizacji i instytucji, które takich osób poszukują. Podział na strefę "Wolontariusza" oraz "Strefę organizacji i instytucji" umożliwa użytkownikom zwinną nawigację na stronie.',
     githubLink: 'https://github.com/CodeForPoznan/volontulo',
@@ -25,6 +26,7 @@ const projects = [
     website: 'http://volontuloapp.org/o'
   },
   {
+    badge: 'Aktywny',
     description:
       'W wyniku współpracy z Polską Akcją Humanitarną stworzyliśmy aplikację pomagającą w logistycznych procesach akcji humanitarnych w różnych częściach globu. Aktualnie aplikacja służąca rejestracji i ewidencji przejazdów jest wykorzystywana podczas akcji humanitarnych na Ukrainie, w Sudanie Południowym, Jemenie oraz Somalii. Aplikacja pozwala także na eksport zebranych danych w celu ewidencji kosztów dla danej akcji humanitarnej. Dzięku temu możemy zoptymalizować proces i zmniejszyć nakład papierkowej pracy biurowej.',
     githubLink: 'https://github.com/CodeForPoznan/pah-fm',
@@ -55,6 +57,7 @@ const projects = [
     website: 'https://github.com/CodeForPoznan/pah-fm#readme'
   },
   {
+    badge: 'Aktywny',
     description:
       'Aplikacja Alinka powstała w celu optymalizacji codziennej pracy w poradniach psychologiczno-pedagogicznych. Jako byli pracownicy takiej poradni doskonale rozumiemy jakiego nakładu pracy wymaga wydanie orzeczenia czy sporządzenie protokołu z posiedzenia komisji. Aplikacja Alinka jest odpowiedzią na trudności, z jakimi spotykają się w codziennej pracy pracownicy administracji poradni. Nazwa aplikacji: „Alinka” to imię prawdziwej osoby, która musi wykonywać tę nudną, ale bardzo ważną pracę. Mamy nadzieję, że któregoś dnia ta aplikacja pomoże w jej pracy :).',
     githubLink: 'https://github.com/CodeForPoznan/alinka-electron',
@@ -96,6 +99,7 @@ const projects = [
     website: 'https://alinka.io'
   },
   {
+    badge: 'Wspierany',
     description:
       'Bank Empatii to projekt strony Patrycji Krawczyk, która zmaga się z białaczką limfoblastyczną i chce znaleźć dawcę komórek macierzystach o podobnym do Patrycji kodzie genetycznym. Trzy główne panele "Historia Patrycji", "Jak wygląda badanie? oraz "Gdzie się zgłosić?" kierują użytkowników strony do uzyskania informacji na temat jak zostać dawcą szpiku oraz czym jest Rejestr Dawców. Na stronie znajduje się mapa Polski z umiejscowieniem punktów poboru krwi.',
     githubLink: 'https://github.com/CodeForPoznan/empatia',
@@ -108,6 +112,7 @@ const projects = [
     website: 'http://bankempatii.pl/'
   },
   {
+    badge: 'Zawieszony',
     description:
       'Oryginalny Streetmix jest dziełem Code for America, które w 2013 roku podczas hacknightu postanowiło stworzyć narzędzie, które pomoże miejskim planistom w przedstawianiu koncepcji ich planu na rewitalizacje miejskiej przestrzeni. Najczęstszym rozwiązaniem po jakie sięgają planiści jest wykonanie makiet z papieru, które zwizualizują krajobraz. Tworząc internetową wersję tego działania, planiści mogą dotrzeć do szerszego grona odbiorców niż podczas samych spotkań, a także pozwolić członkom społeczności na dzielenie się i remiksowanie swoich dzieł. Jest to jeden z pierwszych naszych projektów, które mieliśmy przyjemność przetłumaczyć tak, aby można było wykorzystać te rozwiązanie na polskim gruncie.',
     githubLink: 'https://github.com/CodeForPoznan/streetmix',
@@ -128,6 +133,7 @@ const projects = [
     website: 'https://streetmix.net'
   },
   {
+    badge: 'Zawieszony',
     description:
       'Wysadźulice.pl jest przykładem aplikacji umożliwiającej zaplanowanie czy zaprojektowanie przestrzeni, która nas otacza. Każdy użytkownik apliakcji ma dzięki niej realny wpływ na wygląd i funkcjonalność ulicy, przy której mieszka czy parku do którego chodzi. Wystraczy zrobić zdjęcie lub wgrać obraz z Google Street View, następnie dodać elementy w postaci: kwiatów, krzewów, drzew czy ławki. Tak przygotowana wizualizacja może posłużyć na konsultacjach z władzami miast czy gmin.',
     githubLink: 'https://github.com/CodeForPoznan/wysadzulice.pl',
@@ -140,6 +146,7 @@ const projects = [
     website: 'http://wysadzulice.pl'
   },
   {
+    badge: 'Aktywny',
     description:
       'Jest to trzecia wersja strony internetowej naszej organizacji. To pokazuje, że jako stowarzyszenie ciągle się rozwijamy i potrzebujemy nowych narzędzi i funkcjonalności do codziennej pracy. Aktualna forma strony jest wynikiem ponad 3 lat działalności jako Code for Poznań.',
     githubLink: 'https://github.com/CodeForPoznan/codeforpoznan.pl_v3',
@@ -179,4 +186,14 @@ const projects = [
   }
 ];
 
-export default projects;
+const badgeOrder = {
+  Aktywny: 1,
+  Wspierany: 2,
+  Zawieszony: 3
+};
+
+let sortedProjects = [...projects].sort(
+  (a, b) => badgeOrder[a.badge] - badgeOrder[b.badge]
+);
+
+export default sortedProjects;
