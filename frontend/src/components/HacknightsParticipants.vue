@@ -1,7 +1,7 @@
 <template>
   <v-container fluid text-xs-center>
     <v-row align="center" justify="center">
-      <v-col class="d-flex bar" cols="12" lg="8" md="10">
+      <v-col class="d-flex" cols="12" lg="8" md="10">
         <v-combobox
           class="bar"
           v-model="selectedParticipants"
@@ -112,9 +112,5 @@ export default {
 @import './../main.scss';
 .add-hacknight-btn {
   top: -12px;
-}
-
-.v-chip {
-  width: 100rem !important;
 }
 </style>
