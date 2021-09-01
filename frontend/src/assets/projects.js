@@ -23,7 +23,7 @@ const projects = [
         documentation: 'https://docs.djangoproject.com/pl/2.2/'
       }
     ],
-    website: 'http://volontuloapp.org/o'
+    website: ''
   },
   {
     badge: 'Aktywny',
@@ -143,7 +143,7 @@ const projects = [
     name: 'Wysadź ulicę',
     partner: [],
     stack: [],
-    website: 'http://wysadzulice.pl'
+    website: ''
   },
   {
     badge: 'Aktywny',
