@@ -118,7 +118,7 @@ class SendMessage(Resource):
 
         if resp := re.search(r"data: \(250, b'(.*)'", stderr):
             msg = resp.groups()[0]
-            msg = re.search(r"[\w-]{10,}", msg).group(0)
+            msg = re.search(r"[\w+.-]{10,}", msg).group(0)
             link = self.mail_web_url + msg
             self.log.info(f"Mail sent successfully! {link}")
         else:

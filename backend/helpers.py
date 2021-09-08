@@ -33,10 +33,13 @@ def ask_for_temporary_mail() -> Optional[dict]:
 
     if resp.status_code == 200:
         data = resp.json()
-        return {
-            "MAIL_SERVER": data["smtp"]["host"],
-            "MAIL_PORT": data["smtp"]["port"],
-            "MAIL_USERNAME": data["user"],
-            "MAIL_PASSWORD": data["pass"],
-            "MAIL_WEB_URL": data["web"] + "/message/",
-        }
+        try:
+            return {
+                "MAIL_SERVER": data["smtp"]["host"],
+                "MAIL_PORT": data["smtp"]["port"],
+                "MAIL_USERNAME": data["user"],
+                "MAIL_PASSWORD": data["pass"],
+                "MAIL_WEB_URL": data["web"] + "/message/",
+            }
+        except KeyError:
+            pass

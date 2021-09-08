@@ -34,7 +34,7 @@ class Config:
     """mail config"""
     MAIL_DEBUG = True  # always on, for error checking
     MAIL_USE_TLS = True  # always on, for security
-    MAIL_USE_SSL = False  # always off, for security
+    MAIL_USE_SSL = False  # always off, default
     MAIL_WEB_URL = ""  # used only for ethereal.mail
 
     MAIL_SUPPRESS_SEND = os.environ["MAIL_SUPPRESS_SEND"].lower() == "true"
