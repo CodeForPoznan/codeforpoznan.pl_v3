@@ -17,15 +17,15 @@ def test_contact_us_endpoint(client, new_msg):
 
         assert "Email z" in internal.subject
         assert "I'm super excited" in internal.body
-        assert internal.sender == "notifications@localhost"
-        assert internal.reply_to == "notifications@localhost"
-        assert internal.recipients == ["hello@localhost"]
+        assert internal.sender == "CodeForPoznan <notifications@localhost>"
+        assert internal.reply_to == "CodeForPoznan <hello@localhost>"
+        assert internal.recipients == ["CodeForPoznan <hello@localhost>"]
 
         assert "Witaj" in external.subject
         assert "Cześć" in external.body
-        assert external.sender == "notifications@localhost"
-        assert external.reply_to == "hello@localhost"
-        assert external.recipients == ["hvolunteer@example.com"]
+        assert external.sender == "CodeForPoznan <notifications@localhost>"
+        assert external.reply_to == "CodeForPoznan <hello@localhost>"
+        assert external.recipients == ["Happy Volunteer <hvolunteer@example.com>"]
 
 
 def test_contact_us_without_email(client, new_msg):

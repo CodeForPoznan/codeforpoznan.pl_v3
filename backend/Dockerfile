@@ -6,6 +6,7 @@ RUN apt-get update -y \
     && apt-get install -y \
         libpq-dev \
         wait-for-it \
+        iproute2 \
     && apt-get autoremove
 
 WORKDIR /cfp_v3/backend
