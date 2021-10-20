@@ -1,6 +1,9 @@
 <template>
   <v-container fluid class="white-container" id="contact">
     <v-row>
+      <v-btn @click="resetFontSize()" id="regular-font-size">A</v-btn>
+      <v-btn @click="increaseFontSize(1.2)" id="medium-font-size">A</v-btn>
+      <v-btn @click="increaseFontSize(1.5)" id="large-font-size">A</v-btn>
       <v-flex>
         <v-card flat color="transparent">
           <v-card-text class="title">
@@ -58,7 +61,7 @@ import {
   maxLength,
   minLength
 } from 'vuelidate/lib/validators';
-
+import { increaseFontSize, resetFontSize } from '../helpers/font-size.js';
 export default {
   data() {
     return {
@@ -69,6 +72,8 @@ export default {
     };
   },
   methods: {
+    increaseFontSize,
+    resetFontSize,
     onSubmit() {
       const contactData = {
         name: this.name,
@@ -145,7 +150,15 @@ export default {
 
 <style lang="scss" scoped>
 @import './../main.scss';
-
+#regular-font-size {
+  font-size: 1rem;
+}
+#medium-font-size {
+  font-size: 1.2rem;
+}
+#large-font-size {
+  font-size: 1.5rem;
+}
 #submit-button {
   background: $blue;
   color: $white;

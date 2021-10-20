@@ -8,6 +8,12 @@
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  mounted() {
+    if (localStorage.fontSize) {
+      document.getElementsByTagName('html')[0].style.fontSize =
+        localStorage.fontSize;
+    }
+  }
 };
 </script>
