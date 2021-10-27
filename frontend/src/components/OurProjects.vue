@@ -81,7 +81,6 @@ export default {
   justify-content: center;
   word-break: break-word;
   text-align: center;
-  // word-wrap: break-word;
 }
 
 .card--hover {
