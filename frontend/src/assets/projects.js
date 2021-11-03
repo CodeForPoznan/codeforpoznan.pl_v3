@@ -187,7 +187,7 @@ const projects = [
   {
     badge: 'Aktywny',
     description:
-      'Watchdog Polska od 2003 roku stoi na straży prawa do informacji w Polsce. Postrzegają je nie tylko jako warunek dobrego państwa, ale przede wszystkim jako jedno z praw człowieka, które chroni ludzką godność, daje wolność wyrażania opinii i bezpieczeństwo przed nadużyciami władzy.W ciągu 17 lat swojej działalności Sieć Obywatelska Watchdog Polska uczestniczyła w około 1122 sprawach sądowych dotyczących prawa do informacji. Niektóre z nich miały przełomowe znaczenie dla społeczeństwa. Razem współtworzymy system służący do usprawnienia obiegu dokumentów Stowarzyszenia, w szczególności w zakresie obiegu korespondencji spraw sądowych oraz archiwizacji dokumentacji.',
+      'Watchdog Polska od 2003 roku stoi na straży prawa do informacji. Rozumiane jest ono nie tylko jako warunek funkcjonowania dobrego państwa, ale przede wszystkim jako jedno z praw człowieka, które chroni ludzką godność, daje wolność wyrażania opinii i zabezpiecza przed nadużyciami władzy. W ciągu 17 lat swojej działalności Sieć Obywatelska Watchdog Polska uczestniczyła w około 1122 sprawach sądowych dotyczących prawa do informacji. Niektóre z nich miały przełomowe znaczenie dla społeczeństwa. Razem współtworzymy system służący do usprawnienia obiegu dokumentów Stowarzyszenia, w szczególności korespondencji sądowej.',
     githubLink: 'https://github.com/watchdogpolska/small_eod',
     imageAdress: require('@/assets/images/watchdog.png'),
     license: 'MIT',
