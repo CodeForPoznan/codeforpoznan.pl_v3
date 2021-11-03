@@ -7,13 +7,18 @@
 </template>
 
 <script>
+import { adjustFontSize } from './helpers/font-size.js';
 export default {
   name: 'app',
   mounted() {
-    if (localStorage.fontSize) {
-      document.getElementsByTagName('html')[0].style.fontSize =
-        localStorage.fontSize;
-    }
+    this.adjustFontSize();
+    window.addEventListener('resize', this.adjustFontSize);
+  },
+  unmounted() {
+    window.removeEventListener('resize', this.adjustFontSize);
+  },
+  methods: {
+    adjustFontSize
   }
 };
 </script>

@@ -1,27 +1,23 @@
 import styles from './../main.scss';
+
 const INITIAL_FONT_SIZE = styles.fontRootSize;
+const DESKTOP_BREAKPOINT = parseFloat(styles.desktopBreakpoint);
 
-function resetFontSize(initialFontSize = INITIAL_FONT_SIZE) {
-  localStorage.fontSize = initialFontSize;
-  document.getElementsByTagName('html')[0].style.fontSize = initialFontSize;
+function adjustFontSize() {
+  const screenWidth = window.innerWidth > 0 ? window.innerWidth : screen.width;
+  const fontLarge = parseFloat(INITIAL_FONT_SIZE) * 1.2;
+  const currentFontSize = parseFloat(
+    document.getElementsByTagName('html')[0].style.fontSize
+  );
+
+  if (screenWidth >= DESKTOP_BREAKPOINT && currentFontSize != fontLarge) {
+    document.getElementsByTagName('html')[0].style.fontSize = `${fontLarge}px`;
+  } else if (
+    screenWidth < DESKTOP_BREAKPOINT &&
+    currentFontSize != parseFloat(INITIAL_FONT_SIZE)
+  ) {
+    document.getElementsByTagName('html')[0].style.fontSize = INITIAL_FONT_SIZE;
+  }
 }
-function increaseFontSize(multiplier) {
-  const initialFontSize = parseFloat(INITIAL_FONT_SIZE);
-  const newFontSize = `${initialFontSize * multiplier}px`;
 
-  localStorage.fontSize = newFontSize;
-  document.getElementsByTagName('html')[0].style.fontSize = newFontSize;
-}
-
-// function getCurrentFontSize() {
-// if (localStorage.fontSize) {
-//     return parseFloat(localStorage.fontSize)
-// }
-//   const html = document.getElementsByTagName('html')[0];
-//   const htmlStyle = window.getComputedStyle(html);
-
-//   console.log(parseFloat(INITIAL_FONT_SIZE));
-//   return parseFloat(htmlStyle.fontSize);
-// }
-
-export { resetFontSize, increaseFontSize };
+export { adjustFontSize };
