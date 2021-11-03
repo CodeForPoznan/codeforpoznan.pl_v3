@@ -79,6 +79,8 @@ export default {
   font-family: $font-header;
   font-size: 1.5rem;
   justify-content: center;
+  word-break: break-word;
+  text-align: center;
 }
 
 .card--hover {

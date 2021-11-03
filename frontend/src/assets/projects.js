@@ -154,7 +154,7 @@ const projects = [
     license: 'MIT',
     licensePage:
       'https://github.com/CodeForPoznan/codeforpoznan.pl_v3/blob/master/LICENSE',
-    name: 'Strona społeczności',
+    name: 'Platforma społeczności',
     partner: [],
     stack: [
       {
