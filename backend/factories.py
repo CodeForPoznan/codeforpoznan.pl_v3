@@ -1,8 +1,9 @@
 import factory
+from factory import fuzzy
 from sqlalchemy import or_
 
 from backend.extensions import db
-from backend.models import Hacknight, Participant, Team, User
+from backend.models import Hacknight, Participant, Team, TechStack, User
 
 
 class BaseFactory(factory.alchemy.SQLAlchemyModelFactory):
@@ -134,3 +135,32 @@ class TeamFactory(BaseFactory):
         if extracted:
             for member in extracted:
                 self.members.append(member)
+
+    @factory.post_generation
+    def tech_stack(self, create, extracted, **kwargs):
+        if not create:
+            return
+        if extracted:
+            for techstack in extracted:
+                self.tech_stack.append(techstack)
+
+
+class TechStackFactory(BaseFactory):
+    class Meta:
+        model = TechStack
+
+    technology = factory.Faker("word")
+    label = fuzzy.FuzzyChoice(["frontend", "backend", "DevOps", "UX"])
+
+    @classmethod
+    def _create(cls, model_class, *args, **kwargs):
+        session = cls._meta.sqlalchemy_session
+        with session.no_autoflush:
+            existing = session.query(model_class).filter_by(technology=kwargs["technology"]).first()
+
+        if existing:
+            kwargs["technology"] = cls.technology.generate({})
+
+        obj = super(TechStackFactory, cls)._create(model_class, *args, **kwargs)
+
+        return obj

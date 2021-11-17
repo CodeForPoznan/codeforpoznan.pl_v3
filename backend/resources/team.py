@@ -8,9 +8,9 @@ from flask_restful import Resource
 from marshmallow import fields, Schema, ValidationError
 
 from backend.extensions import db
-from backend.models import Participant, Team
+from backend.models import Participant, Team, TechStack
 from backend.serializers.team_serializer import TeamSchema
-
+from backend.serializers.techstack_serializer import TechStackSchema
 
 class TeamList(Resource):
     @jwt_required
@@ -127,3 +127,52 @@ class TeamMembers(Resource):
         db.session.commit()
         team_schema = TeamSchema()
         return team_schema.dump(team), HTTPStatus.OK
+
+
+class TeamTechStack(Resource):
+    @jwt_required
+    def post(self, id):
+        team = Team.query.get_or_404(id)
+        tech_stack = [techstack.id for techstack in team.tech_stack]
+        json_data = request.get_json(force=True)
+        ids_schema = Schema.from_dict({"techstack_ids": fields.List(fields.Int())})
+        try:
+            data = ids_schema().load(json_data)
+        except ValidationError as err:
+            return err.messages, HTTPStatus.UNPROCESSABLE_ENTITY
+
+        new_tech_stack = [_id for _id in data.get("techstack_ids") if _id not in tech_stack]
+        if not new_tech_stack:
+            return (
+                {"message": "No new techstack has been provided"},
+                HTTPStatus.BAD_REQUEST,
+            )
+        for new_techstack in new_tech_stack:
+            team.tech_stack.append(TechStack.query.get_or_404(new_techstack))
+        db.session.add(team)
+        db.session.commit()
+
+        team_schema = TeamSchema()
+        return team_schema.dump(team), HTTPStatus.OK
+
+    @jwt_required
+    def delete(self, id):
+        team = Team.query.get_or_404(id)
+        tech_stack = {techstack.id for techstack in team.tech_stack}
+
+        json_data = request.get_json(force=True)
+        ids_schema = Schema.from_dict({"techstack_ids": fields.List(fields.Int())})
+        try:
+            data = ids_schema().load(json_data)
+        except ValidationError as err:
+            return err.messages, HTTPStatus.UNPROCESSABLE_ENTITY
+
+        to_remove = tech_stack.intersection(set(data["techstack_ids"]))
+        if not to_remove:
+            return {"message": "No techstack to delete"}, HTTPStatus.BAD_REQUEST
+
+        team.tech_stack = [techstack for techstack in team.tech_stack if techstack.id not in to_remove]
+        db.session.commit()
+        team_schema = TeamSchema()
+        return team_schema.dump(team), HTTPStatus.OK
+

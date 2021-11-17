@@ -67,6 +67,11 @@ participant_team = db.Table(
     db.Column("team_id", db.Integer, db.ForeignKey("team.id")),
 )
 
+team_techstack = db.Table(
+    "team_techstack",
+    db.Column("team_id", db.Integer, db.ForeignKey("team.id")),
+    db.Column("techstack_id", db.Integer, db.ForeignKey("techstack.id")),
+)
 
 class Team(db.Model):
     """Team model."""
@@ -82,6 +87,27 @@ class Team(db.Model):
         lazy="subquery",
         backref=db.backref("teams", lazy=True),
     )
+    tech_stack = db.relationship(
+        "TechStack",
+        secondary=team_techstack,
+        lazy="subquery",
+        backref=db.backref("teams", lazy=True),
+    )
+
+user_techstack = db.Table(
+    "user_techstack",
+    db.Column("user_id", db.Integer, db.ForeignKey("user.id")),
+    db.Column("techstack_id", db.Integer, db.ForeignKey("techstack.id")),
+)
+
+
+class TechStack(db.Model):
+    """TechStack model."""
+
+    __tablename__ = "techstack"
+    id = Column(Integer, primary_key=True)
+    technology = Column(String(50), nullable=False, unique=True)
+    label = Column(String(50))
 
 
 class JWTToken(db.Model):

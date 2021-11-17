@@ -9,9 +9,10 @@ from backend.factories import (
     HacknightFactory,
     ParticipantFactory,
     TeamFactory,
+    TechStackFactory,
     UserFactory,
 )
-from backend.models import Participant
+from backend.models import Participant, TechStack
 
 
 @click.command()
@@ -38,10 +39,18 @@ def populate_database():
         )
         db.session.commit()
 
+    click.echo("Creating 10 tech_stacks")
+    for _ in tqdm(range(10)):
+        TechStackFactory.create()
+        db.session.commit()
+
     click.echo("Creating 5 teams")
+    all_techstacks = TechStack.query.all()
     for _ in tqdm(range(5)):
         TeamFactory.create(
-            members=random.sample(all_participants, random.randint(1, 40))
+            members=random.sample(all_participants, random.randint(1, 40)),
+            tech_stack=random.sample(all_techstacks, random.randint(1, 10))
+
         )
         db.session.commit()
 
