@@ -53,7 +53,7 @@ class UserLogin(Resource):
 
         user = User.query.filter_by(github_username=github_username).first()
 
-        if user and user.check_password(password):
+        if user and user.is_admin and user.check_password(password):
             access_token = create_access_token(
                 identity=github_username, expires_delta=timedelta(minutes=60)
             )

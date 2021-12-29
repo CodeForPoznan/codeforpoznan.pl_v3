@@ -19,7 +19,7 @@ depends_on = None
 def upgrade():
     op.drop_constraint("participant_github_key", "participant", type_="unique")
     op.alter_column(
-        "user", "username", nullable=False, new_column_name="github_username"
+        "user", "username", existing_nullable=False, new_column_name="github_username"
     )
     op.add_column("user", sa.Column("first_name", sa.String(length=50), nullable=True))
     op.add_column("user", sa.Column("last_name", sa.String(length=50), nullable=True))
@@ -28,6 +28,10 @@ def upgrade():
     op.add_column("user", sa.Column("slack", sa.String(length=21), nullable=True))
     op.add_column("user", sa.Column("is_admin", sa.Boolean(), nullable=True))
     op.create_unique_constraint(None, "user", ["github_username"])
+
+    op.alter_column(
+        "participant", "github", nullable=False, new_column_name="github_username", server_default=None
+    )
 
 
 def downgrade():
@@ -43,5 +47,10 @@ def downgrade():
     op.drop_constraint(None, "participant", type_="unique")
     op.alter_column(
         "user", "github_username", nullable=False, new_column_name="username"
+    )
+
+
+    op.alter_column(
+        "participant", "github_username", existing_nullable=False, new_column_name="github"
     )
     # ### end Alembic commands ###
