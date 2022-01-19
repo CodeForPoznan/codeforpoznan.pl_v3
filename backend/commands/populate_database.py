@@ -11,8 +11,9 @@ from backend.factories import (
     TeamFactory,
     TechStackFactory,
     UserFactory,
+    UserSkillsFactory,
 )
-from backend.models import Participant, TechStack
+from backend.models import Participant, TechStack, User
 
 
 @click.command()
@@ -49,8 +50,15 @@ def populate_database():
     for _ in tqdm(range(5)):
         TeamFactory.create(
             members=random.sample(all_participants, random.randint(1, 40)),
-            tech_stack=random.sample(all_techstacks, random.randint(1, 10))
+            tech_stack=random.sample(all_techstacks, random.randint(1, 10)),
+        )
+        db.session.commit()
 
+    click.echo("Creating 10 skills linked to users")
+    all_users = User.query.all()
+    for _ in tqdm(range(10)):
+        UserSkillsFactory.create(
+            user=random.choice(all_users), skill=random.choice(all_techstacks)
         )
         db.session.commit()
 

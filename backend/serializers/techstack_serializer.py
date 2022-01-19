@@ -9,4 +9,4 @@ class TechStackSchema(Schema):
 
     technology = fields.Str(required=True, validate=[validate.Length(min=3, max=50)])
     label = fields.Str()
-    teams = fields.Nested("TeamSchema", exclude=("tech_stack","members"), many=True)
+    teams = fields.Nested("TeamSchema", exclude=("tech_stack", "members"), many=True)

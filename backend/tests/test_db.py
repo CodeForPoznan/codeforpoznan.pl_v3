@@ -2,7 +2,15 @@ from datetime import date, timedelta
 
 from flask_jwt_extended import create_access_token
 
-from backend.models import Hacknight, JWTToken, Participant, Team, TechStack, User
+from backend.models import (
+    Hacknight,
+    JWTToken,
+    Participant,
+    Team,
+    TechStack,
+    User,
+    UserSkill,
+)
 from backend.resources.auth import add_token_to_database
 
 
@@ -65,6 +73,7 @@ def test_add_new_team_to_db(_db, new_team):
     for key, value in new_team.items():
         assert getattr(team_db, key) == value
 
+
 def test_add_new_tech_stach_to_db(_db, new_tech_stack):
     """Test adding tech stack to DB with valid data."""
     db = _db
@@ -77,6 +86,31 @@ def test_add_new_tech_stach_to_db(_db, new_tech_stack):
 
     for key, value in new_tech_stack.items():
         assert getattr(tech_stack_db, key) == value
+
+
+def test_add_new_skill_for_user(_db, new_user, new_tech_stack):
+    """Test adding new skill for a user."""
+    db = _db
+
+    new_user = User(**new_user)
+    tech_stack = TechStack(**new_tech_stack)
+    db.session.add(tech_stack)
+    db.session.add(new_user)
+    db.session.commit()
+    tech_stack_db = db.session.query(TechStack).first()
+    user_db = db.session.query(User).first()
+
+    user_skill = UserSkill(
+        user_id=user_db.id, techstack_id=tech_stack_db.id, skill_level=2
+    )
+    db.session.add(user_skill)
+    db.session.commit()
+
+    user_skill_db = db.session.query(UserSkill).first()
+    assert user_skill_db.user == user_db
+    assert user_skill_db.skill == tech_stack_db
+    assert user_skill_db.is_learning_goal == False
+    assert user_skill_db.skill_level == 2
 
 
 def test_remove_expired_token_method(_db):

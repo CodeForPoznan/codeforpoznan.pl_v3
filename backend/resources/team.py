@@ -12,6 +12,7 @@ from backend.models import Participant, Team, TechStack
 from backend.serializers.team_serializer import TeamSchema
 from backend.serializers.techstack_serializer import TechStackSchema
 
+
 class TeamList(Resource):
     @jwt_required
     def get(self):
@@ -141,7 +142,9 @@ class TeamTechStack(Resource):
         except ValidationError as err:
             return err.messages, HTTPStatus.UNPROCESSABLE_ENTITY
 
-        new_tech_stack = [_id for _id in data.get("techstack_ids") if _id not in tech_stack]
+        new_tech_stack = [
+            _id for _id in data.get("techstack_ids") if _id not in tech_stack
+        ]
         if not new_tech_stack:
             return (
                 {"message": "No new techstack has been provided"},
@@ -171,8 +174,9 @@ class TeamTechStack(Resource):
         if not to_remove:
             return {"message": "No techstack to delete"}, HTTPStatus.BAD_REQUEST
 
-        team.tech_stack = [techstack for techstack in team.tech_stack if techstack.id not in to_remove]
+        team.tech_stack = [
+            techstack for techstack in team.tech_stack if techstack.id not in to_remove
+        ]
         db.session.commit()
         team_schema = TeamSchema()
         return team_schema.dump(team), HTTPStatus.OK
-

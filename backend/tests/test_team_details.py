@@ -108,7 +108,9 @@ def test_add_nonexisting_members_techstack_to_team(auth_client, add_teams, param
 
 
 @pytest.mark.parametrize("parameter", ["members", "techstack"])
-def test_add_members_techstack_to_nonexisting_team(auth_client, add_participants, add_tech_stack, parameter):
+def test_add_members_techstack_to_nonexisting_team(
+    auth_client, add_participants, add_tech_stack, parameter
+):
     """Test add members and techstack to non-existing team."""
     payload = {f"{parameter}_ids": [1, 3]}
     rv = auth_client.post(f"/api/teams/1/{parameter}/", data=json.dumps(payload),)
@@ -116,7 +118,9 @@ def test_add_members_techstack_to_nonexisting_team(auth_client, add_participants
 
 
 @pytest.mark.parametrize("parameter", ["members", "techstack"])
-def test_duplicate_member_techstack_in_team(auth_client, add_teams, add_participants, add_tech_stack, _db, parameter):
+def test_duplicate_member_techstack_in_team(
+    auth_client, add_teams, add_participants, add_tech_stack, _db, parameter
+):
     """Test add member who is already in team."""
     team = _db.session.query(Team).first()
     if parameter == "members":
@@ -127,7 +131,9 @@ def test_duplicate_member_techstack_in_team(auth_client, add_teams, add_particip
         team.tech_stack.append(to_add)
 
     payload = {f"{parameter}_ids": [to_add.id]}
-    rv = auth_client.post(f"/api/teams/{team.id}/{parameter}/", data=json.dumps(payload),)
+    rv = auth_client.post(
+        f"/api/teams/{team.id}/{parameter}/", data=json.dumps(payload),
+    )
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.BAD_REQUEST
     if parameter == "members":
@@ -172,6 +178,7 @@ def test_remove_all_members_from_team(auth_client, add_members_to_team):
     assert rv.status_code == HTTPStatus.OK
     assert not Team.query.get(1).members
     assert not response.get("members")
+
 
 def test_remove_all_techstacks_from_team(auth_client, add_techstack_to_team):
     """Test remove all tech stacks from team."""

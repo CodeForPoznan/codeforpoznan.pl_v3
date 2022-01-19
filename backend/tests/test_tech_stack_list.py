@@ -61,17 +61,16 @@ def test_try_create_techstack_without_technology(auth_client, new_tech_stack):
     assert "Missing data for required field." in response["technology"]
 
 
-def test_try_create_techstack_with_existing_technology(auth_client, new_tech_stack, _db):
+def test_try_create_techstack_with_existing_technology(
+    auth_client, new_tech_stack, _db
+):
     """Test try to create new techstack with existing technology."""
     db = _db
     techstack = TechStack(**new_tech_stack)
     db.session.add(techstack)
     db.session.commit()
 
-    payload = {
-        "technology": new_tech_stack["technology"],
-        "label": "backend"
-    }
+    payload = {"technology": new_tech_stack["technology"], "label": "backend"}
     rv = auth_client.post("/api/techstacks/", json=payload)
     response = rv.get_json()
 

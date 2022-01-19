@@ -7,7 +7,12 @@ import pytest
 
 from backend.app import create_app
 from backend.extensions import db
-from backend.factories import HacknightFactory, ParticipantFactory, TechStackFactory, TeamFactory 
+from backend.factories import (
+    HacknightFactory,
+    ParticipantFactory,
+    TechStackFactory,
+    TeamFactory,
+)
 from backend.models import User
 
 
@@ -93,12 +98,11 @@ def new_team():
         "project_url": "https://www.cfp_v3.test",
     }
 
+
 @pytest.fixture
 def new_tech_stack():
-    return {
-        "technology": "Flask",
-        "label": "backend"
-    }
+    return {"technology": "Flask", "label": "backend"}
+
 
 @pytest.fixture
 def registered_user(new_user, app, _db):
@@ -175,6 +179,7 @@ def add_teams(app, _db):
         TeamFactory.create()
         _db.session.commit()
 
+
 @pytest.fixture
 def add_tech_stack(app, _db):
     for _ in range(10):
@@ -186,6 +191,7 @@ def add_tech_stack(app, _db):
 def add_members_to_team(app, _db):
     TeamFactory(members=ParticipantFactory.create_batch(10))
     _db.session.commit()
+
 
 @pytest.fixture
 def add_techstack_to_team(app, _db):

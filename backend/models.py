@@ -2,6 +2,7 @@ from datetime import datetime
 
 from sqlalchemy import Column
 from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.sql.schema import ForeignKey
 from sqlalchemy.types import Boolean, Date, DateTime, Integer, String, Text
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -15,6 +16,7 @@ class User(db.Model):
     id = Column(Integer, autoincrement=True, primary_key=True)
     username = Column(String(200), unique=True)
     password = Column(String(100))
+    skills = db.relationship("UserSkill", back_populates="user")
 
     def __init__(self, username, password):
         self.username = username
@@ -25,6 +27,18 @@ class User(db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
+
+
+class UserSkill(db.Model):
+    """Association tabale between user and techstack models."""
+
+    __tablename__ = "user_skill"
+    user_id = Column(ForeignKey("user.id"), primary_key=True)
+    techstack_id = Column(ForeignKey("techstack.id"), primary_key=True)
+    skill_level = Column(Integer)
+    is_learning_goal = Column(Boolean, default=False)
+    skill = db.relationship("TechStack", back_populates="users")
+    user = db.relationship("User", back_populates="skills")
 
 
 participant_hacknight = db.Table(
@@ -73,6 +87,7 @@ team_techstack = db.Table(
     db.Column("techstack_id", db.Integer, db.ForeignKey("techstack.id")),
 )
 
+
 class Team(db.Model):
     """Team model."""
 
@@ -94,12 +109,6 @@ class Team(db.Model):
         backref=db.backref("teams", lazy=True),
     )
 
-user_techstack = db.Table(
-    "user_techstack",
-    db.Column("user_id", db.Integer, db.ForeignKey("user.id")),
-    db.Column("techstack_id", db.Integer, db.ForeignKey("techstack.id")),
-)
-
 
 class TechStack(db.Model):
     """TechStack model."""
@@ -108,6 +117,7 @@ class TechStack(db.Model):
     id = Column(Integer, primary_key=True)
     technology = Column(String(50), nullable=False, unique=True)
     label = Column(String(50))
+    users = db.relationship("UserSkill", back_populates="skill")
 
 
 class JWTToken(db.Model):

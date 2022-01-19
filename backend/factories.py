@@ -1,9 +1,10 @@
 import factory
 from factory import fuzzy
+from random import randint
 from sqlalchemy import or_
 
 from backend.extensions import db
-from backend.models import Hacknight, Participant, Team, TechStack, User
+from backend.models import Hacknight, Participant, Team, TechStack, User, UserSkill
 
 
 class BaseFactory(factory.alchemy.SQLAlchemyModelFactory):
@@ -156,7 +157,11 @@ class TechStackFactory(BaseFactory):
     def _create(cls, model_class, *args, **kwargs):
         session = cls._meta.sqlalchemy_session
         with session.no_autoflush:
-            existing = session.query(model_class).filter_by(technology=kwargs["technology"]).first()
+            existing = (
+                session.query(model_class)
+                .filter_by(technology=kwargs["technology"])
+                .first()
+            )
 
         if existing:
             kwargs["technology"] = cls.technology.generate({})
@@ -164,3 +169,25 @@ class TechStackFactory(BaseFactory):
         obj = super(TechStackFactory, cls)._create(model_class, *args, **kwargs)
 
         return obj
+
+
+class UserSkillsFactory(BaseFactory):
+    class Meta:
+        model = UserSkill
+
+    skill_level = fuzzy.FuzzyChoice([level for level in range(11)])
+    is_learning_goal = fuzzy.FuzzyChoice([True, False])
+
+    @factory.post_generation
+    def user_id(self, create, extracted, **kwargs):
+        if not create:
+            return
+        if extracted:
+            self.user = extracted
+
+    @factory.post_generation
+    def skill(self, create, extracted, **kwargs):
+        if not create:
+            return
+        if extracted:
+            self.skill = extracted

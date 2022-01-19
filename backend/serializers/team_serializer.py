@@ -3,7 +3,14 @@ from marshmallow import Schema, fields, validate
 
 class TeamSchema(Schema):
     class Meta:
-        fields = ("id", "project_name", "description", "project_url", "members", "tech_stack")
+        fields = (
+            "id",
+            "project_name",
+            "description",
+            "project_url",
+            "members",
+            "tech_stack",
+        )
 
         dump_only = ("id", "members", "tech_stack")
 
