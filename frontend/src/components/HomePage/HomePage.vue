@@ -34,13 +34,13 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import Header from './Header.vue';
-import ContactUs from './ContactUs.vue';
-import AboutUs from './AboutUs.vue';
-import SocialMedia from './SocialMedia.vue';
-import PageFooter from './PageFooter.vue';
-import OurProjects from './OurProjects.vue';
-import JoinUs from './JoinUs.vue';
+import Header from './Header/Header.vue';
+import ContactUs from './ContactUs/ContactUs.vue';
+import AboutUs from './AboutUs/AboutUs.vue';
+import SocialMedia from './SocialMedia/SocialMedia.vue';
+import PageFooter from './PageFooter/PageFooter.vue';
+import OurProjects from './OurProjects/OurProjects.vue';
+import JoinUs from './JoinUs/JoinUs.vue';
 export default {
   components: {
     'app-header': Header,
@@ -69,7 +69,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import './../main.scss';
+@import '../../main.scss';
 .v-messages__message {
   padding: 2px;
 }

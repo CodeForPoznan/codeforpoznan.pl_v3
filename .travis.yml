@@ -35,9 +35,10 @@ install:
   - (cd backend  && pip install pipenv && pipenv install --dev)
 
 script:
-  - (cd frontend && yarn lint)        # lint frontend
-  - (cd backend  && pytest)           # test backend
-  - (cd backend  && black --check .)  # lint backend
+  - (cd frontend && yarn lint) # lint frontend
+  - (cd frontend && yarn test) # test frontend
+  - (cd backend  && pytest) # test backend
+  - (cd backend  && black --check .) # lint backend
 
 deploy:
   skip_cleanup: true
