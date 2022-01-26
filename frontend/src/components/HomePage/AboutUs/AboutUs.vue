@@ -45,5 +45,5 @@
 </template>
 
 <style lang="scss" scoped>
-@import './../main.scss';
+@import '../../../main.scss';
 </style>

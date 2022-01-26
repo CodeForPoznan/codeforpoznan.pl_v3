@@ -144,7 +144,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import './../main.scss';
+@import '../../../main.scss';
 
 #submit-button {
   background: $blue;

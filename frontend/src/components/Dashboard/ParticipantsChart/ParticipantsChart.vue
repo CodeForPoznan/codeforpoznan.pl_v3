@@ -1,6 +1,6 @@
 <template>
   <div class="participants-chart-container">
-    <h2>Participants on hacknights</h2>
+    <h2 data-test-id="chart-title">Participants on hacknights</h2>
     <div class="range-container">
       <div class="range">
         <div class="start-date">
@@ -36,7 +36,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { getDateString } from '../helpers/date';
+import { getDateString, getYearBeforeDate } from '../../../helpers/date';
 
 export default {
   data() {
@@ -47,11 +47,7 @@ export default {
     };
   },
   mounted() {
-    const todayDateCopy = new Date(this.todayDate);
-
-    todayDateCopy.setMonth(todayDateCopy.getMonth() - 12);
-
-    this.startDate = getDateString(todayDateCopy);
+    this.startDate = getDateString(getYearBeforeDate(this.todayDate));
     this.endDate = getDateString(this.todayDate);
   },
   computed: {

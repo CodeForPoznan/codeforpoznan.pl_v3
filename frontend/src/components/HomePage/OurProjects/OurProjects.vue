@@ -44,8 +44,8 @@
 </template>
 
 <script>
-import ModalContent from './ModalContent.vue';
-import sortedProjects from '../assets/projects';
+import ModalContent from './ModalContent/ModalContent.vue';
+import sortedProjects from '../../../assets/projects';
 export default {
   components: {
     'app-modal-content': ModalContent
@@ -73,7 +73,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import './../main.scss';
+@import '../../../main.scss';
 
 .card {
   font-family: $font-header;
