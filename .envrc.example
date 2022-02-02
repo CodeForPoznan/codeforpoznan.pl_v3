@@ -1,7 +1,21 @@
-export SECRET_KEY=codeforpoznan
+# needed only on Lambda runtimes, can be safely ignored
+#export STRIP_STAGE_PATH=yes
+
+# flask
+export FLASK_ENV=development
+export SECRET_KEY=supersecretvalue
+export BASE_URL=localhost
+
+# database
 export DB_HOST=db
 export DB_PORT=5432
 export DB_NAME=cfp_v3
 export DB_USER=cfp_v3
 export DB_PASSWORD=cfp_v3
 
+# mail
+export MAIL_SUPPRESS_SEND=FALSE
+export MAIL_USERNAME=
+export MAIL_PASSWORD=
+export MAIL_SERVER=smtp.ethereal.email
+export MAIL_PORT=587

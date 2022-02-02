@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import HomePage from './components/HomePage.vue';
-import Login from './components/Login.vue';
-import Dashboard from './components/Dashboard.vue';
+import HomePage from './components/HomePage/HomePage.vue';
+import Login from './components/Login/Login.vue';
+import Dashboard from './components/Dashboard/Dashboard.vue';
 import store from './store';
 
 Vue.use(VueRouter);

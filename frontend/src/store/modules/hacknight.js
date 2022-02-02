@@ -76,6 +76,20 @@ export default {
         .catch(error => {
           commit('raiseError', error);
         });
+    },
+    deleteParticipants({ commit, getters }, participants_ids) {
+      axios
+        .delete(`/api/hacknights/${getters.getHacknight.id}/participants/`, {
+          data: {
+            participants_ids: participants_ids
+          }
+        })
+        .then(res => {
+          commit('setHacknight', res.data);
+        })
+        .catch(error => {
+          commit('raiseError', error);
+        });
     }
   }
 };

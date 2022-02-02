@@ -1,7 +1,7 @@
 <template>
   <v-container fluid text-xs-center>
     <v-row align="center" justify="center">
-      <v-col class="d-flex" cols="12" sm="6">
+      <v-col class="d-flex" cols="12" lg="8" md="10">
         <v-combobox
           v-model="selectedParticipants"
           outlined
@@ -58,9 +58,10 @@
             <v-list-item-avatar>
               <v-icon>mdi-account-outline</v-icon>
             </v-list-item-avatar>
-            <v-list-item-title
-              v-text="item.github_username"
-            ></v-list-item-title>
+            <v-list-item-title v-text="item.github_username"></v-list-item-title>
+            <v-btn icon v-on:click="onDeleteParticipant(item)">
+              <i class="button_delete fas fa-user-times fa-lg"></i>
+            </v-btn>
           </v-list-item>
         </template>
       </v-list>
@@ -87,6 +88,11 @@ export default {
         .dispatch('hacknight/addParticipants', ids)
         .then(() => (this.selectedParticipants = []));
     },
+    onDeleteParticipant(participant) {
+      const ids = [participant.id];
+
+      this.$store.dispatch('hacknight/deleteParticipants', ids);
+    },
     filerOutParticipants() {
       return this.getParticipants
         .filter(
@@ -110,8 +116,11 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import './../main.scss';
+@import '../../../main.scss';
 .add-hacknight-btn {
   top: -12px;
+}
+.button_delete {
+  color: $red;
 }
 </style>

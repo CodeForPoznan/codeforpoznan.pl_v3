@@ -23,7 +23,7 @@ const projects = [
         documentation: 'https://docs.djangoproject.com/pl/2.2/'
       }
     ],
-    website: 'http://volontuloapp.org/o'
+    website: ''
   },
   {
     badge: 'Aktywny',
@@ -143,7 +143,7 @@ const projects = [
     name: 'Wysadź ulicę',
     partner: [],
     stack: [],
-    website: 'http://wysadzulice.pl'
+    website: ''
   },
   {
     badge: 'Aktywny',
@@ -154,7 +154,7 @@ const projects = [
     license: 'MIT',
     licensePage:
       'https://github.com/CodeForPoznan/codeforpoznan.pl_v3/blob/master/LICENSE',
-    name: 'Strona społeczności',
+    name: 'Platforma społeczności',
     partner: [],
     stack: [
       {
@@ -183,6 +183,41 @@ const projects = [
       }
     ],
     website: 'https://dev.codeforpoznan.pl/'
+  },
+  {
+    badge: 'Aktywny',
+    description:
+      'Watchdog Polska od 2003 roku stoi na straży prawa do informacji. Rozumiane jest ono nie tylko jako warunek funkcjonowania dobrego państwa, ale przede wszystkim jako jedno z praw człowieka, które chroni ludzką godność, daje wolność wyrażania opinii i zabezpiecza przed nadużyciami władzy. W ciągu 17 lat swojej działalności Sieć Obywatelska Watchdog Polska uczestniczyła w około 1122 sprawach sądowych dotyczących prawa do informacji. Niektóre z nich miały przełomowe znaczenie dla społeczeństwa. Razem współtworzymy system służący do usprawnienia obiegu dokumentów Stowarzyszenia, w szczególności korespondencji sądowej.',
+    githubLink: 'https://github.com/watchdogpolska/small_eod',
+    imageAdress: require('@/assets/images/watchdog.png'),
+    license: 'MIT',
+    licensePage: 'https://github.com/CodeForPoznan/small_eod/blob/dev/LICENSE',
+    name: 'EOD',
+    partner: [
+      {
+        name: 'Watchdog Polska',
+        link: 'https://siecobywatelska.pl/'
+      }
+    ],
+    stack: [
+      {
+        name: 'React.js',
+        documentation: 'https://reactjs.org/docs/getting-started.html'
+      },
+      {
+        name: 'PostgresSQL',
+        documentation: 'https://www.postgresql.org/'
+      },
+      {
+        name: 'Django',
+        documentation: 'https://docs.djangoproject.com/en/3.2/'
+      },
+      {
+        name: 'Minio',
+        documentation: 'https://docs.min.io/'
+      }
+    ],
+    website: 'dev.small-eod.siecobywatelska.pl'
   }
 ];
 

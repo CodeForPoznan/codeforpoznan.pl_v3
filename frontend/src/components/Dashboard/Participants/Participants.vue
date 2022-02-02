@@ -165,7 +165,7 @@
 </template>
 
 <script>
-import ParticipantsSearch from './ParticipantsSearch.vue';
+import ParticipantsSearch from './ParticipantsSearch/ParticipantsSearch.vue';
 import { mapGetters } from 'vuex';
 import {
   required,
@@ -178,7 +178,7 @@ import _ from 'lodash';
 import {
   slackNickValidator,
   gitHubUsernameValidator
-} from '../helpers/validation';
+} from '../../../helpers/validation';
 
 export default {
   data() {
