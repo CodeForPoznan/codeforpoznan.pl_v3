@@ -30,7 +30,11 @@ def upgrade():
     op.create_unique_constraint(None, "user", ["github_username"])
 
     op.alter_column(
-        "participant", "github", nullable=False, new_column_name="github_username", server_default=None
+        "participant",
+        "github",
+        nullable=False,
+        new_column_name="github_username",
+        server_default=None,
     )
 
 
@@ -49,8 +53,10 @@ def downgrade():
         "user", "github_username", nullable=False, new_column_name="username"
     )
 
-
     op.alter_column(
-        "participant", "github_username", existing_nullable=False, new_column_name="github"
+        "participant",
+        "github_username",
+        existing_nullable=False,
+        new_column_name="github",
     )
     # ### end Alembic commands ###

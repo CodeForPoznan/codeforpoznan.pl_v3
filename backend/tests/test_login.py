@@ -3,11 +3,11 @@ from http import HTTPStatus
 import pytest
 
 
-def test_login_with_valid_user(client, new_user, registered_user):
+def test_login_with_valid_user_admin(client, new_user_admin, registered_user):
     """Test logging with valid data."""
     new_user_dict = {
         k: v
-        for k, v in new_user.items()
+        for k, v in new_user_admin.items()
         if k == ("github_username") or k == ("password")
     }
     rv = client.post("/api/auth/login/", json=new_user_dict)
@@ -16,6 +16,20 @@ def test_login_with_valid_user(client, new_user, registered_user):
     assert rv.status_code == HTTPStatus.CREATED
     assert response["access_token"]
     assert response["refresh_token"]
+
+
+def test_login_with_non_admin_user(client, new_user, registered_user):
+    """Make sure that only admin can login."""
+    new_user_dict = {
+        k: v
+        for k, v in new_user.items()
+        if k == ("github_username") or k == ("password")
+    }
+    rv = client.post("/api/auth/login/", json=new_user_dict)
+
+    response = rv.get_json()
+    assert rv.status_code == HTTPStatus.UNAUTHORIZED
+    assert response["msg"] == "Not authorized"
 
 
 def test_refresh_access_token(client, tokens):
@@ -29,12 +43,12 @@ def test_refresh_access_token(client, tokens):
     assert response["access_token"]
 
 
-def test_login_with_invalid_password(client, new_user, registered_user):
+def test_login_with_invalid_password(client, new_user_admin, registered_user):
     """Test logging with invalid password."""
     rv = client.post(
         "/api/auth/login/",
         json={
-            "github_username": new_user["github_username"],
+            "github_username": new_user_admin["github_username"],
             "password": "WrongPassword",
         },
     )
@@ -54,14 +68,13 @@ def test_login_with_invalid_name_password(client):
     assert response["msg"] == "Not authorized"
 
 
-def test_try_login_twice(client, new_user, tokens):
+def test_try_login_twice(client, new_user_admin, tokens):
     """Test try login these same user twice."""
     rv = client.post(
         "/api/auth/login/",
-        json=new_user,
+        json=new_user_admin,
         headers={"Authorization": f"Bearer {tokens['access']}"},
     )
-
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.UNAUTHORIZED
     assert "User already logged in" in response["msg"]

@@ -76,6 +76,14 @@ def new_user():
 
 
 @pytest.fixture
+def new_user_admin(new_user):
+    user = new_user.copy()
+    user["is_admin"] = True
+    user["password"] = "TestPasswordAdmin"
+    return user
+
+
+@pytest.fixture
 def new_participant():
     participant = {
         "first_name": "Jon",
@@ -104,21 +112,21 @@ def new_team():
 
 
 @pytest.fixture
-def registered_user(new_user, app, _db):
-    new_user = User(**new_user)
+def registered_user(new_user_admin, app, _db):
+    new_user_admin = User(**new_user_admin)
     with app.app_context():
         db = _db
-        db.session.add(new_user)
+        db.session.add(new_user_admin)
         db.session.commit()
-    return new_user
+    return new_user_admin
 
 
 @pytest.fixture
-def tokens(app, client, new_user, registered_user):
+def tokens(app, client, new_user_admin, registered_user):
     with app.app_context():
         new_user_dict = {
             k: v
-            for k, v in new_user.items()
+            for k, v in new_user_admin.items()
             if k == ("github_username") or k == ("password")
         }
         rv = client.post("/api/auth/login/", json=new_user_dict)
