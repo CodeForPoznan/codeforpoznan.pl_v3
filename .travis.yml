@@ -30,7 +30,7 @@ env:
 
 install:
   - pip install awscli
-  - nvm install 10.13.0
+  - nvm install 12
   - (cd frontend && yarn install)
   - (cd backend  && pip install pipenv && pipenv install --dev)
 
