@@ -2,6 +2,7 @@ import os
 
 from flask import Flask
 from flask_cors import CORS
+from werkzeug.utils import import_string
 
 from backend.commands.populate_database import populate_database
 from backend.commands.import_attendance_list import import_attendance_list
@@ -27,8 +28,12 @@ from backend.resources.team import TeamDetails, TeamList, TeamMembers
 def create_app():
     """Application factory function"""
     app = Flask(__name__)
+
+    # create config class instance and init config from it
     env = os.environ["FLASK_ENV"].title()
-    app.config.from_object(f"backend.config.{env}Config")
+    cls = import_string(f"backend.config.{env}Config")
+    app.config.from_object(cls())
+
     app.cli.add_command(populate_database)
     app.cli.add_command(remove_expired_tokens)
     app.cli.add_command(import_attendance_list)
