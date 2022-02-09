@@ -50,7 +50,7 @@ Please leave a comment that you're gonna work on it.
 #### 4. Create a new branch for your commits 
 We like to keep master branch clean so:
 ```bash
-# create a new branch and name it descriptively e.g. "update_something":
+# create a new branch and name it descriptively starting with number of your task e.g. "123_update_something":
 git checkout -b BRANCH NAME
 ```
 ```bash
