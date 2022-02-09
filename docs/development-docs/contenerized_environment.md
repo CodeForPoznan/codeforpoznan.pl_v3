@@ -18,7 +18,7 @@ Docker caches a lot of things not to download them every time you get the local 
 
 ```bash
 # you may find it useful to
-docker image rm $(docker image -ls)
+docker image rm $(docker image ls)
 ```
 ---
 >Once in a while it is also good to clean up all the resources to free up some space. In this case [here](https://gist.github.com/bastman/5b57ddb3c11942094f8d0a97d461b430) you'll find a nice guide to it.

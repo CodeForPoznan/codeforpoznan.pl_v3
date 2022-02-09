@@ -1,4 +1,4 @@
-## Commands
+### Commands
 Below you'll find the short list of the most handy commands that you can run in clean terminal (i.e. other than the one running dockerized app).
 
 | command      | what it does                              |

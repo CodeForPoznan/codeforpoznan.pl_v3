@@ -4,7 +4,7 @@
 [![Join Slack](https://img.shields.io/badge/slack-join%20chat-4a154b)](https://join.slack.com/t/codeforpoznan/shared_invite/zt-8a7u52j8-yqB01C2YgYF4Lvd1pFM_jw)
 
 ## General Overview of the Project
-This is internal project maintained by our community for our comminity. 
+This is internal project maintained by our community for our community. 
 
 First, we maintain the landing page that contains information about 
 our community and the projects we carry out for other organizations 
@@ -26,7 +26,7 @@ find the general description of features we pursue at the moment:
 ## How to get started
 
 ---
-> Join codeforpoznan_v3 channel on [our slack](https://join.slack.com/t/codeforpoznan/shared_invite/zt-8a7u52j8-yqB01C2YgYF4Lvd1pFM_jw) - this is the place where we discuss all the issues and help each other by sharing tips and knowledge. You can also ping [OtisRed](https://github.com/OtisRed) on github ot @Otis in the slack DM if you need any help.
+> Join codeforpoznan_v3 channel on [our slack](https://join.slack.com/t/codeforpoznan/shared_invite/zt-8a7u52j8-yqB01C2YgYF4Lvd1pFM_jw) - this is the place where we discuss all the issues and help each other by sharing tips and knowledge. You can also ping [OtisRed](https://github.com/OtisRed) on github or @Otis in the slack DM if you need any help.
 ---
 
 #### 1. [Fork the repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo) onto your github account. 
@@ -86,7 +86,7 @@ Then, go to our repo [here](https://github.com/CodeForPoznan/codeforpoznan.pl_v3
 ## Documentation
 You may want to familiarize yourself with our:
 * [Github flow](https://github.com/CodeForPoznan/Community/blob/master/knowledge-base/github-flow.md) - a short cheatsheet with most needed commands in git.
-* [Building local environment](https://github.com/CodeForPoznan/codeforpoznan.pl_v3/blob/master/docs/development/contenerzied_environment.md) - explains why we use docker and offers few maintenance hints. 
+* [Building local environment](https://github.com/CodeForPoznan/codeforpoznan.pl_v3/blob/master/docs/development/contenerized_environment.md) - explains why we use docker and offers few maintenance hints. 
 * [Our developer shorthands](https://github.com/CodeForPoznan/codeforpoznan.pl_v3/blob/master/docs/development/developer_shorthands.md) - contains the list of makefile commands that we find the most handy.
 * [How to mock data](https://github.com/CodeForPoznan/codeforpoznan.pl_v3/blob/master/docs/development/mocking_database.md) - contains information on how to fake data for testing and development reasons.
 ---
