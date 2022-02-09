@@ -1,17 +1,11 @@
 <template>
   <v-container fluid text-xs-center>
     <v-row align="center" justify="center">
-      <v-col class="d-flex" cols="12" sm="6">
+      <v-col class="d-flex" cols="12" lg="8" md="10">
         <v-combobox
           v-model="selectedParticipants"
           outlined
-          :items="
-            getParticipants.filter(
-              participant =>
-                !getHacknight.participants.filter(y => y.id === participant.id)
-                  .length
-            )
-          "
+          :items="filerOutParticipants()"
           item-text="github"
           item-value="github"
           :search-input.sync="search"
@@ -59,12 +53,15 @@
       </v-toolbar>
       <v-divider v-if="getHacknight.participants"></v-divider>
       <v-list>
-        <template v-for="(item, i) in getHacknight.participants">
+        <template v-for="(item, i) in orderedParticipants()">
           <v-list-item v-if="getHacknight.participants" :key="i">
             <v-list-item-avatar>
               <v-icon>mdi-account-outline</v-icon>
             </v-list-item-avatar>
             <v-list-item-title v-text="item.github"></v-list-item-title>
+            <v-btn icon v-on:click="onDeleteParticipant(item)">
+              <i class="button_delete fas fa-user-times fa-lg"></i>
+            </v-btn>
           </v-list-item>
         </template>
       </v-list>
@@ -74,6 +71,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import _ from 'lodash';
 export default {
   data() {
     return {
@@ -89,6 +87,26 @@ export default {
       this.$store
         .dispatch('hacknight/addParticipants', ids)
         .then(() => (this.selectedParticipants = []));
+    },
+    onDeleteParticipant(participant) {
+      const ids = [participant.id];
+
+      this.$store.dispatch('hacknight/deleteParticipants', ids);
+    },
+    filerOutParticipants() {
+      return this.getParticipants
+        .filter(
+          participant =>
+            !this.getHacknight.participants.some(
+              hacknightParticipant => hacknightParticipant.id === participant.id
+            )
+        )
+        .sort((a, b) => a.github.localeCompare(b.github));
+    },
+    orderedParticipants() {
+      return _.sortBy(this.getHacknight.participants, participant =>
+        participant.github.toLowerCase()
+      );
     }
   },
   computed: {
@@ -98,8 +116,11 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import './../main.scss';
+@import '../../../main.scss';
 .add-hacknight-btn {
   top: -12px;
+}
+.button_delete {
+  color: $red;
 }
 </style>

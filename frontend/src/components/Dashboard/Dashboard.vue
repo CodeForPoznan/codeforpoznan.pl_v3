@@ -10,22 +10,29 @@
         <app-participants />
       </v-col>
     </v-row>
+    <v-row>
+      <v-col class="d-flex justify-center">
+        <ParticipantsChart />
+      </v-col>
+    </v-row>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import DashboardHeader from './DashboardHeader.vue';
-import Hacknight from './Hacknight.vue';
-import Participants from './Participants.vue';
-import HacknightsParticipants from './HacknightsParticipants.vue';
+import DashboardHeader from './Header/DashboardHeader.vue';
+import Hacknight from './Hacknight/Hacknight.vue';
+import Participants from './Participants/Participants.vue';
+import HacknightsParticipants from './HacknightsParticipants/HacknightsParticipants.vue';
+import ParticipantsChart from './ParticipantsChart/ParticipantsChart.vue';
 
 export default {
   components: {
     'app-dashboard-header': DashboardHeader,
     'app-hacknight': Hacknight,
     'app-hacknights-participants': HacknightsParticipants,
-    'app-participants': Participants
+    'app-participants': Participants,
+    ParticipantsChart
   },
   computed: {
     ...mapGetters('hacknight', ['getHacknight'])

@@ -101,7 +101,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import './../main.scss';
+@import '../../../../main.scss';
 
 h2 {
   font-size: 2.5rem;
