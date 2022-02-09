@@ -26,7 +26,7 @@
               <v-img :src="project.imageAdress" aspect-ratio="1.9">
                 <div
                   class="card--badge"
-                  :class="'card--badge_status--' + project.badge"
+                  :class="statuses(project.badge)"
                 >
                   {{ project.badge }}
                 </div>
@@ -62,7 +62,12 @@ export default {
       dialog: false,
       hoveredImg: require('@/assets/images/magnifying_glass.svg'),
       projects: sortedProjects,
-      selectedProject: []
+      selectedProject: [],
+      statuses: [
+        aktywny = "active",
+        zawieszony = "frozen",
+        wspierany = "maintained"
+      ]
     };
   },
   methods: {
@@ -105,15 +110,15 @@ export default {
   font-weight: bold;
 }
 
-.card--badge_status--aktywny {
+.active {
   background-color: $green;
 }
 
-.card--badge_status--wspierany {
+.maintained {
   background-color: $yellow;
 }
 
-.card--badge_status--zawieszony {
+.frozen {
   background-color: $lightyellow;
 }
 
