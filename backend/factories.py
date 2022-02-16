@@ -22,7 +22,7 @@ class UserFactory(BaseFactory):
     email = factory.Faker("email")
     phone = factory.Faker("msisdn")
     slack = factory.Faker("word")
-    is_admin = False
+    is_admin = True
 
     @classmethod
     def _create(cls, model_class, *args, **kwargs):
