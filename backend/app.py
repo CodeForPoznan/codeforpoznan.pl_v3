@@ -37,7 +37,6 @@ def create_app():
     app.cli.add_command(populate_database)
     app.cli.add_command(remove_expired_tokens)
     app.cli.add_command(import_attendance_list)
-    app.cli.add_command(import_attendance_list)
 
     CORS(app)
     initialize_extensions(app)
