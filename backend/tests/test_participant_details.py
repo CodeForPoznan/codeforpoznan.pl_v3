@@ -62,7 +62,7 @@ def test_get_delete_put_participant_unauthorized(client, add_participants, metho
     assert response["msg"] == "Missing Authorization Header"
 
 
-@pytest.mark.parametrize("field", ["email", "github"])
+@pytest.mark.parametrize("field", ["email", "github_username"])
 def test_try_edit_participant_with_existing_email_github(
     auth_client, add_participants, field
 ):
@@ -79,4 +79,4 @@ def test_try_edit_participant_with_existing_email_github(
     if field == "email":
         assert "User with this email already exists." in response["message"]
     else:
-        assert "User with this Github login already exists." in response["message"]
+        assert "User with this github_username already exists." in response["message"]

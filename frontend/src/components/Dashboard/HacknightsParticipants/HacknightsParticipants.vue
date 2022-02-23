@@ -6,8 +6,8 @@
           v-model="selectedParticipants"
           outlined
           :items="filerOutParticipants()"
-          item-text="github"
-          item-value="github"
+          item-text="github_username"
+          item-value="github_username"
           :search-input.sync="search"
           hide-selected
           label="Add participants"
@@ -58,7 +58,9 @@
             <v-list-item-avatar>
               <v-icon>mdi-account-outline</v-icon>
             </v-list-item-avatar>
-            <v-list-item-title v-text="item.github"></v-list-item-title>
+            <v-list-item-title
+              v-text="item.github_username"
+            ></v-list-item-title>
             <v-btn icon v-on:click="onDeleteParticipant(item)">
               <i class="button_delete fas fa-user-times fa-lg"></i>
             </v-btn>
@@ -101,11 +103,11 @@ export default {
               hacknightParticipant => hacknightParticipant.id === participant.id
             )
         )
-        .sort((a, b) => a.github.localeCompare(b.github));
+        .sort((a, b) => a.github_username.localeCompare(b.github_username));
     },
     orderedParticipants() {
       return _.sortBy(this.getHacknight.participants, participant =>
-        participant.github.toLowerCase()
+        participant.github_username.toLowerCase()
       );
     }
   },

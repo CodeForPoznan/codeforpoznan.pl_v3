@@ -35,9 +35,11 @@ class ParticipantsList(Resource):
                 HTTPStatus.CONFLICT,
             )
 
-        if Participant.query.filter_by(github=json_data["github"]).first():
+        if Participant.query.filter_by(
+            github_username=json_data["github_username"]
+        ).first():
             return (
-                {"message": "User with this Github login already exists."},
+                {"message": "User with this github_username already exists."},
                 HTTPStatus.CONFLICT,
             )
 
@@ -79,10 +81,10 @@ class ParticipantDetails(Resource):
                         {"message": "User with this email already exists."},
                         HTTPStatus.CONFLICT,
                     )
-            if key == "github" and participant.github != value:
-                if Participant.query.filter_by(github=value).first():
+            if key == "github_username" and participant.github_username != value:
+                if Participant.query.filter_by(github_username=value).first():
                     return (
-                        {"message": "User with this Github login already exists."},
+                        {"message": "User with this github_username already exists."},
                         HTTPStatus.CONFLICT,
                     )
             setattr(participant, key, value)

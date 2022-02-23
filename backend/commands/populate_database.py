@@ -1,4 +1,5 @@
 import random
+import itertools
 
 import click
 from flask.cli import with_appcontext
@@ -24,7 +25,7 @@ def populate_database():
     click.echo("Creating 5 users")
     usernames = []
     for _ in tqdm(range(5)):
-        usernames.append(UserFactory.create().username)
+        usernames.append(UserFactory.create().github_username)
         db.session.commit()
 
     click.echo("Creating 50 participants")
@@ -56,12 +57,13 @@ def populate_database():
 
     click.echo("Creating 10 skills linked to users")
     all_users = User.query.all()
-    for _ in tqdm(range(10)):
-        UserSkillsFactory.create(
-            user=random.choice(all_users), skill=random.choice(all_techstacks)
-        )
+    user_techstack_pairs = random.sample(
+        set(itertools.product(all_users, all_techstacks)), 10
+    )
+    for pair in tqdm(user_techstack_pairs):
+        UserSkillsFactory.create(user=pair[0], skill=pair[1])
         db.session.commit()
 
     click.echo("Created users:")
-    for id, username in enumerate(usernames, start=1):
-        click.echo(f"{id}. {username}")
+    for id, github_username in enumerate(usernames, start=1):
+        click.echo(f"{id}. {github_username}")
