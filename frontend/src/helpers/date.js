@@ -8,3 +8,11 @@ export const getDateString = (dateObject, separator = '-') => {
     (dd > 9 ? '' : '0') + dd
   ].join(separator);
 };
+
+export const getYearBeforeDate = todayDateObject => {
+  const todayDateCopy = new Date(todayDateObject);
+
+  todayDateCopy.setMonth(todayDateCopy.getMonth() - 12);
+
+  return todayDateCopy;
+};

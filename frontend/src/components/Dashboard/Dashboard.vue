@@ -20,11 +20,11 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import DashboardHeader from './DashboardHeader.vue';
-import Hacknight from './Hacknight.vue';
-import Participants from './Participants.vue';
-import HacknightsParticipants from './HacknightsParticipants.vue';
-import ParticipantsChart from './ParticipantsChart.vue';
+import DashboardHeader from './Header/DashboardHeader.vue';
+import Hacknight from './Hacknight/Hacknight.vue';
+import Participants from './Participants/Participants.vue';
+import HacknightsParticipants from './HacknightsParticipants/HacknightsParticipants.vue';
+import ParticipantsChart from './ParticipantsChart/ParticipantsChart.vue';
 
 export default {
   components: {

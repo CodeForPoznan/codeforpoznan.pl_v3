@@ -40,7 +40,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import './../main.scss';
+@import '../../../main.scss';
 #media {
   color: $white;
   background-color: $blue-media-hr;

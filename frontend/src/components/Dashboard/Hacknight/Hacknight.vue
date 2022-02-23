@@ -109,7 +109,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import './../main.scss';
+@import '../../../main.scss';
 .add-hacknight-btn {
   top: -12px;
   margin: 8px;
