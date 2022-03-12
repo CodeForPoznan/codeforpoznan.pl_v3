@@ -38,9 +38,9 @@ aws cloudfront create-invalidation --paths "/*" --distribution-id "${AWS_CLOUDFR
 echo "bundle application"
 (cd backend && pipenv lock -r > ../requirements.txt)
 pip install -r requirements.txt --target ./packages
-(cd packages && zip -qgr9 ../lambda.zip .)
-ln  --symbolic backend/migrations migrations
-zip --symlinks -qgr9 lambda.zip backend/ migrations/
+(cd packages && zip -r ../lambda.zip .)
+cp -r backend/migrations/ migrations/
+zip --grow -r lambda.zip backend/ migrations/
 
 
 echo "upload lambdas"
