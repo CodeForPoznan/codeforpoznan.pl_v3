@@ -1,6 +1,6 @@
 import os
 
-from flask_migrate import init, stamp, migrate, upgrade
+from flask_migrate import init, stamp, upgrade
 from serverless_wsgi import handle_request
 
 from backend.app import create_app
@@ -15,18 +15,17 @@ def api(event, context):
 
 def migration(event, context):
     with create_app().app_context():
-        # db commands can with exit(1) - we _have_ to catch that
+        # db commands can exit with os.exit(1) - we _have_ to catch that
         with wrap_io(catch=BaseException) as (out, err):
 
-            migrate()
+            upgrade()
 
             if "Please use the 'init' command" in err():
                 init()
-                migrate()
+                upgrade()
 
             if "Target database is not up to date" in err():
                 stamp()
-                migrate()
                 upgrade()
 
     return {"stdout": out(), "stderr": err()}
