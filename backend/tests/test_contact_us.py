@@ -4,16 +4,28 @@ from backend.extensions import mail
 
 
 def test_contact_us_endpoint(client, new_msg):
-    """Test sending valid message to send-email enndoint."""
+    """Test sending valid message to send-email endpoint."""
     with mail.record_messages() as outbox:
         rv = client.post("/api/send-email/", json=new_msg)
         response = rv.get_json()
 
         assert rv.status_code == HTTPStatus.OK
         assert response["message"] == "Contact message successfully sent"
-        assert len(outbox) == 1
-        assert outbox[0].sender == "test@test.com"
-        assert "Lorem Ipsum" in outbox[0].body
+
+        assert len(outbox) == 2
+        internal, external = outbox[0], outbox[1]
+
+        assert "Email z" in internal.subject
+        assert "I'm super excited" in internal.body
+        assert internal.sender == "CodeForPoznan <notifications@localhost>"
+        assert internal.reply_to == "CodeForPoznan <hello@localhost>"
+        assert internal.recipients == ["CodeForPoznan <hello@localhost>"]
+
+        assert "Witaj" in external.subject
+        assert "Cześć" in external.body
+        assert external.sender == "CodeForPoznan <notifications@localhost>"
+        assert external.reply_to == "CodeForPoznan <hello@localhost>"
+        assert external.recipients == ["Happy Volunteer <hvolunteer@example.com>"]
 
 
 def test_contact_us_without_email(client, new_msg):

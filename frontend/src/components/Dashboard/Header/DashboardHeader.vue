@@ -58,7 +58,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import './../main.scss';
+@import '../../../main.scss';
 .navbar-custom {
   font-family: $font-header;
   padding: 0;

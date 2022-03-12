@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuelidate from 'vuelidate';
+import VueApexCharts from 'vue-apexcharts';
 import 'vuetify/dist/vuetify.min.css';
 
 import axios from 'axios';
@@ -9,6 +10,9 @@ import vuetify from './plugins/vuetify';
 import App from './App.vue';
 
 Vue.use(Vuelidate);
+Vue.use(VueApexCharts);
+
+Vue.component('apexchart', VueApexCharts);
 
 Vue.config.productionTip = false;
 axios.defaults.baseURL = process.env.VUE_APP_AXIOS_BASE_URL || '/';

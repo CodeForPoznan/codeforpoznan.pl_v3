@@ -110,7 +110,7 @@ def test_try_create_participant_with_existing_email(auth_client, new_participant
     payload = {
         "first_name": "JonX",
         "last_name": "DoeX",
-        "email": "test@test.com",
+        "email": "test@test.test",
         "phone": "1234567890",
         "github": "wihajsterX",
     }
@@ -131,7 +131,7 @@ def test_try_create_participant_with_existing_github(auth_client, new_participan
     payload = {
         "first_name": "JonX",
         "last_name": "DoeX",
-        "email": "test@test.com2",
+        "email": "jonX@test.test",
         "phone": "1234567890",
         "github": "wihajster",
     }
@@ -147,7 +147,7 @@ def test_try_create_participant_with_wrong_phone(auth_client):
     payload = {
         "first_name": "JonX",
         "last_name": "DoeX",
-        "email": "test@test.com2",
+        "email": "test@test.test",
         "phone": "aaa1234567890",
         "github": "wihajster",
     }
@@ -163,7 +163,7 @@ def test_try_create_participant_with_wrong_email(auth_client):
     payload = {
         "first_name": "JonX",
         "last_name": "DoeX",
-        "email": "test@test.com2@",
+        "email": "test@test.test@",
         "phone": "1234567890",
         "github": "wihajster",
     }
@@ -179,7 +179,7 @@ def test_try_create_participant_with_wrong_slack(auth_client):
     payload = {
         "first_name": "JonX",
         "last_name": "DoeX",
-        "email": "test@test.com2",
+        "email": "test@test.test",
         "phone": "1234567890",
         "github": "wihajster",
         "slack": "123sad__x!@#",

@@ -24,6 +24,12 @@ case "${1:-}" in
 esac
 
 
+if [[ -z "${RESOURCE}" || -z "${AWS_ACCESS_KEY_ID}" || -z "${AWS_SECRET_ACCESS_KEY}" ]]; then
+  echo "environment variables are empty, exiting..."
+  exit 1
+fi
+
+
 echo "build and push frontend"
 (cd frontend && yarn run build && cp -r dist ../public)
 aws s3 sync --delete public "s3://codeforpoznan-public/${RESOURCE}"

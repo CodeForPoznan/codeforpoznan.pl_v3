@@ -13,4 +13,6 @@ __pycache__/
 htmlcov/
 .DS_Store
 .envrc
+.envrc.*
+frontend/coverage/
 
