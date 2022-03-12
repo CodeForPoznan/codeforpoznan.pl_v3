@@ -8,6 +8,7 @@ case "${1:-}" in
     export RESOURCE="${STAGING_RESOURCE}"
     export AWS_ACCESS_KEY_ID="${STAGING_AWS_ACCESS_KEY_ID}"
     export AWS_SECRET_ACCESS_KEY="${STAGING_AWS_SECRET_ACCESS_KEY}"
+    export AWS_CLOUDFRONT_ID="${STAGING_AWS_CLOUDFRONT_ID}"
   ;;
 
   production)
@@ -15,6 +16,7 @@ case "${1:-}" in
     export RESOURCE="${PRODUCTION_RESOURCE}"
     export AWS_ACCESS_KEY_ID="${PRODUCTION_AWS_ACCESS_KEY_ID}"
     export AWS_SECRET_ACCESS_KEY="${PRODUCTION_AWS_SECRET_ACCESS_KEY}"
+    export AWS_CLOUDFRONT_ID="${PRODUCTION_AWS_CLOUDFRONT_ID}"
   ;;
 
   *)
@@ -24,26 +26,13 @@ case "${1:-}" in
 esac
 
 
-if [[ -z "${RESOURCE}" || -z "${AWS_ACCESS_KEY_ID}" || -z "${AWS_SECRET_ACCESS_KEY}" ]]; then
-  echo "environment variables are empty, exiting..."
-  exit 1
-fi
-
-
 echo "build and push frontend"
 (cd frontend && yarn run build && cp -r dist ../public)
 aws s3 sync --delete public "s3://codeforpoznan-public/${RESOURCE}"
 
 
 echo "refresh CDN"
-dist_id=$(
-  aws cloudfront list-distributions \
-    | jq --arg PATH "/${RESOURCE}" -r '
-      .DistributionList.Items[]
-      | {Id, p: .Origins.Items[].OriginPath}
-      | select(.p == $PATH).Id'
-)
-aws cloudfront create-invalidation --paths "/*" --distribution-id "${dist_id}"
+aws cloudfront create-invalidation --paths "/*" --distribution-id "${AWS_CLOUDFRONT_ID}"
 
 
 echo "bundle application"
