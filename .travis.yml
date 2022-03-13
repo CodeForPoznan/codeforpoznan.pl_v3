@@ -10,7 +10,6 @@ env:
     - FLASK_ENV=development
     - SECRET_KEY=codeforpoznan
     - BASE_URL=localhost
-    - AWS_REGION=eu-west-1
 
     # db
     - DB_HOST=db
@@ -25,10 +24,6 @@ env:
     - MAIL_USERNAME=
     - MAIL_PASSWORD=
     - MAIL_SUPPRESS_SEND=TRUE
-
-    # deployment
-    - STAGING_RESOURCE=dev_codeforpoznan_pl_v3
-    - PRODUCTION_RESOURCE=codeforpoznan_pl_v3
 
 install:
   - pip install awscli pipenv
@@ -45,7 +40,6 @@ script:
 deploy:
   # staging -- https://dev.codeforpoznan.pl
   - provider: script
-    skip_cleanup: true
     script: bash deploy.sh staging
     on:
       branch: master  # run on merge to master
@@ -53,7 +47,6 @@ deploy:
 
   # production -- https://codeforpoznan.pl
   - provider: script
-    skip_cleanup: true
     script: bash deploy.sh production
     on:
       tags: true  # run on new tag (new github release)
