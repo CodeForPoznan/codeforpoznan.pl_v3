@@ -17,7 +17,7 @@ jobs:
     environment:
       name: production
       url: https://codeforpoznan.pl
-    if: github.repository == 'CodeForPoznan/codeforpoznan_pl_v3'
+    if: github.repository == 'CodeForPoznan/codeforpoznan.pl_v3'
 
     steps:
       - uses: actions/download-artifact@v3
