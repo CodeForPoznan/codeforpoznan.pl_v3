@@ -1,0 +1,55 @@
+name: lint and test backend
+
+on:
+  push:
+    paths:
+      - 'backend/**'
+  pull_request:
+    paths:
+      - 'backend/**'
+
+jobs:
+  backend:
+    name: lint and test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+          cache: 'pipenv'
+          cache-dependency-path: 'backend/Pipfile.lock'
+
+      - run: pipenv install --dev --deploy
+      - run: pipenv run black --check .
+      - run: pipenv run pytest
+        env:
+          FLASK_APP: 'app.py'
+          FLASK_ENV: 'development'
+          SECRET_KEY: 'codeforpoznan'
+          BASE_URL: 'localhost'
+          DB_HOST: 'db'
+          DB_PORT: '5432'
+          DB_NAME: 'cfp_v3'
+          DB_USER: 'cfp_v3'
+          DB_PASSWORD: 'cfp_v3'
+          MAIL_SERVER: ''
+          MAIL_PORT: ''
+          MAIL_USERNAME: ''
+          MAIL_PASSWORD: ''
+          MAIL_SUPPRESS_SEND: 'TRUE'
+
+      - run: 7z a ../lambda.zip $(pipenv --venv)/lib/*/*/* migrations ../backend
+        if: github.ref == 'refs/heads/master'
+
+      - uses: actions/upload-artifact@v3
+        if: github.ref == 'refs/heads/master'
+        with:
+          name: backend
+          path: lambda.zip
+          retention-days: 1
+
