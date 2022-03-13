@@ -7,21 +7,20 @@ on:
     paths:
       - 'frontend/**'
       - 'backend/**'
+  workflow_dispatch:
 
 jobs:
   staging:
     name: deploy
     needs: [frontend, backend]
     runs-on: ubuntu-latest
+    environment:
+      name: staging
+      url: https://dev.codeforpoznan.pl
     if: github.repository == 'CodeForPoznan/codeforpoznan_pl_v3'
 
     steps:
       - uses: actions/download-artifact@v3
 
       - name: deploy
-        run: bash deploy.sh staging
-        env:
-          RESOURCE: '${{ secrets.STAGING_RESOURCE }}'
-          AWS_CLOUDFRONT_ID: '${{ secrets.STAGING_AWS_CLOUDFRONT_ID }}'
-          AWS_ACCESS_KEY_ID: '${{ secrets.STAGING_AWS_ACCESS_KEY_ID }}'
-          AWS_SECRET_ACCESS_KEY: '${{ secrets.STAGING_AWS_SECRET_ACCESS_KEY }}'
+        run: bash deploy.sh

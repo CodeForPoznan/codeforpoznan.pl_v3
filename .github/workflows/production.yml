@@ -7,22 +7,20 @@ on:
     paths:
       - 'frontend/**'
       - 'backend/**'
+  workflow_dispatch:
 
 jobs:
   production:
     name: deploy
     needs: [frontend, backend]
     runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://codeforpoznan.pl
     if: github.repository == 'CodeForPoznan/codeforpoznan_pl_v3'
 
     steps:
       - uses: actions/download-artifact@v3
 
       - name: deploy
-        run: bash deploy.sh production
-        env:
-          RESOURCE: '${{ secrets.PRODUCTION_RESOURCE }}'
-          AWS_CLOUDFRONT_ID: '${{ secrets.PRODUCTION_AWS_CLOUDFRONT_ID }}'
-          AWS_ACCESS_KEY_ID: '${{ secrets.PRODUCTION_AWS_ACCESS_KEY_ID }}'
-          AWS_SECRET_ACCESS_KEY: '${{ secrets.PRODUCTION_AWS_SECRET_ACCESS_KEY }}'
-
+        run: bash deploy.sh
