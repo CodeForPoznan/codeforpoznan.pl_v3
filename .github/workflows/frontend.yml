@@ -1,0 +1,40 @@
+name: lint and test frontend
+
+on:
+  push:
+    paths:
+      - 'frontend/**'
+  pull_request:
+    paths:
+      - 'frontend/**'
+
+jobs:
+  frontend:
+    name: lint and test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '12'
+          cache: 'yarn'
+          cache-dependency-path: 'frontend/yarn.lock'
+
+      - run: yarn install --frozen-lockfile
+      - run: yarn run lint
+      - run: yarn run test
+
+      - run: yarn run build --dest ../public
+        if: github.ref == 'refs/heads/master'
+
+      - uses: actions/upload-artifact@v3
+        if: github.ref == 'refs/heads/master'
+        with:
+          name: frontend
+          path: public
+          retention-days: 1
+
