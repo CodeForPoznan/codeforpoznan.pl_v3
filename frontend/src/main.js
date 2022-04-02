@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuelidate from 'vuelidate';
+import VueGtag from 'vue-gtag';
 import VueApexCharts from 'vue-apexcharts';
 import 'vuetify/dist/vuetify.min.css';
 
@@ -11,6 +12,19 @@ import App from './App.vue';
 
 Vue.use(Vuelidate);
 Vue.use(VueApexCharts);
+Vue.use(
+  VueGtag,
+  {
+    config: {
+      id: 'UA-88692971-1',
+      enabled: process.env.NODE_ENV === 'production',
+      params: {
+        anonymize_ip: true
+      }
+    }
+  },
+  router
+);
 
 Vue.component('apexchart', VueApexCharts);
 
