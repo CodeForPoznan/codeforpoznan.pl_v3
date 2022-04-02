@@ -15,4 +15,5 @@ htmlcov/
 .envrc
 .envrc.*
 frontend/coverage/
+frontend/dist/
 
