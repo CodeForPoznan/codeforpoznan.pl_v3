@@ -1,26 +1,28 @@
-name: deploy to production
+name: production
+
 
 on:
-  release:
-    types:
-      - created
-    paths:
-      - 'frontend/**'
-      - 'backend/**'
   workflow_dispatch:
+  release:
+    types: [released]
+
 
 jobs:
+  frontend:
+    uses: ./.github/workflows/frontend.yml
+
+  backend:
+    uses: ./.github/workflows/backend.yml
+
   production:
-    name: deploy
+    uses: ./.github/workflows/deploy.yml
     needs: [frontend, backend]
-    runs-on: ubuntu-latest
-    environment:
-      name: production
-      url: https://codeforpoznan.pl
-    if: github.repository == 'CodeForPoznan/codeforpoznan.pl_v3'
+    with:
+      environment-name: production
+      environment-url: https://codeforpoznan.pl
+    secrets:
+      aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      aws-resource-name: ${{ secrets.AWS_RESOURCE_NAME }}
+      aws-cloudfront-id: ${{ secrets.AWS_CLOUDFRONT_ID }}
 
-    steps:
-      - uses: actions/download-artifact@v3
-
-      - name: deploy
-        run: bash deploy.sh
