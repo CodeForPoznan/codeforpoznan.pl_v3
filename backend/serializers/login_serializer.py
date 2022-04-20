@@ -3,7 +3,7 @@ from marshmallow import Schema, fields, validate
 
 class LoginSchema(Schema):
     class Meta:
-        fields = ("username", "password")
+        fields = ("github_username", "password")
 
-    username = fields.Str(required=True, validate=[validate.Length(min=3)])
+    github_username = fields.Str(required=True, validate=[validate.Length(min=3)])
     password = fields.Str(required=True, validate=[validate.Length(min=1)])

@@ -29,7 +29,7 @@ export default {
 
       try {
         let res = await axios.post('/api/auth/login/', {
-          username: loginData.username,
+          github_username: loginData.github_username,
           password: loginData.password
         });
         const token = res.data.access_token;

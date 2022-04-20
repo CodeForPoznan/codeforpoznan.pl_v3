@@ -28,7 +28,7 @@ def import_attendance_list():
     # prepare users' data
     for item in rows:
         users_dict = {}
-        _id, github, name, phone, email, *_ = item
+        _id, github_username, name, phone, email, *_ = item
 
         try:
             first_name = name.split()[0]
@@ -42,7 +42,7 @@ def import_attendance_list():
             users_dict["id"] = int(_id)
         except:
             continue
-        users_dict["github"] = github
+        users_dict["github_username"] = github_username
         users_dict["first_name"] = first_name
         users_dict["last_name"] = last_name
         users_dict["email"] = email
@@ -62,8 +62,8 @@ def import_attendance_list():
     for idx, participant in enumerate(list_of_participants):
         if participant["email"] == "":
             participant["email"] = f"unknown_email_{idx}"
-        if participant["github"] == "":
-            participant["github"] = f"unknown_github_{idx}"
+        if participant["github_username"] == "":
+            participant["github_username"] = f"unknown_github_username_{idx}"
         new_participant = Participant(**participant)
         db.session.add(new_participant)
     db.session.commit()
