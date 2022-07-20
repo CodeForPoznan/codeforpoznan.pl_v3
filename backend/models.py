@@ -13,12 +13,34 @@ class User(db.Model):
 
     __tablename__ = "user"
     id = Column(Integer, autoincrement=True, primary_key=True)
-    username = Column(String(200), unique=True)
+    github_username = Column(String(200), unique=True)
     password = Column(String(100))
+    first_name = Column(String(50))
+    last_name = Column(String(50))
+    email = Column(String(200))
+    phone = Column(String(13))
+    slack = Column(String(21))
+    is_admin = Column(Boolean)
 
-    def __init__(self, username, password):
-        self.username = username
+    def __init__(
+        self,
+        github_username,
+        password,
+        first_name,
+        last_name,
+        email,
+        phone,
+        slack,
+        is_admin,
+    ):
+        self.github_username = github_username
         self.set_password(password)
+        self.first_name = first_name
+        self.last_name = last_name
+        self.email = email
+        self.phone = phone
+        self.slack = slack
+        self.is_admin = is_admin
 
     def set_password(self, password):
         self.password = generate_password_hash(password)
@@ -42,7 +64,7 @@ class Participant(db.Model):
     first_name = Column(String(50), nullable=False)
     last_name = Column(String(50), nullable=False)
     email = Column(String(200), unique=True, nullable=False)
-    github = Column(String(200), unique=True, nullable=False)
+    github_username = Column(String(200), unique=True, nullable=False)
     phone = Column(String(13))
     slack = Column(String(21))
 

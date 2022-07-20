@@ -112,7 +112,7 @@ def test_try_create_participant_with_existing_email(auth_client, new_participant
         "last_name": "DoeX",
         "email": "test@test.test",
         "phone": "1234567890",
-        "github": "wihajsterX",
+        "github_username": "wihajsterX",
     }
     rv = auth_client.post("/api/participants/", json=payload)
     response = rv.get_json()
@@ -133,13 +133,13 @@ def test_try_create_participant_with_existing_github(auth_client, new_participan
         "last_name": "DoeX",
         "email": "jonX@test.test",
         "phone": "1234567890",
-        "github": "wihajster",
+        "github_username": "wihajster",
     }
     rv = auth_client.post("/api/participants/", json=payload)
     response = rv.get_json()
 
     assert rv.status_code == HTTPStatus.CONFLICT
-    assert "User with this Github login already exists." in response["message"]
+    assert "User with this github_username already exists." in response["message"]
 
 
 def test_try_create_participant_with_wrong_phone(auth_client):
@@ -149,7 +149,7 @@ def test_try_create_participant_with_wrong_phone(auth_client):
         "last_name": "DoeX",
         "email": "test@test.test",
         "phone": "aaa1234567890",
-        "github": "wihajster",
+        "github_username": "wihajster",
     }
     rv = auth_client.post("/api/participants/", json=payload)
     response = rv.get_json()
@@ -165,7 +165,7 @@ def test_try_create_participant_with_wrong_email(auth_client):
         "last_name": "DoeX",
         "email": "test@test.test@",
         "phone": "1234567890",
-        "github": "wihajster",
+        "github_username": "wihajster",
     }
     rv = auth_client.post("/api/participants/", json=payload)
     response = rv.get_json()
@@ -181,7 +181,7 @@ def test_try_create_participant_with_wrong_slack(auth_client):
         "last_name": "DoeX",
         "email": "test@test.test",
         "phone": "1234567890",
-        "github": "wihajster",
+        "github_username": "wihajster",
         "slack": "123sad__x!@#",
     }
     rv = auth_client.post("/api/participants/", json=payload)

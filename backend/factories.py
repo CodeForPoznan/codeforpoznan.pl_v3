@@ -15,8 +15,14 @@ class UserFactory(BaseFactory):
     class Meta:
         model = User
 
-    username = factory.Faker("email", locale="pl_PL")
+    github_username = factory.Faker("email", locale="pl_PL")
     password = "pass123"
+    first_name = factory.Faker("first_name")
+    last_name = factory.Faker("last_name")
+    email = factory.Faker("email")
+    phone = factory.Faker("msisdn")
+    slack = factory.Faker("word")
+    is_admin = True
 
     @classmethod
     def _create(cls, model_class, *args, **kwargs):
@@ -24,11 +30,11 @@ class UserFactory(BaseFactory):
         with session.no_autoflush:
             existing = (
                 session.query(model_class)
-                .filter_by(username=kwargs["username"])
+                .filter_by(github_username=kwargs["github_username"])
                 .first()
             )
         if existing:
-            kwargs["username"] = cls.username.generate({})
+            kwargs["github_username"] = cls.github_username.generate({})
 
         obj = super(UserFactory, cls)._create(model_class, *args, **kwargs)
 
@@ -44,7 +50,9 @@ class ParticipantFactory(BaseFactory):
     email = factory.LazyAttribute(
         lambda obj: "{}{}@codeforpoznan.test".format(obj.first_name, obj.last_name)
     )
-    github = factory.LazyAttribute(lambda obj: f"{obj.first_name}{obj.last_name}")
+    github_username = factory.LazyAttribute(
+        lambda obj: f"{obj.first_name}{obj.last_name}"
+    )
     phone = factory.Faker("random_int", min=100000000, max=999999999)
 
     @classmethod
@@ -56,14 +64,14 @@ class ParticipantFactory(BaseFactory):
                 .filter(
                     or_(
                         model_class.email == kwargs["email"],
-                        model_class.github == kwargs["github"],
+                        model_class.github_username == kwargs["github_username"],
                     )
                 )
                 .first()
             )
         if existing:
             kwargs["email"] = cls.email.generate({})
-            kwargs["github"] = cls.github.generate({})
+            kwargs["github_username"] = cls.github_username.generate({})
 
         obj = super(ParticipantFactory, cls)._create(model_class, *args, **kwargs)
 

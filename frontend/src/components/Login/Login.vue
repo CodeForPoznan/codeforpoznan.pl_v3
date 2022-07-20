@@ -26,12 +26,12 @@
           </v-progress-circular>
           <form @keyup.enter="onSubmit">
             <v-text-field
-              v-model="username"
+              v-model="github_username"
               label="Nazwa użytkownika"
               required
-              :error-messages="usernameErrors"
-              @input="$v.username.$touch()"
-              @blur="$v.username.$touch()"
+              :error-messages="githubUsernameErrors"
+              @input="$v.github_username.$touch()"
+              @blur="$v.github_username.$touch()"
             ></v-text-field>
             <v-text-field
               v-model="password"
@@ -59,7 +59,7 @@ import { mapGetters } from 'vuex';
 export default {
   data() {
     return {
-      username: '',
+      github_username: '',
       password: '',
       showPassword: false,
       successAlert: false,
@@ -68,14 +68,14 @@ export default {
   },
 
   validations: {
-    username: { required, minLength: minLength(3) },
+    github_username: { required, minLength: minLength(3) },
     password: { required }
   },
 
   methods: {
     onSubmit() {
       const loginData = {
-        username: this.username,
+        github_username: this.github_username,
         password: this.password
       };
 
@@ -92,19 +92,19 @@ export default {
     },
     clearForm() {
       this.$v.$reset();
-      this.username = '';
+      this.github_username = '';
       this.password = '';
     }
   },
 
   computed: {
-    usernameErrors() {
+    githubUsernameErrors() {
       const errors = [];
 
-      if (!this.$v.username.$dirty) return errors;
-      !this.$v.username.minLength &&
+      if (!this.$v.github_username.$dirty) return errors;
+      !this.$v.github_username.minLength &&
         errors.push('Wprowadź poprawną nazwę użytkownika');
-      !this.$v.username.required &&
+      !this.$v.github_username.required &&
         errors.push('Nazwa użytkownika jest wymagana');
       return errors;
     },
