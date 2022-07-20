@@ -13,7 +13,7 @@
   "dependencies": {
     "@mdi/font": "^4.5.95",
     "apexcharts": "^3.27.1",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "eslint-plugin-jest": "^24.5.0",
     "lodash": "^4.17.21",
     "vue": "^2.6.10",
