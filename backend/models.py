@@ -139,7 +139,9 @@ class TechStack(db.Model):
     id = Column(Integer, primary_key=True)
     technology = Column(String(50), nullable=False, unique=True)
     label = Column(String(50))
-    users = db.relationship("UserSkill", back_populates="skill")
+    users = db.relationship(
+        "UserSkill", back_populates="skill", lazy="joined", cascade="all, delete-orphan"
+    )
 
 
 class JWTToken(db.Model):

@@ -13,7 +13,35 @@
   </head>
   <body>
     <noscript>
-      <strong>We're sorry but frontend doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+      <style type="text/css">
+        .body-nojs {
+          height: 50vh;
+          display: grid;
+          font-family: Montserrat, sans-serif;
+        }
+        .container-nojs {
+          color: #444;
+          margin: auto;
+          padding: 20px;
+          max-width: 600px;
+          line-height: 1.6;
+          text-align: center;
+        }
+        .blue-title-nojs {
+          color: #0caee7;
+          font-size: 1.6rem;
+          padding-top: 25px;
+          margin: 20px;
+        }
+      </style>
+      <div class="body-nojs">
+        <div class="container-nojs">
+          <p class="blue-title-nojs">JAVASCRIPT IS DISABLED</p>
+          <strong>We're sorry but this web page doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+          <p class="blue-title-nojs">JAVASCRIPT JEST WYŁĄCZONY</p>
+          <strong>Przepraszamy, ta strona internetowa nie działa poprawnie bez włączonej obsługi JavaScript. Proszę włączyć obsługę skryptów i spróbować ponownie.</strong>
+        </div>
+      </div>
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
