@@ -2,6 +2,7 @@ from datetime import datetime
 
 from sqlalchemy import Column
 from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.sql.schema import ForeignKey
 from sqlalchemy.types import Boolean, Date, DateTime, Integer, String, Text
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -21,6 +22,7 @@ class User(db.Model):
     phone = Column(String(13))
     slack = Column(String(21))
     is_admin = Column(Boolean)
+    skills = db.relationship("UserSkill", back_populates="user")
 
     def __init__(
         self,
@@ -47,6 +49,18 @@ class User(db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
+
+
+class UserSkill(db.Model):
+    """Association tabale between user and techstack models."""
+
+    __tablename__ = "user_skill"
+    user_id = Column(ForeignKey("user.id"), primary_key=True)
+    techstack_id = Column(ForeignKey("techstack.id"), primary_key=True)
+    skill_level = Column(Integer)
+    is_learning_goal = Column(Boolean, default=False)
+    skill = db.relationship("TechStack", back_populates="users")
+    user = db.relationship("User", back_populates="skills")
 
 
 participant_hacknight = db.Table(
@@ -89,6 +103,12 @@ participant_team = db.Table(
     db.Column("team_id", db.Integer, db.ForeignKey("team.id")),
 )
 
+team_techstack = db.Table(
+    "team_techstack",
+    db.Column("team_id", db.Integer, db.ForeignKey("team.id")),
+    db.Column("techstack_id", db.Integer, db.ForeignKey("techstack.id")),
+)
+
 
 class Team(db.Model):
     """Team model."""
@@ -103,6 +123,24 @@ class Team(db.Model):
         secondary=participant_team,
         lazy="subquery",
         backref=db.backref("teams", lazy=True),
+    )
+    tech_stack = db.relationship(
+        "TechStack",
+        secondary=team_techstack,
+        lazy="subquery",
+        backref=db.backref("teams", lazy=True),
+    )
+
+
+class TechStack(db.Model):
+    """TechStack model."""
+
+    __tablename__ = "techstack"
+    id = Column(Integer, primary_key=True)
+    technology = Column(String(50), nullable=False, unique=True)
+    label = Column(String(50))
+    users = db.relationship(
+        "UserSkill", back_populates="skill", lazy="joined", cascade="all, delete-orphan"
     )
 
 

@@ -22,7 +22,8 @@ from backend.resources.hacknight import (
     HacknightParticipants,
 )
 from backend.resources.participant import ParticipantDetails, ParticipantsList
-from backend.resources.team import TeamDetails, TeamList, TeamMembers
+from backend.resources.team import TeamDetails, TeamList, TeamMembers, TeamTechStack
+from backend.resources.techstack import TechStackDetails, TechStackList
 
 
 def create_app():
@@ -72,3 +73,6 @@ api.add_resource(UserLogout, "/api/auth/logout/")
 api.add_resource(TeamList, "/api/teams/")
 api.add_resource(TeamDetails, "/api/teams/<int:id>/")
 api.add_resource(TeamMembers, "/api/teams/<int:id>/members/")
+api.add_resource(TeamTechStack, "/api/teams/<int:id>/techstack/")
+api.add_resource(TechStackList, "/api/techstacks/")
+api.add_resource(TechStackDetails, "/api/techstacks/<int:id>/")

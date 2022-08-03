@@ -1,4 +1,5 @@
 import random
+import itertools
 
 import click
 from flask.cli import with_appcontext
@@ -9,9 +10,11 @@ from backend.factories import (
     HacknightFactory,
     ParticipantFactory,
     TeamFactory,
+    TechStackFactory,
     UserFactory,
+    UserSkillsFactory,
 )
-from backend.models import Participant
+from backend.models import Participant, TechStack, User
 
 
 @click.command()
@@ -38,11 +41,27 @@ def populate_database():
         )
         db.session.commit()
 
+    click.echo("Creating 10 tech_stacks")
+    for _ in tqdm(range(10)):
+        TechStackFactory.create()
+        db.session.commit()
+
     click.echo("Creating 5 teams")
+    all_techstacks = TechStack.query.all()
     for _ in tqdm(range(5)):
         TeamFactory.create(
-            members=random.sample(all_participants, random.randint(1, 40))
+            members=random.sample(all_participants, random.randint(1, 40)),
+            tech_stack=random.sample(all_techstacks, random.randint(1, 10)),
         )
+        db.session.commit()
+
+    click.echo("Creating 10 skills linked to users")
+    all_users = User.query.all()
+    user_techstack_pairs = random.sample(
+        set(itertools.product(all_users, all_techstacks)), 10
+    )
+    for pair in tqdm(user_techstack_pairs):
+        UserSkillsFactory.create(user=pair[0], skill=pair[1])
         db.session.commit()
 
     click.echo("Created users:")
