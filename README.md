@@ -21,7 +21,7 @@ find the general description of features we pursue at the moment:
 
 ### Wanna help us develop the product?
 * [Content - tasks that need some writing](https://github.com/CodeForPoznan/codeforpoznan.pl_v3/issues?q=is%3Aopen+is%3Aissue+label%3A%22content+needed%22+sort%3Acreated-asc)
-* [Design - tasks that could use UX experise](https://github.com/CodeForPoznan/codeforpoznan.pl_v3/issues?q=is%3Aopen+is%3Aissue+label%3A%22UX+needed%22)
+* [Design - tasks that could use UX expertise](https://github.com/CodeForPoznan/codeforpoznan.pl_v3/issues?q=is%3Aopen+is%3Aissue+label%3A%22UX+needed%22)
 
 ## How to get started
 
@@ -29,10 +29,10 @@ find the general description of features we pursue at the moment:
 > Join codeforpoznan_v3 channel on [our slack](https://join.slack.com/t/codeforpoznan/shared_invite/zt-8a7u52j8-yqB01C2YgYF4Lvd1pFM_jw) - this is the place where we discuss all the issues and help each other by sharing tips and knowledge. You can also ping [OtisRed](https://github.com/OtisRed) on github or @Otis in the slack DM if you need any help.
 ---
 
-#### 1. [Fork the repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo) onto your github account. 
+#### 1. [Fork the repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo) onto your github account. Go to your account and open repo you just copied. Find the "Code" button and copy HTTPS adress unless you're [using SSH](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) or GitHub CLI. Then:  
 ```bash
 # Open the terminal, choose the location on your computer where you want to keep it and paste in the command: 
-git clone git@github.com:CodeForPoznan/codeforpoznan.pl_v3.git
+git clone https://github.com/YOUR_USERNAME/codeforpoznan.pl_v3.git
 ```
 This way any commit you push will affect only your fork (so you can break anything you like).
 
@@ -50,28 +50,33 @@ Please leave a comment that you're gonna work on it.
 #### 4. Create a new branch for your commits 
 We like to keep master branch clean so:
 ```bash
-# create a new branch and name it descriptively starting with number of your task e.g. "123_update_something":
-git checkout -b BRANCH NAME
+# create a new branch and name it descriptively starting with number of your task e.g. "123_UPDATE_SOMETHING":
+git checkout -b 123_BRANCH_NAME
 ```
 ```bash
 # Then, switch to your new branch that branch with command: 
-git checkout update_something
+git checkout 123_UPDATE_SOMETHING
 ```
 Now you can start developing and commiting your changes!
 
 #### 5. Push your changes to main repo
-Once you're finished first to commit your changes run three comannds. 
+Once you're finished, run four comanndsto commit your changes. 
 ```bash
-# First add yout changes to the commit: 
-git add .
+# First check your changes:
+git status
+# which will print the list of files you altered.
+```
+```bash
+#add changed files to your commit: 
+git add NAME/OF/THE.FILE
 ```
 ```bash
 # Then wrap the commit and describe what's happening there:
-git commit -m "description of changes"
+git commit -m "BRIEFLY DESCRIBE YOUR CHANGES"
 ``` 
 ```bash
 # Finally push the commit to your forked repo:
-git push origin update_something
+git push origin 123_UPDATE_SOMETHING
 ``` 
 Then, go to our repo [here](https://github.com/CodeForPoznan/codeforpoznan.pl_v3/pulls), make "new pull request" and find your branch on "compare" list. Provide a short description of the changes you made and "create pull request" so that others could review your code. 
 
