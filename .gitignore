@@ -16,4 +16,4 @@ htmlcov/
 .envrc.*
 frontend/coverage/
 frontend/dist/
-
+.vscode/
