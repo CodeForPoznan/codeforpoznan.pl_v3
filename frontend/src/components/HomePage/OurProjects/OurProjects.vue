@@ -110,7 +110,7 @@ export default {
   font-weight: bold;
 }
 
-.active {
+.activated {
   background-color: $green;
 }
 
