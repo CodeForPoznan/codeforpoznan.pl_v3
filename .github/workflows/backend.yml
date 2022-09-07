@@ -1,0 +1,43 @@
+name: backend
+
+
+on:
+  workflow_call:
+  pull_request:
+    branches: [master]
+    paths: ['backend/**']
+
+
+jobs:
+  backend:
+    name: lint and test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: CodeForPoznan/actions/setup-backend@v1
+
+      - run: pipenv run black --check .
+      - run: pipenv run pytest
+        env:
+          FLASK_APP: app.py
+          FLASK_ENV: development
+          SECRET_KEY: codeforpoznan
+          BASE_URL: localhost
+          DB_HOST: db
+          DB_PORT: 5432
+          DB_NAME: cfp_v3
+          DB_USER: cfp_v3
+          DB_PASSWORD: cfp_v3
+          MAIL_SERVER:
+          MAIL_PORT:
+          MAIL_USERNAME:
+          MAIL_PASSWORD:
+          MAIL_SUPPRESS_SEND: TRUE
+
+      - uses: CodeForPoznan/actions/pack-backend@v1
+        if: github.event_name != 'pull_request'
+

@@ -8,7 +8,7 @@ class ParticipantSchema(Schema):
             "first_name",
             "last_name",
             "email",
-            "github",
+            "github_username",
             "hacknights",
             "phone",
             "slack",
@@ -19,7 +19,7 @@ class ParticipantSchema(Schema):
     first_name = fields.Str(required=True, validate=[validate.Length(min=3, max=50)])
     last_name = fields.Str(required=True, validate=[validate.Length(min=3, max=50)])
     email = fields.Email(required=True, validate=[validate.Email()])
-    github = fields.Str(
+    github_username = fields.Str(
         required=True,
         validate=[
             validate.Length(max=38),

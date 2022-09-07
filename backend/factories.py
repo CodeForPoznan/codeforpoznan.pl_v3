@@ -1,8 +1,10 @@
 import factory
+from factory import fuzzy
+from random import randint
 from sqlalchemy import or_
 
 from backend.extensions import db
-from backend.models import Hacknight, Participant, Team, User
+from backend.models import Hacknight, Participant, Team, TechStack, User, UserSkill
 
 
 class BaseFactory(factory.alchemy.SQLAlchemyModelFactory):
@@ -15,8 +17,14 @@ class UserFactory(BaseFactory):
     class Meta:
         model = User
 
-    username = factory.Faker("email", locale="pl_PL")
+    github_username = factory.Faker("email", locale="pl_PL")
     password = "pass123"
+    first_name = factory.Faker("first_name")
+    last_name = factory.Faker("last_name")
+    email = factory.Faker("email")
+    phone = factory.Faker("msisdn")
+    slack = factory.Faker("word")
+    is_admin = True
 
     @classmethod
     def _create(cls, model_class, *args, **kwargs):
@@ -24,11 +32,11 @@ class UserFactory(BaseFactory):
         with session.no_autoflush:
             existing = (
                 session.query(model_class)
-                .filter_by(username=kwargs["username"])
+                .filter_by(github_username=kwargs["github_username"])
                 .first()
             )
         if existing:
-            kwargs["username"] = cls.username.generate({})
+            kwargs["github_username"] = cls.github_username.generate({})
 
         obj = super(UserFactory, cls)._create(model_class, *args, **kwargs)
 
@@ -44,7 +52,9 @@ class ParticipantFactory(BaseFactory):
     email = factory.LazyAttribute(
         lambda obj: "{}{}@codeforpoznan.test".format(obj.first_name, obj.last_name)
     )
-    github = factory.LazyAttribute(lambda obj: f"{obj.first_name}{obj.last_name}")
+    github_username = factory.LazyAttribute(
+        lambda obj: f"{obj.first_name}{obj.last_name}"
+    )
     phone = factory.Faker("random_int", min=100000000, max=999999999)
 
     @classmethod
@@ -56,14 +66,14 @@ class ParticipantFactory(BaseFactory):
                 .filter(
                     or_(
                         model_class.email == kwargs["email"],
-                        model_class.github == kwargs["github"],
+                        model_class.github_username == kwargs["github_username"],
                     )
                 )
                 .first()
             )
         if existing:
             kwargs["email"] = cls.email.generate({})
-            kwargs["github"] = cls.github.generate({})
+            kwargs["github_username"] = cls.github_username.generate({})
 
         obj = super(ParticipantFactory, cls)._create(model_class, *args, **kwargs)
 
@@ -134,3 +144,58 @@ class TeamFactory(BaseFactory):
         if extracted:
             for member in extracted:
                 self.members.append(member)
+
+    @factory.post_generation
+    def tech_stack(self, create, extracted, **kwargs):
+        if not create:
+            return
+        if extracted:
+            for techstack in extracted:
+                self.tech_stack.append(techstack)
+
+
+class TechStackFactory(BaseFactory):
+    class Meta:
+        model = TechStack
+
+    technology = factory.Faker("word")
+    label = fuzzy.FuzzyChoice(["frontend", "backend", "DevOps", "UX"])
+
+    @classmethod
+    def _create(cls, model_class, *args, **kwargs):
+        session = cls._meta.sqlalchemy_session
+        with session.no_autoflush:
+            existing = (
+                session.query(model_class)
+                .filter_by(technology=kwargs["technology"])
+                .first()
+            )
+
+        if existing:
+            kwargs["technology"] = cls.technology.generate({})
+
+        obj = super(TechStackFactory, cls)._create(model_class, *args, **kwargs)
+
+        return obj
+
+
+class UserSkillsFactory(BaseFactory):
+    class Meta:
+        model = UserSkill
+
+    skill_level = fuzzy.FuzzyChoice([level for level in range(11)])
+    is_learning_goal = fuzzy.FuzzyChoice([True, False])
+
+    @factory.post_generation
+    def user_id(self, create, extracted, **kwargs):
+        if not create:
+            return
+        if extracted:
+            self.user = extracted
+
+    @factory.post_generation
+    def skill(self, create, extracted, **kwargs):
+        if not create:
+            return
+        if extracted:
+            self.skill = extracted

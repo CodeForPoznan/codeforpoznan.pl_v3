@@ -7,7 +7,12 @@ import pytest
 
 from backend.app import create_app
 from backend.extensions import db
-from backend.factories import HacknightFactory, ParticipantFactory, TeamFactory
+from backend.factories import (
+    HacknightFactory,
+    ParticipantFactory,
+    TechStackFactory,
+    TeamFactory,
+)
 from backend.models import User
 
 
@@ -62,7 +67,24 @@ def _db():
 
 @pytest.fixture
 def new_user():
-    user = {"username": "TestName", "password": "TestPassword"}
+    user = {
+        "github_username": "TestName",
+        "password": "TestPassword",
+        "first_name": "Sheldon",
+        "last_name": "Nowitzki",
+        "email": "sheldon@nowitzki.test",
+        "phone": "1234123",
+        "slack": "mightysheldor",
+        "is_admin": False,
+    }
+    return user
+
+
+@pytest.fixture
+def new_user_admin(new_user):
+    user = new_user.copy()
+    user["is_admin"] = True
+    user["password"] = "TestPasswordAdmin"
     return user
 
 
@@ -73,7 +95,7 @@ def new_participant():
         "last_name": "Doe",
         "email": "test@test.test",
         "phone": "123456789",
-        "github": "wihajster",
+        "github_username": "wihajster",
         "slack": "slacklogin",
     }
     return participant
@@ -95,19 +117,29 @@ def new_team():
 
 
 @pytest.fixture
-def registered_user(new_user, app, _db):
-    new_user = User(**new_user)
-    with app.app_context():
-        db = _db
-        db.session.add(new_user)
-        db.session.commit()
-    return new_user
+def new_tech_stack():
+    return {"technology": "Flask", "label": "backend"}
 
 
 @pytest.fixture
-def tokens(app, client, new_user, registered_user):
+def registered_user(new_user_admin, app, _db):
+    new_user_admin = User(**new_user_admin)
     with app.app_context():
-        rv = client.post("/api/auth/login/", json=new_user)
+        db = _db
+        db.session.add(new_user_admin)
+        db.session.commit()
+    return new_user_admin
+
+
+@pytest.fixture
+def tokens(app, client, new_user_admin, registered_user):
+    with app.app_context():
+        new_user_dict = {
+            k: v
+            for k, v in new_user_admin.items()
+            if k == ("github_username") or k == ("password")
+        }
+        rv = client.post("/api/auth/login/", json=new_user_dict)
         response = rv.get_json()
         from backend.models import JWTToken
 
@@ -171,6 +203,19 @@ def add_teams(app, _db):
 
 
 @pytest.fixture
+def add_tech_stack(app, _db):
+    for _ in range(10):
+        TechStackFactory.create()
+        _db.session.commit()
+
+
+@pytest.fixture
 def add_members_to_team(app, _db):
     TeamFactory(members=ParticipantFactory.create_batch(10))
+    _db.session.commit()
+
+
+@pytest.fixture
+def add_techstack_to_team(app, _db):
+    TeamFactory(tech_stack=TechStackFactory.create_batch(5))
     _db.session.commit()

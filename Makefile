@@ -55,3 +55,9 @@ remove-tokens: ## Remove expired tokens from db
 
 import-attendance-list: ## Import attendance list
 	docker-compose exec backend flask import-attendance-list
+
+clean-pyc: ## remove .pyc files
+	find . -type f -name '*.pyc' ! -path "./site-packages/*" -delete
+
+clean: stop clean-pyc ## remove containers and .pyc files
+	docker-compose rm --force

@@ -10,7 +10,6 @@ def test_get_teams_when_logged_in(auth_client, add_teams):
     """Test get list of teams for logged in user."""
     rv = auth_client.get("/api/teams/")
     response = rv.get_json()
-    print(response)
     assert rv.status_code == HTTPStatus.OK
     assert len(response) == 10
 
