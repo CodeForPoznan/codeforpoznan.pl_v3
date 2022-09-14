@@ -12,8 +12,8 @@
     <v-row wrap>
       <v-col
         class="items"
-        v-for="(project, index) in projects"
-        :key="index"
+        v-for="project in orderedProjects"
+        :key="project"
         cols="12"
         xs="12"
         md="6"
@@ -45,7 +45,7 @@
 
 <script>
 import ModalContent from './ModalContent/ModalContent.vue';
-import sortedProjects from '../../../assets/projects';
+import projects from '../../../assets/projects';
 export default {
   components: {
     'app-modal-content': ModalContent
@@ -54,9 +54,14 @@ export default {
     return {
       dialog: false,
       hoveredImg: require('@/assets/images/magnifying_glass.svg'),
-      projects: sortedProjects,
+      projects: projects,
       selectedProject: []
     };
+  },
+  computed: {
+    orderedProjects: function() {
+      return _.orderBy(this.projects, 'badge')
+    }
   },
   methods: {
     clickImage(project) {
