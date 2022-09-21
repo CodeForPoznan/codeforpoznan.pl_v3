@@ -96,7 +96,7 @@ export default {
   display: inline;
   left: 0.75rem;
   top: 0.75rem;
-  padding: 0.3rem 0.75rem;
+  padding: 0.3rem 0.7rem;
   border-radius: 25px;
   box-shadow: 2px 3px #2c3e50;
   font-family: $font-content;
@@ -105,7 +105,7 @@ export default {
 }
 
 .card_badge--active {
-  background-color: green;
+  background-color: $green;
   @include card_badge;
 
   &::after {
@@ -114,7 +114,7 @@ export default {
 }
 
 .card_badge--maintained {
-  background-color: yellow;
+  background-color: $lightyellow;
   @include card_badge;
 
   &::after {
@@ -123,11 +123,11 @@ export default {
 }
 
 .card_badge--parked {
-  background-color: red;
+  background-color: $yellow;
   @include card_badge;
 
   &::after {
-    content: "zaparkowany"
+    content: "Zaparkowany"
   }
 }
 
