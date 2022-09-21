@@ -13,7 +13,7 @@
       <v-col
         class="items"
         v-for="project in orderedProjects"
-        :key="project"
+        :key="project.id"
         cols="12"
         xs="12"
         md="6"
@@ -23,7 +23,9 @@
         <v-item-group>
           <v-hover v-slot="{ hover }">
             <v-card @click.stop="clickImage(project)">
-              <v-img :src="project.imageAdress" aspect-ratio="1.9" />
+              <v-img :src="project.imageAdress" aspect-ratio="1.9">
+                <div :class="'card_badge--' + project.badge" />
+              </v-img>
               <v-card-title class="card">
                 {{ project.name }}
               </v-card-title>
@@ -80,12 +82,53 @@ export default {
 <style lang="scss" scoped>
 @import '../../../main.scss';
 
+
 .card {
   font-family: $font-header;
   font-size: 1.5rem;
   justify-content: center;
   word-break: break-word;
   text-align: center;
+}
+
+@mixin card_badge {
+  position: relative;
+  display: inline;
+  left: 0.75rem;
+  top: 0.75rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 25px;
+  box-shadow: 2px 3px #2c3e50;
+  font-family: $font-content;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.card_badge--active {
+  background-color: green;
+  @include card_badge;
+
+  &::after {
+    content: 'Aktywny'
+  }
+}
+
+.card_badge--maintained {
+  background-color: yellow;
+  @include card_badge;
+
+  &::after {
+    content: 'Wspierany'
+  }
+}
+
+.card_badge--parked {
+  background-color: red;
+  @include card_badge;
+
+  &::after {
+    content: "zaparkowany"
+  }
 }
 
 .card--hover {
