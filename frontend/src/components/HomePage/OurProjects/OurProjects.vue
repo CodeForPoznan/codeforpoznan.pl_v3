@@ -62,7 +62,7 @@ export default {
   },
   computed: {
     orderedProjects: function() {
-      return _.orderBy(this.projects, 'badge')
+      return _.orderBy(this.projects, 'badge');
     }
   },
   methods: {
@@ -81,7 +81,6 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../../main.scss';
-
 
 .card {
   font-family: $font-header;
@@ -109,7 +108,7 @@ export default {
   @include card_badge;
 
   &::after {
-    content: 'Aktywny'
+    content: 'Aktywny';
   }
 }
 
@@ -118,7 +117,7 @@ export default {
   @include card_badge;
 
   &::after {
-    content: 'Wspierany'
+    content: 'Wspierany';
   }
 }
 
@@ -127,7 +126,7 @@ export default {
   @include card_badge;
 
   &::after {
-    content: "Zaparkowany"
+    content: 'Zaparkowany';
   }
 }
 
