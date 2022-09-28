@@ -16,7 +16,7 @@
         :key="project.id"
         cols="12"
         xs="12"
-        md="6"
+        sm="6"
         lg="4"
         xl="3"
       >
@@ -93,7 +93,7 @@ export default {
 
 @mixin card_badge {
   position: relative;
-  display: inline;
+  display: inline-block;
   left: 0.75rem;
   top: 0.75rem;
   padding: 0.3rem 0.7rem;
@@ -114,7 +114,7 @@ export default {
 }
 
 .card_badge--maintained {
-  background-color: $lightyellow;
+  background-color: $lightgreen;
   @include card_badge;
 
   &::after {
