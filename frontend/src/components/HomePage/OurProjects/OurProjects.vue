@@ -24,7 +24,7 @@
           <v-hover v-slot="{ hover }">
             <v-card @click.stop="clickImage(project)">
               <v-img :src="project.imageAdress" aspect-ratio="1.9">
-                <div :class="'card_badge--' + project.badge" />
+                <div :class="'card__badge--' + project.badge" />
               </v-img>
               <v-card-title class="card">
                 {{ project.name }}
@@ -90,7 +90,7 @@ export default {
   text-align: center;
 }
 
-@mixin card_badge {
+@mixin card__badge {
   position: relative;
   display: inline-block;
   left: 0.75rem;
@@ -103,27 +103,27 @@ export default {
   font-weight: bold;
 }
 
-.card_badge--active {
+.card__badge--active {
   background-color: $green;
-  @include card_badge;
+  @include card__badge;
 
   &::after {
     content: 'Aktywny';
   }
 }
 
-.card_badge--maintained {
+.card__badge--maintained {
   background-color: $lightgreen;
-  @include card_badge;
+  @include card__badge;
 
   &::after {
     content: 'Wspierany';
   }
 }
 
-.card_badge--parked {
+.card__badge--parked {
   background-color: $yellow;
-  @include card_badge;
+  @include card__badge;
 
   &::after {
     content: 'Zaparkowany';
