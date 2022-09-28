@@ -197,14 +197,4 @@ const projects = [
   }
 ];
 
-// const badgeOrder = {
-//   Aktywny: 1,
-//   Wspierany: 2,
-//   Zawieszony: 3
-// };
-
-// let sortedProjects = [...projects].sort(
-//   (a, b) => badgeOrder[a.badge] - badgeOrder[b.badge]
-// );
-
 export default projects;
