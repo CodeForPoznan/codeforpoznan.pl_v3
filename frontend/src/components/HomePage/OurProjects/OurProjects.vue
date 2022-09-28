@@ -12,11 +12,11 @@
     <v-row wrap>
       <v-col
         class="items"
-        v-for="(project, index) in projects"
-        :key="index"
+        v-for="project in orderedProjects"
+        :key="project.id"
         cols="12"
         xs="12"
-        md="6"
+        sm="6"
         lg="4"
         xl="3"
       >
@@ -24,12 +24,7 @@
           <v-hover v-slot="{ hover }">
             <v-card @click.stop="clickImage(project)">
               <v-img :src="project.imageAdress" aspect-ratio="1.9">
-                <div
-                  class="card--badge"
-                  :class="statuses(project.badge)"
-                >
-                  {{ project.badge }}
-                </div>
+                <div :class="'card_badge--' + project.badge" />
               </v-img>
               <v-card-title class="card">
                 {{ project.name }}
@@ -52,7 +47,7 @@
 
 <script>
 import ModalContent from './ModalContent/ModalContent.vue';
-import sortedProjects from '../../../assets/projects';
+import projects from '../../../assets/projects';
 export default {
   components: {
     'app-modal-content': ModalContent
@@ -61,14 +56,14 @@ export default {
     return {
       dialog: false,
       hoveredImg: require('@/assets/images/magnifying_glass.svg'),
-      projects: sortedProjects,
-      selectedProject: [],
-      statuses: [
-        aktywny = "active",
-        zawieszony = "frozen",
-        wspierany = "maintained"
-      ]
+      projects: projects,
+      selectedProject: []
     };
+  },
+  computed: {
+    orderedProjects: function() {
+      return _.orderBy(this.projects, 'badge')
+    }
   },
   methods: {
     clickImage(project) {
@@ -87,6 +82,7 @@ export default {
 <style lang="scss" scoped>
 @import '../../../main.scss';
 
+
 .card {
   font-family: $font-header;
   font-size: 1.5rem;
@@ -95,31 +91,44 @@ export default {
   text-align: center;
 }
 
-.card--badge {
+@mixin card_badge {
   position: relative;
-  display: inline;
+  display: inline-block;
   left: 0.75rem;
   top: 0.75rem;
-  height: 2rem;
-  padding: 0.25rem 0.75rem;
+  padding: 0.3rem 0.7rem;
   border-radius: 25px;
-  box-shadow: 1px 3px #2c3e50;
+  box-shadow: 2px 3px #2c3e50;
   font-family: $font-content;
-  font-size: 1.2rem;
-  text-transform: capitalize;
+  font-size: 1rem;
   font-weight: bold;
 }
 
-.activated {
+.card_badge--active {
   background-color: $green;
+  @include card_badge;
+
+  &::after {
+    content: 'Aktywny'
+  }
 }
 
-.maintained {
+.card_badge--maintained {
+  background-color: $lightgreen;
+  @include card_badge;
+
+  &::after {
+    content: 'Wspierany'
+  }
+}
+
+.card_badge--parked {
   background-color: $yellow;
-}
+  @include card_badge;
 
-.frozen {
-  background-color: $lightyellow;
+  &::after {
+    content: "Zaparkowany"
+  }
 }
 
 .card--hover {
