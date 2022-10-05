@@ -62,7 +62,10 @@ def initialize_extensions(app):
 
 api.add_resource(HacknightList, "/api/hacknights/")
 api.add_resource(HacknightDetails, "/api/hacknights/<int:id>/")
-api.add_resource(HacknightParticipants, "/api/hacknights/<int:id>/participants/")
+api.add_resource(
+    HacknightParticipants,
+    "/api/hacknights/<int:hacknight_id>/participants/<int:participant_id>/",
+)
 api.add_resource(ParticipantDetails, "/api/participants/<int:id>/")
 api.add_resource(ParticipantsList, "/api/participants/")
 api.add_resource(RefreshAccessToken, "/api/auth/refresh/")

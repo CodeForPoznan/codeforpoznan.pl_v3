@@ -66,24 +66,24 @@ export default {
         });
     },
     addParticipants({ commit, getters }, participants_ids) {
-      axios
-        .post(`/api/hacknights/${getters.getHacknight.id}/participants/`, {
-          participants_ids: participants_ids
-        })
-        .then(res => {
-          commit('setHacknight', res.data);
-        })
-        .catch(error => {
-          commit('raiseError', error);
-        });
+      participants_ids.forEach(participant_id => {
+        axios
+          .post(
+            `/api/hacknights/${getters.getHacknight.id}/participants/${participant_id}/`
+          )
+          .then(res => {
+            commit('setHacknight', res.data);
+          })
+          .catch(error => {
+            commit('raiseError', error);
+          });
+      });
     },
-    deleteParticipants({ commit, getters }, participants_ids) {
+    deleteParticipants({ commit, getters }, participant_id) {
       axios
-        .delete(`/api/hacknights/${getters.getHacknight.id}/participants/`, {
-          data: {
-            participants_ids: participants_ids
-          }
-        })
+        .delete(
+          `/api/hacknights/${getters.getHacknight.id}/participants/${participant_id}/`
+        )
         .then(res => {
           commit('setHacknight', res.data);
         })

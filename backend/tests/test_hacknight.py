@@ -9,7 +9,7 @@ def test_get_hacknights_when_logged_in(auth_client, add_hacknights):
     rv = auth_client.get("/api/hacknights/")
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.OK
-    assert len(response) == 10
+    assert len(response) == len(Hacknight.query.all())
 
 
 def test_get_hacknights_with_empty_db(auth_client):
@@ -28,26 +28,34 @@ def test_get_hacknights_unauthorized(client, add_hacknights):
     assert response["msg"] == "Missing Authorization Header"
 
 
-def test_add_participants_to_hacknight(auth_client, add_hacknights, add_participants):
+def test_add_participant_to_hacknight(auth_client, add_hacknights, add_participants):
     """Test add new participant to hacknight."""
-    payload = {"participants_ids": [1, 3]}
-    rv = auth_client.post("/api/hacknights/1/participants/", data=json.dumps(payload),)
+    hacknight = Hacknight.query.first()
+    participant = Participant.query.filter(
+        Participant.id.not_in(
+            [getattr(participant, "id") for participant in hacknight.participants]
+        )
+    ).first()
+    rv = auth_client.post(
+        f"/api/hacknights/{hacknight.id}/participants/{participant.id}/"
+    )
     resp = rv.get_json()
     assert rv.status_code == HTTPStatus.OK
 
-    hacknight_db = Hacknight.query.get(1)
-    ids_from_db = [participant.id for participant in hacknight_db.participants]
-    for participant in resp["participants"]:
-        assert participant["id"] in payload["participants_ids"]
-    assert ids_from_db == payload["participants_ids"]
+    hacknight_db = Hacknight.query.get(hacknight.id)
+    assert participant.id in [participant["id"] for participant in resp["participants"]]
+    assert participant in hacknight_db.participants
 
 
-def test_add_participants_to_hacknight_unauthorized(
+def test_add_participant_to_hacknight_unauthorized(
     add_hacknights, add_participants, client
 ):
-    """Test add participants to hacknight when user is not logged in."""
-    payload = {"participants_ids": [1, 3]}
-    rv = client.post("/api/hacknights/1/participants/", data=json.dumps(payload))
+    """Test add participant to hacknight when user is not logged in."""
+    hacknight = Hacknight.query.first()
+    participant = Participant.query.filter(
+        Participant.id.not_in(hacknight.participants)
+    ).first()
+    rv = client.post(f"/api/hacknights/{hacknight.id}/participants/{participant.id}/")
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.UNAUTHORIZED
     assert response["msg"] == "Missing Authorization Header"
@@ -55,15 +63,15 @@ def test_add_participants_to_hacknight_unauthorized(
 
 def test_add_nonexisting_participants_to_hacknight(auth_client, add_hacknights):
     """Test add non-existing participants ids to hacknight."""
-    payload = {"participants_ids": [1, 3]}
-    rv = auth_client.post("/api/hacknights/1/participants/", data=json.dumps(payload),)
+    hacknight = Hacknight.query.first()
+    rv = auth_client.post(f"/api/hacknights/{hacknight.id}/participants/999/")
     assert rv.status_code == HTTPStatus.NOT_FOUND
 
 
 def test_add_participants_to_nonexisting_hacknight(auth_client, add_participants):
     """Test add participants to non-existing hacknight."""
-    payload = {"participants_ids": [1, 3]}
-    rv = auth_client.post("/api/hacknights/1/participants/", data=json.dumps(payload),)
+    participant = Participant.query.first()
+    rv = auth_client.post(f"/api/hacknights/1/participants/{participant.id}/")
     assert rv.status_code == HTTPStatus.NOT_FOUND
 
 
@@ -75,9 +83,8 @@ def test_duplicate_participant_in_hacknight(
     participant = _db.session.query(Participant).first()
     hacknight.participants.append(participant)
 
-    payload = {"participants_ids": [participant.id]}
     rv = auth_client.post(
-        f"/api/hacknights/{hacknight.id}/participants/", data=json.dumps(payload),
+        f"/api/hacknights/{hacknight.id}/participants/{participant.id}/"
     )
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.BAD_REQUEST
@@ -98,16 +105,17 @@ def test_create_hacknight_with_same_date(auth_client, new_hacknight, _db):
     assert response["message"] == "Hacknight already exists."
 
 
-def test_remove_participants_from_hacknight(auth_client, add_participants_to_hacknight):
+def test_remove_participant_from_hacknight(auth_client, add_participants_to_hacknight):
     """Test remove single participant from hacknight."""
-    hacknight_db = Hacknight.query.get(1)
+    hacknight_db = Hacknight.query.first()
     participant_id = hacknight_db.participants[0].id
-    payload = {"participants_ids": [participant_id]}
-    rv = auth_client.delete("/api/hacknights/1/participants/", data=json.dumps(payload))
+    rv = auth_client.delete(
+        f"/api/hacknights/{hacknight_db.id}/participants/{participant_id}/"
+    )
     response = rv.get_json()
     participant_db = Participant.query.get(participant_id)
     assert rv.status_code == HTTPStatus.OK
-    assert participant_db not in Hacknight.query.get(1).participants
+    assert participant_db not in Hacknight.query.get(hacknight_db.id).participants
     assert participant_db.id not in response.get("participants")
 
 
@@ -115,22 +123,32 @@ def test_remove_all_participants_from_hacknight(
     auth_client, add_participants_to_hacknight
 ):
     """Test remove all participants from hacknight."""
-    hacknight_db = Hacknight.query.get(1)
+    hacknight_db = Hacknight.query.first()
     participants_id = [participant.id for participant in hacknight_db.participants]
-    payload = {"participants_ids": participants_id}
-    rv = auth_client.delete("/api/hacknights/1/participants/", data=json.dumps(payload))
+    for participant_id in participants_id:
+        rv = auth_client.delete(
+            f"/api/hacknights/{hacknight_db.id}/participants/{participant_id}/"
+        )
+        assert rv.status_code == HTTPStatus.OK
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.OK
-    assert not Hacknight.query.get(1).participants
+    assert not Hacknight.query.get(hacknight_db.id).participants
     assert not response.get("participants")
 
 
 def test_remove_wrong_participant_from_hacknight(
-    auth_client, add_participants_to_hacknight
+    auth_client, add_participants, add_participants_to_hacknight
 ):
     """Test remove non-existing participant from hacknight."""
-    payload = {"participants_ids": [999]}
-    rv = auth_client.delete("/api/hacknights/1/participants/", data=json.dumps(payload))
+    hacknight_db = Hacknight.query.first()
+    participant = Participant.query.filter(
+        Participant.id.not_in(
+            [participant.id for participant in hacknight_db.participants]
+        )
+    ).first()
+    rv = auth_client.delete(
+        f"/api/hacknights/{hacknight_db.id}/participants/{participant.id}/"
+    )
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.BAD_REQUEST
     assert response["message"] == "No participant to delete"
