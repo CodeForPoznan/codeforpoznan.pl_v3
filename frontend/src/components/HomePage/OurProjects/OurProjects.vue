@@ -63,7 +63,7 @@ export default {
   computed: {
     orderedProjects: function() {
       // return _.orderBy(this.projects, 'badge');
-      return projects.sort((a,b) => a.badge.localeCompare(b.badge))
+      return projects.sort((a, b) => a.badge.localeCompare(b.badge));
     }
   },
   methods: {
