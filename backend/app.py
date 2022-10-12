@@ -11,6 +11,7 @@ from backend.extensions import api, db, mail, migrate, jwt
 from backend.models import JWTToken
 from backend.resources.auth import (
     UserLogin,
+    UserLoginGithub,
     UserLogout,
     RefreshAccessToken,
     RefreshToken,
@@ -68,6 +69,7 @@ api.add_resource(RefreshAccessToken, "/api/auth/refresh/")
 api.add_resource(RefreshToken, "/api/auth/refresh-token/")
 api.add_resource(SendMessage, "/api/send-email/")
 api.add_resource(UserLogin, "/api/auth/login/")
+api.add_resource(UserLoginGithub, "/api/auth/login-github/")
 api.add_resource(UserLogout, "/api/auth/logout/")
 api.add_resource(TeamList, "/api/teams/")
 api.add_resource(TeamDetails, "/api/teams/<int:id>/")

@@ -46,6 +46,35 @@ export default {
         commit('raiseError', error);
       }
     },
+    async loginGithub({ commit }) {
+      delete axios.defaults.headers.common['Authorization'];
+
+      try {
+        let resp;
+        var data = JSON.stringify({
+          'client_id': 'XXX',
+          'state': 'erg54t5tregtgerger',
+          'redirect_uri': 'http://localhost:5000/api/test/oauth'
+        });
+        try {//
+          resp = await axios.get('https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/authorize', {
+            headers: {
+              'Access-Control-Allow-Origin': 'http://localhost:8080/login',
+              // 'Content-Type' : 'application/x-www-form-urlencoded',
+              // 'Access-Control-Request-Headers' : '*',
+              'Content-Type': 'application/json'
+            },
+            data: data
+          });
+          return resp.data;
+        } catch (err) {
+          // Handle Error Here
+        }
+      } catch (error) {
+        localStorage.removeItem('token');
+        commit('raiseError', error);
+      }
+    },
     logout({ dispatch }) {
       axios.interceptors.response.eject(interceptorRefresh);
       return axios
