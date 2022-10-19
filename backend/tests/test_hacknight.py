@@ -1,15 +1,50 @@
 from http import HTTPStatus
 import json
 
+import pytest
+from datetime import date, timedelta
+
+from backend.factories import HacknightFactory
 from backend.models import Hacknight, Participant
 
 
-def test_get_hacknights_when_logged_in(auth_client, add_hacknights):
+def test_get_all_hacknights_when_logged_in(
+    auth_client, add_hacknights, add_participants_to_hacknight
+):
     """Test get list of hacknights for logged in user."""
     rv = auth_client.get("/api/hacknights/")
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.OK
-    assert len(response) == 10
+    assert len(response) == len(Hacknight.query.all())
+    for hacknigt in response:
+        assert len(hacknigt["participants"]) == len(
+            Hacknight.query.get(hacknigt["id"]).participants
+        )
+
+
+@pytest.mark.parametrize(
+    "start_date,end_date",
+    [("2022-01-12", "2022-10-12"), ("2022-01-12", ""), ("", "2022-10-12")],
+)
+def test_get_hacknights_date_filter(auth_client, start_date, end_date):
+    """Test get list of hacknights with date filter applied."""
+    expected_count = 0
+    if start_date:
+        start_date_formatted = date.fromisoformat(start_date)
+        out_of_range = start_date_formatted - timedelta(days=1)
+        HacknightFactory.create(date=start_date_formatted)
+        HacknightFactory.create(date=out_of_range)
+        expected_count += 1
+    if end_date:
+        end_date_formatted = date.fromisoformat(end_date)
+        out_of_range = end_date_formatted + timedelta(days=1)
+        HacknightFactory.create(date=end_date_formatted)
+        HacknightFactory.create(date=out_of_range)
+        expected_count += 1
+    rv = auth_client.get(f"/api/hacknights/?startDate={start_date}&endDate={end_date}")
+    response = rv.get_json()
+    assert rv.status_code == HTTPStatus.OK
+    assert len(response) == expected_count
 
 
 def test_get_hacknights_with_empty_db(auth_client):

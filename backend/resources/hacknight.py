@@ -8,17 +8,31 @@ from flask_restful import Resource
 from marshmallow import fields, Schema, ValidationError
 
 from backend.extensions import db
-from backend.models import Hacknight, Participant
-from backend.serializers.hacknight_serializer import HacknightSchema
+from backend.models import Hacknight, Participant, participant_hacknight
+from backend.serializers.hacknight_serializer import DateFilterSchema, HacknightSchema
 
 
 class HacknightList(Resource):
     @jwt_required
     def get(self):
-        hacknight_schema = HacknightSchema(many=True)
+        hacknight_schema = HacknightSchema(
+            many=True, only=("id", "date", "participants.id")
+        )
+        date_filter_schema = DateFilterSchema(partial=True)
+        date_filter = date_filter_schema.load(request.args)
+        query = db.session.query(Hacknight)
+
+        # Apply date filter if provided
+        if start_date := date_filter.get("start_date"):
+            query = query.filter(Hacknight.date >= start_date)
+        if end_date := date_filter.get("end_date"):
+            query = query.filter(Hacknight.date <= end_date)
+
         return (
             hacknight_schema.dump(
-                Hacknight.query.order_by(Hacknight.date.desc()).all()
+                query.join(participant_hacknight, isouter=True)
+                .order_by(Hacknight.date.desc())
+                .all()
             ),
             HTTPStatus.OK,
         )
