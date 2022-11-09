@@ -124,8 +124,8 @@ def test_remove_all_participants_from_hacknight(
 ):
     """Test remove all participants from hacknight."""
     hacknight_db = Hacknight.query.first()
-    participants_id = [participant.id for participant in hacknight_db.participants]
-    for participant_id in participants_id:
+    participant_ids = [participant.id for participant in hacknight_db.participants]
+    for participant_id in participant_ids:
         rv = auth_client.delete(
             f"/api/hacknights/{hacknight_db.id}/participants/{participant_id}/"
         )
