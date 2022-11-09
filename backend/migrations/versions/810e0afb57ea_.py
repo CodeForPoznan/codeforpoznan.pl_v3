@@ -30,8 +30,14 @@ def upgrade():
         "team_techstack",
         sa.Column("team_id", sa.Integer(), nullable=True),
         sa.Column("techstack_id", sa.Integer(), nullable=True),
-        sa.ForeignKeyConstraint(["team_id"], ["team.id"],),
-        sa.ForeignKeyConstraint(["techstack_id"], ["techstack.id"],),
+        sa.ForeignKeyConstraint(
+            ["team_id"],
+            ["team.id"],
+        ),
+        sa.ForeignKeyConstraint(
+            ["techstack_id"],
+            ["techstack.id"],
+        ),
     )
     op.create_table(
         "user_skill",
@@ -39,8 +45,14 @@ def upgrade():
         sa.Column("techstack_id", sa.Integer(), nullable=False),
         sa.Column("skill_level", sa.Integer(), nullable=True),
         sa.Column("is_learning_goal", sa.Boolean(), nullable=True),
-        sa.ForeignKeyConstraint(["techstack_id"], ["techstack.id"],),
-        sa.ForeignKeyConstraint(["user_id"], ["user.id"],),
+        sa.ForeignKeyConstraint(
+            ["techstack_id"],
+            ["techstack.id"],
+        ),
+        sa.ForeignKeyConstraint(
+            ["user_id"],
+            ["user.id"],
+        ),
         sa.PrimaryKeyConstraint("user_id", "techstack_id"),
     )
     # ### end Alembic commands ###
