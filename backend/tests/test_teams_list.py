@@ -31,11 +31,15 @@ def test_get_teams_unauthorized(client, add_teams):
 
 
 def test_create_team_with_valid_data(
-    auth_client, new_team,
+    auth_client,
+    new_team,
 ):
     """Test add team with valid data in payload."""
     team_schema = TeamSchema()
-    rv = auth_client.post("/api/teams/", data=json.dumps(new_team),)
+    rv = auth_client.post(
+        "/api/teams/",
+        data=json.dumps(new_team),
+    )
     response = rv.get_json()
     team_db = Team.query.first()
     assert rv.status_code == HTTPStatus.CREATED

@@ -35,7 +35,8 @@ def test_login_with_non_admin_user(client, new_user, registered_user):
 def test_refresh_access_token(client, tokens):
     """Test refresh access token with refresh token."""
     rv = client.post(
-        "/api/auth/refresh/", headers={"Authorization": f"Bearer {tokens['refresh']}"},
+        "/api/auth/refresh/",
+        headers={"Authorization": f"Bearer {tokens['refresh']}"},
     )
 
     response = rv.get_json()
