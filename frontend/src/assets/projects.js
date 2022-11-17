@@ -28,7 +28,7 @@ const projects = [
   {
     badge: 'Aktywny',
     description:
-      'W wyniku współpracy z Polską Akcją Humanitarną stworzyliśmy aplikację pomagającą w logistycznych procesach akcji humanitarnych w różnych częściach globu. Aktualnie aplikacja służąca rejestracji i ewidencji przejazdów jest wykorzystywana podczas akcji humanitarnych na Ukrainie, w Sudanie Południowym, Jemenie oraz Somalii. Aplikacja pozwala także na eksport zebranych danych w celu ewidencji kosztów dla danej akcji humanitarnej. Dzięku temu możemy zoptymalizować proces i zmniejszyć nakład papierkowej pracy biurowej.',
+      'W wyniku współpracy z Polską Akcją Humanitarną stworzyliśmy aplikację pomagającą w logistycznych procesach akcji humanitarnych w różnych częściach globu. Aktualnie aplikacja służąca rejestracji i ewidencji przejazdów jest wykorzystywana podczas akcji humanitarnych na Ukrainie, w Sudanie Południowym, Jemenie oraz Somalii. Aplikacja pozwala także na eksport zebranych danych w celu ewidencji kosztów dla danej akcji humanitarnej. Dzięki temu możemy zoptymalizować proces i zmniejszyć nakład papierkowej pracy biurowej.',
     githubLink: 'https://github.com/CodeForPoznan/pah-fm',
     imageAdress: require('@/assets/images/PAH.png'),
     license: 'MIT',
