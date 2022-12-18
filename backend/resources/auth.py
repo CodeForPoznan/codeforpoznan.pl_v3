@@ -3,7 +3,7 @@ from http import HTTPStatus
 
 from backend.extensions import db
 from backend.models import User, JWTToken
-from backend.serializers.login_serializer import LoginSchema
+from backend.serializers.login_serializer import LoginSchema, LoginGithubSchema
 from flask import request
 from flask_jwt_extended import (
     create_access_token,

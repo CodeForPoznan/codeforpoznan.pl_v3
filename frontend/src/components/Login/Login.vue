@@ -45,7 +45,8 @@
               @blur="$v.password.$touch()"
             ></v-text-field>
             <v-btn @click="onSubmit">Zaloguj</v-btn>
-          </form>
+            <v-btn @click="onSubmitGithub">Zaloguj przez GitHub</v-btn>
+          </form>onSubmitGithub
         </v-flex>
       </v-layout>
     </v-app>
@@ -89,6 +90,21 @@ export default {
           }
         });
       }
+    },
+    onSubmitGithub() {
+      const loginData = {
+        github_username: this.github_username
+      };
+      // console.log(loginData.github_username)
+      // this.showSpinner = true;
+      this.$store.dispatch('auth/loginGithub', loginData).then((status, dataOut) => {
+        this.showSpinner = false;
+        this.clearForm();
+        if (status == 201) {
+          this.successAlert = true;
+        }
+        // this.htmlRAW = dataOut;
+      });
     },
     clearForm() {
       this.$v.$reset();
