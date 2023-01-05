@@ -60,7 +60,7 @@ git checkout 123_UPDATE_SOMETHING
 Now you can start developing and commiting your changes!
 
 #### 5. Push your changes to main repo
-Once you're finished, run four comands to commit your changes. 
+Once you're finished, run four commands to commit your changes. 
 ```bash
 # First check your changes:
 git status
