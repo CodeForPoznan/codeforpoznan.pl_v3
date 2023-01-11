@@ -1,6 +1,6 @@
 <template>
   <div>
-    <footer>Copyright © Code for Poznan 2022</footer>
+    <footer>Copyright © Code for Poznan 2023</footer>
   </div>
 </template>
 
