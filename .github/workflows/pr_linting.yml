@@ -1,0 +1,14 @@
+name: PR linter
+
+on: [pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - uses: psf/black@master
+      - uses: isort/isort-action@master
+        with:
+          configuration: " --check-only --diff --profile black"
