@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: CodeForPoznan/actions/setup-backend@v1
+      - uses: CodeForPoznan/actions/setup-backend@v1.1
 
       - run: pipenv run black --check .
       - run: pipenv run pytest
