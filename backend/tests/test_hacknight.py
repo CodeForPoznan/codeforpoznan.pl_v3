@@ -63,21 +63,15 @@ def test_add_participant_to_hacknight_unauthorized(
 
 def test_add_nonexisting_participants_to_hacknight(auth_client, add_hacknights):
     """Test add non-existing participants ids to hacknight."""
-    payload = {"participants_ids": [1, 3]}
-    rv = auth_client.post(
-        "/api/hacknights/1/participants/",
-        data=json.dumps(payload),
-    )
+    hacknight = Hacknight.query.first()
+    rv = auth_client.post(f"/api/hacknights/{hacknight.id}/participants/999/")
     assert rv.status_code == HTTPStatus.NOT_FOUND
 
 
 def test_add_participants_to_nonexisting_hacknight(auth_client, add_participants):
     """Test add participants to non-existing hacknight."""
-    payload = {"participants_ids": [1, 3]}
-    rv = auth_client.post(
-        "/api/hacknights/1/participants/",
-        data=json.dumps(payload),
-    )
+    participant = Participant.query.first()
+    rv = auth_client.post(f"/api/hacknights/1/participants/{participant.id}/")
     assert rv.status_code == HTTPStatus.NOT_FOUND
 
 
@@ -90,8 +84,7 @@ def test_duplicate_participant_in_hacknight(
     hacknight.participants.append(participant)
 
     rv = auth_client.post(
-        f"/api/hacknights/{hacknight.id}/participants/",
-        data=json.dumps(payload),
+        f"/api/hacknights/{hacknight.id}/participants/{participant.id}/"
     )
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.BAD_REQUEST
