@@ -12,18 +12,20 @@
     <v-row wrap>
       <v-col
         class="items"
-        v-for="(project, index) in projects"
-        :key="index"
+        v-for="project in orderedProjects"
+        :key="project.id"
         cols="12"
         xs="12"
-        md="6"
+        sm="6"
         lg="4"
         xl="3"
       >
         <v-item-group>
           <v-hover v-slot="{ hover }">
             <v-card @click.stop="clickImage(project)">
-              <v-img :src="project.imageAdress" aspect-ratio="1.9" />
+              <v-img :src="project.imageAdress" aspect-ratio="1.9">
+                <div :class="'card__badge--' + project.badge" />
+              </v-img>
               <v-card-title class="card">
                 {{ project.name }}
               </v-card-title>
@@ -45,7 +47,7 @@
 
 <script>
 import ModalContent from './ModalContent/ModalContent.vue';
-import sortedProjects from '../../../assets/projects';
+import projects from '../../../assets/projects';
 export default {
   components: {
     'app-modal-content': ModalContent
@@ -54,9 +56,14 @@ export default {
     return {
       dialog: false,
       hoveredImg: require('@/assets/images/magnifying_glass.svg'),
-      projects: sortedProjects,
+      projects: projects,
       selectedProject: []
     };
+  },
+  computed: {
+    orderedProjects: function() {
+      return projects.sort((a, b) => a.badge.localeCompare(b.badge));
+    }
   },
   methods: {
     clickImage(project) {
@@ -81,6 +88,46 @@ export default {
   justify-content: center;
   word-break: break-word;
   text-align: center;
+}
+
+@mixin card__badge {
+  position: relative;
+  display: inline-block;
+  left: 0.75rem;
+  top: 0.75rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 25px;
+  box-shadow: 2px 3px #2c3e50;
+  font-family: $font-content;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.card__badge--active {
+  background-color: $green;
+  @include card__badge;
+
+  &::after {
+    content: 'Aktywny';
+  }
+}
+
+.card__badge--maintained {
+  background-color: $lightgreen;
+  @include card__badge;
+
+  &::after {
+    content: 'Wspierany';
+  }
+}
+
+.card__badge--parked {
+  background-color: $yellow;
+  @include card__badge;
+
+  &::after {
+    content: 'Zaparkowany';
+  }
 }
 
 .card--hover {
