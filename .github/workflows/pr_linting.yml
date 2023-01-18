@@ -7,4 +7,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: CodeForPoznan/actions/lint-backend@latest
+      - uses: CodeForPoznan/actions/lint-backend@master
