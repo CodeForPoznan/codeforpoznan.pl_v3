@@ -63,15 +63,21 @@ def test_add_participant_to_hacknight_unauthorized(
 
 def test_add_nonexisting_participants_to_hacknight(auth_client, add_hacknights):
     """Test add non-existing participants ids to hacknight."""
-    hacknight = Hacknight.query.first()
-    rv = auth_client.post(f"/api/hacknights/{hacknight.id}/participants/999/")
+    payload = {"participants_ids": [1, 3]}
+    rv = auth_client.post(
+        "/api/hacknights/1/participants/",
+        data=json.dumps(payload),
+    )
     assert rv.status_code == HTTPStatus.NOT_FOUND
 
 
 def test_add_participants_to_nonexisting_hacknight(auth_client, add_participants):
     """Test add participants to non-existing hacknight."""
-    participant = Participant.query.first()
-    rv = auth_client.post(f"/api/hacknights/1/participants/{participant.id}/")
+    payload = {"participants_ids": [1, 3]}
+    rv = auth_client.post(
+        "/api/hacknights/1/participants/",
+        data=json.dumps(payload),
+    )
     assert rv.status_code == HTTPStatus.NOT_FOUND
 
 
@@ -84,7 +90,8 @@ def test_duplicate_participant_in_hacknight(
     hacknight.participants.append(participant)
 
     rv = auth_client.post(
-        f"/api/hacknights/{hacknight.id}/participants/{participant.id}/"
+        f"/api/hacknights/{hacknight.id}/participants/",
+        data=json.dumps(payload),
     )
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.BAD_REQUEST
@@ -99,7 +106,10 @@ def test_create_hacknight_with_same_date(auth_client, new_hacknight, _db):
     db.session.commit()
 
     payload = {"date": "2000-10-10"}
-    rv = auth_client.post("/api/hacknights/", data=json.dumps(payload),)
+    rv = auth_client.post(
+        "/api/hacknights/",
+        data=json.dumps(payload),
+    )
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.CONFLICT
     assert response["message"] == "Hacknight already exists."

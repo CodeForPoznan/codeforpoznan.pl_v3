@@ -27,7 +27,10 @@ def test_edit_techstack_data_when_logged_in(app, auth_client, add_tech_stack):
     """Test edit techstack details for logged in user and valid data."""
     with app.app_context():
         payload = {"technology": "Vue", "label": "frontend"}
-        rv = auth_client.put("/api/techstacks/1/", json=payload,)
+        rv = auth_client.put(
+            "/api/techstacks/1/",
+            json=payload,
+        )
         response = rv.get_json()
         schema = TechStackSchema()
         techstack = schema.dump(TechStack.query.first())

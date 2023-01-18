@@ -31,11 +31,15 @@ def test_get_techstack_unauthorized(client, add_tech_stack):
 
 
 def test_create_techstack_with_valid_data(
-    auth_client, new_tech_stack,
+    auth_client,
+    new_tech_stack,
 ):
     """Test add tech stack with valid data in payload."""
     techstack_schema = TechStackSchema()
-    rv = auth_client.post("/api/techstacks/", data=json.dumps(new_tech_stack),)
+    rv = auth_client.post(
+        "/api/techstacks/",
+        data=json.dumps(new_tech_stack),
+    )
     response = rv.get_json()
     techstack_db = TechStack.query.first()
     assert rv.status_code == HTTPStatus.CREATED

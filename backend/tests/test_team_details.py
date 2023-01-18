@@ -27,7 +27,10 @@ def test_edit_team_data_when_logged_in(app, auth_client, add_teams):
     """Test edit team details for logged in user and valid data."""
     with app.app_context():
         payload = {"project_name": "New Project", "description": "Another description"}
-        rv = auth_client.put("/api/teams/1/", json=payload,)
+        rv = auth_client.put(
+            "/api/teams/1/",
+            json=payload,
+        )
         response = rv.get_json()
         schema = TeamSchema()
         team = schema.dump(Team.query.first())
@@ -56,7 +59,10 @@ def test_get_delete_put_team_unauthorized(client, add_teams, method):
 def test_add_members_to_team(auth_client, add_teams, add_participants):
     """Test add new members to a team."""
     payload = {"members_ids": [1, 3]}
-    rv = auth_client.post("/api/teams/1/members/", data=json.dumps(payload),)
+    rv = auth_client.post(
+        "/api/teams/1/members/",
+        data=json.dumps(payload),
+    )
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.OK
 
@@ -70,7 +76,10 @@ def test_add_members_to_team(auth_client, add_teams, add_participants):
 def test_add_tech_stack_to_team(auth_client, add_teams, add_tech_stack):
     """Test add new techstack to a team."""
     payload = {"techstack_ids": [1, 3]}
-    rv = auth_client.post("/api/teams/1/techstack/", data=json.dumps(payload),)
+    rv = auth_client.post(
+        "/api/teams/1/techstack/",
+        data=json.dumps(payload),
+    )
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.OK
 
@@ -93,7 +102,10 @@ def test_add_members_to_team_unauthorized(add_teams, add_participants, client):
 def test_add_tech_stack_to_team_unauthorized(client, add_teams, add_tech_stack):
     """Test add new techstack to a team."""
     payload = {"techstack_ids": [1, 3]}
-    rv = client.post("/api/teams/1/techstack/", data=json.dumps(payload),)
+    rv = client.post(
+        "/api/teams/1/techstack/",
+        data=json.dumps(payload),
+    )
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.UNAUTHORIZED
     assert response["msg"] == "Missing Authorization Header"
@@ -103,7 +115,10 @@ def test_add_tech_stack_to_team_unauthorized(client, add_teams, add_tech_stack):
 def test_add_nonexisting_members_techstack_to_team(auth_client, add_teams, parameter):
     """Test add non-existing members and techstack ids to team."""
     payload = {f"{parameter}_ids": [1, 3]}
-    rv = auth_client.post(f"/api/teams/1/{parameter}/", data=json.dumps(payload),)
+    rv = auth_client.post(
+        f"/api/teams/1/{parameter}/",
+        data=json.dumps(payload),
+    )
     assert rv.status_code == HTTPStatus.NOT_FOUND
 
 
@@ -113,7 +128,10 @@ def test_add_members_techstack_to_nonexisting_team(
 ):
     """Test add members and techstack to non-existing team."""
     payload = {f"{parameter}_ids": [1, 3]}
-    rv = auth_client.post(f"/api/teams/1/{parameter}/", data=json.dumps(payload),)
+    rv = auth_client.post(
+        f"/api/teams/1/{parameter}/",
+        data=json.dumps(payload),
+    )
     assert rv.status_code == HTTPStatus.NOT_FOUND
 
 
@@ -132,7 +150,8 @@ def test_duplicate_member_techstack_in_team(
 
     payload = {f"{parameter}_ids": [to_add.id]}
     rv = auth_client.post(
-        f"/api/teams/{team.id}/{parameter}/", data=json.dumps(payload),
+        f"/api/teams/{team.id}/{parameter}/",
+        data=json.dumps(payload),
     )
     response = rv.get_json()
     assert rv.status_code == HTTPStatus.BAD_REQUEST
