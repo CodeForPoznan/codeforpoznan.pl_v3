@@ -91,9 +91,7 @@ export default {
         .then(() => (this.selectedParticipants = []));
     },
     onDeleteParticipant(participant) {
-      const ids = [participant.id];
-
-      this.$store.dispatch('hacknight/deleteParticipants', ids);
+      this.$store.dispatch('hacknight/deleteParticipants', participant.id);
     },
     filerOutParticipants() {
       return this.getParticipants
