@@ -1,0 +1,49 @@
+name: _ (call) deploy
+
+on:
+  workflow_call:
+    inputs:
+      environment-name:
+        required: true
+        type: string
+      environment-url:
+        required: true
+        type: string
+    secrets:
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
+      AWS_RESOURCE_NAME:
+        required: true
+      AWS_CLOUDFRONT_ID:
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ inputs.environment-name }}
+      url: ${{ inputs.environment-url }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/download-artifact@v3
+        with:
+          path: artifacts
+
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: eu-west-1
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - uses: CodeForPoznan/actions/deploy-frontend@v2
+        with:
+          aws-resource-name: ${{ secrets.AWS_RESOURCE_NAME }}
+          aws-cloudfront-id: ${{ secrets.AWS_CLOUDFRONT_ID }}
+
+      - uses: CodeForPoznan/actions/deploy-backend@v2
+        with:
+          aws-resource-name: ${{ secrets.AWS_RESOURCE_NAME }}
+          aws-cloudfront-id: ${{ secrets.AWS_CLOUDFRONT_ID }}
+

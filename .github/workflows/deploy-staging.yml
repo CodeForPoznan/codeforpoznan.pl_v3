@@ -1,0 +1,23 @@
+name: deploy to staging
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [master]
+    paths: ['frontend/**', 'backend/**']
+
+jobs:
+  frontend:
+    uses: ./.github/workflows/test-frontend.yml
+
+  backend:
+    uses: ./.github/workflows/test-backend.yml
+
+  deploy:
+    uses: ./.github/workflows/call-deploy.yml
+    needs: [frontend, backend]
+    secrets: inherit
+    with:
+      environment-name: staging
+      environment-url: https://dev.codeforpoznan.pl
+
