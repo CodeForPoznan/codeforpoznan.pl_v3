@@ -1,5 +1,4 @@
-name: backend
-
+name: test backend
 
 on:
   workflow_call:
@@ -7,10 +6,8 @@ on:
     branches: [master]
     paths: ['backend/**']
 
-
 jobs:
-  backend:
-    name: lint and test
+  test:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -18,7 +15,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: CodeForPoznan/actions/setup-backend@v1
+      - uses: CodeForPoznan/actions/setup-backend@v2
 
       - run: pipenv run black --check .
       - run: pipenv run pytest
@@ -38,6 +35,6 @@ jobs:
           MAIL_PASSWORD:
           MAIL_SUPPRESS_SEND: TRUE
 
-      - uses: CodeForPoznan/actions/pack-backend@v1
+      - uses: CodeForPoznan/actions/pack-backend@v2
         if: github.event_name != 'pull_request'
 
