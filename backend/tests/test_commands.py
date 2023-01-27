@@ -5,8 +5,8 @@ from click.testing import CliRunner
 from flask.cli import ScriptInfo
 from flask_jwt_extended import create_access_token
 
-from backend.commands.remove_expired_tokens import remove_expired_tokens
 from backend.commands.populate_database import populate_database
+from backend.commands.remove_expired_tokens import remove_expired_tokens
 from backend.models import (
     Hacknight,
     JWTToken,

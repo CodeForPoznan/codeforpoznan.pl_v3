@@ -4,7 +4,7 @@ from sqlalchemy import Column
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.sql.schema import ForeignKey
 from sqlalchemy.types import Boolean, Date, DateTime, Integer, String, Text
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
 
 from backend.extensions import db
 

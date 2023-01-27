@@ -1,17 +1,17 @@
-import os
 import datetime
+import os
 import tempfile
 
-from flask.testing import FlaskClient
 import pytest
+from flask.testing import FlaskClient
 
 from backend.app import create_app
 from backend.extensions import db
 from backend.factories import (
     HacknightFactory,
     ParticipantFactory,
-    TechStackFactory,
     TeamFactory,
+    TechStackFactory,
 )
 from backend.models import User
 

@@ -1,5 +1,5 @@
-import random
 import itertools
+import random
 
 import click
 from flask.cli import with_appcontext

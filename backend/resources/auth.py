@@ -1,22 +1,23 @@
 from datetime import datetime, timedelta
 from http import HTTPStatus
 
-from backend.extensions import db
-from backend.models import User, JWTToken
-from backend.serializers.login_serializer import LoginSchema
 from flask import request
 from flask_jwt_extended import (
     create_access_token,
     create_refresh_token,
     decode_token,
     get_jwt_identity,
+    get_raw_jwt,
+    jwt_optional,
     jwt_refresh_token_required,
     jwt_required,
-    jwt_optional,
-    get_raw_jwt,
 )
 from flask_restful import Resource
 from marshmallow import ValidationError
+
+from backend.extensions import db
+from backend.models import JWTToken, User
+from backend.serializers.login_serializer import LoginSchema
 
 
 class UserLogin(Resource):
