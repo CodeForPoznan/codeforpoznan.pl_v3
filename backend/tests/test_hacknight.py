@@ -1,5 +1,5 @@
-from http import HTTPStatus
 import json
+from http import HTTPStatus
 
 from backend.models import Hacknight, Participant
 

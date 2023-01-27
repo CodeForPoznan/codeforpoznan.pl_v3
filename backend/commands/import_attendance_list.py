@@ -1,9 +1,10 @@
 import csv
-import click
 
+import click
 from flask.cli import with_appcontext
-from backend.models import Hacknight, Participant
+
 from backend.extensions import db
+from backend.models import Hacknight, Participant
 
 
 @click.command()

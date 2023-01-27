@@ -1,17 +1,15 @@
 import re
 import time
+from http import HTTPStatus
 from textwrap import dedent
 
-from http import HTTPStatus
-
-from flask import request, current_app
+from flask import current_app, request
 from flask_restful import Resource
-
 from marshmallow import ValidationError
 
-from backend.serializers.message_serializer import MessageSchema
 from backend.extensions import mail
 from backend.helpers import wrap_io
+from backend.serializers.message_serializer import MessageSchema
 
 
 class MessageError(Exception):

@@ -1,6 +1,5 @@
-from http import HTTPStatus
-
 import json
+from http import HTTPStatus
 
 from backend.models import Team
 from backend.serializers.team_serializer import TeamSchema

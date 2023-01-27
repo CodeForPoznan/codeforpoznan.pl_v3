@@ -1,6 +1,5 @@
-from http import HTTPStatus
-
 import json
+from http import HTTPStatus
 
 from backend.models import TechStack
 from backend.serializers.techstack_serializer import TechStackSchema
