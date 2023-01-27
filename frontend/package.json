@@ -22,7 +22,8 @@
     "vue-scrollactive": "^0.9.3",
     "vuelidate": "^0.7.4",
     "vuetify": "^2.6.10",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "vue-gtag": "^1.16.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.8.0",
