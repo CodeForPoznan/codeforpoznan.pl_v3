@@ -38,7 +38,7 @@ git clone https://github.com/YOUR_USERNAME/codeforpoznan.pl_v3.git
 ```
 This way any commit you push will affect only your fork (so you can break anything you like).
 
-#### 2. [Install docker](https://docs.docker.com/engine/install/) to run the app locally on your computer. Follow [this guide](https://learn.microsoft.com/en-us/windows/wsl/tutorials/wsl-containers) to integrate docker with VS code.
+#### 2. [Install docker](https://docs.docker.com/engine/install/) to run the app locally on your computer. Follow [this guide](https://learn.microsoft.com/en-us/windows/wsl/tutorials/wsl-containers) to integrate docker with WSL and VS code.
 ```bash
 #Install essential packages needed to build an application
 sudo apt-get install build-essential
