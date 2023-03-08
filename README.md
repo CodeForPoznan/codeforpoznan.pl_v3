@@ -45,7 +45,7 @@ sudo apt-get install build-essential
 ```
 Next,
 ```bash
-# Once you install it, go to the location of the repo on your computer and run command: 
+# Once you install docker, go to the location of the repo on your computer and run command: 
 sudo make start 
 ```
 Now you'll be able to access Frontend in you browser tab under the URL: ```localhost:8080``` and push requests to backend on ```localhost:5000```
