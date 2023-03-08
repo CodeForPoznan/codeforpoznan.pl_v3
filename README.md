@@ -1,6 +1,6 @@
 # codeforpoznan.pl_v3
 
-[![Build Status](https://travis-ci.com/CodeForPoznan/codeforpoznan.pl_v3.svg?branch=master)](https://travis-ci.com/CodeForPoznan/codeforpoznan.pl_v3)
+[![deploy to staging](https://github.com/CodeForPoznan/codeforpoznan.pl_v3/actions/workflows/deploy-staging.yml/badge.svg)](https://github.com/CodeForPoznan/codeforpoznan.pl_v3/actions/workflows/deploy-staging.yml)
 [![Join Slack](https://img.shields.io/badge/slack-join%20chat-4a154b)](https://join.slack.com/t/codeforpoznan/shared_invite/zt-8a7u52j8-yqB01C2YgYF4Lvd1pFM_jw)
 
 ## General Overview of the Project
