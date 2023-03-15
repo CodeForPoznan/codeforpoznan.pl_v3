@@ -29,6 +29,8 @@ find the general description of features we pursue at the moment:
 > Join codeforpoznan_v3 channel on [our slack](https://join.slack.com/t/codeforpoznan/shared_invite/zt-8a7u52j8-yqB01C2YgYF4Lvd1pFM_jw) - this is the place where we discuss all the issues and help each other by sharing tips and knowledge. You can also ping [OtisRed](https://github.com/OtisRed) on github or @Otis in the slack DM if you need any help.
 ---
 
+#### 0. For Windows users - [WSL setup instruction](https://learn.microsoft.com/pl-pl/windows/wsl/setup/environment#set-up-your-linux-user-info)
+
 #### 1. [Fork the repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo) onto your github account. Go to your account and open repo you just copied. Find the "Code" button and copy HTTPS adress unless you're [using SSH](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) or GitHub CLI. Then:  
 ```bash
 # Open the terminal, choose the location on your computer where you want to keep it and paste in the command: 
@@ -36,9 +38,14 @@ git clone https://github.com/YOUR_USERNAME/codeforpoznan.pl_v3.git
 ```
 This way any commit you push will affect only your fork (so you can break anything you like).
 
-#### 2. [Install docker](https://docs.docker.com/engine/install/) to run the app locally on your computer. 
+#### 2. [Install docker](https://docs.docker.com/engine/install/) to run the app locally on your computer. Follow [this guide](https://learn.microsoft.com/en-us/windows/wsl/tutorials/wsl-containers) to integrate docker with WSL and VS code.
 ```bash
-# Once you install it, go to the location of the repo on your computer and run command: 
+#Install essential packages needed to build an application
+sudo apt-get install build-essential
+```
+Next,
+```bash
+# Once you install docker, go to the location of the repo on your computer and run command: 
 sudo make start 
 ```
 Now you'll be able to access Frontend in you browser tab under the URL: ```localhost:8080``` and push requests to backend on ```localhost:5000```
