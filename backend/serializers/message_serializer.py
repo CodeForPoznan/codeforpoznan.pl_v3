@@ -1,6 +1,6 @@
 from http import HTTPStatus
 
-from marshmallow import fields, Schema, validate
+from marshmallow import Schema, fields, validate
 
 
 class MessageSchema(Schema):

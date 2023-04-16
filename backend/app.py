@@ -4,16 +4,16 @@ from flask import Flask
 from flask_cors import CORS
 from werkzeug.utils import import_string
 
-from backend.commands.populate_database import populate_database
 from backend.commands.import_attendance_list import import_attendance_list
+from backend.commands.populate_database import populate_database
 from backend.commands.remove_expired_tokens import remove_expired_tokens
-from backend.extensions import api, db, mail, migrate, jwt
+from backend.extensions import api, db, jwt, mail, migrate
 from backend.models import JWTToken
 from backend.resources.auth import (
-    UserLogin,
-    UserLogout,
     RefreshAccessToken,
     RefreshToken,
+    UserLogin,
+    UserLogout,
 )
 from backend.resources.contact import SendMessage
 from backend.resources.hacknight import (

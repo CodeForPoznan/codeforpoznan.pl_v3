@@ -1,6 +1,6 @@
 import traceback
+from contextlib import contextmanager, redirect_stderr, redirect_stdout
 from io import StringIO
-from contextlib import redirect_stdout, redirect_stderr, contextmanager
 from typing import Optional
 
 import requests

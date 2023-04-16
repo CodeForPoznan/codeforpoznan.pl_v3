@@ -1,6 +1,7 @@
+from random import randint
+
 import factory
 from factory import fuzzy
-from random import randint
 from sqlalchemy import or_
 
 from backend.extensions import db

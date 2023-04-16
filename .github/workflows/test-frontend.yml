@@ -1,5 +1,4 @@
-name: frontend
-
+name: test frontend
 
 on:
   workflow_call:
@@ -7,22 +6,20 @@ on:
     branches: [master]
     paths: ['frontend/**']
 
-
 jobs:
-  frontend:
-    name: lint and test
+  test:
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: frontend
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: CodeForPoznan/actions/setup-frontend@v1
+      - uses: actions/checkout@v3
+      - uses: CodeForPoznan/actions/setup-frontend@v2
 
       - run: yarn run lint
       - run: yarn run test
 
-      - uses: CodeForPoznan/actions/pack-frontend@v1
+      - uses: CodeForPoznan/actions/pack-frontend@v2
         if: github.event_name != 'pull_request'
 

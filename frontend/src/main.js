@@ -1,5 +1,6 @@
 import { createApp } from 'vue';
 import VueApexCharts from 'vue3-apexcharts';
+import VueGtag from 'vue-gtag';
 import 'vuetify/dist/vuetify.min.css';
 
 import axios from 'axios';
@@ -47,4 +48,17 @@ app.use(VueApexCharts);
 app.use(vuetify);
 app.use(router);
 app.use(store);
+app.use(
+  VueGtag,
+  {
+    config: {
+      id: 'UA-88692971-1',
+      enabled: process.env.NODE_ENV === 'production',
+      params: {
+        anonymize_ip: true,
+      },
+    },
+  },
+  router
+);
 app.mount('#app');
