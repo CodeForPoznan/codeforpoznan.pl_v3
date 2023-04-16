@@ -1,6 +1,5 @@
-import Vue from 'vue';
-import Vuelidate from 'vuelidate';
-import VueApexCharts from 'vue-apexcharts';
+import { createApp } from 'vue';
+import VueApexCharts from 'vue3-apexcharts';
 import 'vuetify/dist/vuetify.min.css';
 
 import axios from 'axios';
@@ -9,12 +8,6 @@ import store from './store';
 import vuetify from './plugins/vuetify';
 import App from './App.vue';
 
-Vue.use(Vuelidate);
-Vue.use(VueApexCharts);
-
-Vue.component('apexchart', VueApexCharts);
-
-Vue.config.productionTip = false;
 axios.defaults.baseURL = process.env.VUE_APP_AXIOS_BASE_URL || '/';
 const token = localStorage.getItem('token');
 
@@ -23,8 +16,8 @@ if (token) {
 }
 
 export const interceptorRefresh = axios.interceptors.response.use(
-  response => response,
-  error => {
+  (response) => response,
+  (error) => {
     if (
       error.response.status === 401 &&
       error.response.data.msg.includes('expired') &&
@@ -48,9 +41,10 @@ export const interceptorRefresh = axios.interceptors.response.use(
   }
 );
 
-new Vue({
-  router,
-  store,
-  vuetify,
-  render: h => h(App)
-}).$mount('#app');
+const app = createApp(App);
+
+app.use(VueApexCharts);
+app.use(vuetify);
+app.use(router);
+app.use(store);
+app.mount('#app');

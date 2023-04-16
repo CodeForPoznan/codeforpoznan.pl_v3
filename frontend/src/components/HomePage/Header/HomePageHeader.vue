@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>Header should be there</h1>
     <v-app-bar class="navbar-custom" app dark color="#2C3E50">
       <v-toolbar-title>
         <a href="https://codeforpoznan.pl/">
@@ -47,10 +48,11 @@
           vertical
         >
           <div class="mobile-tab-items">
-            <template v-for="item in items">
+            <template>
               <v-tab
                 @click="$vuetify.goTo(item.id)"
                 class="tab-custom"
+                v-for="item in items"
                 :key="item.id"
                 >{{ item.name }}</v-tab
               >
@@ -72,27 +74,27 @@ export default {
         { name: 'O nas', id: '#about' },
         { name: 'Nasze projekty', id: '#projects' },
         { name: 'Dołącz do nas', id: '#join' },
-        { name: 'Kontakt', id: '#contact' }
+        { name: 'Kontakt', id: '#contact' },
       ],
       cfpLogo: require('@/assets/images/logo-white.svg'),
       drawer: false,
-      activeTabIndex: null
+      activeTabIndex: null,
     };
   },
   components: {
-    Scrollactive
+    Scrollactive,
   },
   methods: {
     onActiveTabChanged(_, currentItem) {
       if (currentItem) {
         const activeItemIndex = this.items.findIndex(
-          item => item.id === currentItem.dataset.sectionSelector
+          (item) => item.id === currentItem.dataset.sectionSelector
         );
 
         this.activeTabIndex = activeItemIndex;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

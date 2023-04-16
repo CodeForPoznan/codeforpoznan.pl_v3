@@ -1,11 +1,10 @@
 import '@mdi/font/css/materialdesignicons.css';
-import Vue from 'vue';
-import Vuetify from 'vuetify/lib';
+import { createVuetify } from 'vuetify';
 
-Vue.use(Vuetify);
-
-export default new Vuetify({
+const vuetify = createVuetify({
   icons: {
-    iconfont: 'mdi'
-  }
+    iconfont: 'mdi',
+  },
 });
+
+export default vuetify;

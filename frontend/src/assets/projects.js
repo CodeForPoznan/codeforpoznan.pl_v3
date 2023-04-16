@@ -12,14 +12,14 @@ const projects = [
     stack: [
       {
         name: 'Angular',
-        documentation: 'https://angular.io/'
+        documentation: 'https://angular.io/',
       },
       {
         name: 'Django',
-        documentation: 'https://docs.djangoproject.com/pl/2.2/'
-      }
+        documentation: 'https://docs.djangoproject.com/pl/2.2/',
+      },
     ],
-    website: ''
+    website: '',
   },
   {
     badge: 'active',
@@ -33,20 +33,20 @@ const projects = [
     partner: [
       {
         name: 'Polska Akcja Humanitarna',
-        link: 'https://www.pah.org.pl/'
-      }
+        link: 'https://www.pah.org.pl/',
+      },
     ],
     stack: [
       {
         name: 'React.js',
-        documentation: 'https://pl.reactjs.org/docs/getting-started.html'
+        documentation: 'https://pl.reactjs.org/docs/getting-started.html',
       },
       {
         name: 'Django',
-        documentation: 'https://docs.djangoproject.com/pl/2.2/'
-      }
+        documentation: 'https://docs.djangoproject.com/pl/2.2/',
+      },
     ],
-    website: 'https://github.com/CodeForPoznan/pah-fm#readme'
+    website: 'https://github.com/CodeForPoznan/pah-fm#readme',
   },
   {
     badge: 'active',
@@ -61,28 +61,28 @@ const projects = [
     partner: [
       {
         name: 'Poradnia Psychologiczno-Pedagogiczna w Grodzisku Wielkopolskim',
-        link: 'http://www.grodziskwlkp.naszaporadnia.com/aktualnosci'
+        link: 'http://www.grodziskwlkp.naszaporadnia.com/aktualnosci',
       },
       {
         name: 'Poradnia Pscyhologiczno-Pedagogiczna we Wrześni',
-        link: 'https://ppp-wrzesnia.pl/'
-      }
+        link: 'https://ppp-wrzesnia.pl/',
+      },
     ],
     stack: [
       {
         name: 'React',
-        documentation: 'https://pl.reactjs.org/docs/getting-started.html'
+        documentation: 'https://pl.reactjs.org/docs/getting-started.html',
       },
       {
         name: 'Electron',
-        documentation: 'https://www.electronjs.org/docs'
+        documentation: 'https://www.electronjs.org/docs',
       },
       {
         name: 'SQLite',
-        documentation: 'https://www.sqlite.org/docs.html'
-      }
+        documentation: 'https://www.sqlite.org/docs.html',
+      },
     ],
-    website: 'https://alinka.io'
+    website: 'https://alinka.io',
   },
   {
     badge: 'maintained',
@@ -95,7 +95,7 @@ const projects = [
     name: 'Bank Empatii',
     partner: [],
     stack: [],
-    website: 'http://bankempatii.pl/'
+    website: 'http://bankempatii.pl/',
   },
   {
     badge: 'parked',
@@ -111,10 +111,10 @@ const projects = [
     stack: [
       {
         name: 'React',
-        documentation: 'https://pl.reactjs.org/docs/getting-started.html'
-      }
+        documentation: 'https://pl.reactjs.org/docs/getting-started.html',
+      },
     ],
-    website: 'https://streetmix.net'
+    website: 'https://streetmix.net',
   },
   {
     badge: 'parked',
@@ -127,7 +127,7 @@ const projects = [
     name: 'Wysadź ulicę',
     partner: [],
     stack: [],
-    website: ''
+    website: '',
   },
   {
     badge: 'active',
@@ -143,22 +143,22 @@ const projects = [
     stack: [
       {
         name: 'Vue.js',
-        documentation: 'https://vuejs.org/v2/guide/'
+        documentation: 'https://vuejs.org/v2/guide/',
       },
       {
         name: 'Vuetify',
-        documentation: 'https://vuetifyjs.com/en/getting-started/quick-start/'
+        documentation: 'https://vuetifyjs.com/en/getting-started/quick-start/',
       },
       {
         name: 'Vuex',
-        documentation: 'https://vuex.vuejs.org/guide/'
+        documentation: 'https://vuex.vuejs.org/guide/',
       },
       {
         name: 'Flask',
-        documentation: 'https://flask.palletsprojects.com/en/1.0.x/'
-      }
+        documentation: 'https://flask.palletsprojects.com/en/1.0.x/',
+      },
     ],
-    website: 'https://dev.codeforpoznan.pl/'
+    website: 'https://dev.codeforpoznan.pl/',
   },
   {
     badge: 'parked',
@@ -172,29 +172,29 @@ const projects = [
     partner: [
       {
         name: 'Watchdog Polska',
-        link: 'https://siecobywatelska.pl/'
-      }
+        link: 'https://siecobywatelska.pl/',
+      },
     ],
     stack: [
       {
         name: 'React.js',
-        documentation: 'https://reactjs.org/docs/getting-started.html'
+        documentation: 'https://reactjs.org/docs/getting-started.html',
       },
       {
         name: 'PostgresSQL',
-        documentation: 'https://www.postgresql.org/'
+        documentation: 'https://www.postgresql.org/',
       },
       {
         name: 'Django',
-        documentation: 'https://docs.djangoproject.com/en/3.2/'
+        documentation: 'https://docs.djangoproject.com/en/3.2/',
       },
       {
         name: 'Min.io',
-        documentation: 'https://docs.min.io/'
-      }
+        documentation: 'https://docs.min.io/',
+      },
     ],
-    website: 'dev.small-eod.siecobywatelska.pl'
-  }
+    website: 'dev.small-eod.siecobywatelska.pl',
+  },
 ];
 
 export default projects;

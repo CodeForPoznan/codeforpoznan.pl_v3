@@ -34,7 +34,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import Header from './Header/Header.vue';
+import HomePageHeader from './Header/HomePageHeader.vue';
 import ContactUs from './ContactUs/ContactUs.vue';
 import AboutUs from './AboutUs/AboutUs.vue';
 import SocialMedia from './SocialMedia/SocialMedia.vue';
@@ -43,13 +43,13 @@ import OurProjects from './OurProjects/OurProjects.vue';
 import JoinUs from './JoinUs/JoinUs.vue';
 export default {
   components: {
-    'app-header': Header,
+    'app-header': HomePageHeader,
     'app-contact-us': ContactUs,
     'app-about-us': AboutUs,
     'social-media': SocialMedia,
     'our-projects': OurProjects,
     'app-join-us': JoinUs,
-    'page-footer': PageFooter
+    'page-footer': PageFooter,
   },
   methods: {
     onCloseAlert() {
@@ -57,14 +57,14 @@ export default {
     },
     onErrorAlert() {
       this.$store.dispatch('contact/setingClearError');
-    }
+    },
   },
   computed: {
     ...mapGetters({
       sent: 'contact/successfullySent',
-      msgError: 'contact/msgErrorRaised'
-    })
-  }
+      msgError: 'contact/msgErrorRaised',
+    }),
+  },
 };
 </script>
 

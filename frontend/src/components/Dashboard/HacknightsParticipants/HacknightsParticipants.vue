@@ -43,7 +43,7 @@
     </v-row>
     <v-card class="mx-auto" color="white" max-width="500">
       <v-toolbar flat color="transparent">
-        <v-avatar color="blue" size="48" style="margin-right:1em;">
+        <v-avatar color="blue" size="48" style="margin-right: 1em">
           <span class="white--text headline">{{
             getHacknight.participants.length
           }}</span>
@@ -58,9 +58,7 @@
             <v-list-item-avatar>
               <v-icon>mdi-account-outline</v-icon>
             </v-list-item-avatar>
-            <v-list-item-title
-              v-text="item.github_username"
-            ></v-list-item-title>
+            <v-list-item-title>{{ item.github_username }}</v-list-item-title>
             <v-btn icon v-on:click="onDeleteParticipant(item)">
               <i class="button_delete fas fa-user-times fa-lg"></i>
             </v-btn>
@@ -79,12 +77,14 @@ export default {
     return {
       selectedParticipants: [],
       search: null,
-      noData: true
+      noData: true,
     };
   },
   methods: {
     onAddParticipants() {
-      const ids = this.selectedParticipants.map(participant => participant.id);
+      const ids = this.selectedParticipants.map(
+        (participant) => participant.id
+      );
 
       this.$store
         .dispatch('hacknight/addParticipants', ids)
@@ -96,23 +96,24 @@ export default {
     filerOutParticipants() {
       return this.getParticipants
         .filter(
-          participant =>
+          (participant) =>
             !this.getHacknight.participants.some(
-              hacknightParticipant => hacknightParticipant.id === participant.id
+              (hacknightParticipant) =>
+                hacknightParticipant.id === participant.id
             )
         )
         .sort((a, b) => a.github_username.localeCompare(b.github_username));
     },
     orderedParticipants() {
-      return _.sortBy(this.getHacknight.participants, participant =>
+      return _.sortBy(this.getHacknight.participants, (participant) =>
         participant.github_username.toLowerCase()
       );
-    }
+    },
   },
   computed: {
     ...mapGetters('hacknight', ['getHacknight']),
-    ...mapGetters('participant', ['getParticipants', 'error'])
-  }
+    ...mapGetters('participant', ['getParticipants', 'error']),
+  },
 };
 </script>
 <style lang="scss" scoped>

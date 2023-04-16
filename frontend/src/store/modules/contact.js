@@ -4,15 +4,15 @@ export default {
   namespaced: true,
   state: {
     msgWasSent: null,
-    msgError: null
+    msgError: null,
   },
   getters: {
-    successfullySent: state => {
+    successfullySent: (state) => {
       return state.msgWasSent;
     },
-    msgErrorRaised: state => {
+    msgErrorRaised: (state) => {
       return state.msgError;
-    }
+    },
   },
   mutations: {
     setWasSent(state) {
@@ -28,7 +28,7 @@ export default {
     },
     clearError(state) {
       state.msgError = false;
-    }
+    },
   },
   actions: {
     sentMessage({ commit }, contactForm) {
@@ -38,14 +38,14 @@ export default {
             name: contactForm.name,
             email: contactForm.email,
             phone: contactForm.phone,
-            content: contactForm.content
+            content: contactForm.content,
           })
           .then(
-            response => {
+            (response) => {
               if (response.status == 200) commit('setWasSent');
               resolve(response);
             },
-            error => {
+            (error) => {
               reject(error);
             }
           );
@@ -56,6 +56,6 @@ export default {
     },
     setingClearError({ commit }) {
       commit('clearError');
-    }
-  }
+    },
+  },
 };

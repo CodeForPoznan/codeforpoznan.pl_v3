@@ -84,19 +84,20 @@
 <script>
 export default {
   props: ['selectedProject'],
+  emits: ['close'],
   methods: {
     onClick() {
-      this.$root.$emit('close');
-    }
+      this.$emit('close');
+    },
   },
   computed: {
     countPartners() {
-      return this.selectedProject.partner.length;
+      return this.selectedProject.partner;
     },
     countTech() {
-      return this.selectedProject.stack.length;
-    }
-  }
+      return this.selectedProject.stack;
+    },
+  },
 };
 </script>
 

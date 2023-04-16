@@ -45,15 +45,15 @@ export default {
   data() {
     return {
       cfpLogo: require('@/assets/images/logo-white.svg'),
-      drawer: false
+      drawer: false,
     };
   },
   methods: {
     async onLogout() {
       await this.$store.dispatch('auth/logout');
       this.$router.push('/');
-    }
-  }
+    },
+  },
 };
 </script>
 
