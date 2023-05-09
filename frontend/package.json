@@ -22,7 +22,7 @@
     "vue-scrollactive": "^0.9.3",
     "@vuelidate/core": "^2.0.2",
     "@vuelidate/validators": "^2.0.2",
-    "vuetify": "3.1.14",
+    "vuetify": "3.2.2",
     "vuex": "^4.1.0",
     "vue-gtag": "^2.0.1"
   },

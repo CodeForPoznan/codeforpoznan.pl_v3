@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>Header should be there</h1>
     <v-app-bar class="navbar-custom" app dark color="#2C3E50">
       <v-toolbar-title>
         <a href="https://codeforpoznan.pl/">
