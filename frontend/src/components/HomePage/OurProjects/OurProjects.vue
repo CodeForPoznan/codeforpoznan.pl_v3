@@ -21,7 +21,7 @@
         xl="3"
       >
         <v-item-group>
-          <v-hover v-slot="{ hover }">
+          <v-hover>
             <v-card @click.stop="clickImage(project)">
               <v-img :src="project.imageAdress" aspect-ratio="1.9">
                 <div :class="'card__badge--' + project.badge" />
@@ -40,7 +40,7 @@
       </v-col>
     </v-row>
     <v-dialog v-model="dialog" max-width="50rem">
-      <app-modal-content :selectedProject="selectedProject" />
+      <app-modal-content :selectedProject="selectedProject" @close="onClose" />
     </v-dialog>
   </v-container>
 </template>
@@ -50,32 +50,30 @@ import ModalContent from './ModalContent/ModalContent.vue';
 import projects from '../../../assets/projects';
 export default {
   components: {
-    'app-modal-content': ModalContent
+    'app-modal-content': ModalContent,
   },
   data() {
     return {
       dialog: false,
       hoveredImg: require('@/assets/images/magnifying_glass.svg'),
       projects: projects,
-      selectedProject: []
+      selectedProject: [],
     };
   },
   computed: {
-    orderedProjects: function() {
+    orderedProjects: function () {
       return projects.sort((a, b) => a.badge.localeCompare(b.badge));
-    }
+    },
   },
   methods: {
     clickImage(project) {
       this.dialog = true;
       this.selectedProject = project;
-    }
-  },
-  mounted() {
-    this.$root.$on('close', () => {
+    },
+    onClose() {
       this.dialog = false;
-    });
-  }
+    },
+  },
 };
 </script>
 

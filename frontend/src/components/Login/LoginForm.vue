@@ -30,8 +30,8 @@
               label="Nazwa użytkownika"
               required
               :error-messages="githubUsernameErrors"
-              @input="$v.github_username.$touch()"
-              @blur="$v.github_username.$touch()"
+              @input="v$.github_username.$touch()"
+              @blur="v$.github_username.$touch()"
             ></v-text-field>
             <v-text-field
               v-model="password"
@@ -41,8 +41,8 @@
               @click:append="showPassword = !showPassword"
               required
               :error-messages="passwordErrors"
-              @input="$v.password.$touch()"
-              @blur="$v.password.$touch()"
+              @input="v$.password.$touch()"
+              @blur="v$.password.$touch()"
             ></v-text-field>
             <v-btn @click="onSubmit">Zaloguj</v-btn>
           </form>
@@ -53,35 +53,41 @@
 </template>
 
 <script>
-import { minLength, required } from 'vuelidate/lib/validators';
+import { minLength, required } from '@vuelidate/validators';
 import { mapGetters } from 'vuex';
+import { useVuelidate } from '@vuelidate/core';
 
 export default {
+  setup() {
+    return {
+      v$: useVuelidate(),
+    };
+  },
   data() {
     return {
       github_username: '',
       password: '',
       showPassword: false,
       successAlert: false,
-      showSpinner: false
+      showSpinner: false,
     };
   },
 
   validations: {
     github_username: { required, minLength: minLength(3) },
-    password: { required }
+    password: { required },
   },
 
   methods: {
     onSubmit() {
       const loginData = {
         github_username: this.github_username,
-        password: this.password
+        password: this.password,
       };
 
-      if (!this.$v.$invalid) {
+      if (!this.v$.$invalid) {
         this.showSpinner = true;
-        this.$store.dispatch('auth/login', loginData).then(status => {
+        this.$store.dispatch('auth/login', loginData).then((status) => {
           this.showSpinner = false;
           this.clearForm();
           if (status == 201) {
@@ -91,32 +97,32 @@ export default {
       }
     },
     clearForm() {
-      this.$v.$reset();
+      this.v$.$reset();
       this.github_username = '';
       this.password = '';
-    }
+    },
   },
 
   computed: {
     githubUsernameErrors() {
       const errors = [];
 
-      if (!this.$v.github_username.$dirty) return errors;
-      !this.$v.github_username.minLength &&
+      if (!this.v$.github_username.$dirty) return errors;
+      !this.v$.github_username.minLength &&
         errors.push('Wprowadź poprawną nazwę użytkownika');
-      !this.$v.github_username.required &&
+      !this.v$.github_username.required &&
         errors.push('Nazwa użytkownika jest wymagana');
       return errors;
     },
     passwordErrors() {
       const errors = [];
 
-      if (!this.$v.password.$dirty) return errors;
-      !this.$v.password.required && errors.push('Hasło jest wymagane');
+      if (!this.v$.password.$dirty) return errors;
+      !this.v$.password.required && errors.push('Hasło jest wymagane');
       return errors;
     },
-    ...mapGetters('auth', ['getError', 'isLoggedIn'])
-  }
+    ...mapGetters('auth', ['getError', 'isLoggedIn']),
+  },
 };
 </script>
 

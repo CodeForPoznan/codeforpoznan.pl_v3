@@ -21,7 +21,7 @@ describe('ParticipantsChart component', () => {
     expect(wrapper.get('[data-test-id=chart-title]').isVisible()).toBe(true);
   });
 
-  it('renders end date as today', done => {
+  it('renders end date as today', (done) => {
     const wrapper = mountWithVuex(ParticipantsChart);
 
     wrapper.vm.$nextTick(() => {
@@ -33,7 +33,7 @@ describe('ParticipantsChart component', () => {
     });
   });
 
-  it('renders start day as year before today', done => {
+  it('renders start day as year before today', (done) => {
     const wrapper = mountWithVuex(ParticipantsChart);
 
     wrapper.vm.$nextTick(() => {

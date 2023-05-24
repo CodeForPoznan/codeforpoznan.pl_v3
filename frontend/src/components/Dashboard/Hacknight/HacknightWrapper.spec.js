@@ -1,11 +1,11 @@
-import Hacknight from './Hacknight';
+import HacknightWrapper from './HacknightWrapper';
 import { getMountWithProviders } from '../../../../jest/utils';
 
-describe('Hacknight component', () => {
+describe('HacknightWrapper component', () => {
   const mountWithProviders = getMountWithProviders();
 
   it('renders correctly', () => {
-    const wrapper = mountWithProviders(Hacknight);
+    const wrapper = mountWithProviders(HacknightWrapper);
 
     expect(wrapper).toBeDefined();
   });

@@ -7,13 +7,13 @@ export default {
   namespaced: true,
   state: {
     token: localStorage.getItem('token') || '',
-    error: null
+    error: null,
   },
   getters: {
-    isLoggedIn: state => !!state.token,
+    isLoggedIn: (state) => !!state.token,
     getError(state) {
       return state.error;
-    }
+    },
   },
   mutations: {
     raiseError(state, error_msg) {
@@ -21,7 +21,7 @@ export default {
     },
     setToken(state, token) {
       state.token = token;
-    }
+    },
   },
   actions: {
     async login({ commit }, loginData) {
@@ -30,7 +30,7 @@ export default {
       try {
         let res = await axios.post('/api/auth/login/', {
           github_username: loginData.github_username,
-          password: loginData.password
+          password: loginData.password,
         });
         const token = res.data.access_token;
         const refresh_token = res.data.refresh_token;
@@ -66,7 +66,7 @@ export default {
 
       return axios
         .delete('/api/auth/refresh-token/', {
-          headers: { Authorization: 'Bearer ' + refresh_token }
+          headers: { Authorization: 'Bearer ' + refresh_token },
         })
         .then(() => {
           localStorage.removeItem('refresh_token');
@@ -81,21 +81,21 @@ export default {
       return axios
         .post('/api/auth/refresh/', null, {
           headers: {
-            Authorization: 'Bearer ' + refresh_token
-          }
+            Authorization: 'Bearer ' + refresh_token,
+          },
         })
-        .then(res => {
+        .then((res) => {
           const token = res.data.access_token;
 
           localStorage.setItem('token', token);
           axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
           return res;
         })
-        .catch(error => {
+        .catch((error) => {
           localStorage.removeItem('token');
           localStorage.removeItem('refresh_token');
           throw error;
         });
-    }
-  }
+    },
+  },
 };

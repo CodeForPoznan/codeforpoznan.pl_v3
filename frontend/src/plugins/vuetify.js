@@ -1,11 +1,20 @@
+// eslint-disable-next-line
+import 'vuetify/styles'
+// eslint-disable-next-line
+import * as components from 'vuetify/components';
+// eslint-disable-next-line
+import * as directives from 'vuetify/directives';
+
 import '@mdi/font/css/materialdesignicons.css';
-import Vue from 'vue';
-import Vuetify from 'vuetify/lib';
+import { createVuetify } from 'vuetify';
 
-Vue.use(Vuetify);
-
-export default new Vuetify({
+const vuetify = createVuetify({
+  components,
+  directives,
   icons: {
-    iconfont: 'mdi'
-  }
+    iconfont: 'mdi',
+  },
+  ssr: true,
 });
+
+export default vuetify;

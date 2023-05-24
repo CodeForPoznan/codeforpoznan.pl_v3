@@ -78,7 +78,7 @@ export default {
     return {
       selectedHacknight: null,
       date: null,
-      datePicker: false
+      datePicker: false,
     };
   },
   created() {
@@ -98,14 +98,14 @@ export default {
       const hacknightDates = this.getHacknights.flatMap(({ date }) => [date]);
 
       return !hacknightDates.includes(val);
-    }
+    },
   },
   computed: {
     ...mapGetters('hacknight', ['getHacknights', 'getHacknight', 'getError']),
     getTodayDate() {
       return new Date().toISOString().slice(0, 10);
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

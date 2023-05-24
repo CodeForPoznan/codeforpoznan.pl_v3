@@ -29,7 +29,7 @@
     "jest/valid-expect": "error"
   },
   "parserOptions": {
-    "parser": "babel-eslint"
+    "parser": "@babel/eslint-parser"
   },
   "settings": {
     "import/resolver": {

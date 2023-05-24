@@ -27,12 +27,12 @@ import { mapGetters } from 'vuex';
 export default {
   props: {
     value: {
-      type: Object
-    }
+      type: Object,
+    },
   },
   computed: {
     ...mapGetters('participant', {
-      getParticipants: 'getParticipants'
+      getParticipants: 'getParticipants',
     }),
     sortedParticipants() {
       const participants = this.getParticipants;
@@ -48,25 +48,22 @@ export default {
           typeof selectedParticipant === 'object' ? selectedParticipant : null;
 
         this.$emit('input', newSelectedParticipant);
-      }
-    }
+      },
+    },
   },
   methods: {
     filterParticipants(item, queryText) {
       return Object.values(item).some(
-        value =>
+        (value) =>
           value &&
-          value
-            .toString()
-            .toLowerCase()
-            .includes(queryText.toLowerCase())
+          value.toString().toLowerCase().includes(queryText.toLowerCase())
       );
     },
     displayText(participant) {
       const { first_name, last_name, slack, github } = participant;
 
       return `${first_name} ${last_name} (${slack}/${github})`;
-    }
-  }
+    },
+  },
 };
 </script>

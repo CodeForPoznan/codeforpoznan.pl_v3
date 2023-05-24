@@ -21,25 +21,25 @@
 <script>
 import { mapGetters } from 'vuex';
 import DashboardHeader from './Header/DashboardHeader.vue';
-import Hacknight from './Hacknight/Hacknight.vue';
-import Participants from './Participants/Participants.vue';
+import HacknightWrapper from './Hacknight/HacknightWrapper.vue';
+import ParticipantsList from './Participants/ParticipantsList.vue';
 import HacknightsParticipants from './HacknightsParticipants/HacknightsParticipants.vue';
 import ParticipantsChart from './ParticipantsChart/ParticipantsChart.vue';
 
 export default {
   components: {
     'app-dashboard-header': DashboardHeader,
-    'app-hacknight': Hacknight,
+    'app-hacknight': HacknightWrapper,
     'app-hacknights-participants': HacknightsParticipants,
-    'app-participants': Participants,
-    ParticipantsChart
+    'app-participants': ParticipantsList,
+    ParticipantsChart,
   },
   computed: {
-    ...mapGetters('hacknight', ['getHacknight'])
+    ...mapGetters('hacknight', ['getHacknight']),
   },
   created() {
     this.$store.dispatch('participant/getParticipants');
-  }
+  },
 };
 </script>
 
