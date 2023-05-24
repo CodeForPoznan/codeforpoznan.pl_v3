@@ -55,6 +55,9 @@ h2 {
   width: 50px;
   height: 50px;
   border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 ul.media-info {
   display: flex;
