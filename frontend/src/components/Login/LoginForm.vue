@@ -2,7 +2,7 @@
   <div class="register-form">
     <v-app id="login">
       <v-layout justify-center>
-        <v-flex xs12 sm6>
+        <v-col xs12 sm6>
           <v-alert
             type="error"
             :value="!!getError"
@@ -46,7 +46,7 @@
             ></v-text-field>
             <v-btn @click="onSubmit">Zaloguj</v-btn>
           </form>
-        </v-flex>
+        </v-col>
       </v-layout>
     </v-app>
   </div>

@@ -1,13 +1,13 @@
 <template>
   <v-container fluid class="white-container" id="contact">
     <v-row>
-      <v-flex>
+      <v-col>
         <v-card flat color="transparent">
           <v-card-text class="title">
             <p class="blue-title">SKONTAKTUJ SIĘ Z NAMI</p>
           </v-card-text>
         </v-card>
-      </v-flex>
+      </v-col>
     </v-row>
     <form @submit.prevent="onSubmit">
       <v-text-field
