@@ -1,6 +1,6 @@
 <template>
   <v-container class="pa-6">
-    <v-flex>
+    <v-col>
       <v-alert
         type="error"
         :value="!!getError"
@@ -25,7 +25,7 @@
         transition="slide-y-transition"
         >{{ successAlert }}</v-alert
       >
-    </v-flex>
+    </v-col>
 
     <v-card>
       <v-tabs

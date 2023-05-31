@@ -43,6 +43,7 @@ a {
 .blue-title {
     color: $blue;
     @include main-title;
+    margin-bottom: 16px;
 
     &::before {
         @include title-before;
