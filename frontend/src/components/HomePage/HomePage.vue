@@ -7,7 +7,7 @@
       <app-join-us />
       <div>
         <v-alert
-          :value="sent"
+          v-model="sent"
           dismissible
           @click="onCloseAlert"
           type="success"
@@ -16,7 +16,7 @@
           Twoja wiadomość została wysłana
         </v-alert>
         <v-alert
-          :value="msgError"
+          v-model="msgError"
           dismissible
           @click="onErrorAlert"
           type="error"

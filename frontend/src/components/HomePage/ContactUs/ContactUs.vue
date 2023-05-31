@@ -11,31 +11,39 @@
     </v-row>
     <form @submit.prevent="onSubmit">
       <v-text-field
+        variant="underlined"
+        color="#0CAEE7"
         v-model="name"
         :error-messages="nameErrors"
         label="Imię"
         required
-        @input="v$.name.$touch()"
+        @update:name="v$.name.$touch()"
         @blur="v$.name.$touch()"
       ></v-text-field>
       <v-text-field
+        variant="underlined"
+        color="#0CAEE7"
         v-model="email"
         :error-messages="emailErrors"
         label="E-mail"
         required
-        @input="v$.email.$touch()"
+        @input="v$.email.$touch"
         @blur="v$.email.$touch()"
       ></v-text-field>
       <v-text-field
+        variant="underlined"
+        color="#0CAEE7"
         v-model="phone_no"
         mask="###-###-###"
         :error-messages="phoneErrors"
         :counter="9"
         label="Telefon"
-        @input="v$.phone_no.$touch()"
+        @update:phone_no="v$.phone_no.$touch()"
         @blur="v$.phone_no.$touch()"
       ></v-text-field>
       <v-textarea
+        variant="underlined"
+        color="#0CAEE7"
         v-model="content"
         :error-messages="contentErrors"
         label="Wiadomość"
@@ -111,21 +119,21 @@ export default {
       const errors = [];
 
       if (!this.v$.name.$dirty) return errors;
-      !this.v$.name.required && errors.push('Imię jest wymagane');
+      this.v$.name.required.$invalid && errors.push('Imię jest wymagane');
       return errors;
     },
     emailErrors() {
       const errors = [];
-
       if (!this.v$.email.$dirty) return errors;
-      !this.v$.email.email && errors.push('Poprawny adres email jest wymagany');
-      !this.v$.email.required && errors.push('E-mail jest wymagany');
+      this.v$.email.email.$invalid &&
+        errors.push('Poprawny adres email jest wymagany');
+      this.v$.email.required.$invalid && errors.push('E-mail jest wymagany');
       return errors;
     },
     phoneErrors() {
       const errors = [];
 
-      !this.v$.phone_no.minLength &&
+      this.v$.phone_no.minLength.$invalid &&
         errors.push('Wprowadź poprawny numer np. 111-222-333');
       return errors;
     },
@@ -133,9 +141,9 @@ export default {
       const errors = [];
 
       if (!this.v$.content.$dirty) return errors;
-      !this.v$.content.minLength &&
+      this.v$.content.minLength.$invalid &&
         errors.push('Minimalna długość to 10 znaków');
-      !this.v$.content.required &&
+      this.v$.content.required.$invalid &&
         errors.push('Treść wiadomości jest wymagana');
       return errors;
     },
