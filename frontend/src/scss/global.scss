@@ -33,6 +33,7 @@ a {
 .white-title {
     color: $white;
     @include main-title;
+    margin-bottom: 16px;
 
     &::before {
         @include title-before;
