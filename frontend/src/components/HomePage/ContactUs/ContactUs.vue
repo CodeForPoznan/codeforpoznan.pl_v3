@@ -124,6 +124,7 @@ export default {
     },
     emailErrors() {
       const errors = [];
+
       if (!this.v$.email.$dirty) return errors;
       this.v$.email.email.$invalid &&
         errors.push('Poprawny adres email jest wymagany');
