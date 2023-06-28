@@ -21,8 +21,8 @@
         xl="3"
       >
         <v-item-group>
-          <v-hover>
-            <v-card @click.stop="clickImage(project)">
+          <v-hover v-slot="{ isHovering, props }">
+            <v-card @click.stop="clickImage(project)" v-bind="props">
               <v-img :src="project.imageAdress" aspect-ratio="1.9">
                 <div :class="'card__badge--' + project.badge" />
               </v-img>
@@ -30,7 +30,10 @@
                 {{ project.name }}
               </v-card-title>
               <v-expand-transition>
-                <div v-if="hover" class="card--reveal">
+                <div
+                  v-if="isHovering"
+                  class="card--reveal d-flex transition-fast-in-fast-out v-card--reveal"
+                >
                   <v-img class="card--hover" :src="hoveredImg" />
                 </div>
               </v-expand-transition>
@@ -40,7 +43,10 @@
       </v-col>
     </v-row>
     <v-dialog v-model="dialog" max-width="50rem">
-      <app-modal-content :selectedProject="selectedProject" @close="onClose" />
+      <app-modal-content
+        v-bind:selectedProject="selectedProject"
+        @close="onClose"
+      />
     </v-dialog>
   </v-container>
 </template>
