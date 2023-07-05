@@ -1,5 +1,5 @@
 <template>
-  <section class="modal">
+  <v-card class="modal">
     <div class="modal__title">
       <h2>{{ selectedProject.name }}</h2>
       <div class="modal__button-close" @click="onClick">
@@ -78,7 +78,7 @@
         </a>
       </div>
     </div>
-  </section>
+  </v-card>
 </template>
 
 <script>
@@ -92,10 +92,10 @@ export default {
   },
   computed: {
     countPartners() {
-      return this.selectedProject.partner;
+      return this.selectedProject.partner.length;
     },
     countTech() {
-      return this.selectedProject.stack;
+      return this.selectedProject.stack.length;
     },
   },
 };
@@ -140,7 +140,7 @@ h2 {
 .modal__description,
 .modal__list,
 .modal__title {
-  padding: 0.5rem 1.5rem;
+  padding: 0.7rem 1.5rem;
   position: relative;
   display: flex;
   align-items: center;
