@@ -14,8 +14,8 @@ jobs:
         working-directory: backend
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: CodeForPoznan/actions/setup-backend@v2
+      - uses: actions/checkout@main
+      - uses: CodeForPoznan/actions/setup-backend@main
 
       - run: pipenv run black --check .
       - run: pipenv run pytest
@@ -35,6 +35,6 @@ jobs:
           MAIL_PASSWORD:
           MAIL_SUPPRESS_SEND: TRUE
 
-      - uses: CodeForPoznan/actions/pack-backend@v2
+      - uses: CodeForPoznan/actions/pack-backend@main
         if: github.event_name != 'pull_request'
 
