@@ -16,6 +16,8 @@ jobs:
     steps:
       - uses: actions/checkout@main
       - uses: CodeForPoznan/actions/setup-backend@main
+        with:
+          python-version: 3.8
 
       - run: pipenv run black --check .
       - run: pipenv run pytest
@@ -29,10 +31,10 @@ jobs:
           DB_NAME: cfp_v3
           DB_USER: cfp_v3
           DB_PASSWORD: cfp_v3
-          MAIL_SERVER:
-          MAIL_PORT:
-          MAIL_USERNAME:
-          MAIL_PASSWORD:
+          MAIL_SERVER: ""
+          MAIL_PORT: ""
+          MAIL_USERNAME: ""
+          MAIL_PASSWORD: ""
           MAIL_SUPPRESS_SEND: TRUE
 
       - uses: CodeForPoznan/actions/pack-backend@main
