@@ -1,27 +1,32 @@
 <template>
   <div>
     <v-app-bar class="navbar-custom" app dark color="#2C3E50">
-      <v-toolbar-title>
-        <a href="https://codeforpoznan.pl/">
-          <v-img
-            :src="cfpLogo"
-            contain
-            max-height="20"
-            aspect-ratio="1.7"
-            max-width="500"
-            min-width="350"
-            position="left"
-          ></v-img>
-        </a>
+      <v-toolbar-title class="d-inline">
+        <v-row>
+          <v-col class="d-flex child-flex">
+            <a href="https://codeforpoznan.pl/">
+              <v-img
+                :src="cfpLogo"
+                max-height="22"
+                aspect-ratio="1.5"
+                max-width="500"
+                min-width="250"
+                inline
+              ></v-img>
+            </a>
+          </v-col>
+        </v-row>
       </v-toolbar-title>
-      <v-spacer></v-spacer>
       <v-app-bar-nav-icon
-        @click="drawer = !drawer"
+        variant="text"
+        @click.stop="drawer = !drawer"
         class="hidden-md-and-up"
       ></v-app-bar-nav-icon>
       <Scrollactive :offset="64" @itemchanged="onActiveTabChanged">
         <v-tabs
-          background-color="transparent"
+          bg-color="#2C3E50"
+          color="white"
+          dark
           height="64"
           right
           class="hidden-sm-and-down"
@@ -31,35 +36,35 @@
             v-for="item in items"
             :key="item.id"
             align-right
+            theme="dark"
             :data-section-selector="item.id"
-            class="scrollactive-item"
+            class="scrollactive-item tab-custom"
             >{{ item.name }}
           </v-tab>
         </v-tabs>
       </Scrollactive>
     </v-app-bar>
-    <v-list class="navbar-custom hidden-md-and-up" dark>
-      <v-expand-transition>
-        <v-tabs
-          width="100%"
-          v-if="drawer"
-          background-color="transparent"
-          vertical
+    <v-navigation-drawer v-model="drawer" location="top" temporary>
+      <v-list class="navbar-custom hidden-md-and-up" dark>
+        <v-list-item
+          v-for="item in items"
+          :key="item.id"
+          class="mobile-tab-custom"
+          @click="$vuetify.goTo(item.id)"
         >
-          <div class="mobile-tab-items">
-            <template>
-              <v-tab
-                @click="$vuetify.goTo(item.id)"
-                class="tab-custom"
-                v-for="item in items"
-                :key="item.id"
-                >{{ item.name }}</v-tab
-              >
-            </template>
-          </div>
+          {{ item.name }}
+        </v-list-item>
+        <v-tabs width="100%" v-if="drawer" bg-color="transparent">
+          <v-tab
+            @click="$vuetify.goTo(item.id)"
+            class="mobile-tab-custom"
+            v-for="item in items"
+            :key="item.id"
+            >{{ item.name }}</v-tab
+          >
         </v-tabs>
-      </v-expand-transition>
-    </v-list>
+      </v-list>
+    </v-navigation-drawer>
   </div>
 </template>
 
@@ -104,6 +109,9 @@ export default {
   padding: 0;
 }
 .tab-custom {
+  color: hsla(0, 0%, 100%, 0.6);
+}
+.mobile-tab-custom {
   justify-content: left;
   max-width: none;
 }
