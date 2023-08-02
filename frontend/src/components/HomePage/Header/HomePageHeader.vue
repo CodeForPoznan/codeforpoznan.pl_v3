@@ -21,6 +21,7 @@
         variant="text"
         @click.stop="drawer = !drawer"
         class="hidden-md-and-up"
+        color="white"
       ></v-app-bar-nav-icon>
       <Scrollactive :offset="64" @itemchanged="onActiveTabChanged">
         <v-tabs
@@ -50,19 +51,10 @@
           v-for="item in items"
           :key="item.id"
           class="mobile-tab-custom"
-          @click="$vuetify.goTo(item.id)"
+          @click.prevent="scrollTo(item.id)"
         >
           {{ item.name }}
         </v-list-item>
-        <v-tabs width="100%" v-if="drawer" bg-color="transparent">
-          <v-tab
-            @click="$vuetify.goTo(item.id)"
-            class="mobile-tab-custom"
-            v-for="item in items"
-            :key="item.id"
-            >{{ item.name }}</v-tab
-          >
-        </v-tabs>
       </v-list>
     </v-navigation-drawer>
   </div>
@@ -97,6 +89,10 @@ export default {
 
         this.activeTabIndex = activeItemIndex;
       }
+    },
+    scrollTo(element_id) {
+      const el = document.querySelector(element_id);
+      el.scrollIntoView({ behavior: 'smooth' });
     },
   },
 };
