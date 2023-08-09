@@ -45,7 +45,14 @@
         </v-tabs>
       </Scrollactive>
     </v-app-bar>
-    <v-navigation-drawer v-model="drawer" location="top" temporary>
+    <v-navigation-drawer
+      v-model="drawer"
+      location="top"
+      temporary
+      rail="true"
+      rail-width="190"
+      @click="drawer = false"
+    >
       <v-list class="navbar-custom hidden-md-and-up" dark>
         <v-list-item
           v-for="item in items"
