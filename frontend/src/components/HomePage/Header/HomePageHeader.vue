@@ -23,27 +23,26 @@
         class="hidden-md-and-up"
         color="white"
       ></v-app-bar-nav-icon>
-      <Scrollactive :offset="64" @itemchanged="onActiveTabChanged">
-        <v-tabs
-          bg-color="#2C3E50"
-          color="white"
-          dark
-          height="64"
-          right
-          class="hidden-sm-and-down"
-          v-model="activeTabIndex"
-        >
-          <v-tab
-            v-for="item in items"
-            :key="item.id"
-            align-right
-            theme="dark"
-            :data-section-selector="item.id"
-            class="scrollactive-item tab-custom"
-            >{{ item.name }}
-          </v-tab>
-        </v-tabs>
-      </Scrollactive>
+      <v-tabs
+        bg-color="#2C3E50"
+        color="white"
+        dark
+        height="64"
+        right
+        class="hidden-sm-and-down"
+        v-model="activeTabIndex"
+      >
+        <v-tab
+          v-for="item in items"
+          :key="item.id"
+          align-right
+          theme="dark"
+          :data-section-selector="item.id"
+          class="scrollactive-item tab-custom"
+          @click.prevent="scrollTo(item.id)"
+          >{{ item.name }}
+        </v-tab>
+      </v-tabs>
     </v-app-bar>
     <v-navigation-drawer
       v-model="drawer"
@@ -68,8 +67,6 @@
 </template>
 
 <script>
-import Scrollactive from 'vue-scrollactive/src/scrollactive.vue';
-
 export default {
   data() {
     return {
@@ -84,9 +81,6 @@ export default {
       activeTabIndex: null,
     };
   },
-  components: {
-    Scrollactive,
-  },
   methods: {
     onActiveTabChanged(_, currentItem) {
       if (currentItem) {
@@ -99,6 +93,7 @@ export default {
     },
     scrollTo(element_id) {
       const el = document.querySelector(element_id);
+
       el.scrollIntoView({ behavior: 'smooth' });
     },
   },
