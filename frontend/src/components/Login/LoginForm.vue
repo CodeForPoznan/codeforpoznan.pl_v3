@@ -1,53 +1,68 @@
 <template>
   <div class="register-form">
     <v-app id="login">
-      <v-layout justify-center>
-        <v-col xs12 sm6>
-          <v-alert
-            type="error"
-            :value="!!getError"
-            dismissible
-            transition="slide-y-transition"
-            >{{ getError }}</v-alert
-          >
-          <v-alert
-            type="success"
-            :value="successAlert"
-            @click="successAlert = !successAlert"
-            transition="slide-y-transition"
-            >Pomyślnie zalogowano</v-alert
-          >
-          <v-progress-circular
-            v-if="showSpinner"
-            :size="50"
-            color="green"
-            indeterminate
-          >
-          </v-progress-circular>
-          <form @keyup.enter="onSubmit">
-            <v-text-field
-              v-model="github_username"
-              label="Nazwa użytkownika"
-              required
-              :error-messages="githubUsernameErrors"
-              @input="v$.github_username.$touch()"
-              @blur="v$.github_username.$touch()"
-            ></v-text-field>
-            <v-text-field
-              v-model="password"
-              label="Hasło"
-              :append-icon="showPassword ? 'visibility_off' : 'visibility'"
-              :type="showPassword ? 'text' : 'password'"
-              @click:append="showPassword = !showPassword"
-              required
-              :error-messages="passwordErrors"
-              @input="v$.password.$touch()"
-              @blur="v$.password.$touch()"
-            ></v-text-field>
-            <v-btn @click="onSubmit">Zaloguj</v-btn>
-          </form>
+      <v-container class="align-center d-flex" fill-height fluid>
+        <v-col>
+          <v-row class="d-flex justify-center mb-6">
+            <v-col cols="12" xs="12" sm="6">
+              <v-alert
+                type="error"
+                :value="!!getError"
+                :text="getError"
+                closable
+                transition="slide-y-transition"
+              ></v-alert>
+              <v-alert
+                type="success"
+                :value="successAlert"
+                text="Pomyślnie zalogowano"
+                closable
+                @click="successAlert = !successAlert"
+                transition="slide-y-transition"
+              ></v-alert>
+              <v-progress-circular
+                v-if="showSpinner"
+                :size="50"
+                color="green"
+                indeterminate
+              >
+              </v-progress-circular>
+            </v-col>
+          </v-row>
+          <v-row class="d-flex justify-center mb-6">
+            <v-col cols="12" xs="12" sm="6">
+              <form @keyup.enter="onSubmit">
+                <v-text-field
+                  variant="underlined"
+                  color="#0CAEE7"
+                  v-model="github_username"
+                  label="Nazwa użytkownika"
+                  required
+                  :error-messages="githubUsernameErrors"
+                  @input="v$.github_username.$touch()"
+                  @blur="v$.github_username.$touch()"
+                ></v-text-field>
+                <v-text-field
+                  variant="underlined"
+                  color="#0CAEE7"
+                  v-model="password"
+                  label="Hasło"
+                  :append-icon="
+                    showPassword ? 'fa:fas fa-eye-slash' : 'fa:fas fa-eye'
+                  "
+                  :type="showPassword ? 'text' : 'password'"
+                  @click:append="showPassword = !showPassword"
+                  required
+                  :error-messages="passwordErrors"
+                  @input="v$.password.$touch()"
+                  @blur="v$.password.$touch()"
+                ></v-text-field>
+                <v-btn @click="onSubmit" id="login-button">Zaloguj</v-btn>
+              </form>
+            </v-col>
+          </v-row>
         </v-col>
-      </v-layout>
+      </v-container>
     </v-app>
   </div>
 </template>
@@ -135,5 +150,9 @@ export default {
   margin-top: 20vh;
   margin-left: 2em;
   margin-right: 2em;
+}
+#login-button {
+  background: $blue;
+  color: $white;
 }
 </style>
