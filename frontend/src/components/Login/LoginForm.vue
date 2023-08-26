@@ -7,14 +7,14 @@
             <v-col cols="12" xs="12" sm="6">
               <v-alert
                 type="error"
-                :value="!!getError"
+                :model-value="!!getError"
                 :text="getError"
                 closable
                 transition="slide-y-transition"
               ></v-alert>
               <v-alert
                 type="success"
-                :value="successAlert"
+                :model-value="successAlert"
                 text="Pomyślnie zalogowano"
                 closable
                 @click="successAlert = !successAlert"
