@@ -113,7 +113,4 @@ export default {
   justify-content: left;
   max-width: none;
 }
-.mobile-tab-items {
-  width: 100vw;
-}
 </style>
