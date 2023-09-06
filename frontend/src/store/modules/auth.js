@@ -43,7 +43,7 @@ export default {
         return res.status;
       } catch (error) {
         localStorage.removeItem('token');
-        commit('raiseError', error);
+        commit('raiseError', 'Nie udało się zalogować');
       }
     },
     logout({ dispatch }) {
