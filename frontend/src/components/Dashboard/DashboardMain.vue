@@ -1,7 +1,11 @@
 <template>
   <div>
-    <app-dashboard-header />
-    <v-row xs12>
+    <v-row>
+      <v-col>
+        <app-dashboard-header />
+      </v-col>
+    </v-row>
+    <v-row align="baseline">
       <v-col>
         <app-hacknight />
         <app-hacknights-participants v-if="getHacknight" />
