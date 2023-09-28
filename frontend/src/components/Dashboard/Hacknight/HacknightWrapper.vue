@@ -21,7 +21,7 @@
           item-title="date"
           item-value="id"
           label="Select Hacknight"
-          @input="onGetHacknight"
+          @update:modelValue="onGetHacknight"
         >
         </v-select>
       </v-col>
