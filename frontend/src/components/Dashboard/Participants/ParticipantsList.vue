@@ -1,43 +1,50 @@
 <template>
   <v-container class="pa-6">
-    <v-col>
-      <v-alert
-        type="error"
-        :value="!!getError"
-        dismissible
-        transition="slide-y-transition"
-        >{{ getError }}</v-alert
-      >
-      <v-alert
-        type="warning"
-        :value="warningAlert"
-        v-model="warningAlert"
-        dismissible
-        @click="warningAlert = !warningAlert"
-        transition="slide-y-transition"
-        >{{ warningMessage }}</v-alert
-      >
-      <v-alert
-        type="success"
-        :value="!!successAlert"
-        dismissible
-        @click="successAlert = ''"
-        transition="slide-y-transition"
-        >{{ successAlert }}</v-alert
-      >
-    </v-col>
+    <v-row align="center" justify="center" class="pt-6">
+      <v-col>
+        <v-alert
+          type="error"
+          :model-value="!!getError"
+          closable
+          transition="slide-y-transition"
+          :text="getError"
+        ></v-alert>
+      </v-col>
+    </v-row>
+    <v-row align="center" justify="center">
+      <v-col>
+        <v-alert
+          type="warning"
+          :model-value="warningAlert"
+          v-model="warningAlert"
+          closable
+          @click="warningAlert = !warningAlert"
+          transition="slide-y-transition"
+          >{{ warningMessage }}</v-alert
+        >
+        <v-alert
+          type="success"
+          :model-value="!!successAlert"
+          closable
+          @click="successAlert = ''"
+          transition="slide-y-transition"
+          :text="successAlert"
+        ></v-alert>
+      </v-col>
+    </v-row>
 
     <v-card>
       <v-tabs
-        background-color="#0CAEE7"
+        bg-color="#0CAEE7"
+        density="comfortable"
         centered
         grow
         dark
+        stacked
         icons-and-text
         v-model="selectedTab"
+        height="75"
       >
-        <v-tabs-slider></v-tabs-slider>
-
         <v-tab
           @click.stop="
             editParticipant && formIsNotEmpty() && participantChanged()
@@ -47,63 +54,78 @@
               : null
           "
         >
+          <v-icon icon="fas fa-user-plus"></v-icon>
           Create new participant
-          <v-icon>fas fa-user-plus</v-icon>
         </v-tab>
 
         <v-tab
           @click="
             formIsNotEmpty()
               ? (dialog = true)
-              : ((editParticipant = true), v$.form.$reset())
+              : ((editParticipant = true), v$.$reset())
           "
         >
+          <v-icon icon="fas fa-user-edit"></v-icon>
           Edit existing participant
-          <v-icon>fas fa-user-edit</v-icon>
         </v-tab>
       </v-tabs>
       <v-card-text v-if="editParticipant">
         <ParticipantsSearch v-model="selectedParticipant" />
       </v-card-text>
       <v-divider></v-divider>
-      <v-form @keyup.enter="onSubmit" class="pa-6" ref="form">
+      <v-form @keyup.enter="onSubmit" class="pa-6">
         <v-text-field
-          type="text"
+          variant="underlined"
+          color="#0CAEE7"
+          v-model="form.email"
           label="E-mail"
-          v-model.trim="form.email"
+          required
+          :error-messages="v$.form.email.$errors.map((e) => e.$message)"
+          @input="v$.form.email.$touch()"
           @blur="v$.form.email.$touch()"
-          :error-messages="emailErrors"
         />
         <v-text-field
+          variant="underlined"
+          color="#0CAEE7"
           label="Github username"
           v-model="form.github_username"
           @blur="validateGithub($event)"
-          :error-messages="githubErrors"
+          :error-messages="
+            v$.form.github_username.$errors.map((e) => e.$message)
+          "
         />
         <v-text-field
+          variant="underlined"
+          color="#0CAEE7"
           label="First name"
           v-model="form.first_name"
           @blur="v$.form.first_name.$touch()"
-          :error-messages="firstNameErrors"
+          :error-messages="v$.form.first_name.$errors.map((e) => e.$message)"
         />
         <v-text-field
+          variant="underlined"
+          color="#0CAEE7"
           label="Last name"
           v-model="form.last_name"
           @blur="validateLastName($event)"
-          :error-messages="lastNameErrors"
+          :error-messages="v$.form.last_name.$errors.map((e) => e.$message)"
         />
         <v-text-field
+          variant="underlined"
+          color="#0CAEE7"
           label="Slack nick"
           v-model="form.slack"
           @blur="validateSlack($event)"
-          :error-messages="slackErrors"
+          :error-messages="v$.form.slack.$errors.map((e) => e.$message)"
         />
         <v-text-field
+          variant="underlined"
+          color="#0CAEE7"
           label="Phone No."
           v-model="form.phone"
           :counter="9"
           @blur="validatePhone($event)"
-          :error-messages="phoneErrors"
+          :error-messages="v$.form.phone.$errors.map((e) => e.$message)"
         />
         <v-card-actions class="pt-3 align-center justify-center">
           <v-btn
@@ -171,6 +193,7 @@ import {
   maxLength,
   email,
   numeric,
+  helpers,
 } from '@vuelidate/validators';
 import _ from 'lodash';
 import {
@@ -178,21 +201,22 @@ import {
   gitHubUsernameValidator,
 } from '../../../helpers/validation';
 import { useVuelidate } from '@vuelidate/core';
+import { reactive } from 'vue';
 
 export default {
   setup() {
-    return { v$: useVuelidate() };
+    const form = reactive({
+      email: '',
+      github_username: '',
+      first_name: '',
+      last_name: '',
+      slack: '',
+      phone: '',
+    });
+    return { v$: useVuelidate(), form };
   },
   data() {
     return {
-      form: {
-        email: '',
-        github_username: '',
-        first_name: '',
-        last_name: '',
-        slack: '',
-        phone: '',
-      },
       warningAlert: false,
       warningMessage: '',
       successAlert: '',
@@ -205,51 +229,62 @@ export default {
   components: {
     ParticipantsSearch,
   },
-  validations: {
-    form: {
-      email: {
-        required,
-        email,
-        emailExists(value) {
-          return this.editParticipant
-            ? true
-            : !Object.values(this.getParticipants).find(
-                (user) => user.email === value
-              );
+  validations() {
+    const emailExists = (value) => {
+      const exists = this.editParticipant
+        ? true
+        : !Object.values(this.getParticipants).find(
+            (user) => user.email === value
+          );
+      return exists;
+    };
+    const githubExists = (value) => {
+      return this.editParticipant
+        ? true
+        : !Object.values(this.getParticipants).find(
+            (user) => user.github_username === value
+          );
+    };
+    return {
+      form: {
+        email: {
+          required: helpers.withMessage('This field cannot be empty', required),
+          email: helpers.withMessage('Type a correct e-mail address', email),
+          emailExists: helpers.withMessage('User already exists', emailExists),
+        },
+        github_username: {
+          required,
+          gitHubUsernameValidator: helpers.withMessage(
+            'Invalid username',
+            gitHubUsernameValidator
+          ),
+          githubExists: helpers.withMessage(
+            'User with that github username already exists',
+            githubExists
+          ),
+        },
+        first_name: {
+          required,
+          minLength: minLength(3),
+          maxLength: maxLength(25),
+        },
+        last_name: {
+          required,
+          minLength: minLength(3),
+          maxLength: maxLength(25),
+        },
+        slack: {
+          slackNickValidator,
+          minLength: minLength(3),
+          maxLength: maxLength(25),
+        },
+        phone: {
+          numeric,
+          minLength: minLength(9),
+          maxLength: maxLength(9),
         },
       },
-      github_username: {
-        required,
-        gitHubUsernameValidator,
-        githubExists(value) {
-          return this.editParticipant
-            ? true
-            : !Object.values(this.getParticipants).find(
-                (user) => user.github_username === value
-              );
-        },
-      },
-      first_name: {
-        required,
-        minLength: minLength(3),
-        maxLength: maxLength(25),
-      },
-      last_name: {
-        required,
-        minLength: minLength(3),
-        maxLength: maxLength(25),
-      },
-      slack: {
-        slackNickValidator,
-        minLength: minLength(3),
-        maxLength: maxLength(25),
-      },
-      phone: {
-        numeric,
-        minLength: minLength(9),
-        maxLength: maxLength(9),
-      },
-    },
+    };
   },
   methods: {
     onPopulateForm() {
@@ -278,7 +313,7 @@ export default {
         });
     },
     onSubmit() {
-      if (!this.v$.form.$invalid) {
+      if (!this.v$.$invalid) {
         if (this.form.phone === '') this.form.phone = null;
         if (this.form.slack === '') this.form.slack = null;
         const newParticipantData = this.form;
@@ -295,9 +330,11 @@ export default {
       }
     },
     resetForm() {
-      this.$refs.form.reset();
-      this.v$.form.$reset();
+      this.v$.$reset();
       this.selectedParticipant = null;
+      Object.keys(this.form).map((key) => {
+        this.form[key] = '';
+      });
     },
     formIsNotEmpty() {
       return !Object.values(this.v$.form.$model).every(
@@ -312,8 +349,8 @@ export default {
       }
     },
     validateGithub(event) {
-      this.v$.form.github.$touch();
-      return (this.form.github = event.target.value.replace(
+      this.v$.form.github_username.$touch();
+      return (this.form.github_username = event.target.value.replace(
         /https?:\/\/github.com\//,
         ''
       ));
@@ -341,7 +378,7 @@ export default {
       )
         this.warningAlert = true;
       this.warningMessage =
-        'This last name already exists. Please verify if a person is actually a new paricipant';
+        'This last name already exists. Please verify if a person is actually a new participant';
       setTimeout(() => (this.warningAlert = false), 10000);
     },
     validatePhone($event) {
@@ -369,66 +406,6 @@ export default {
       getParticipants: 'getParticipants',
       getParticipant: 'getParticipant',
     }),
-    emailErrors() {
-      const errors = [];
-
-      if (!this.v$.form.email.$dirty) return errors;
-      !this.v$.form.email.required && errors.push('This field is required');
-      !this.v$.form.email.email && errors.push('Type a correct e-mail address');
-      !this.v$.form.email.emailExists && errors.push('User already exists');
-      return errors;
-    },
-    githubErrors() {
-      const errors = [];
-
-      if (!this.v$.form.github_username.$dirty) return errors;
-      !this.v$.form.github_username.gitHubUsernameValidator &&
-        errors.push('Invalid username');
-      !this.v$.form.github_username.required &&
-        errors.push('This field is required');
-      !this.v$.form.github_username.githubExists &&
-        errors.push('User already exists');
-      return errors;
-    },
-    firstNameErrors() {
-      const errors = [];
-
-      if (!this.v$.form.first_name.$dirty) return errors;
-      !this.v$.form.first_name.required &&
-        errors.push('This field is required');
-      !this.v$.form.first_name.minLength && errors.push('Name is too short');
-      !this.v$.form.first_name.maxLength && errors.push('Name is too long');
-      return errors;
-    },
-    lastNameErrors() {
-      const errors = [];
-
-      if (!this.v$.form.last_name.$dirty) return errors;
-      !this.v$.form.last_name.required && errors.push('This field is required');
-      !this.v$.form.last_name.minLength &&
-        errors.push('Last name is too short');
-      !this.v$.form.last_name.maxLength && errors.push('Last name is too long');
-      return errors;
-    },
-    slackErrors() {
-      const errors = [];
-
-      if (!this.v$.form.slack.$dirty) return errors;
-      !this.v$.form.slack.slackNickValidator && errors.push('Invalid nick');
-      !this.v$.form.slack.minLength && errors.push('Nick is too short');
-      !this.v$.form.slack.maxLength && errors.push('Nick is too long');
-      return errors;
-    },
-    phoneErrors() {
-      const errors = [];
-
-      if (!this.v$.form.phone.$dirty) return errors;
-      !this.v$.form.phone.numeric &&
-        errors.push('You can only type digits here');
-      !this.v$.form.phone.minLength && errors.push('The number is too short');
-      !this.v$.form.phone.maxLength && errors.push('The number is too long');
-      return errors;
-    },
   },
 };
 </script>

@@ -35,17 +35,19 @@
                 <v-text-field
                   variant="underlined"
                   color="#0CAEE7"
-                  v-model="github_username"
+                  v-model="loginForm.github_username"
                   label="Nazwa użytkownika"
                   required
-                  :error-messages="githubUsernameErrors"
-                  @input="v$.github_username.$touch()"
-                  @blur="v$.github_username.$touch()"
+                  :error-messages="
+                    v$.loginForm.github_username.$errors.map((e) => e.$message)
+                  "
+                  @input="v$.loginForm.github_username.$touch()"
+                  @blur="v$.loginForm.github_username.$touch()"
                 ></v-text-field>
                 <v-text-field
                   variant="underlined"
                   color="#0CAEE7"
-                  v-model="password"
+                  v-model="loginForm.password"
                   label="Hasło"
                   :append-icon="
                     showPassword ? 'fa:fas fa-eye-slash' : 'fa:fas fa-eye'
@@ -53,9 +55,11 @@
                   :type="showPassword ? 'text' : 'password'"
                   @click:append="showPassword = !showPassword"
                   required
-                  :error-messages="passwordErrors"
-                  @input="v$.password.$touch()"
-                  @blur="v$.password.$touch()"
+                  :error-messages="
+                    v$.loginForm.password.$errors.map((e) => e.$message)
+                  "
+                  @input="v$.loginForm.password.$touch()"
+                  @blur="v$.loginForm.password.$touch()"
                 ></v-text-field>
                 <v-btn @click="onSubmit" id="login-button">Zaloguj</v-btn>
               </form>
@@ -71,17 +75,21 @@
 import { minLength, required } from '@vuelidate/validators';
 import { mapGetters } from 'vuex';
 import { useVuelidate } from '@vuelidate/core';
+import { reactive } from 'vue';
 
 export default {
   setup() {
+    const loginForm = reactive({
+      github_username: '',
+      password: '',
+    });
     return {
       v$: useVuelidate(),
+      loginForm,
     };
   },
   data() {
     return {
-      github_username: '',
-      password: '',
       showPassword: false,
       successAlert: false,
       showSpinner: false,
@@ -89,15 +97,17 @@ export default {
   },
 
   validations: {
-    github_username: { required, minLength: minLength(3) },
-    password: { required },
+    loginForm: {
+      github_username: { required, minLength: minLength(3) },
+      password: { required },
+    },
   },
 
   methods: {
     onSubmit() {
       const loginData = {
-        github_username: this.github_username,
-        password: this.password,
+        github_username: this.loginForm.github_username,
+        password: this.loginForm.password,
       };
 
       if (!this.v$.$invalid) {
@@ -113,29 +123,12 @@ export default {
     },
     clearForm() {
       this.v$.$reset();
-      this.github_username = '';
-      this.password = '';
+      this.loginForm.github_username = '';
+      this.loginForm.password = '';
     },
   },
 
   computed: {
-    githubUsernameErrors() {
-      const errors = [];
-
-      if (!this.v$.github_username.$dirty) return errors;
-      !this.v$.github_username.minLength &&
-        errors.push('Wprowadź poprawną nazwę użytkownika');
-      !this.v$.github_username.required &&
-        errors.push('Nazwa użytkownika jest wymagana');
-      return errors;
-    },
-    passwordErrors() {
-      const errors = [];
-
-      if (!this.v$.password.$dirty) return errors;
-      !this.v$.password.required && errors.push('Hasło jest wymagane');
-      return errors;
-    },
     ...mapGetters('auth', ['getError', 'isLoggedIn']),
   },
 };
