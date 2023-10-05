@@ -40,7 +40,7 @@
       v-model="drawer"
       location="top"
       temporary
-      rail="true"
+      :rail="true"
       rail-width="190"
       @click="drawer = false"
     >
