@@ -1,7 +1,8 @@
 import { shallowMount } from '@vue/test-utils';
-import PageFooter from './PageFooter';
+import PageFooter from './PageFooter.vue';
+import { expect, test, it } from 'vitest';
 
-describe('PageFooter component', () => {
+test('PageFooter component', () => {
   it('renders correctly', () => {
     const wrapper = shallowMount(PageFooter);
 

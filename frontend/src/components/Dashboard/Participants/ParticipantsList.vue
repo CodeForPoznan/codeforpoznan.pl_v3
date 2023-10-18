@@ -213,6 +213,7 @@ export default {
       slack: '',
       phone: '',
     });
+
     return { v$: useVuelidate(), form };
   },
   data() {
@@ -236,6 +237,7 @@ export default {
         : !Object.values(this.getParticipants).find(
             (user) => user.email === value
           );
+
       return exists;
     };
     const githubExists = (value) => {
@@ -245,6 +247,7 @@ export default {
             (user) => user.github_username === value
           );
     };
+
     return {
       form: {
         email: {

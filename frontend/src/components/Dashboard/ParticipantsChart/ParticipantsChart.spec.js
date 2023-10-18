@@ -1,8 +1,9 @@
 import { getMountWithVuex } from '../../../../jest/utils';
-import ParticipantsChart from './ParticipantsChart';
+import ParticipantsChart from './ParticipantsChart.vue';
 import { getDateString, getYearBeforeDate } from '../../../helpers/date';
+import { expect, test, it } from 'vitest';
 
-describe('ParticipantsChart component', () => {
+test('ParticipantsChart component', () => {
   const mountWithVuex = getMountWithVuex();
   const todayDate = new Date();
 

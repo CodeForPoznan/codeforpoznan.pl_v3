@@ -61,3 +61,11 @@ clean-pyc: ## remove .pyc files
 
 clean: stop clean-pyc ## remove containers and .pyc files
 	docker-compose rm --force
+
+# AWS Lambda
+pack-backend:
+	7z a ../lambda.zip ./.venv/lib/python*/site-packages/*
+	7z a ../lambda.zip -xr'!.venv' migrations ../backend
+
+pack-frontend:
+	yarn run build --dest ../public

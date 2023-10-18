@@ -1,7 +1,8 @@
-import DashboardMain from './DashboardMain';
+import DashboardMain from './DashboardMain.vue';
 import { getMountWithProviders } from '../../../jest/utils';
+import { expect, test, it } from 'vitest';
 
-describe('DashboardMain component', () => {
+test('DashboardMain component', () => {
   const mountWithProviders = getMountWithProviders();
 
   it('renders correctly', () => {

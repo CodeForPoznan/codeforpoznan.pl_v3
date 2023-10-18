@@ -1,7 +1,8 @@
 import { shallowMount } from '@vue/test-utils';
-import JoinUs from './JoinUs';
+import JoinUs from './JoinUs.vue';
+import { expect, test, it } from 'vitest';
 
-describe('JoinUs component', () => {
+test('JoinUs component', () => {
   it('renders correctly', () => {
     const wrapper = shallowMount(JoinUs);
 
