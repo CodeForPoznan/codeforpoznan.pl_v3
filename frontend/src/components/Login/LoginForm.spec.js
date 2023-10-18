@@ -1,7 +1,8 @@
 import { getMountWithProviders } from '../../../jest/utils';
-import LoginForm from './LoginForm';
+import LoginForm from './LoginForm.vue';
+import { expect, test, it } from 'vitest';
 
-describe('LoginForm component', () => {
+test('LoginForm component', () => {
   const mountWithProviders = getMountWithProviders();
 
   it('renders correctly', () => {
