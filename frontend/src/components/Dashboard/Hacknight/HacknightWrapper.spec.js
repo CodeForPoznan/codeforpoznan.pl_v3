@@ -1,7 +1,8 @@
-import HacknightWrapper from './HacknightWrapper';
+import HacknightWrapper from './HacknightWrapper.vue';
 import { getMountWithProviders } from '../../../../jest/utils';
+import { expect, test, it } from 'vitest';
 
-describe('HacknightWrapper component', () => {
+test('HacknightWrapper component', () => {
   const mountWithProviders = getMountWithProviders();
 
   it('renders correctly', () => {

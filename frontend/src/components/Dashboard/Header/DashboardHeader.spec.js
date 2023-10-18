@@ -1,7 +1,8 @@
 import { shallowMount } from '@vue/test-utils';
-import DashboardHeader from './DashboardHeader';
+import DashboardHeader from './DashboardHeader.vue';
+import { expect, test, it } from 'vitest';
 
-describe('DashboardHeader component', () => {
+test('DashboardHeader component', () => {
   it('renders correctly', () => {
     const wrapper = shallowMount(DashboardHeader);
 

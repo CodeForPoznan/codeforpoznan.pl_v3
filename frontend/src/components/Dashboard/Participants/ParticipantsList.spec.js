@@ -1,7 +1,8 @@
 import { getMountWithProviders } from '../../../../jest/utils';
-import ParticipantsList from './ParticipantsList';
+import ParticipantsList from './ParticipantsList.vue';
+import { expect, test, it } from 'vitest';
 
-describe('ParticipantsList component', () => {
+test('ParticipantsList component', () => {
   const mountWithProviders = getMountWithProviders();
 
   it('renders correctly', () => {
