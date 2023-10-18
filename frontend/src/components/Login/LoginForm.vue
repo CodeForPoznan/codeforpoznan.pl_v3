@@ -83,6 +83,7 @@ export default {
       github_username: '',
       password: '',
     });
+
     return {
       v$: useVuelidate(),
       loginForm,

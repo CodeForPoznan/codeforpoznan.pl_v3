@@ -48,6 +48,7 @@ export default {
       set(selectedParticipant) {
         const newSelectedParticipant =
           typeof selectedParticipant === 'object' ? selectedParticipant : null;
+
         this.$emit('input', newSelectedParticipant);
       },
     },
