@@ -1,15 +1,11 @@
-// eslint-disable-next-line
+/* eslint-disable */
 import 'vuetify/styles';
-// eslint-disable-next-line
 import * as components from 'vuetify/components';
-// eslint-disable-next-line
 import * as directives from 'vuetify/directives';
-// eslint-disable-next-line
 import { aliases, fa } from 'vuetify/iconsets/fa';
-// eslint-disable-next-line
 import { mdi } from 'vuetify/iconsets/mdi';
-// eslint-disable-next-line
 import { VDatePicker } from 'vuetify/labs/VDatePicker';
+/* eslint-disable */
 
 import '@mdi/font/css/materialdesignicons.css';
 import { createVuetify } from 'vuetify';
