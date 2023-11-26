@@ -4,5 +4,4 @@ module.exports = {
   testMatch: ['**/?(*.)+(spec).js'],
   collectCoverage: true,
   collectCoverageFrom: ['src/**/*', '!src/assets/**'],
-  transformIgnorePatterns: ['/node_modules/(?!(vue-scrollactive)/)'],
 };
