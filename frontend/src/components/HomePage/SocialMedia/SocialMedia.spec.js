@@ -1,8 +1,9 @@
 import { shallowMount } from '@vue/test-utils';
 import { getMountWithVuetify } from '../../../../jest/utils';
-import SocialMedia from './SocialMedia';
+import SocialMedia from './SocialMedia.vue';
+import { expect, test, it } from 'vitest';
 
-describe('SocialMedia component', () => {
+test('SocialMedia component', () => {
   const mountWithVuetify = getMountWithVuetify();
 
   it('renders the title', () => {

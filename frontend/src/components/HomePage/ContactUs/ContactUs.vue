@@ -1,49 +1,57 @@
 <template>
   <v-container fluid class="white-container" id="contact">
     <v-row>
-      <v-flex>
+      <v-col>
         <v-card flat color="transparent">
           <v-card-text class="title">
             <p class="blue-title">SKONTAKTUJ SIĘ Z NAMI</p>
           </v-card-text>
         </v-card>
-      </v-flex>
+      </v-col>
     </v-row>
     <form @submit.prevent="onSubmit">
       <v-text-field
+        variant="underlined"
+        color="#0CAEE7"
         v-model="name"
         :error-messages="nameErrors"
         label="Imię"
         required
-        @input="$v.name.$touch()"
-        @blur="$v.name.$touch()"
+        @update:name="v$.name.$touch()"
+        @blur="v$.name.$touch()"
       ></v-text-field>
       <v-text-field
+        variant="underlined"
+        color="#0CAEE7"
         v-model="email"
         :error-messages="emailErrors"
         label="E-mail"
         required
-        @input="$v.email.$touch()"
-        @blur="$v.email.$touch()"
+        @input="v$.email.$touch"
+        @blur="v$.email.$touch()"
       ></v-text-field>
       <v-text-field
+        variant="underlined"
+        color="#0CAEE7"
         v-model="phone_no"
         mask="###-###-###"
         :error-messages="phoneErrors"
         :counter="9"
         label="Telefon"
-        @input="$v.phone_no.$touch()"
-        @blur="$v.phone_no.$touch()"
+        @update:phone_no="v$.phone_no.$touch()"
+        @blur="v$.phone_no.$touch()"
       ></v-text-field>
       <v-textarea
+        variant="underlined"
+        color="#0CAEE7"
         v-model="content"
         :error-messages="contentErrors"
         label="Wiadomość"
         required
-        @input="$v.content.$touch()"
-        @blur="$v.content.$touch()"
+        @input="v$.content.$touch()"
+        @blur="v$.content.$touch()"
       ></v-textarea>
-      <v-btn type="submit" :disabled="$v.$invalid" id="submit-button"
+      <v-btn type="submit" :disabled="v$.$invalid" id="submit-button"
         >Wyślij</v-btn
       >
     </form>
@@ -52,20 +60,20 @@
 </template>
 
 <script>
-import {
-  required,
-  email,
-  maxLength,
-  minLength
-} from 'vuelidate/lib/validators';
-
+import { required, email, maxLength, minLength } from '@vuelidate/validators';
+import { useVuelidate } from '@vuelidate/core';
 export default {
+  setup() {
+    return {
+      v$: useVuelidate(),
+    };
+  },
   data() {
     return {
       name: '',
       email: '',
       phone_no: '',
-      content: ''
+      content: '',
     };
   },
   methods: {
@@ -74,12 +82,12 @@ export default {
         name: this.name,
         email: this.email,
         phone: this.phone_no,
-        content: this.content
+        content: this.content,
       };
 
-      if (!this.$v.$invalid) {
+      if (!this.v$.$invalid) {
         this.$store.dispatch('contact/sentMessage', contactData).then(
-          response => {
+          (response) => {
             if (response.status == 200) this.resetForm();
           },
           () => {
@@ -89,12 +97,12 @@ export default {
       }
     },
     resetForm() {
-      this.$v.$reset();
+      this.v$.$reset();
       this.name = '';
       this.email = '';
       this.phone_no = '';
       this.content = '';
-    }
+    },
   },
   validations: {
     name: { required, maxLength: maxLength(50) },
@@ -103,43 +111,44 @@ export default {
     content: {
       required,
       minLength: minLength(10),
-      maxLength: maxLength(2000)
-    }
+      maxLength: maxLength(2000),
+    },
   },
   computed: {
     nameErrors() {
       const errors = [];
 
-      if (!this.$v.name.$dirty) return errors;
-      !this.$v.name.required && errors.push('Imię jest wymagane');
+      if (!this.v$.name.$dirty) return errors;
+      this.v$.name.required.$invalid && errors.push('Imię jest wymagane');
       return errors;
     },
     emailErrors() {
       const errors = [];
 
-      if (!this.$v.email.$dirty) return errors;
-      !this.$v.email.email && errors.push('Poprawny adres email jest wymagany');
-      !this.$v.email.required && errors.push('E-mail jest wymagany');
+      if (!this.v$.email.$dirty) return errors;
+      this.v$.email.email.$invalid &&
+        errors.push('Poprawny adres email jest wymagany');
+      this.v$.email.required.$invalid && errors.push('E-mail jest wymagany');
       return errors;
     },
     phoneErrors() {
       const errors = [];
 
-      !this.$v.phone_no.minLength &&
+      this.v$.phone_no.minLength.$invalid &&
         errors.push('Wprowadź poprawny numer np. 111-222-333');
       return errors;
     },
     contentErrors() {
       const errors = [];
 
-      if (!this.$v.content.$dirty) return errors;
-      !this.$v.content.minLength &&
+      if (!this.v$.content.$dirty) return errors;
+      this.v$.content.minLength.$invalid &&
         errors.push('Minimalna długość to 10 znaków');
-      !this.$v.content.required &&
+      this.v$.content.required.$invalid &&
         errors.push('Treść wiadomości jest wymagana');
       return errors;
-    }
-  }
+    },
+  },
 };
 </script>
 

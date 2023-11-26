@@ -5,7 +5,7 @@ export default {
   state: {
     allParticipants: [],
     error: null,
-    Participant: null
+    Participant: null,
   },
   getters: {
     getParticipants(state) {
@@ -16,7 +16,7 @@ export default {
     },
     getParticipant(state) {
       return state.Participant;
-    }
+    },
   },
   mutations: {
     raiseError(state, error_msg) {
@@ -27,28 +27,28 @@ export default {
     },
     setParticipant(state, participant) {
       state.Participant = participant;
-    }
+    },
   },
   actions: {
     getParticipants({ commit }) {
       axios
         .get('/api/participants/')
-        .then(res => {
+        .then((res) => {
           commit('setParticipants', res.data);
         })
-        .catch(error => {
+        .catch((error) => {
           commit('raiseError', error);
         });
     },
     createParticipant({ commit, dispatch }, newParticipantData) {
       return axios
         .post('/api/participants/', { ...newParticipantData })
-        .then(res => {
+        .then((res) => {
           commit('setParticipant', res.data);
           dispatch('getParticipants');
           return res.status;
         })
-        .catch(error => {
+        .catch((error) => {
           commit('raiseError', error);
         });
     },
@@ -74,6 +74,6 @@ export default {
       } catch (error) {
         commit('raiseError', error);
       }
-    }
-  }
+    },
+  },
 };

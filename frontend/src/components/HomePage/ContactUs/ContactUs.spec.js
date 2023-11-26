@@ -1,7 +1,8 @@
 import { shallowMount } from '@vue/test-utils';
-import ContactUs from './ContactUs';
+import ContactUs from './ContactUs.vue';
+import { expect, test, it } from 'vitest';
 
-describe('ContactUs component', () => {
+test('ContactUs component', () => {
   it('renders correctly', () => {
     const wrapper = shallowMount(ContactUs);
 

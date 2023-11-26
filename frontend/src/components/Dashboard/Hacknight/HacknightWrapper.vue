@@ -1,72 +1,54 @@
 <template>
-  <v-container fluid text-xs-center>
-    <v-row align="center" justify="center">
+  <v-container fluid text-xs-center class="pt-6">
+    <v-row align="center" justify="center" class="pt-6">
       <v-col cols="12" sm="6">
         <v-alert
           type="error"
-          :value="!!getError"
+          :model-value="!!getError"
+          :text="getError"
           transition="slide-y-transition"
-          dismissible
-          >{{ getError }}</v-alert
-        >
+          closable
+        ></v-alert>
       </v-col>
     </v-row>
     <v-row align="center" justify="center">
-      <v-col cols="12" sm="6">
+      <v-col cols="10" sm="4" align-self="end">
         <v-select
           v-model="selectedHacknight"
+          color="#0CAEE7"
+          variant="underlined"
           :items="getHacknights"
-          item-text="date"
+          item-title="date"
           item-value="id"
           label="Select Hacknight"
-          @input="onGetHacknight"
+          @update:modelValue="onGetHacknight"
         >
-          <template v-slot:append-outer>
-            <v-btn
-              class="add-hacknight-btn"
-              @click="datePicker = true"
-              offset-y
-            >
-              <v-icon left dark>mdi-plus</v-icon>
-              New
-            </v-btn>
-          </template>
         </v-select>
+      </v-col>
+      <v-col cols="2" sm="2" align-self="end">
+        <v-btn
+          class="add-hacknight-btn"
+          @click="datePicker = true"
+          offset-y
+          prepend-icon="fa:fas fa-plus"
+        >
+          New
+        </v-btn>
       </v-col>
     </v-row>
     <v-dialog v-model="datePicker" max-width="500">
-      <v-card>
-        <v-card-title></v-card-title>
-        <v-card-text>
-          <v-date-picker
-            v-model="date"
-            show-adjacent-months
-            :max="getTodayDate"
-            color="#0CAEE7"
-            @dblclick:date="onCreateHacknight"
-            :allowed-dates="allowedDates"
-            full-width
-          ></v-date-picker>
-        </v-card-text>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-
-          <v-btn
-            color="#607d8b"
-            text
-            @click="
-              onCreateHacknight(date);
-              datePicker = false;
-            "
-          >
-            Create
-          </v-btn>
-          <v-btn color="#607d8b" text @click="datePicker = false">
-            Cancel
-          </v-btn>
-        </v-card-actions>
-      </v-card>
+      <v-date-picker
+        v-model="date"
+        show-adjacent-months
+        :max="getTodayDate"
+        color="#0CAEE7"
+        @click:save="
+          onCreateHacknight();
+          datePicker = false;
+        "
+        @click:cancel="datePicker = false"
+        full-width
+      ></v-date-picker>
     </v-dialog>
   </v-container>
 </template>
@@ -78,7 +60,7 @@ export default {
     return {
       selectedHacknight: null,
       date: null,
-      datePicker: false
+      datePicker: false,
     };
   },
   created() {
@@ -98,14 +80,14 @@ export default {
       const hacknightDates = this.getHacknights.flatMap(({ date }) => [date]);
 
       return !hacknightDates.includes(val);
-    }
+    },
   },
   computed: {
     ...mapGetters('hacknight', ['getHacknights', 'getHacknight', 'getError']),
     getTodayDate() {
       return new Date().toISOString().slice(0, 10);
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

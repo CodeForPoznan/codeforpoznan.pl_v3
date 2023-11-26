@@ -1,11 +1,12 @@
+import HacknightWrapper from './HacknightWrapper.vue';
 import { getMountWithProviders } from '../../../../jest/utils';
-import Participants from './Participants';
+import { expect, test, it } from 'vitest';
 
-describe('Participants component', () => {
+test('HacknightWrapper component', () => {
   const mountWithProviders = getMountWithProviders();
 
   it('renders correctly', () => {
-    const wrapper = mountWithProviders(Participants);
+    const wrapper = mountWithProviders(HacknightWrapper);
 
     expect(wrapper).toBeDefined();
   });

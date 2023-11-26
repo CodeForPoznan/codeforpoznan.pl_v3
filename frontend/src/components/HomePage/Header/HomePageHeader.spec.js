@@ -1,10 +1,10 @@
 import { shallowMount } from '@vue/test-utils';
-import OurProjects from './OurProjects.vue';
+import HomePageHeader from './HomePageHeader.vue';
 import { expect, test, it } from 'vitest';
 
-test('OurProjects component', () => {
+test('HomePageHeader component', () => {
   it('renders correctly', () => {
-    const wrapper = shallowMount(OurProjects);
+    const wrapper = shallowMount(HomePageHeader);
 
     expect(wrapper).toBeDefined();
   });

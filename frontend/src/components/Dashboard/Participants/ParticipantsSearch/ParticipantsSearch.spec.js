@@ -1,7 +1,8 @@
 import { getMountWithProviders } from '../../../../../jest/utils';
-import ParticipantsSearch from './ParticipantsSearch';
+import ParticipantsSearch from './ParticipantsSearch.vue';
+import { expect, test, it } from 'vitest';
 
-describe('ParticipantsSearch component', () => {
+test('ParticipantsSearch component', () => {
   const mountWithProviders = getMountWithProviders();
 
   it('renders correctly', () => {

@@ -1,24 +1,24 @@
 <template>
-  <v-combobox
+  <!-- eslint-disable -->
+  <v-autocomplete
     clearable
+    variant="outlined"
     label="Search participants"
     :items="sortedParticipants"
-    :item-text="displayText"
-    :filter="filterParticipants"
+    :item-title="displayText"
+    item-value="first_name"
     v-model="selectedParticipant"
-    :search-input.sync="search"
+    :return-object="true"
   >
     <template v-slot:no-data>
       <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title>
-            No results matching "<strong>{{ search }}</strong
-            >".
-          </v-list-item-title>
-        </v-list-item-content>
+        <v-list-item-title>
+          No results matching "<strong>{{ search }}</strong
+          >".
+        </v-list-item-title>
       </v-list-item>
     </template>
-  </v-combobox>
+  </v-autocomplete>
 </template>
 
 <script>
@@ -27,17 +27,19 @@ import { mapGetters } from 'vuex';
 export default {
   props: {
     value: {
-      type: Object
-    }
+      type: Object,
+    },
   },
   computed: {
     ...mapGetters('participant', {
-      getParticipants: 'getParticipants'
+      getParticipants: 'getParticipants',
     }),
     sortedParticipants() {
       const participants = this.getParticipants;
 
-      return participants.sort((a, b) => a.first_name.localeCompare(b.github));
+      return participants.sort((a, b) =>
+        a.first_name.localeCompare(b.github_username)
+      );
     },
     selectedParticipant: {
       get() {
@@ -48,25 +50,24 @@ export default {
           typeof selectedParticipant === 'object' ? selectedParticipant : null;
 
         this.$emit('input', newSelectedParticipant);
-      }
-    }
+      },
+    },
   },
   methods: {
     filterParticipants(item, queryText) {
+      console.log(item);
+      console.log(queryText);
       return Object.values(item).some(
-        value =>
+        (value) =>
           value &&
-          value
-            .toString()
-            .toLowerCase()
-            .includes(queryText.toLowerCase())
+          value.toString().toLowerCase().includes(queryText.toLowerCase())
       );
     },
     displayText(participant) {
-      const { first_name, last_name, slack, github } = participant;
+      const { first_name, last_name, slack, github_username } = participant;
 
-      return `${first_name} ${last_name} (${slack}/${github})`;
-    }
-  }
+      return `${first_name} ${last_name} (${slack || ''}/${github_username})`;
+    },
+  },
 };
 </script>

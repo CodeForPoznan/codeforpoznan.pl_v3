@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-app-bar class="navbar-custom" dark app color="#2C3E50">
+    <v-app-bar class="navbar-custom" app dark color="#2C3E50">
       <v-toolbar-title class="d-inline">
         <v-row>
           <v-col class="d-flex child-flex">
@@ -30,10 +30,18 @@
         height="64"
         right
         class="hidden-sm-and-down"
+        v-model="activeTabIndex"
       >
-        <v-tab align-right theme="dark" class="tab-custom" @click="onLogout"
-          >Logout</v-tab
-        >
+        <v-tab
+          v-for="item in items"
+          :key="item.id"
+          align-right
+          theme="dark"
+          :data-section-selector="item.id"
+          class="scrollactive-item tab-custom"
+          @click.prevent="scrollTo(item.id)"
+          >{{ item.name }}
+        </v-tab>
       </v-tabs>
     </v-app-bar>
     <v-navigation-drawer
@@ -45,8 +53,13 @@
       @click="drawer = false"
     >
       <v-list class="navbar-custom hidden-md-and-up" dark>
-        <v-list-item class="mobile-tab-custom" @click.prevent="onLogout">
-          Logout
+        <v-list-item
+          v-for="item in items"
+          :key="item.id"
+          class="mobile-tab-custom"
+          @click.prevent="scrollTo(item.id)"
+        >
+          {{ item.name }}
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -57,14 +70,31 @@
 export default {
   data() {
     return {
+      items: [
+        { name: 'O nas', id: '#about' },
+        { name: 'Nasze projekty', id: '#projects' },
+        { name: 'Dołącz do nas', id: '#join' },
+        { name: 'Kontakt', id: '#contact' },
+      ],
       cfpLogo: require('@/assets/images/logo-white.svg'),
       drawer: false,
+      activeTabIndex: null,
     };
   },
   methods: {
-    async onLogout() {
-      await this.$store.dispatch('auth/logout');
-      this.$router.push('/');
+    onActiveTabChanged(_, currentItem) {
+      if (currentItem) {
+        const activeItemIndex = this.items.findIndex(
+          (item) => item.id === currentItem.dataset.sectionSelector
+        );
+
+        this.activeTabIndex = activeItemIndex;
+      }
+    },
+    scrollTo(element_id) {
+      const el = document.querySelector(element_id);
+
+      el.scrollIntoView({ behavior: 'smooth' });
     },
   },
 };

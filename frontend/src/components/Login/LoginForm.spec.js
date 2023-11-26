@@ -1,11 +1,12 @@
 import { getMountWithProviders } from '../../../jest/utils';
-import Login from './Login';
+import LoginForm from './LoginForm.vue';
+import { expect, test, it } from 'vitest';
 
-describe('Login component', () => {
+test('LoginForm component', () => {
   const mountWithProviders = getMountWithProviders();
 
   it('renders correctly', () => {
-    const wrapper = mountWithProviders(Login);
+    const wrapper = mountWithProviders(LoginForm);
 
     expect(wrapper).toBeDefined();
   });

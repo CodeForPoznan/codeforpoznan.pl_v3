@@ -1,5 +1,5 @@
 <template>
-  <section class="modal">
+  <v-card class="modal">
     <div class="modal__title">
       <h2>{{ selectedProject.name }}</h2>
       <div class="modal__button-close" @click="onClick">
@@ -78,16 +78,17 @@
         </a>
       </div>
     </div>
-  </section>
+  </v-card>
 </template>
 
 <script>
 export default {
   props: ['selectedProject'],
+  emits: ['close'],
   methods: {
     onClick() {
-      this.$root.$emit('close');
-    }
+      this.$emit('close');
+    },
   },
   computed: {
     countPartners() {
@@ -95,8 +96,8 @@ export default {
     },
     countTech() {
       return this.selectedProject.stack.length;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -139,7 +140,7 @@ h2 {
 .modal__description,
 .modal__list,
 .modal__title {
-  padding: 0.5rem 1.5rem;
+  padding: 0.7rem 1.5rem;
   position: relative;
   display: flex;
   align-items: center;

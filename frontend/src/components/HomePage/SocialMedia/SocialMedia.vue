@@ -18,24 +18,23 @@ export default {
       media: [
         {
           icon: 'fab fa-github',
-          link: 'https://github.com/CodeForPoznan'
+          link: 'https://github.com/CodeForPoznan',
         },
         {
           icon: 'fab fa-linkedin-in',
-          link: 'https://www.linkedin.com/company/codeforpoznan/'
+          link: 'https://www.linkedin.com/company/codeforpoznan/',
         },
         {
           icon: 'fab fa-facebook-f',
-          link: 'https://www.facebook.com/CodeForPL/'
+          link: 'https://www.facebook.com/CodeForPL/',
         },
         {
           icon: 'fab fa-slack',
-          link:
-            'https://join.slack.com/t/codeforpoznan/shared_invite/zt-8a7u52j8-yqB01C2YgYF4Lvd1pFM_jw'
-        }
-      ]
+          link: 'https://join.slack.com/t/codeforpoznan/shared_invite/zt-8a7u52j8-yqB01C2YgYF4Lvd1pFM_jw',
+        },
+      ],
     };
-  }
+  },
 };
 </script>
 
@@ -56,6 +55,9 @@ h2 {
   width: 50px;
   height: 50px;
   border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 ul.media-info {
   display: flex;

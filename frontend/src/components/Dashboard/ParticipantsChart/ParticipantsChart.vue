@@ -43,7 +43,7 @@ export default {
     return {
       todayDate: new Date(),
       startDate: null,
-      endDate: null
+      endDate: null,
     };
   },
   mounted() {
@@ -60,34 +60,34 @@ export default {
         .reverse();
     },
     chartCategories() {
-      return this.hacknightsToDisplay.map(hacknight => hacknight.date);
+      return this.hacknightsToDisplay.map((hacknight) => hacknight.date);
     },
     chartData() {
       return this.hacknightsToDisplay.map(
-        hacknight => hacknight.participants.length
+        (hacknight) => hacknight.participants.length
       );
     },
     chartOptions() {
       return {
         chart: { zoom: { enabled: false } },
         stroke: {
-          curve: 'smooth'
+          curve: 'smooth',
         },
         xaxis: {
-          categories: this.chartCategories
+          categories: this.chartCategories,
         },
-        stacked: false
+        stacked: false,
       };
     },
     series() {
       return [
         {
           name: 'Participants',
-          data: this.chartData
-        }
+          data: this.chartData,
+        },
       ];
-    }
-  }
+    },
+  },
 };
 </script>
 

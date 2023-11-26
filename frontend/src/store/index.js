@@ -1,13 +1,10 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import { createStore } from 'vuex';
 import auth from './modules/auth';
 import contact from './modules/contact';
 import hacknight from './modules/hacknight';
 import participant from './modules/participant';
 
-Vue.use(Vuex);
-
-const store = new Vuex.Store({
+const store = createStore({
   state: {},
   getters: {},
   mutations: {},
@@ -17,8 +14,8 @@ const store = new Vuex.Store({
     auth,
     contact,
     hacknight,
-    participant
-  }
+    participant,
+  },
 });
 
 export default store;
