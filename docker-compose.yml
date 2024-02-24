@@ -11,6 +11,7 @@ services:
       - ./frontend:/cfp_v3/frontend
     environment:
       - VUE_APP_AXIOS_BASE_URL=http://0.0.0.0:5000/
+    init: true
 
   backend:
     container_name: cfp_v3_backend
@@ -36,6 +37,7 @@ services:
       MAIL_USERNAME: ${MAIL_USERNAME:-}
       MAIL_PASSWORD: ${MAIL_PASSWORD:-}
       MAIL_SUPPRESS_SEND: ${MAIL_SUPPRESS_SEND:-TRUE}
+    init: true
 
   db:
     container_name: cfp_v3_db
