@@ -92,7 +92,7 @@ class StagingConfig(Config):
 
 class DevelopmentConfig(Config):
     """
-    Used for https://localhost:8088/ (Docker)
+    Used for https://localhost:8080/ (Docker)
     """
 
     pass

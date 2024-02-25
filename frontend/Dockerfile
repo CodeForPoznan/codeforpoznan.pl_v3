@@ -5,6 +5,6 @@ EXPOSE 8080
 ADD . /cfp_v3/frontend
 WORKDIR /cfp_v3/frontend
 
-RUN yarn install
+RUN ["yarn", "install"]
 
-ENTRYPOINT bash docker-entrypoint.sh
+ENTRYPOINT ["bash", "docker-entrypoint.sh"]

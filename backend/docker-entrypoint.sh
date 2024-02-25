@@ -8,4 +8,4 @@ getent hosts host.docker.internal >/dev/null || \
 wait-for-it "${DB_HOST}:${DB_PORT}"
 flask db migrate
 flask db upgrade
-flask run --host=0.0.0.0
+exec flask run --host=0.0.0.0
