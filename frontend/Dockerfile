@@ -1,10 +1,13 @@
 FROM node:18
 
-EXPOSE 8080
-
-ADD . /cfp_v3/frontend
 WORKDIR /cfp_v3/frontend
+
+COPY package.json yarn.lock ./
 
 RUN yarn install
 
-ENTRYPOINT bash docker-entrypoint.sh
+COPY . .
+
+EXPOSE 8080
+
+ENTRYPOINT ["bash", "docker-entrypoint.sh"]
