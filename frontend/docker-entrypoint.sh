@@ -6,4 +6,4 @@ getent hosts host.docker.internal >/dev/null || \
     | tee -a /etc/hosts >/dev/null
 
 yarn install
-yarn serve --host 0.0.0.0 --port 8080
+yarn serve --host 0.0.0.0
