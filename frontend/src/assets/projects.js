@@ -58,16 +58,7 @@ const projects = [
     licensePage:
       'https://github.com/CodeForPoznan/alinka-pyside/blob/master/LICENSE',
     name: 'Alinka',
-    partner: [
-      {
-        name: 'Poradnia Psychologiczno-Pedagogiczna w Grodzisku Wielkopolskim',
-        link: 'http://www.grodziskwlkp.naszaporadnia.com/aktualnosci'
-      },
-      {
-        name: 'Poradnia Psychologiczno-Pedagogiczna we Wrześni',
-        link: 'https://ppp-wrzesnia.pl/'
-      }
-    ],
+    partner: [],
     stack: [
       {
         name: 'Python',
