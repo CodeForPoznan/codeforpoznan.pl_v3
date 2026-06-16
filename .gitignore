@@ -17,3 +17,5 @@ htmlcov/
 frontend/coverage/
 frontend/dist/
 .vscode/
+
+.env.local
