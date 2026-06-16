@@ -11,7 +11,7 @@ services:
       - ./frontend:/cfp_v3/frontend
       - /cfp_v3/frontend/node_modules
     environment:
-      - VUE_APP_AXIOS_BASE_URL=http://backend:5000/
+      - VUE_APP_AXIOS_BASE_URL=${VUE_APP_AXIOS_BASE_URL:-http://0.0.0.0:5000/}
 
   backend:
     container_name: cfp_v3_backend
