@@ -20,7 +20,7 @@ export default {
   data() {
     return {
       currentYear: new Date().getFullYear()
-    }
+    };
   }
-}
+};
 </script>
