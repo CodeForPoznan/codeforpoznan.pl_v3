@@ -2,14 +2,24 @@
   "root": true,
   "env": {
     "node": true,
-    "jest/globals": true
+    "browser": true,
+    "jest": true
   },
-  "plugins": ["prettier", "jest"],
   "extends": [
     "plugin:vue/essential",
     "eslint:recommended",
     "plugin:import/errors"
   ],
+  "plugins": ["prettier", "jest", "vue"],
+  "parserOptions": {
+    "parser": "@babel/eslint-parser",
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "requireConfigFile": false,
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
   "rules": {
     "prettier/prettier": "error",
     "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
@@ -26,10 +36,8 @@
     "jest/no-focused-tests": "error",
     "jest/no-identical-title": "error",
     "jest/prefer-to-have-length": "warn",
-    "jest/valid-expect": "error"
-  },
-  "parserOptions": {
-    "parser": "babel-eslint"
+    "jest/valid-expect": "error",
+    "vue/multi-word-component-names": "off"
   },
   "settings": {
     "import/resolver": {
