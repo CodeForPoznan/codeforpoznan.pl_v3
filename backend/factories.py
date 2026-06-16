@@ -1,4 +1,5 @@
 from random import randint
+from uuid import uuid4
 
 import factory
 from factory import fuzzy
@@ -159,21 +160,29 @@ class TechStackFactory(BaseFactory):
     class Meta:
         model = TechStack
 
-    technology = factory.Faker("word")
+    technology = factory.Sequence(lambda n: f"technology-{n}")
     label = fuzzy.FuzzyChoice(["frontend", "backend", "DevOps", "UX"])
 
     @classmethod
     def _create(cls, model_class, *args, **kwargs):
         session = cls._meta.sqlalchemy_session
-        with session.no_autoflush:
-            existing = (
-                session.query(model_class)
-                .filter_by(technology=kwargs["technology"])
-                .first()
-            )
 
-        if existing:
-            kwargs["technology"] = cls.technology.generate({})
+        def technology_exists(technology):
+            pending_duplicate = any(
+                isinstance(obj, model_class) and obj.technology == technology
+                for obj in session.new
+            )
+            if pending_duplicate:
+                return True
+
+            with session.no_autoflush:
+                return (
+                    session.query(model_class).filter_by(technology=technology).first()
+                    is not None
+                )
+
+        while technology_exists(kwargs["technology"]):
+            kwargs["technology"] = f"technology-{uuid4().hex[:12]}"
 
         obj = super(TechStackFactory, cls)._create(model_class, *args, **kwargs)
 
