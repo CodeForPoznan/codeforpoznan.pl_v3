@@ -51,38 +51,37 @@ const projects = [
   {
     badge: 'active',
     description:
-      'Aplikacja Alinka powstała w celu optymalizacji codziennej pracy w poradniach psychologiczno-pedagogicznych. Jako byli pracownicy takiej poradni doskonale rozumiemy jakiego nakładu pracy wymaga wydanie orzeczenia czy sporządzenie protokołu z posiedzenia komisji. Aplikacja Alinka jest odpowiedzią na trudności, z jakimi spotykają się w codziennej pracy pracownicy administracji poradni. Nazwa aplikacji: „Alinka” to imię prawdziwej osoby, która musi wykonywać tę nudną, ale bardzo ważną pracę. Mamy nadzieję, że któregoś dnia ta aplikacja pomoże w jej pracy :).',
-    githubLink: 'https://github.com/CodeForPoznan/alinka-electron',
+      'Alinka to desktopowa aplikacja wspierająca codzienną pracę poradni psychologiczno-pedagogicznych. Pomaga uporządkować dane potrzebne do przygotowania dokumentacji oraz usprawnia tworzenie dokumentów związanych z wydawaniem opinii i orzeczeń. Aplikacja działa lokalnie, korzysta z bazy SQLite i automatyzuje generowanie dokumentów, a także wspiera pobieranie danych z zewnętrznych rejestrów, takich jak RSPO.',
+    githubLink: 'https://github.com/CodeForPoznan/alinka-pyside',
     imageAdress: require('@/assets/images/alinka.png'),
     license: 'MIT',
     licensePage:
-      'https://github.com/CodeForPoznan/alinka-electron/blob/master/LICENSE',
+      'https://github.com/CodeForPoznan/alinka-pyside/blob/master/LICENSE',
     name: 'Alinka',
-    partner: [
-      {
-        name: 'Poradnia Psychologiczno-Pedagogiczna w Grodzisku Wielkopolskim',
-        link: 'http://www.grodziskwlkp.naszaporadnia.com/aktualnosci'
-      },
-      {
-        name: 'Poradnia Pscyhologiczno-Pedagogiczna we Wrześni',
-        link: 'https://ppp-wrzesnia.pl/'
-      }
-    ],
+    partner: [],
     stack: [
       {
-        name: 'React',
-        documentation: 'https://pl.reactjs.org/docs/getting-started.html'
+        name: 'Python',
+        documentation: 'https://docs.python.org/3/'
       },
       {
-        name: 'Electron',
-        documentation: 'https://www.electronjs.org/docs'
+        name: 'PySide6',
+        documentation: 'https://doc.qt.io/qtforpython/'
+      },
+      {
+        name: 'SQLAlchemy',
+        documentation: 'https://docs.sqlalchemy.org/en/14/'
+      },
+      {
+        name: 'Alembic',
+        documentation: 'https://alembic.sqlalchemy.org/en/latest/'
       },
       {
         name: 'SQLite',
         documentation: 'https://www.sqlite.org/docs.html'
       }
     ],
-    website: 'https://alinka.io'
+    website: ''
   },
   {
     badge: 'maintained',
