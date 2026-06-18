@@ -30,7 +30,7 @@
       "error",
       { "max": 2, "maxBOF": 0, "maxEOF": 1 }
     ],
-    "linebreak-style": ["error", "unix"],
+    "linebreak-style": "off",
     "newline-after-var": ["warn", "always"],
     "jest/no-disabled-tests": "warn",
     "jest/no-focused-tests": "error",

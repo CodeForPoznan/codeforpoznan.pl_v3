@@ -1,6 +1,6 @@
 <template>
   <div>
-    <footer>Copyright © Code for Poznan 2023</footer>
+    <footer>Copyright © Code for Poznan {{ currentYear }}</footer>
   </div>
 </template>
 
@@ -14,3 +14,13 @@ footer {
   justify-content: center;
 }
 </style>
+
+<script>
+export default {
+  data() {
+    return {
+      currentYear: new Date().getFullYear()
+    };
+  }
+};
+</script>
