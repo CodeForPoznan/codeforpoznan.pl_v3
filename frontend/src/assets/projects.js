@@ -56,7 +56,7 @@ const projects = [
     imageAdress: require('@/assets/images/alinka.png'),
     license: 'MIT',
     licensePage:
-      'https://github.com/CodeForPoznan/alinka-pyside/blob/master/LICENSE',
+      'https://github.com/CodeForPoznan/alinka-pyside/blob/develop/LICENSE',
     name: 'Alinka',
     partner: [],
     stack: [
