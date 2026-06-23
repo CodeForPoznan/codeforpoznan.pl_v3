@@ -114,7 +114,7 @@ class TeamFactory(BaseFactory):
     class Meta:
         model = Team
 
-    project_name = factory.Faker("word", locale="pl_PL")
+    project_name = factory.Sequence(lambda n: f"project-{n + 1}")
     description = factory.Faker("paragraph", locale="pl_PL")
     project_url = factory.LazyAttribute(
         lambda obj: f"https://{obj.project_name}.codeforpoznan.test"
@@ -123,15 +123,31 @@ class TeamFactory(BaseFactory):
     @classmethod
     def _create(cls, model_class, *args, **kwargs):
         session = cls._meta.sqlalchemy_session
-        with session.no_autoflush:
-            existing = (
-                session.query(model_class)
-                .filter_by(project_name=kwargs["project_name"])
-                .first()
-            )
 
-        if existing:
-            project_name = cls.project_name.generate({})
+        def team_exists(project_name, project_url):
+            pending_duplicate = any(
+                isinstance(obj, model_class)
+                and (obj.project_name == project_name or obj.project_url == project_url)
+                for obj in session.new
+            )
+            if pending_duplicate:
+                return True
+
+            with session.no_autoflush:
+                return (
+                    session.query(model_class)
+                    .filter(
+                        or_(
+                            model_class.project_name == project_name,
+                            model_class.project_url == project_url,
+                        )
+                    )
+                    .first()
+                    is not None
+                )
+
+        while team_exists(kwargs["project_name"], kwargs["project_url"]):
+            project_name = f"project-{uuid4().hex[:12]}"
             kwargs["project_name"] = project_name
             kwargs["project_url"] = f"https://{project_name}.codeforpoznan.test"
 
