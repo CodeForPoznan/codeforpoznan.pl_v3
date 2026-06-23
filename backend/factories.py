@@ -127,10 +127,7 @@ class TeamFactory(BaseFactory):
         def team_exists(project_name, project_url):
             pending_duplicate = any(
                 isinstance(obj, model_class)
-                and (
-                    obj.project_name == project_name
-                    or obj.project_url == project_url
-                )
+                and (obj.project_name == project_name or obj.project_url == project_url)
                 for obj in session.new
             )
             if pending_duplicate:
